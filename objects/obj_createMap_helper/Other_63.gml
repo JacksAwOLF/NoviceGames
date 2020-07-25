@@ -24,10 +24,14 @@ if (numVerTiles * numHorTiles) > 0 {
 	for (var i=0; i<numHorTiles*numVerTiles; i++)
 		data[i] = 0;
 		
+	var soldiers;
+	for (var i=0; i<numHorTiles*numVerTiles; i++)
+		soldiers[i, 0] = -1;
+		
 	// call the script
 	global.mapHeight = numVerTiles
 	global.mapWidth = numHorTiles
-	create_map(numHorTiles, numVerTiles, data);
+	create_map(numHorTiles, numVerTiles, data, soldiers);
 }
 
 
