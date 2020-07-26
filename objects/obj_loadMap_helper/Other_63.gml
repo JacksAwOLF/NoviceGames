@@ -46,7 +46,6 @@ if i_d == load_file {
 		for (var j=1; j<6; j++){
 			str = file_text_read_string(file)
 			file_text_readln(file);
-			debug("reading ", str);
 			soldiers[i, j] = real(str);
 		}
 		

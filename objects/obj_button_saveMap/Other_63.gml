@@ -41,7 +41,7 @@ team
 				other.data += string(soldier.max_health) + "\n";
 				other.data += string(soldier.max_damage) + "\n";
 				other.data += string(soldier.my_health) + "\n";
-				other.data += string(soldier.team) + "\n";
+				other.data += string(soldier.sprite_index) + "\n";
 
 			} else other.data += "-1\n";
 		}	

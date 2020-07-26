@@ -8,7 +8,8 @@ if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, s
 if (possible_attack) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 
 var soldier_index = 0; if (global.selectedSoldier == id) soldier_index = 1;
-if (soldier != -1){
+
+if (soldier != -1){	
 	draw_sprite_stretched_ext(soldier.sprite_index, soldier_index, x, y, size, size, c_white, 1);				// the soldier on this tile
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }

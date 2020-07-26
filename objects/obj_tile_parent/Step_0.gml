@@ -12,7 +12,7 @@ if mouseIn {
 	
 	if (mouse_check_button_pressed(mb_left)){
 	
-debug("this is ", pos, " with changeSprite: ", global.changeSprite[0], global.changeSprite[1], global.selectedSoldier);	
+debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite[0], global.changeSprite[1], "and selectedSoldier:",global.selectedSoldier);	
 	
 	
 	
@@ -28,16 +28,15 @@ debug("this is ", pos, " with changeSprite: ", global.changeSprite[0], global.ch
 				
 				var cs = global.changeSprite[1];
 				
-				if (cs == spr_infantry || cs == spr_infantry1) soldier = instance_create_depth(x,y,0,obj_infantry);
+				if (cs == spr_infantry || cs == spr_infantry1) 
+					soldier = instance_create_depth(x,y,0,obj_infantry);
 				// else if (cs == spr_archer || cs == spr_archer1)
 				
 				
 				// becomes enemey if the sprite naem ends with 1
 				soldier.sprite_index = cs;
-				var name = sprite_get_name(cs);
-				if (string_char_at(name, string_length(name)) == "1"){
-					soldier.team = 1;
-				}
+				with(soldier) update_team();
+				
 			}
 			
 			
@@ -60,8 +59,12 @@ debug("this is ", pos, " with changeSprite: ", global.changeSprite[0], global.ch
 				
 				if (possible_move && id != global.selectedSoldier){						// if this tile is a possible move (not itself)
 					
+					debug("Hi i move here", x, y);
+					
 					with (global.selectedSoldier){	
-						with(soldier){														// move the soldier
+						with(soldier){			  // move the soldier
+							
+							debug("from ", x, y);
 							x = xx;
 							y = yy;
 							can_move = false;
@@ -115,7 +118,7 @@ debug("this is ", pos, " with changeSprite: ", global.changeSprite[0], global.ch
 		
 			
 			if (global.selectedSoldier == -1){										// if not assigned selected soldier yet
-				//debug(soldier.team, global.turn, global.turn%2)
+				debug("selecting  this  soldier", soldier.team, global.turn, global.turn%2)
 				if (soldier != -1 && soldier.team == (global.turn)%2){					// if there is a soldier on this tile
 					
 					if (soldier.can_move){													// if the soldier can move
