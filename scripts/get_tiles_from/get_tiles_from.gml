@@ -10,8 +10,8 @@
 
 
 // data that  goes on the stack stores 3 variables in 1 integer
-// data%(argument2+1) = #steps left
-// data/(argument2+1) = ypos*global.mapWidth + xpos
+// data%(argument1+1) = #energy left
+// data/(argument1+1) = ypos*global.mapWidth + xpos
 
 // however we only return an array of integers that only
 // represent the position
@@ -39,18 +39,18 @@ vis[start] = 1;
 var dx = array(0,0,-1,1);		 
 var dy = array(-1,1,0,0);	
 
-start = start*z
-var s = ds_stack_create();			
-ds_stack_push(s, start);
+start = start
+var s = ds_priority_create();			
+ds_priority_add(s, start, 0);
 
-while(!ds_stack_empty(s)){
+while(!ds_priority_empty(s)){
 
 	// pop off and get data
-	var cur = ds_stack_pop(s);
-	var steps = z-cur%z;
-	var pos = floor(cur/z);
-	var row = floor(pos/global.mapWidth);
-	var col =  pos % global.mapWidth;
+	var cur = ds_priority_find_min(s);
+	var steps = ds_priority_find_priority(s, cur);
+	ds_priority_delete_min(s);
+	var row = floor(cur/global.mapWidth);
+	var col =  cur % global.mapWidth;
 	
 	// add the neighbors
 	for (var i=0; i<4; i++){
@@ -75,15 +75,15 @@ while(!ds_stack_empty(s)){
 		// add to queue only if it can possibly add more kids
 		var dis = 1, from, to;
 		if (argument3){
-			from = posInArray(possible_terrain, global.grid[pos].sprite_index);
+			from = posInArray(possible_terrain, global.grid[cur].sprite_index);
 			to = posInArray(possible_terrain, global.grid[np].sprite_index);
 			dis = energy[from, to];	
 		}
-		var ns =  z - steps + dis;
-		if (ns < z) ds_stack_push(s, np*z+(ns));
 		
+		var ns =  steps + dis;
+		if (ns < z) ds_priority_add(s, np, ns);
 		
-		
+
 		if (argument2 == 1 && global.grid[np].soldier == -1) continue;
 		if (!argument3 || ns<z+1) res[count++] = global.grid[np];
 	}

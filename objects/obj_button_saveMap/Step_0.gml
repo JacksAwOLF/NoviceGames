@@ -6,6 +6,10 @@ mouseIn = x <= mouse_x && mouse_x <= x+sprite_width
 	
 if (mouseIn){
 	if (fire and mouse_check_button_pressed(mb_left)){
+		
+		
+
+		
 		fileName = get_string_async("Name of file: ", "hi.txt");
 		fire = false;
 	}

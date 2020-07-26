@@ -26,16 +26,7 @@ if i_d == fileName && ds_map_find_value(async_load, "status"){
 	for (var i=0; i<instance_number(obj_tile_parent); i+=1){
 		with(instance_find(obj_tile_parent, i)){
 			if (soldier != -1){
-/*
-move_range = global.soldier_vars[0];
-attack_range = global.soldier_vars[1];
-max_health = global.soldier_vars[2];
-max_damage = global.soldier_vars[3];
 
-These two variables are also stored cuz:
-my_health
-team
-*/
 				other.data += string(soldier.move_range) + "\n";
 				other.data += string(soldier.attack_range) + "\n";
 				other.data += string(soldier.max_health) + "\n";
@@ -59,6 +50,6 @@ team
 	file_text_write_string(file, data);
 	file_text_close(file);
 	
-	debug("just wrote out", data);
+	debug("just wrote out");
 }
 

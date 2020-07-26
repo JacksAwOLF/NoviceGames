@@ -54,17 +54,19 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 			// clear the selected soldier things if this block is not a possible move or attack
 			if (global.selectedSoldier != -1){
 				
+				debug("ok so this is aw");
+				
 				var xx = x;
 				var yy  = y;
 				
 				if (possible_move && id != global.selectedSoldier){						// if this tile is a possible move (not itself)
 					
-					//debug("Hi i move here", x, y);
+					debug("Hi i move here", x, y);
 					
 					with (global.selectedSoldier){	
 						with(soldier){			  // move the soldier
 							
-							//debug("from ", x, y);
+							debug("from ", x, y);
 							x = xx;
 							y = yy;
 							can_move = false;
@@ -89,6 +91,8 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 				
 				else if (possible_attack){
 					
+					debug("2");
+					
 					with(global.selectedSoldier.soldier){
 						var damage_inflicted = (my_health/max_health) * max_damage;
 						other.soldier.my_health -= damage_inflicted;
@@ -105,10 +109,11 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 				}
 				
 				
-				else {
+				else{
 					soldier_erase_attack();
 					soldier_erase_move();
-					global.selectedSoldier = -1;
+					
+					global.selectedSoldier = (id == global.selectedSoldier ? -2 : -1);
 				}
 				
 				
@@ -133,6 +138,11 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 					}
 				}
 			} 
+			
+			
+			
+			if (global.selectedSoldier == -2) global.selectedSoldier = -1;
+			
 			
 
 			// if soldier is selected, but it can't  attack or move, deselect  it
