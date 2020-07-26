@@ -5,13 +5,12 @@ mouseIn = x <= mouse_x && mouse_x <= x+sprite_width
 	&& y <= mouse_y && mouse_y <= y+sprite_height;
 	
 if (mouseIn){
-	if (fire and mouse_check_button_pressed(mb_left)){
+	if (async_load == -1 and mouse_check_button_released(mb_left)){
 		
-		
-
-		
-		fileName = get_string_async("Name of file: ", "hi.txt");
+		debug("fire!!!")
 		fire = false;
+		fileName = get_string_async("Name of file: ", "hi.txt");
+		
 	}
 } else {
 	fire = true;

@@ -4,6 +4,8 @@ var numVerTiles = argument1;
 global.mapWidth = argument0;
 global.mapHeight = argument1;
 
+debug("making the map")
+
 // argument2: array of sprites of every tile, array of rows
 
 // argument3: 2d array of -1 or array of soldier variables

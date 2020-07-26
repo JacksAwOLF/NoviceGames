@@ -4,3 +4,5 @@
 
 // make sure mouse_button_pressed only registers once
 fire = true;
+
+debug("new obj?")

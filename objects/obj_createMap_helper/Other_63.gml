@@ -11,13 +11,6 @@ if i_d == hor && ds_map_find_value(async_load, "status"){
 
 if i_d == ver && ds_map_find_value(async_load, "status"){
 	numVerTiles = real(ds_map_find_value(async_load, "result"));
-}
-
-
-
-
-// this will run after both inputs have been obtained
-if (numVerTiles * numHorTiles) > 0 {
 	
 	// initialize the map to empty tiles
 	var data;
@@ -33,5 +26,6 @@ if (numVerTiles * numHorTiles) > 0 {
 	global.mapWidth = numHorTiles
 	create_map(numHorTiles, numVerTiles, data, soldiers);
 }
+
 
 
