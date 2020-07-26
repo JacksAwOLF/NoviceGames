@@ -79,7 +79,9 @@ for (var j=0; j<numVerTiles; j+=1){
 				soldier.max_damage = argument3[count, 3];
 				soldier.my_health = argument3[count, 4];
 				soldier.sprite_index = argument3[count, 5];
-					
+				
+				debug(spr_infantry, spr_infantry1, argument3[count, 5]);
+				
 				with(soldier) update_team();
 			}
 		}

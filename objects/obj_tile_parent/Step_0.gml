@@ -59,12 +59,12 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 				
 				if (possible_move && id != global.selectedSoldier){						// if this tile is a possible move (not itself)
 					
-					debug("Hi i move here", x, y);
+					//debug("Hi i move here", x, y);
 					
 					with (global.selectedSoldier){	
 						with(soldier){			  // move the soldier
 							
-							debug("from ", x, y);
+							//debug("from ", x, y);
 							x = xx;
 							y = yy;
 							can_move = false;
@@ -118,7 +118,7 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 		
 			
 			if (global.selectedSoldier == -1){										// if not assigned selected soldier yet
-				debug("selecting  this  soldier", soldier.team, global.turn, global.turn%2)
+				//debug("selecting  this  soldier", soldier.team, global.turn, global.turn%2)
 				if (soldier != -1 && soldier.team == (global.turn)%2){					// if there is a soldier on this tile
 					
 					if (soldier.can_move){													// if the soldier can move
