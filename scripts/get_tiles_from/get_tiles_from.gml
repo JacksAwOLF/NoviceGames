@@ -39,7 +39,6 @@ vis[start] = 1;
 var dx = array(0,0,-1,1);		 
 var dy = array(-1,1,0,0);	
 
-start = start
 var s = ds_priority_create();			
 ds_priority_add(s, start, 0);
 
@@ -88,5 +87,7 @@ while(!ds_priority_empty(s)){
 		if (!argument3 || ns<z+1) res[count++] = global.grid[np];
 	}
 }
+
+ds_priority_destroy(s);
 
 return res;

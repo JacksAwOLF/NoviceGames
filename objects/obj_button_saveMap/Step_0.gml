@@ -7,16 +7,11 @@ mouseIn = x <= mouse_x && mouse_x <= x+sprite_width
 if (mouseIn){
 	if (async_load == -1 and mouse_check_button_released(mb_left)){
 		
-		
 		global.selectedSoldier = -1;
 		soldier_erase_attack();
 		soldier_erase_move();
 		
-		fire = false;
 		fileName = get_string_async("Name of file: ", "hi.txt");
-		
 	}
-} else {
-	fire = true;
 }
 

@@ -1,0 +1,112 @@
+var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
+var lr_padd = 64;
+var hor_spacing = 100;   // x distance between each button on the top row
+var y_axis = 30;    // of the top row on the top
+var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
+	(room_width-lr_padd*2)/global.mapWidth);
+
+
+// create the tile selections on the top left
+global.changeSprite[0] = -1;				// the selected tile sprite
+global.changeSprite[1] = -1;				// the selected army sprite
+var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, 
+	spr_infantry, spr_infantry1);
+var index = 0; var w = 0;
+for (var index=0; index<array_length_1d(possibleTiles); index++){
+	with(instance_create_depth(hor_spacing*(index+1), y_axis, 0, obj_selectTile_parent)){
+		what = w;
+		sprite_index = possibleTiles[index];
+	}
+	if (index == 2) w = 1;
+}
+
+
+
+// create the soldier modification vars on top right
+var names; 
+global.soldier_vars[0] = 2; names[0] = "move range";
+global.soldier_vars[1] = 1; names[1] = "attack range";
+global.soldier_vars[2] = 15; names[2] = "max health";
+global.soldier_vars[3] = 8; names[3] = "max damage";
+for (var index=array_length_1d(names)-1; index>=0; index--){
+	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 15, 0, obj_change_var)){
+		ind = index;
+		text = names[index];
+	}
+}
+
+
+
+// create the back, next, save buttons on bottom row
+with(instance_create_depth(0,0,0,obj_button_backMenu)){
+	x = 0;
+	y = room_height - sprite_height;
+}
+with (instance_create_depth(0,0,0,obj_button_nextStep)){
+	x = (room_width-sprite_width)/2;
+	y = room_height - sprite_height;
+}
+with(instance_create_depth(0,0, 0, obj_button_saveMap)){
+	x = room_width - sprite_width;
+	y = room_height - sprite_height;
+}
+
+
+
+
+// create the actual tiles
+// global.grid[pos]: the 2darray that represents the map grid on the battlefield
+// pos: y * global.mapWidth + x
+global.selectedSoldier = -1;
+global.turn = 0;
+for (var j=0; j<global.mapHeight; j+=1){
+	for (var i=0; i<global.mapWidth; i+=1){
+		
+		var p = j * global.mapWidth + i;
+		global.grid[p] = instance_create_depth(lr_padd+i*(tile_size), 
+			tb_padd+j*(tile_size), 0, obj_tile_parent);
+			
+		with(global.grid[p]){
+			sprite_index = spr_tile_flat;
+			size = tile_size;						// the size of the sprite to draw
+			pos = p;								// position in global.grid
+		}
+		
+	}
+}
+
+
+
+
+
+// if the file input is specified
+// open the file and update the tile_sprites and add soldiers if neccessary
+if argument0 != ""{
+	
+	var file = file_text_open_read(argument0);
+	
+	global.mapWidth = real(file_text_read_real(file)); file_text_readln(file);
+	global.mapHeight = real(file_text_read_real(file)); file_text_readln(file);
+	global.turn = real(file_text_read_real(file)); file_text_readln(file);
+	
+	for (var i=0; i<global.mapWidth*global.mapHeight; i++){
+		with (global.grid[i]){
+			sprite_index = real(file_text_read_real(file)); file_text_readln(file);
+			var line = real(file_text_read_real(file)); file_text_readln(file);
+			if line == -1  continue;
+			
+			soldier = instance_create_depth(x, y, 0, obj_infantry);
+			with soldier {
+				move_range = line;
+				attack_range = real(file_text_read_real(file)); file_text_readln(file);
+				max_health = real(file_text_read_real(file)); file_text_readln(file);
+				max_damage = real(file_text_read_real(file)); file_text_readln(file);
+				my_health = real(file_text_read_real(file)); file_text_readln(file);
+				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
+				can_move = real(file_text_read_real(file)); file_text_readln(file);
+				can_attack = real(file_text_read_real(file)); file_text_readln(file);
+				update_team();
+			}
+		}
+	}
+}

@@ -3,8 +3,8 @@
 
 
 
-load_file = get_string_async("Enter file name: ", "hi.txt");
 
 
 
-debug("load helper created");
+
+//debug("load helper created");
