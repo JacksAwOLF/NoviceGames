@@ -399,14 +399,6 @@
             }
         },
         {
-            "Key": "a8702f7c-abd8-481c-bc5d-ef65e795cd85",
-            "Value": {
-                "id": "d6e2836e-e143-4d5e-a5b0-e8bfd01f8dbe",
-                "resourcePath": "objects\/obj_createMap_helper\/obj_createMap_helper.yy",
-                "resourceType": "GMObject"
-            }
-        },
-        {
             "Key": "a9188620-a624-4a5a-83ae-a1b53faf038b",
             "Value": {
                 "id": "29536f9a-540e-484f-878d-9f4a78e7897a",
@@ -524,14 +516,6 @@
                 "id": "9af247bb-d393-4299-8adb-4f0e6e66a5a3",
                 "resourcePath": "sprites\/spr_button_info\/spr_button_info.yy",
                 "resourceType": "GMSprite"
-            }
-        },
-        {
-            "Key": "e0b9dd49-2b23-41d2-95a6-c39c522b340a",
-            "Value": {
-                "id": "d143a00a-e71b-46a7-a6db-3fb399048177",
-                "resourcePath": "objects\/obj_loadMap_helper\/obj_loadMap_helper.yy",
-                "resourceType": "GMObject"
             }
         },
         {

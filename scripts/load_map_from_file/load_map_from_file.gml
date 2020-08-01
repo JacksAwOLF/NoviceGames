@@ -1,3 +1,14 @@
+if argument0 != ""{	
+	var file = file_text_open_read(argument0);
+	
+	global.mapWidth = real(file_text_read_real(file)); file_text_readln(file);
+	global.mapHeight = real(file_text_read_real(file)); file_text_readln(file);
+	global.turn = real(file_text_read_real(file)); file_text_readln(file);
+	
+}
+
+
+
 var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 var lr_padd = 64;
 var hor_spacing = 100;   // x distance between each button on the top row
@@ -81,14 +92,9 @@ for (var j=0; j<global.mapHeight; j+=1){
 
 // if the file input is specified
 // open the file and update the tile_sprites and add soldiers if neccessary
+
+
 if argument0 != ""{
-	
-	var file = file_text_open_read(argument0);
-	
-	global.mapWidth = real(file_text_read_real(file)); file_text_readln(file);
-	global.mapHeight = real(file_text_read_real(file)); file_text_readln(file);
-	global.turn = real(file_text_read_real(file)); file_text_readln(file);
-	
 	for (var i=0; i<global.mapWidth*global.mapHeight; i++){
 		with (global.grid[i]){
 			sprite_index = real(file_text_read_real(file)); file_text_readln(file);
