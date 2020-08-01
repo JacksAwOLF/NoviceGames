@@ -24,7 +24,7 @@ var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean,
 	spr_infantry, spr_infantry1);
 var index = 0; var w = 0;
 for (var index=0; index<array_length_1d(possibleTiles); index++){
-	with(instance_create_depth(hor_spacing*(index+1), y_axis, 0, obj_selectTile_parent)){
+	with(instance_create_depth(hor_spacing*(index+1), y_axis, 0, obj_selectTile)){
 		what = w;
 		sprite_index = possibleTiles[index];
 	}
@@ -85,7 +85,7 @@ for (var j=0; j<global.mapHeight; j+=1){
 		
 		var p = j * global.mapWidth + i;
 		global.grid[p] = instance_create_depth(lr_padd+i*(tile_size), 
-			tb_padd+j*(tile_size), 0, obj_tile_parent);
+			tb_padd+j*(tile_size), 0, obj_tile);
 			
 		with(global.grid[p]){
 			sprite_index = spr_tile_flat;
