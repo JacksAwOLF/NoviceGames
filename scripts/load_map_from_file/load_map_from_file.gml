@@ -49,19 +49,29 @@ for (var index=array_length_1d(names)-1; index>=0; index--){
 
 
 // create the back, next, save buttons on bottom row
-with(instance_create_depth(0,0,0,obj_button_backMenu)){
-	x = 0;
-	y = room_height - sprite_height;
-}
-with (instance_create_depth(0,0,0,obj_button_nextStep)){
-	x = (room_width-sprite_width)/2;
-	y = room_height - sprite_height;
-}
-with(instance_create_depth(0,0, 0, obj_button_saveMap)){
-	x = room_width - sprite_width;
-	y = room_height - sprite_height;
-}
+var xx, yy, sp_index;
 
+// create the saving button on bottom right
+sp_index = object_get_sprite(obj_button_saveMap);
+xx = room_width - sprite_get_width(sp_index);
+yy = room_height - sprite_get_height(sp_index);
+
+instance_create_depth(xx, yy, -1, obj_button_saveMap);
+
+
+// back button bottom left
+sp_index = object_get_sprite(obj_button_backMenu);
+yy = room_height - sprite_get_height(sp_index);
+
+instance_create_depth(0, yy, -1, obj_button_backMenu);
+
+
+// bottom, middle
+sp_index = object_get_sprite(obj_button_nextStep);
+xx = (room_width - sprite_get_width(sp_index)) / 2;
+yy = room_height - sprite_get_height(sp_index);
+
+instance_create_depth(xx, yy, -1, obj_button_nextStep);
 
 
 
@@ -116,3 +126,6 @@ if argument0 != ""{
 		}
 	}
 }
+
+global.mouseEventId = -1;
+global.mouseInstanceId = -1;

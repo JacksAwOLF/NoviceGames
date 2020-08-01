@@ -103,6 +103,14 @@
             }
         },
         {
+            "Key": "1b567e5b-3145-4ce8-8373-c7511b6f62b9",
+            "Value": {
+                "id": "9f2ff81c-8f87-497d-b5da-8b13f781310a",
+                "resourcePath": "objects\/obj_gui\/obj_gui.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "1f3a427d-9b4e-45e1-803a-57f590368a53",
             "Value": {
                 "id": "a070d56c-ecc9-4007-a0be-e8aa43c142fa",
@@ -319,6 +327,14 @@
             }
         },
         {
+            "Key": "86c35c87-8c6d-4d45-8e2b-2e09c3972805",
+            "Value": {
+                "id": "d77dda26-3b69-464b-aa79-3e51035bb847",
+                "resourcePath": "objects\/obj_camera\/obj_camera.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "8a57df2b-1935-4a14-980a-7291b1ba4072",
             "Value": {
                 "id": "db48f4f0-caa8-4470-b3a2-37ca4f71afd9",
@@ -387,6 +403,14 @@
             "Value": {
                 "id": "02e039c8-0e52-40ed-8a44-237f17316ef9",
                 "resourcePath": "objects\/obj_army_parent\/obj_army_parent.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "a63a6fe1-d0b8-4fa2-94ef-07147d7ce91b",
+            "Value": {
+                "id": "21740edd-f385-43a3-a62d-a8215f642d47",
+                "resourcePath": "objects\/obj_clickable\/obj_clickable.yy",
                 "resourceType": "GMObject"
             }
         },

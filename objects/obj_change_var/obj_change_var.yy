@@ -10,8 +10,8 @@
             "mvc": "1.0",
             "IsDnD": false,
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
-            "enumb": 4,
-            "eventtype": 6,
+            "enumb": 10,
+            "eventtype": 7,
             "m_owner": "00b336ab-76a9-4cbd-b64f-ebea5e2811e4"
         },
         {
@@ -27,7 +27,7 @@
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
     "overriddenProperties": null,
-    "parentObjectId": "00000000-0000-0000-0000-000000000000",
+    "parentObjectId": "1b567e5b-3145-4ce8-8373-c7511b6f62b9",
     "persistent": false,
     "physicsAngularDamping": 0.1,
     "physicsDensity": 0.5,
