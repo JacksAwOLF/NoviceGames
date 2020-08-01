@@ -2,7 +2,7 @@
     "id": "1f3a427d-9b4e-45e1-803a-57f590368a53",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_selectTile_parent",
+    "name": "obj_selectTile",
     "eventList": [
         {
             "id": "17b94d7b-8a56-4270-bad7-f34459dc7251",

@@ -114,7 +114,7 @@
             "Key": "1f3a427d-9b4e-45e1-803a-57f590368a53",
             "Value": {
                 "id": "a070d56c-ecc9-4007-a0be-e8aa43c142fa",
-                "resourcePath": "objects\/obj_selectTile_parent\/obj_selectTile_parent.yy",
+                "resourcePath": "objects\/obj_selectTile\/obj_selectTile.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -530,7 +530,7 @@
             "Key": "d6ec71a6-f182-4318-a26e-3b49a17256e5",
             "Value": {
                 "id": "eebacb0a-4576-4785-82c5-665178f07863",
-                "resourcePath": "objects\/obj_tile_parent\/obj_tile_parent.yy",
+                "resourcePath": "objects\/obj_tile\/obj_tile.yy",
                 "resourceType": "GMObject"
             }
         },

@@ -89,6 +89,9 @@ for (var j=0; j<global.mapHeight; j+=1){
 			
 		with(global.grid[p]){
 			sprite_index = spr_tile_flat;
+			image_xscale = tile_size / sprite_get_width(sprite_index);
+			image_yscale = tile_size / sprite_get_height(sprite_index);
+			
 			size = tile_size;						// the size of the sprite to draw
 			pos = p;								// position in global.grid
 		}
