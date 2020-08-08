@@ -10,30 +10,37 @@
 // true: take into account of mountians/tivers
 // false: nah
 
+// arg4:
+// the energy array
 
 // data that  goes on the stack stores 3 variables in 1 integer
-// data%(argument1+1) = #energy left
-// data/(argument1+1) = ypos*global.mapWidth + xpos
+// data%(argument[1]+1) = #energy left
+// data/(argument[1]+1) = ypos*global.mapWidth + xpos
 
 // however we only return an array of integers that only
 // represent the position
 
 
-var possible_terrain = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border);
-var energy; // 2d array [i,j]   energy required travelling from i to j
 
+// energy exhuasted to
+// 0: move to road
+// 1: open
+// 2: rough
+// 3: mountain
+var possible_terrain = array(spr_tile_road, spr_tile_flat, spr_tile_ocean, spr_tile_mountain, spr_tile_border);
+var energy = array(1,1,2,3);
+if (argument_count == 5) energy = argument[4]
+energy[4] = 99;
 
-energy[0,0] = 1; energy[0,1] = 2; energy[0,2] = 2; energy[0, 3] = 99999;
+/*energy[0,0] = 1; energy[0,1] = 2; energy[0,2] = 2; energy[0, 3] = 99999;
 energy[1,0] = 2; energy[1,1] = 1; energy[1,2] = 3; energy[1, 3] = 99999;
 energy[2,0] = 2; energy[2,1] = 3; energy[2,2] = 1; energy[2, 3] = 99999;
-energy[3,0] = 99999; energy[3,1] = 99999; energy[3,2] = 99999; energy[3, 3] = 99999;
+energy[3,0] = 99999; energy[3,1] = 99999; energy[3,2] = 99999; energy[3, 3] = 99999;*/
 
 
 
-
-
-var start = argument0;
-var z = argument1;
+var start = argument[0];
+var z = argument[1];
 
 var res; var count = 0;
 res[count++] = global.grid[start];
@@ -74,24 +81,26 @@ while(!ds_priority_empty(s)){
 		
 		
 		// if htere's  a  soldier blocking  here, can't  go
-		if (argument2 == -1 && global.grid[np].soldier != -1) continue;
+		if (argument[2] == -1 && global.grid[np].soldier != -1) continue;
 		
 		
 		
 		// add to queue only if it can possibly add more kids
-		var dis = 1, from, to;
-		if (argument3){
-			from = posInArray(possible_terrain, global.grid[cur].sprite_index);
-			to = posInArray(possible_terrain, global.grid[np].sprite_index);
-			dis = energy[from, to];	
+		var dis = 1;
+		if (argument[3]){
+			var tt = global.grid[np].sprite_index, to;
+			if (global.grid[np].road) tt = spr_tile_road;
+			to = posInArray(possible_terrain, tt);
+			dis = energy[to];
+			debug(tt, to, dis)
 		}
 		
 		var ns =  steps + dis;
 		if (ns < z) ds_priority_add(s, np, ns);
 		
 
-		if (argument2 == 1 && global.grid[np].soldier == -1) continue;
-		if (!argument3 || ns<z+1) res[count++] = global.grid[np];
+		if (argument[2] == 1 && global.grid[np].soldier == -1) continue;
+		if (!argument[3] || ns<z+1) res[count++] = global.grid[np];
 	}
 }
 

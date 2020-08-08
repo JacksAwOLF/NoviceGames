@@ -67,7 +67,7 @@ if (changed && (newx+prev_view_w >= width_offset && newx <= room_width-width_off
 	point_in_rectangle(neww, newh, room_width/global.mapWidth, room_height/global.mapHeight,
 					   2*room_width, 2*room_height)) {
 	
-	debug(neww, "x", newh, " vs ", room_width, "x", room_height);
+	//debug(neww, "x", newh, " vs ", room_width, "x", room_height);
 	camera_set_view_pos(current_camera, newx, newy);
 	camera_set_view_size(current_camera, neww, newh);
 	

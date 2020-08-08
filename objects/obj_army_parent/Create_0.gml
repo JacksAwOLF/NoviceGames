@@ -4,10 +4,7 @@
 
 poss_attacks = -1;
 poss_moves = -1;
-
 team = 0;
-
 my_health = max_health
-
 
 event_inherited();

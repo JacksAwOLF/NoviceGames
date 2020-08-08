@@ -1,14 +1,51 @@
-with(global.selectedSoldier){
-	var p = pos;
+if (global.selectedSoldier != -1){
 
-	with(soldier){
+// energy exhuasted to
+// 0: move to road
+// 1: open
+// 2: rough
+// 3: mountain
+var movement, energy;
 
-		if (can_move){
-			poss_moves = get_tiles_from(p, move_range, -1, true);
-			for (var i=0; i<array_length_1d(poss_moves); i++)
-				poss_moves[i].possible_move = true;
-		} 
-	
+with(global.selectedSoldier.soldier){
+	if (can_move){
+		
+		switch sprite_index {
+
+			case spr_infantry: 
+			case spr_infantry1:
+				movement = 2;
+				energy = array(1, 1, 2, 2);
+				break;
+			
+			// more sprites add switch statements here
+			
+			/*
+			tanks
+				movement = 6;
+				energy = array(2,3,3,99);
+			
+			ifvs
+				movement = 15;
+				energy = array(3,5,99,99);
+			*/
+			
+			
+			// this is just random
+			default:
+				movement = move_range;
+				energy = array(1, 1, 2, 3);
+		}
+		
+		
+		poss_moves = get_tiles_from(global.selectedSoldier.pos, movement, -1, true, energy);
+		for (var i=0; i<array_length_1d(poss_moves); i++)
+			poss_moves[i].possible_move = true;
+			
 	}
+}
+
+
+
 
 }

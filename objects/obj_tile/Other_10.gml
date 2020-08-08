@@ -39,7 +39,14 @@ if (global.changeSprite[1] != -1){
 		update_fog();
 	}
 }
+
+
+else if (global.changeSprite[2] != -1){
 	
+	road = !road;
+	
+}
+
 // this block handles other clicking events like moving and attacking
 else if (global.changeSprite[0] == -1){		
 		

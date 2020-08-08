@@ -21,15 +21,17 @@ var tile_size = min((room_height-tb_padd*2)/global.mapHeight,
 // create the tile selections on the top left
 global.changeSprite[0] = -1;				// the selected tile sprite
 global.changeSprite[1] = -1;				// the selected army sprite
+global.changeSprite[2] = -1;				// the selected things that are drawn on terrain
 var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border, 
-	spr_infantry, spr_infantry1, spr_infantry_delete);
+	spr_infantry, spr_infantry1, spr_infantry_delete,
+	spr_tile_road);
 var index = 0; var w = 0;
 for (var index=0; index<array_length_1d(possibleTiles); index++){
-	with(instance_create_depth(hor_spacing*(index+1), y_axis, -1, obj_selectTile)){
+	with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 		what = w;
 		sprite_index = possibleTiles[index];
 	}
-	if (index == 3) w = 1;
+	if (index == 3 || index == 6) w++;
 }
 
 
@@ -42,7 +44,7 @@ global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
 global.soldier_vars[4] = 2; names[4] = "vision";
 for (var index=array_length_1d(names)-1; index>=0; index--){
-	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 20, -1, obj_change_var)){
+	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 16, -1, obj_change_var)){
 		ind = index;
 		text = names[index];
 	}
