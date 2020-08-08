@@ -5,7 +5,7 @@
     "name": "obj_button_info",
     "eventList": [
         {
-            "id": "27c6249c-a33e-438e-8370-0bbfec58c38d",
+            "id": "a81472d4-a13a-4aa9-ac97-d606cb9e83d2",
             "modelName": "GMEvent",
             "mvc": "1.0",
             "IsDnD": false,
