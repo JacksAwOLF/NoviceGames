@@ -17,12 +17,14 @@
 // represent the position
 
 
-var possible_terrain = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean);
+var possible_terrain = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border);
 var energy; // 2d array [i,j]   energy required travelling from i to j
-energy[0,0] = 1; energy[1,1] = 1; energy[2,2] = 1;
-energy[0,1] = 2; energy[1,0] = 2; 
-energy[0,2] = 2; energy[2,0] = 2;
-energy[1,2] = 3; energy[2,1] = 3;
+
+
+energy[0,0] = 1; energy[0,1] = 2; energy[0,2] = 2; energy[0, 3] = 99999;
+energy[1,0] = 2; energy[1,1] = 1; energy[1,2] = 3; energy[1, 3] = 99999;
+energy[2,0] = 2; energy[2,1] = 3; energy[2,2] = 1; energy[2, 3] = 99999;
+energy[3,0] = 99999; energy[3,1] = 99999; energy[3,2] = 99999; energy[3, 3] = 99999;
 
 
 var start = argument0;

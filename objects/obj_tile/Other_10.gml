@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 
-debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite[0], global.changeSprite[1], "and selectedSoldier:",global.selectedSoldier);	
+//debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite[0], global.changeSprite[1], "and selectedSoldier:",global.selectedSoldier);	
 	
 	
 	
@@ -13,8 +13,20 @@ debug("Mouse clicked in tile ", pos, " with changeSprite: ", global.changeSprite
 if (global.changeSprite[1] != -1){
 			
 	// if there's a soldier here,  activate the next block of if statement
-	if  (soldier != -1) global.changeSprite[1] = -1; 
-	else {
+	if  (soldier != -1) {
+		
+		if (global.changeSprite[1] != spr_infantry_delete)
+			global.changeSprite[1] = -1;  
+		else {
+			with(soldier) instance_destroy();
+			soldier = -1;
+		}
+		
+	} 
+	
+	
+	else if (global.changeSprite[1] != spr_infantry_delete) {
+		
 		var cs = global.changeSprite[1];
 		if (cs == spr_infantry || cs == spr_infantry1) 
 			soldier = instance_create_depth(x,y,0,obj_infantry);

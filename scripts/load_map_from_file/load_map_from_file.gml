@@ -11,7 +11,7 @@ if argument0 != ""{
 
 var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 var lr_padd = 64;
-var hor_spacing = 100;   // x distance between each button on the top row
+var hor_spacing = 80;   // x distance between each button on the top row
 var y_axis = 30;    // of the top row on the top
 var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
 	(room_width-lr_padd*2)/global.mapWidth);
@@ -20,15 +20,15 @@ var tile_size = min((room_height-tb_padd*2)/global.mapHeight,
 // create the tile selections on the top left
 global.changeSprite[0] = -1;				// the selected tile sprite
 global.changeSprite[1] = -1;				// the selected army sprite
-var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, 
-	spr_infantry, spr_infantry1);
+var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border, 
+	spr_infantry, spr_infantry1, spr_infantry_delete);
 var index = 0; var w = 0;
 for (var index=0; index<array_length_1d(possibleTiles); index++){
-	with(instance_create_depth(hor_spacing*(index+1), y_axis, 0, obj_selectTile)){
+	with(instance_create_depth(hor_spacing*(index+1), y_axis, -1, obj_selectTile)){
 		what = w;
 		sprite_index = possibleTiles[index];
 	}
-	if (index == 2) w = 1;
+	if (index == 3) w = 1;
 }
 
 
@@ -40,7 +40,7 @@ global.soldier_vars[1] = 1; names[1] = "attack range";
 global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
 for (var index=array_length_1d(names)-1; index>=0; index--){
-	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 15, 0, obj_change_var)){
+	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 15, -1, obj_change_var)){
 		ind = index;
 		text = names[index];
 	}
