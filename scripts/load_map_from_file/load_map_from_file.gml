@@ -1,15 +1,18 @@
+global.turn = 0;
+// mapHieght and mapWidth should be already set before calling this function
+// if no file is specified
+
 if argument0 != ""{	
 	var file = file_text_open_read(argument0);
 	
 	global.mapWidth = real(file_text_read_real(file)); file_text_readln(file);
 	global.mapHeight = real(file_text_read_real(file)); file_text_readln(file);
 	global.turn = real(file_text_read_real(file)); file_text_readln(file);
-	
 }
 
 var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 var lr_padd = 64;
-var hor_spacing = 80;   // x distance between each button on the top row
+var hor_spacing = 75;   // x distance between each button on the top row
 var y_axis = 30;    // of the top row on the top
 var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
 	(room_width-lr_padd*2)/global.mapWidth);
@@ -37,8 +40,9 @@ global.soldier_vars[0] = 2; names[0] = "move range";
 global.soldier_vars[1] = 1; names[1] = "attack range";
 global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
+global.soldier_vars[4] = 2; names[4] = "vision";
 for (var index=array_length_1d(names)-1; index>=0; index--){
-	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 15, -1, obj_change_var)){
+	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 20, -1, obj_change_var)){
 		ind = index;
 		text = names[index];
 	}
@@ -86,7 +90,7 @@ instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
 // global.grid[pos]: the 2darray that represents the map grid on the battlefield
 // pos: y * global.mapWidth + x
 global.selectedSoldier = -1;
-global.turn = 0;
+
 for (var j=0; j<global.mapHeight; j+=1){
 	for (var i=0; i<global.mapWidth; i+=1){
 		
@@ -131,6 +135,7 @@ if argument0 != ""{
 				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
 				can_move = real(file_text_read_real(file)); file_text_readln(file);
 				can_attack = real(file_text_read_real(file)); file_text_readln(file);
+				vision = real(file_text_read_real(file)); file_text_readln(file);
 				update_team();
 			}
 		}
@@ -139,3 +144,5 @@ if argument0 != ""{
 
 global.mouseEventId = -1;
 global.mouseInstanceId = -1;
+
+update_fog();

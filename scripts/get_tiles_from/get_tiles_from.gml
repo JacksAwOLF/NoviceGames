@@ -1,4 +1,6 @@
 // return array of obj_tile_parent that are (arg1) away from (arg0) 
+
+
 // arg2:
 // -1 => excluding tiles that have a soldier in it
 // 0 => all tiles in bounds
@@ -25,6 +27,9 @@ energy[0,0] = 1; energy[0,1] = 2; energy[0,2] = 2; energy[0, 3] = 99999;
 energy[1,0] = 2; energy[1,1] = 1; energy[1,2] = 3; energy[1, 3] = 99999;
 energy[2,0] = 2; energy[2,1] = 3; energy[2,2] = 1; energy[2, 3] = 99999;
 energy[3,0] = 99999; energy[3,1] = 99999; energy[3,2] = 99999; energy[3, 3] = 99999;
+
+
+
 
 
 var start = argument0;

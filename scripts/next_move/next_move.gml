@@ -17,3 +17,6 @@ global.turn++;
 soldier_erase_attack();
 soldier_erase_move();
 global.selectedSoldier = -1;
+
+
+update_fog();

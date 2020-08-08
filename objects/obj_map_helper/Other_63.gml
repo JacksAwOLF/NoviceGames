@@ -5,7 +5,7 @@ var i_d = ds_map_find_value(async_load, "id");
 
 
 
-if !ds_map_find_value(async_load, "status")  {
+if ds_map_find_value(async_load, "status") <= 0  {
 	room_goto(rm_start_screen);	
 }
 else if i_d == hor  {

@@ -18,6 +18,7 @@ for (var i=0; i<global.mapWidth * global.mapHeight; i+=1){
 			data += string(soldier.sprite_index) + "\n";
 			data += string(soldier.can_move) + "\n";
 			data += string(soldier.can_attack) + "\n";
+			data += string(soldier.vision) + "\n";
 		} else data += "-1\n";
 	}
 }

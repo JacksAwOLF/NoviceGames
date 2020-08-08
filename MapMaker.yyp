@@ -87,6 +87,14 @@
             }
         },
         {
+            "Key": "1334c1a4-9196-4d34-aa61-dd51bb4b0624",
+            "Value": {
+                "id": "a81c4c40-a354-4640-9df3-707dab98c482",
+                "resourcePath": "scripts\/update_fog\/update_fog.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "1612b95b-bdf0-4162-b3bb-eef00e7cd659",
             "Value": {
                 "id": "7304b991-29ec-413f-94d5-9fc032a80c0c",
@@ -635,7 +643,8 @@
         "83370dce-03ff-4247-9f02-c8221eaffa67",
         "3ecb97cd-5f6b-4bc3-8dde-c9bb8b862c59",
         "4893eb0a-89a1-4e9e-bf6a-46016cfc7ec7",
-        "b8ef2fa9-4ddb-40b4-af66-3d4712822e88"
+        "b8ef2fa9-4ddb-40b4-af66-3d4712822e88",
+        "1334c1a4-9196-4d34-aa61-dd51bb4b0624"
     ],
     "tutorial": ""
 }

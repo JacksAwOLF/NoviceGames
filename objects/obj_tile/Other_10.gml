@@ -35,7 +35,8 @@ if (global.changeSprite[1] != -1){
 		// becomes enemey if the sprite naem ends with 1
 		soldier.sprite_index = cs;
 		with(soldier) update_team();
-				
+		
+		update_fog();
 	}
 }
 	
@@ -52,17 +53,18 @@ else if (global.changeSprite[0] == -1){
 					
 			with (global.selectedSoldier){	
 				with(soldier){			  // move the soldier
-							
-					//debug("from ", x, y);
-							
 					x = xx;
 					y = yy;
 					can_move = false;
+					
+					update_fog();
 				}
 				other.soldier = soldier;											// change the  soldier acces
 				soldier =  -1;
+				update_fog();
 			}
-					
+			update_fog();
+				
 			global.selectedSoldier = id;											// change the global tile access
 			soldier_erase_move();
 					
@@ -77,7 +79,7 @@ else if (global.changeSprite[0] == -1){
 				
 				
 				
-		else if (possible_attack){
+		else if (possible_attack && !hide_soldier){
 					
 			with(global.selectedSoldier.soldier){
 				var damage_inflicted = (my_health/max_health) * max_damage;
