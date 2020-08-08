@@ -2,6 +2,8 @@
 // You can write your code in this editor
 
 
+if (state == VisualState.inactive) exit;
+
 draw_self();
 
 var turn_string = "Turn: " + (global.turn % 2 == 0 ? "Grey" : "Black");
