@@ -7,16 +7,12 @@ if argument0 != ""{
 	
 }
 
-var rm_height = camera_get_view_height(view_get_camera(0));
-var rm_width = camera_get_view_width(view_get_camera(0));
-
-
 var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 var lr_padd = 64;
 var hor_spacing = 80;   // x distance between each button on the top row
 var y_axis = 30;    // of the top row on the top
-var tile_size = min((rm_height-tb_padd*2)/global.mapHeight, 
-	(rm_width-lr_padd*2)/global.mapWidth);
+var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
+	(room_width-lr_padd*2)/global.mapWidth);
 
 
 // create the tile selections on the top left
@@ -42,7 +38,7 @@ global.soldier_vars[1] = 1; names[1] = "attack range";
 global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
 for (var index=array_length_1d(names)-1; index>=0; index--){
-	with(instance_create_depth(rm_width-(array_length_1d(names)-index)*hor_spacing, 15, -1, obj_change_var)){
+	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 15, -1, obj_change_var)){
 		ind = index;
 		text = names[index];
 	}
@@ -57,30 +53,30 @@ var xx, yy, sp_index;
 
 // create the saving button on bottom right
 sp_index = object_get_sprite(obj_button_saveMap);
-xx = rm_width - sprite_get_width(sp_index);
-yy = rm_height - sprite_get_height(sp_index);
+xx = room_width - sprite_get_width(sp_index);
+yy = room_height - sprite_get_height(sp_index);
 
 instance_create_depth(xx, yy, -1, obj_button_saveMap);
 
 
 // back button bottom left
 sp_index = object_get_sprite(obj_button_backMenu);
-xx = rm_width - sprite_get_width(sp_index);
-yy = rm_height - sprite_get_height(sp_index);
+xx = room_width - sprite_get_width(sp_index);
+yy = room_height - sprite_get_height(sp_index);
 
 instance_create_depth(0, yy, -1, obj_button_backMenu);
 
 
 // bottom, middle
 sp_index = object_get_sprite(obj_button_nextStep);
-xx = (rm_width - sprite_get_width(sp_index)) / 2;
-yy = rm_height - sprite_get_height(sp_index);
+xx = (room_width - sprite_get_width(sp_index)) / 2;
+yy = room_height - sprite_get_height(sp_index);
 
 instance_create_depth(xx, yy, -1, obj_button_nextStep);
 
 sp_index = object_get_sprite(obj_gui_bottom_bar);
 xx = 0;
-yy = rm_height - sprite_get_height(sp_index);
+yy = room_height - sprite_get_height(sp_index);
 
 instance_create_depth(xx, yy, -1, obj_gui_bottom_bar);
 instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
