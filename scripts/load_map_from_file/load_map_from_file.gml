@@ -124,9 +124,12 @@ if argument0 != ""{
 	for (var i=0; i<global.mapWidth*global.mapHeight; i++){
 		with (global.grid[i]){
 			sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-			var line = real(file_text_read_real(file)); file_text_readln(file);
-			if line == -1  continue;
 			
+			var line = real(file_text_read_real(file)); file_text_readln(file);
+			if (line == 1) road = true;
+			
+			line = real(file_text_read_real(file)); file_text_readln(file);
+			if line == -1  continue;
 			soldier = instance_create_depth(x, y, 0, obj_infantry);
 			with soldier {
 				move_range = line;

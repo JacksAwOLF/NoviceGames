@@ -11,7 +11,7 @@ draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, c_white, alpha_valu
 if (road){
 	var ind = 0;
 	// up, right, down, left
-	debug(pos, pos/global.mapWidth);
+	//debug(pos, pos/global.mapWidth);
 	if (floor(pos/global.mapWidth)>0 && global.grid[pos-global.mapWidth].road) ind += 1;
 	if ((pos+1)%global.mapWidth>0 && global.grid[pos+1].road) ind += 2;
 	if (floor(pos/global.mapWidth)<global.mapHeight-1 && global.grid[pos+global.mapWidth].road) ind += 4;
