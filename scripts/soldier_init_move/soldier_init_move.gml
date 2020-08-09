@@ -20,6 +20,17 @@ with(global.selectedSoldier.soldier){
 			
 			// more sprites add switch statements here
 			
+			case spr_tanks:
+			case spr_tanks1:
+				movement = 6;
+				energy = array(2,3,3,99);
+				break;
+				
+			case spr_ifvs:
+			case spr_ifvs1:
+				movement = 15;
+				energy = array(3,5,99,99);
+				break;
 			/*
 			tanks
 				movement = 6;

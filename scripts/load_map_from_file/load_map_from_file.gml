@@ -26,14 +26,40 @@ var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_
 	spr_infantry, spr_infantry1, spr_infantry_delete,
 	spr_tile_road);
 var index = 0; var w = 0;
+var slctSld1 = -1, slctSld2 = -1; // instance ids for soldier select tile buttons
+
 for (var index=0; index<array_length_1d(possibleTiles); index++){
 	with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 		what = w;
 		sprite_index = possibleTiles[index];
+		
+		if (possibleTiles[index] == spr_infantry) slctSld1 = id;
+		if (possibleTiles[index] == spr_infantry1) slctSld2 = id;
 	}
+	
 	if (index == 3 || index == 6) w++;
+	
 }
 
+// create dropdown arrow under spr_infantry button
+with(instance_create_depth(slctSld1.x, y_axis+slctSld1.sprite_height, -1, obj_sprite_dropdown)) {
+	binded_button = slctSld1;
+	options = [spr_infantry, spr_tanks, spr_ifvs];
+	
+	menu_height = 0;
+	for (var i = 0; i < array_length_1d(options); i++)
+		menu_height += options[i];
+}
+
+// create dropdown arrow under spr_infantry1 button
+with(instance_create_depth(slctSld2.x, y_axis+slctSld2.sprite_height, -1, obj_sprite_dropdown)) {
+	binded_button = slctSld2;
+	options = [spr_infantry1, spr_tanks1, spr_ifvs1];
+	
+	menu_height = 0;
+	for (var i = 0; i < array_length_1d(options); i++)
+		menu_height += options[i];
+}
 
 
 // create the soldier modification vars on top right
