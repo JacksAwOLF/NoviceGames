@@ -15,5 +15,5 @@ if (dropdown_active) {
 		menu_height += sprite_get_height(options[i]);
 	}
 	
-	draw_set_color(-1);
+	draw_set_color(c_black);
 }
