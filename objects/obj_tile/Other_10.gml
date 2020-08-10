@@ -65,7 +65,7 @@ else if (global.changeSprite[0] == -1){
 					y = yy;
 					can_move = false;
 					
-					var diff = global.prevHoveredTiles[0].pos - poss_paths[0];
+					var diff = global.prevHoveredTiles[0].pos - poss_paths[0].pos;
 					switch (diff) {
 						case 1: direction = 270; break;
 						case -1: direction = 90; break;
