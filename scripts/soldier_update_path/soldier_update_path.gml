@@ -21,10 +21,11 @@ if (global.selectedSoldier) {
 			
 			if (global.prevHoveredTiles[1] != -1) {
 				with(global.prevHoveredTiles[1]) {
+					var diff = abs(pos - global.prevHoveredTiles[0]);
 					
 					// we check whether we can draw a path that
 					// goes through the previously hovered tils
-					if(possible_move) {
+					if(possible_move && (diff == 1 || diff == global.mapWidth)) {
 						
 						var tt = sprite_index;
 						if (road) tt = spr_tile_road;
