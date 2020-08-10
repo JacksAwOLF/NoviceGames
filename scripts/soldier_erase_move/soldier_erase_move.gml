@@ -9,3 +9,5 @@ if (global.selectedSoldier != -1){
 
 	}
 }
+
+soldier_update_path(1);

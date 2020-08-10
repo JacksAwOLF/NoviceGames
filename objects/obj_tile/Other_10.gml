@@ -65,6 +65,15 @@ else if (global.changeSprite[0] == -1){
 					y = yy;
 					can_move = false;
 					
+					var diff = global.prevHoveredTiles[0].pos - global.prevHoveredTiles[1].pos;
+					switch (diff) {
+						case 1: direction = 270; break;
+						case -1: direction = 90; break;
+						case global.mapWidth: direction = 180; break;
+						default: direction = 0;
+						
+					}
+					debug("direction: ", direction);
 					update_fog();
 				}
 				other.soldier = soldier;											// change the  soldier acces

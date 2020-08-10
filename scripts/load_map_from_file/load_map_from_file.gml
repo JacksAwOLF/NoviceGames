@@ -1,4 +1,18 @@
 global.turn = 0;
+global.movement = [6,2,15];
+global.energy = [];
+
+enum Soldiers {
+	tanks, infantry, ifvs
+};
+
+global.energy[Soldiers.tanks] = [2,3,3,99];
+global.energy[Soldiers.infantry] = [1,1,2,2];
+global.energy[Soldiers.ifvs] = [3,5,99,99];
+
+
+
+
 // mapHieght and mapWidth should be already set before calling this function
 // if no file is specified
 
@@ -118,6 +132,8 @@ instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
 // global.grid[pos]: the 2darray that represents the map grid on the battlefield
 // pos: y * global.mapWidth + x
 global.selectedSoldier = -1;
+global.lastSelectedSoldier = -1;
+global.prevHoveredTiles = [-1, -1];
 
 for (var j=0; j<global.mapHeight; j+=1){
 	for (var i=0; i<global.mapWidth; i+=1){
