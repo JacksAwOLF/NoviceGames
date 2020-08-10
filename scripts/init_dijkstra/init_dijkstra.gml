@@ -27,16 +27,10 @@
 // 1: open
 // 2: rough
 // 3: mountain
-var possible_terrain = array(spr_tile_road, spr_tile_flat, spr_tile_ocean, spr_tile_mountain, spr_tile_border);
-var energy = array(1,1,2,3);
-if (argument_count == 6) energy = argument[5]
-energy[4] = 99;
 
 
 var start = argument[0];
-var z = argument[2];
-
-if (z == 0) return [];
+var nrg = argument[2];
 
 
 global.from = array_create(global.mapWidth * global.mapHeight, -1);
@@ -64,7 +58,7 @@ while(!ds_priority_empty(pq)){
 	ds_priority_delete_min(pq);
 	
 	var row = floor(cur/global.mapWidth);
-	var col =  cur % global.mapWidth;
+	var col = cur % global.mapWidth;
 	
 	// add the neighbors
 	for (var i=0; i<4; i++){
@@ -77,34 +71,18 @@ while(!ds_priority_empty(pq)){
 		// check if visited
 		var np =  nr * global.mapWidth + nc;
 		if (global.from[np] != -1) continue;
-		// if htere's  a  soldier blocking  here, can't  go
-		if (argument[3] == -1 && global.grid[np].soldier != -1) continue;
+		if (argument[3] == -1 && global.grid[np].soldier != -1) continue; // if soldier blocking
 		
+		var ns =  steps + (argument[4] ? 1 : get_energy_to_cross(soldier_id, global.grid[np]));
+		if (ns <= nrg) {
 		
-		global.from[np] = cur;
+			ds_priority_add(pq, np, ns);
 		
-		// add to queue only if it can possibly add more kids
-		var ns = steps + (argument[4] ? 1 : get_energy_to_cross(soldier_id, global.grid[np]));//1;
-		if (false && argument[4]){
-			var tt = global.grid[np].sprite_index, to;
-			if (global.grid[np].road) tt = spr_tile_road;
-			to = posInArray(possible_terrain, tt);
-			dis = get_energy_to_cross(soldier_id, global.grid[np]);//energy[to];
-			
-			debug(dis, " vs ", energy[to], " with ", soldier_id);
+			global.from[np] = cur;
+			global.dist[np] = ns;
 		}
-		
-		var ns =  steps + dis;
-		if (ns < z) ds_priority_add(pq, np, ns);
-		
-		global.dist[np] = ns;
-		
-
-		if (argument[3] == 1 && global.grid[np].soldier == -1) continue;
-		/*if (!argument[4] || ns<z+1) {
-			dist[count] = ns;
-			res[count++] = global.grid[np];
-		}*/
+	
+		//if (argument[3] == 1 && global.grid[np].soldier == -1) continue;
 	}
 }
 
