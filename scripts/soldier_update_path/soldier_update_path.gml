@@ -21,7 +21,7 @@ if (global.selectedSoldier) {
 			
 			if (global.prevHoveredTiles[1] != -1) {
 				with(global.prevHoveredTiles[1]) {
-					var diff = abs(pos - global.prevHoveredTiles[0]);
+					var diff = abs(pos - global.prevHoveredTiles[0].pos);
 					
 					// we check whether we can draw a path that
 					// goes through the previously hovered tils
