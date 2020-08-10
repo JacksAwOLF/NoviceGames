@@ -65,7 +65,7 @@ else if (global.changeSprite[0] == -1){
 					y = yy;
 					can_move = false;
 					
-					var diff = global.prevHoveredTiles[0].pos - poss_paths[0].pos;
+					var diff = poss_paths[0] - poss_paths[1];
 					switch (diff) {
 						case 1: direction = 270; break;
 						case -1: direction = 90; break;
@@ -73,7 +73,7 @@ else if (global.changeSprite[0] == -1){
 						default: direction = 0;
 						
 					}
-					debug("direction: ", direction);
+					debug("direction: ", direction, " ", global.prevHoveredTiles[0], " " , poss_paths[0]);
 					update_fog();
 				}
 				other.soldier = soldier;											// change the  soldier acces

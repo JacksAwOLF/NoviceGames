@@ -33,10 +33,13 @@ if (global.selectedSoldier) {
 						var cost = mobility[1];
 						
 						cost = cost[posInArray(possible_terrain, tt)];
-						throughPrev = get_path_to(global.selectedSoldier.pos,global.prevHoveredTiles[1].pos,
-													mobility[0]-cost,-1,true,mobility[1]);
+						var holder = get_path_to(global.selectedSoldier.pos,global.prevHoveredTiles[1].pos,
+												 mobility[0]-cost,-1,true,mobility[1]);
 													
-						throughPrev[array_length_1d(throughPrev)] = global.prevHoveredTiles[0];
+						throughPrev[0] = global.prevHoveredTiles[0];
+						for (var i = 0; i < array_length_1d(holder); i++)
+							throughPrev[i+1] = holder[i];
+
 						debug("through: ", throughPrev);
 					}
 				}
