@@ -20,6 +20,7 @@ if (global.changeSprite[1] != -1){
 		else {
 			with(soldier) instance_destroy();
 			soldier = -1;
+			update_fog();
 		}
 		
 	} 
