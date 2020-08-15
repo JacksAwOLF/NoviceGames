@@ -1,5 +1,6 @@
 // returns [movement, energy array] given a sprite index;
 
+return 0;
 var movement, energy;
 		
 switch argument[0] {

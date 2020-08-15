@@ -1,4 +1,5 @@
 // how much energy it will take for soldier instance (arg0) to go onto tile instance (arg1)
+// arg0 is the soldier_id (one of those enums), arg1 is the tile instance
 
 if (argument_count < 2 || argument[0] == -1) return -1;
 

@@ -1,3 +1,6 @@
+/// @description Updates the prospective path for the selected soldier
+/// @param clear_path Boolean whether to clear the paths
+
 // argument0: 0 if update based on hovered tile, 1 if erase
 if (global.selectedSoldier) {
 
@@ -8,16 +11,12 @@ if (global.selectedSoldier) {
 			for (var i = 0; i < array_length_1d(poss_paths); i++) 
 				poss_paths[i].possible_path = false;
 	
-		//debug(variable_instance_exists(id, "poss_path"));
-		//debug("prev hovered", global.prevHoveredTiles);
-	
 		poss_paths = -1;
 	
 		
 		if (argument[0] == 0 && global.prevHoveredTiles[0].possible_move) {
-			var throughPrev = [];
-			var mobility = get_mobility_for(sprite_index);
-			mobility[4] = 99;
+			var throughPrev = [];			
+			var mobility = global.movement[get_soldier_id(other.soldier)];
 			
 			if (global.prevHoveredTiles[1] != -1) {
 				with(global.prevHoveredTiles[1]) {
@@ -27,35 +26,24 @@ if (global.selectedSoldier) {
 					// goes through the previously hovered tils
 					if(possible_move && (diff == 1 || diff == global.mapWidth)) {
 						
-						var tt = sprite_index;
-						if (road) tt = spr_tile_road;
-						
-						var possible_terrain = array(spr_tile_road, spr_tile_flat, spr_tile_ocean, spr_tile_mountain, spr_tile_border);
-						var cost = mobility[1];
-						
-						cost = cost[posInArray(possible_terrain, tt)];
-						var holder = get_path_to(global.selectedSoldier.pos,global.prevHoveredTiles[1].pos,
-												 mobility[0]-cost,-1,true,mobility[1]);
+						var cost = get_energy_to_cross(get_soldier_id(other.id),id);
+						var holder = get_path_to(global.prevHoveredTiles[1].pos, mobility-cost);
 													
 						throughPrev[0] = global.prevHoveredTiles[0];
 						for (var i = 0; i < array_length_1d(holder); i++)
 							throughPrev[i+1] = holder[i];
-
-						debug("through: ", throughPrev);
 					}
 				}
 			}
 			
 			if (array_length_1d(throughPrev) > 1)
 				poss_paths = throughPrev;
-			else {
-				poss_paths = get_path_to(global.selectedSoldier.pos,global.prevHoveredTiles[0].pos,mobility[0],-1,true,mobility[1]);
-				debug("used current");
-			}
+			else 
+				poss_paths = get_path_to(global.prevHoveredTiles[0].pos,mobility);
+			
 				
 			for (var i = 0; i < array_length_1d(poss_paths); i++)
 				poss_paths[i].possible_path = true;
-			debug(poss_paths);
 		}
 	}
 }

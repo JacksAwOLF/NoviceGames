@@ -29,7 +29,7 @@ if (keyboard_check_pressed(hide_key)) {
 
 // expand click detection when dropdown is active
 var mouseIn = point_in_rectangle(mouse_x,mouse_y,x,y,
-								x+sprite_width,y+sprite_height+(dropdown_active?menu_height:0));
+								x+sprite_width,y+sprite_height+(dropdown_active?menu_height*image_yscale:0));
 
 if (mouseIn && (global.mouseInstanceId == -1 || global.mouseInstanceId.depth > depth)) {
 	

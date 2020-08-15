@@ -24,7 +24,7 @@ ds_queue_enqueue(q, [startx, starty, 0, 0]);
 
 // we shouldn't need a visited array
 // because each node should only have one 
-// ingoing edge (you can only get to some node 
+// incoming edge (you can only get to some node 
 // through one other node)
 while (!ds_queue_empty(q)) {
 	
@@ -56,6 +56,7 @@ while (!ds_queue_empty(q)) {
 		diff[len++] = [(tilex > startx ? 1 : -1), (tiley > starty ? 1 : -1)];
 		
 	// loop through possible differences
+	// right, left, down, up, diagonals
 	for (var i = 0; i < len; i++) {
 		
 		var ds = diff[i];
@@ -67,6 +68,11 @@ while (!ds_queue_empty(q)) {
 		if (!point_in_rectangle(nextx, nexty, 0, 0, global.mapWidth*3-1, global.mapHeight*3-1))
 			continue;
 			
+		//var xdiff = nextx - startx; //startx - nextx
+		//var ydiff = nexty - starty;
+		
+		// if next grid is on the right, slope has to be [1,-1] && nextx > startx
+		//if (i == 0 && xdiff > 0 && (
 		
 		// if line from center of (nextx, nexty) to (startx,starty) doesnt pass
 		// through the current grid

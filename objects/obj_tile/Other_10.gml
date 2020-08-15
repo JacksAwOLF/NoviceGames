@@ -29,12 +29,8 @@ if (global.changeSprite[1] != -1){
 	else if (global.changeSprite[1] != spr_infantry_delete) {
 		
 		var cs = global.changeSprite[1];
-		if (cs == spr_infantry || cs == spr_infantry1 || cs == spr_tanks || cs == spr_tanks1 ||
-			cs == spr_ifvs || cs == spr_ifvs1) 
-			soldier = instance_create_depth(x,y,0,obj_infantry);
-		// else if (cs == spr_archer || cs == spr_archer1)
+		soldier = instance_create_depth(x,y,0,obj_infantry);
 				
-		// becomes enemey if the sprite naem ends with 1
 		soldier.sprite_index = cs;
 		with(soldier) update_team();
 		
@@ -74,12 +70,10 @@ else if (global.changeSprite[0] == -1){
 						default: direction = 0;
 						
 					}
-					debug("direction: ", direction, " ", global.prevHoveredTiles[0], " " , poss_paths[0]);
-					update_fog();
 				}
+				
 				other.soldier = soldier;											// change the  soldier acces
 				soldier =  -1;
-				update_fog();
 			}
 			update_fog();
 				

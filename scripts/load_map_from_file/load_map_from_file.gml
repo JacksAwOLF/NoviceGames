@@ -19,6 +19,8 @@ global.vision[Classes.scout] = 1;
 global.vision[Classes.melee] = 3;
 global.vision[Classes.range] = 5;
 
+map_loaded = true;
+
 
 
 
@@ -68,20 +70,12 @@ for (var index=0; index<array_length_1d(possibleTiles); index++){
 with(instance_create_depth(slctSld1.x, y_axis+slctSld1.sprite_height, -1, obj_sprite_dropdown)) {
 	binded_button = slctSld1;
 	options = [spr_infantry, spr_tanks, spr_ifvs];
-	
-	menu_height = 0;
-	for (var i = 0; i < array_length_1d(options); i++)
-		menu_height += options[i];
 }
 
 // create dropdown arrow under spr_infantry1 button
 with(instance_create_depth(slctSld2.x, y_axis+slctSld2.sprite_height, -1, obj_sprite_dropdown)) {
 	binded_button = slctSld2;
 	options = [spr_infantry1, spr_tanks1, spr_ifvs1];
-	
-	menu_height = 0;
-	for (var i = 0; i < array_length_1d(options); i++)
-		menu_height += options[i];
 }
 
 
@@ -107,7 +101,6 @@ for (var index=array_length_1d(names)-1; index>=0; index--){
 var xx, yy, sp_index;
 
 
-
 // create the saving button on bottom right
 sp_index = object_get_sprite(obj_button_saveMap);
 xx = room_width - sprite_get_width(sp_index);
@@ -131,6 +124,7 @@ yy = room_height - sprite_get_height(sp_index);
 
 instance_create_depth(xx, yy, -1, obj_button_nextStep);
 
+// bottom bar on the bottom
 sp_index = object_get_sprite(obj_gui_bottom_bar);
 xx = 0;
 yy = room_height - sprite_get_height(sp_index);
@@ -143,7 +137,6 @@ instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
 // global.grid[pos]: the 2darray that represents the map grid on the battlefield
 // pos: y * global.mapWidth + x
 global.selectedSoldier = -1;
-global.lastSelectedSoldier = -1;
 global.prevHoveredTiles = [-1, -1];
 
 for (var j=0; j<global.mapHeight; j+=1){
@@ -183,6 +176,7 @@ if argument0 != ""{
 			
 			line = real(file_text_read_real(file)); file_text_readln(file);
 			if line == -1  continue;
+			
 			soldier = instance_create_depth(x, y, 0, obj_infantry);
 			with soldier {
 				move_range = line;
@@ -202,6 +196,7 @@ if argument0 != ""{
 	}
 }
 
+// identifiers for click detection
 global.mouseEventId = -1;
 global.mouseInstanceId = -1;
 

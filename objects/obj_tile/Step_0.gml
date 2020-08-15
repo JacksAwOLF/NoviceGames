@@ -15,9 +15,10 @@ if mouseIn {
 	
 	// draw temp army sprite if there is a selected 
 	if (global.selectedSoldier != -1) {
-		if (possible_move)
+		if (possible_move) {
 			draw_temp_soldier = global.selectedSoldier.soldier.sprite_index;
-		
+			soldier_init_attack();
+		}
 		
 		// always maintain the last two tiles we hovered over
 		if (global.prevHoveredTiles[0] != id) {
@@ -26,7 +27,7 @@ if mouseIn {
 		
 			soldier_update_path(0);
 		}
-		//soldier_init_attack();
+		
 	}
 	
 

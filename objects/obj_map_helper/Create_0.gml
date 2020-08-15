@@ -4,6 +4,7 @@
 hor = -1
 ver = -1
 load_file = -1
+map_loaded = false
 
 if global.loadMap 
 	load_file = get_string_async("Enter file name: ", "hi.txt");
