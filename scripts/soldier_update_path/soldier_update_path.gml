@@ -1,9 +1,8 @@
 /// @description Updates the prospective path for the selected soldier
 /// @param clear_path Boolean whether to clear the paths
 
-// argument0: 0 if update based on hovered tile, 1 if erase
-if (global.selectedSoldier) {
 
+if (global.selectedSoldier) {
 	with(global.selectedSoldier.soldier) {
 		
 		// if the variable that stores paths exists, reset it
@@ -16,7 +15,7 @@ if (global.selectedSoldier) {
 		
 		if (argument[0] == 0 && global.prevHoveredTiles[0].possible_move) {
 			var throughPrev = [];			
-			var mobility = global.movement[get_soldier_id(other.soldier)];
+			var mobility = global.movement[get_soldier_type(id)];
 			
 			if (global.prevHoveredTiles[1] != -1) {
 				with(global.prevHoveredTiles[1]) {
@@ -26,7 +25,7 @@ if (global.selectedSoldier) {
 					// goes through the previously hovered tils
 					if(possible_move && (diff == 1 || diff == global.mapWidth)) {
 						
-						var cost = get_energy_to_cross(get_soldier_id(other.id),id);
+						var cost = get_energy_to_cross(get_soldier_type(other.id),id);
 						var holder = get_path_to(global.prevHoveredTiles[1].pos, mobility-cost);
 													
 						throughPrev[0] = global.prevHoveredTiles[0];

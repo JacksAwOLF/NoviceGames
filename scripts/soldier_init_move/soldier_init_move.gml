@@ -56,7 +56,7 @@ with(global.selectedSoldier.soldier){
 	}
 }
 
-init_dijkstra(global.selectedSoldier.pos, 0, global.movement[get_soldier_id(global.selectedSoldier.soldier)], -1, 0, 0);
+init_dijkstra(global.selectedSoldier.pos, 0, global.movement[get_soldier_type(global.selectedSoldier.soldier)], -1, 0, 0);
 
 
 }

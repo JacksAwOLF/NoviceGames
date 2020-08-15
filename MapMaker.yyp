@@ -463,14 +463,6 @@
             }
         },
         {
-            "Key": "8ba81215-1871-42bc-99ed-307b6f7c9f98",
-            "Value": {
-                "id": "519beade-acd1-407d-859c-328ed611352b",
-                "resourcePath": "scripts\/get_mobility_for\/get_mobility_for.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "8f32d578-51cc-44aa-bc78-6ec4e8b570f6",
             "Value": {
                 "id": "5fedc03d-87d7-4021-8622-e3770b24b840",
@@ -770,7 +762,7 @@
             "Key": "f1b12ad8-b8e8-4061-ac76-1002eded0879",
             "Value": {
                 "id": "0717808a-723e-49c7-a8f4-7c27321728f5",
-                "resourcePath": "scripts\/get_soldier_id\/get_soldier_id.yy",
+                "resourcePath": "scripts\/get_soldier_type\/get_soldier_type.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -818,7 +810,6 @@
         "3f6a638a-a91f-4d71-bc1e-e2e0fbc54ecb",
         "72c83217-0983-4b7e-ba24-192726a30e73",
         "f1b12ad8-b8e8-4061-ac76-1002eded0879",
-        "8ba81215-1871-42bc-99ed-307b6f7c9f98",
         "adfdcefc-96f2-45ed-bf69-4ec9f218a9b7",
         "1fe208af-9af1-4b41-a73e-1ad623b9a2f8",
         "c32fe3b9-a2bf-4fc4-b3af-eefc9bda299a",

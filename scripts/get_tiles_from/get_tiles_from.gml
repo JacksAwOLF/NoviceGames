@@ -92,7 +92,6 @@ while(!ds_priority_empty(s)){
 			if (global.grid[np].road) tt = spr_tile_road;
 			to = posInArray(possible_terrain, tt);
 			dis = energy[to];
-			debug(tt, to, dis)
 		}
 		
 		var ns =  steps + dis;

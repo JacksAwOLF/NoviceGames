@@ -1,4 +1,5 @@
-// returns all the tiles that can be seen from tile argument0
+/// @description Returns all the tiles that can be seen from the given tile & soldier
+/// @param tile_id Tile with soldier to calculate vision from
 
 // data to be stored in queue: (grid pos, leftover vision cost)
 // calculate using proportions, estimate proportions by dividing each
@@ -16,10 +17,7 @@ var res = [];	// array of results
 var cnt = 0;	// size of results
 
 
-//var vis = array_create(global.mapWidth*global.mapHeight*9);
-
 var diff = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
-
 ds_queue_enqueue(q, [startx, starty, 0, 0]);
 
 // we shouldn't need a visited array
@@ -51,12 +49,12 @@ while (!ds_queue_empty(q)) {
 	
 	
 	var len = 4;
-	if (tilex == startx && tiley == starty) len = 8;
-	else if (abs(tilex - startx) == abs(tiley - starty))
+	if (tilex == startx && tiley == starty) len = 8; // at the beginning, we check all diagonals
+	else if (abs(tilex - startx) == abs(tiley - starty)) // if abs(slope) == 1, check a diagonal
 		diff[len++] = [(tilex > startx ? 1 : -1), (tiley > starty ? 1 : -1)];
 		
 	// loop through possible differences
-	// right, left, down, up, diagonals
+	// bot, up, right, left, didagonals...
 	for (var i = 0; i < len; i++) {
 		
 		var ds = diff[i];
@@ -68,30 +66,34 @@ while (!ds_queue_empty(q)) {
 		if (!point_in_rectangle(nextx, nexty, 0, 0, global.mapWidth*3-1, global.mapHeight*3-1))
 			continue;
 			
-		//var xdiff = nextx - startx; //startx - nextx
-		//var ydiff = nexty - starty;
+		var xdiff = nextx - startx;
+		var ydiff = nexty - starty;
+		var slope = ydiff/xdiff;
 		
-		// if next grid is on the right, slope has to be [1,-1] && nextx > startx
-		//if (i == 0 && xdiff > 0 && (
+		var ok = false;
+		switch(i) {
+			case 0: // if next grid is on the bot, slope has to be (-inf, -1) U (1, inf) && nextx < startx
+			case 1: // if next grid is on the top, slope has to be (-inf, -1) U (1, inf) && nexty < starty
+			
+				ok = xdiff == 0 || slope < -1 || slope > 1;
+				ok &= (i == 0 ? ydiff > 0 : ydiff < 0);
+				break;
+				
+			case 2: // if next grid is on the right, slope has to be (-1, 1) && nextx > startx
+			case 3: // if next grid is on the left, slope has to be (-1, 1) && nextx < startx
+				
+				ok = slope > -1 && slope < 1;
+				ok &= (i == 2 ? xdiff > 0 : xdiff < 0);
+				break;
+				
+			default: // indices 4 and above are diagonals, diff calculations, but guaranteed to be ok
+				ok = true;
+		}
 		
-		// if line from center of (nextx, nexty) to (startx,starty) doesnt pass
-		// through the current grid
-		var touchleft = line_segment_intersect(startx,starty,nextx,nexty,
-											   tilex-0.5,tiley-0.5,tilex-0.5,tiley+0.5);
 	
-		var touchright = line_segment_intersect(startx,starty,nextx,nexty,
-											    tilex+0.5,tiley-0.5,tilex+0.5,tiley+0.5);
-												
-		var touchtop = line_segment_intersect(startx,starty,nextx,nexty,
-											  tilex-0.5,tiley-0.5,tilex+0.5,tiley-0.5);	
-											  
-		var touchbot = line_segment_intersect(startx,starty,nextx,nexty,
-											  tilex-0.5,tiley+0.5,tilex+0.5,tiley+0.5);										  
-						
-		
-		var numtouched = touchleft + touchright + touchtop + touchbot;
-		//either it touches on the corner, passes through at least two sides, or is the starting tile
-		if (i < 4 && numtouched != 2 && (tilex != startx || tiley != starty))
+		// if the line from (nextx,nexty) to (startx,starty)
+		// doesnt pass throuch current tile, skip this
+		if (!ok)
 			continue;
 			
 		// calculate additional costs and add into queue
@@ -110,8 +112,6 @@ while (!ds_queue_empty(q)) {
 		ds_queue_enqueue(q, [nextx,nexty,sum+add,num+1]);
 	}
 }
-
-//debug("__-________OURVISION: ",argument[0].soldier.vision);
 
 ds_queue_destroy(q);
 return res;

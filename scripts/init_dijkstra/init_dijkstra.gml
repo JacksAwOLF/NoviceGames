@@ -46,7 +46,7 @@ var dy = array(-1,1,0,0);
 var pq = ds_priority_create();			
 ds_priority_add(pq, start, 0);
 
-var soldier_id = get_soldier_id(global.selectedSoldier.soldier);
+var soldier_id = get_soldier_type(global.selectedSoldier.soldier);
 
 
 while(!ds_priority_empty(pq)){
@@ -73,7 +73,7 @@ while(!ds_priority_empty(pq)){
 		if (global.from[np] != -1) continue;
 		if (argument[3] == -1 && global.grid[np].soldier != -1) continue; // if soldier blocking
 		
-		var ns =  steps + (argument[4] ? 1 : get_energy_to_cross(soldier_id, global.grid[np]));
+		var ns = steps + (argument[4] ? 1 : get_energy_to_cross(soldier_id, global.grid[np]));
 		if (ns <= nrg) {
 		
 			ds_priority_add(pq, np, ns);
