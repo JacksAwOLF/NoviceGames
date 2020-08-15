@@ -1,14 +1,23 @@
 global.turn = 0;
 global.movement = [6,2,15];
 global.energy = [];
+global.vision = [];
 
 enum Soldiers {
 	tanks, infantry, ifvs
 };
 
+enum Classes {
+	scout, melee, range
+};
+
 global.energy[Soldiers.tanks] = [2,3,3,99];
 global.energy[Soldiers.infantry] = [1,1,2,2];
 global.energy[Soldiers.ifvs] = [3,5,99,99];
+
+global.vision[Classes.scout] = 1;
+global.vision[Classes.melee] = 3;
+global.vision[Classes.range] = 5;
 
 
 
@@ -83,6 +92,8 @@ global.soldier_vars[1] = 1; names[1] = "attack range";
 global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
 global.soldier_vars[4] = 2; names[4] = "vision";
+global.soldier_vars[5] = Classes.melee;
+
 for (var index=array_length_1d(names)-1; index>=0; index--){
 	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 16, -1, obj_change_var)){
 		ind = index;
@@ -182,7 +193,9 @@ if argument0 != ""{
 				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
 				can_move = real(file_text_read_real(file)); file_text_readln(file);
 				can_attack = real(file_text_read_real(file)); file_text_readln(file);
+				
 				vision = real(file_text_read_real(file)); file_text_readln(file);
+				vision = global.vision[class];
 				update_team();
 			}
 		}
