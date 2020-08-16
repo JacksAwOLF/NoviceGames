@@ -8,7 +8,8 @@
 // this will cause the "line drawn" to be jagged, so will be a rough estimate at most
 // maybe change the # of grids to resolve some problems as well
 
-var q = ds_queue_create();
+if (global.q == -1)
+	global.q = ds_queue_create();
 
 var startx = (argument[0].pos % global.mapWidth) * 3 + 1;
 var starty = floor(argument[0].pos / global.mapWidth) * 3 + 1;
@@ -18,16 +19,15 @@ var cnt = 0;	// size of results
 
 
 var diff = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
-ds_queue_enqueue(q, [startx, starty, 0, 0]);
+ds_queue_enqueue(global.q, [startx, starty, 0, 0]);
 
 // we shouldn't need a visited array
 // because each node should only have one 
 // incoming edge (you can only get to some node 
 // through one other node)
-while (!ds_queue_empty(q)) {
-	
-	var head = ds_queue_head(q);
-	ds_queue_dequeue(q);
+while (!ds_queue_empty(global.q)) {
+	var head = ds_queue_head(global.q);
+	ds_queue_dequeue(global.q);
 	
 	
 	var tilex = head[0];
@@ -109,9 +109,9 @@ while (!ds_queue_empty(q)) {
 			}
 		}
 		
-		ds_queue_enqueue(q, [nextx,nexty,sum+add,num+1]);
+		ds_queue_enqueue(global.q, [nextx,nexty,sum+add,num+1]);
 	}
 }
 
-ds_queue_destroy(q);
+ds_queue_clear(global.q);
 return res;

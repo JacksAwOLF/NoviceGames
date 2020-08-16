@@ -15,12 +15,12 @@ global.energy[Soldiers.tanks] = [2,3,3,99];
 global.energy[Soldiers.infantry] = [1,1,2,2];
 global.energy[Soldiers.ifvs] = [3,5,99,99];
 
-global.vision[Classes.scout] = 1;
+global.vision[Classes.scout] = 5;
 global.vision[Classes.melee] = 3;
-global.vision[Classes.range] = 5;
+global.vision[Classes.range] = 1;
 
 map_loaded = true;
-
+global.q = -1;
 
 
 

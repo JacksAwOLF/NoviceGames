@@ -70,7 +70,6 @@ if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
 	camera_set_view_size(current_camera, neww, newh);
 	
 } else {
-	//debug("denied");
 	mouse_xstart = mouse_x;
 	mouse_ystart = mouse_y;
 }
