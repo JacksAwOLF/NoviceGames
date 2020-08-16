@@ -1,7 +1,7 @@
 //panning
 
 #macro width_offset 100
-#macro height_offset 300
+#macro height_offset 100
 //when the mouse button is pressed, it captures the values of the mouse's X and Y position.
 //Because the view is going to be moved, we want the position of the mouse in relation to
 // the window, not the view.
@@ -61,17 +61,16 @@ if mouse_wheel_down()
 	changed = true;
 }
 
-
-if (changed && (newx+prev_view_w >= width_offset && newx <= room_width-width_offset) &&
-				(newy+prev_view_h >= height_offset && newy <= room_height-height_offset) &&
+if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
+				(newy+newh >= height_offset && newy <= room_height-height_offset) &&
 	point_in_rectangle(neww, newh, room_width/global.mapWidth, room_height/global.mapHeight,
 					   2*room_width, 2*room_height)) {
 	
-	//debug(neww, "x", newh, " vs ", room_width, "x", room_height);
 	camera_set_view_pos(current_camera, newx, newy);
 	camera_set_view_size(current_camera, neww, newh);
 	
 } else {
+	//debug("denied");
 	mouse_xstart = mouse_x;
 	mouse_ystart = mouse_y;
 }
