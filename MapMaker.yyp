@@ -231,6 +231,14 @@
             }
         },
         {
+            "Key": "4441ec2f-d6bf-4c35-af30-7a010cf1afbb",
+            "Value": {
+                "id": "e877d166-0c47-42f3-aad0-3a0f0ccc9e4e",
+                "resourcePath": "scripts\/get_vision_tiles_2\/get_vision_tiles_2.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "44b067d7-0d92-44d5-aba1-fecd0e957d33",
             "Value": {
                 "id": "29cc407e-573a-40df-aa2a-e52f02009a0b",
@@ -844,7 +852,8 @@
         "1246e8cc-9920-464c-ab50-e8f11e894fcb",
         "828a13f4-da63-400b-96e1-d4d5d89063f3",
         "1334c1a4-9196-4d34-aa61-dd51bb4b0624",
-        "00da0f7d-add5-4aeb-9567-e875f5533020"
+        "00da0f7d-add5-4aeb-9567-e875f5533020",
+        "4441ec2f-d6bf-4c35-af30-7a010cf1afbb"
     ],
     "tutorial": ""
 }

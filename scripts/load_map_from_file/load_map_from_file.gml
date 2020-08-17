@@ -34,7 +34,7 @@ global.ranges[Classes.range] = 3;
 
 
 map_loaded = true;
-
+global.q = -1;
 
 
 
