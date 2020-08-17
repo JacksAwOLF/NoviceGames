@@ -1,5 +1,7 @@
 // returns index in global.energy for a given soldier instance (arg0)
 
+//debug(argument[0]);
+
 switch(argument[0].sprite_index) {
 	case spr_infantry: 
 	case spr_infantry1:

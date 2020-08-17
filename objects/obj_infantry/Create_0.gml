@@ -2,14 +2,11 @@
 // You can write your code in this editor
 
 
+attack_range = global.soldier_vars[Svars.attack_range];
+max_health = global.soldier_vars[Svars.max_health];
+max_damage = global.soldier_vars[Svars.max_damage];
+class = global.soldier_vars[Svars.class];
+vision = global.soldier_vars[Svars.vision]; //global.vision[class];
 
-move_range = global.soldier_vars[0];
-attack_range = global.soldier_vars[1];
-max_health = global.soldier_vars[2];
-max_damage = global.soldier_vars[3];
-//vision = global.soldier_vars[4];
-
-class = global.soldier_vars[5];
-vision = global.vision[class];
 
 event_inherited();

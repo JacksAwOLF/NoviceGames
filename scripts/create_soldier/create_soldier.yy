@@ -1,8 +1,8 @@
 {
-    "id": "9fad8cf2-88ef-44c8-9d6a-dd14e8f36b19",
+    "id": "1246e8cc-9920-464c-ab50-e8f11e894fcb",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "soldier_moving",
+    "name": "create_soldier",
     "IsCompatibility": false,
     "IsDnD": false
 }

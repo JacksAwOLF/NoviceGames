@@ -103,6 +103,14 @@
             }
         },
         {
+            "Key": "1246e8cc-9920-464c-ab50-e8f11e894fcb",
+            "Value": {
+                "id": "0a1af49f-7988-4a00-a4bd-b867e97b3f74",
+                "resourcePath": "scripts\/create_soldier\/create_soldier.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "1334c1a4-9196-4d34-aa61-dd51bb4b0624",
             "Value": {
                 "id": "a81c4c40-a354-4640-9df3-707dab98c482",
@@ -191,6 +199,14 @@
             }
         },
         {
+            "Key": "35a4ee05-b47a-4afc-a52c-8269ad0418d7",
+            "Value": {
+                "id": "9fc7b5e6-651b-42e9-9db6-4fa7a241b00a",
+                "resourcePath": "sprites\/spr_soldier_generate\/spr_soldier_generate.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "3ecb97cd-5f6b-4bc3-8dde-c9bb8b862c59",
             "Value": {
                 "id": "ebd2384e-fc0a-4212-8817-8eb85f76aecd",
@@ -242,7 +258,7 @@
             "Key": "4893eb0a-89a1-4e9e-bf6a-46016cfc7ec7",
             "Value": {
                 "id": "e7492e7b-9d15-4c01-9be7-c6b9b6fe0598",
-                "resourcePath": "scripts\/update_team\/update_team.yy",
+                "resourcePath": "scripts\/get_team\/get_team.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -292,6 +308,14 @@
                 "id": "8bb4a029-9fd3-494c-813c-d4796a6ab751",
                 "resourcePath": "views\/5af53bad-b2ed-4137-a742-0465cddcb604.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "5ecd419c-8aad-4844-adc3-d9a521f719b7",
+            "Value": {
+                "id": "be6bacd9-d6a9-4074-ba43-3dcd4fbb8d26",
+                "resourcePath": "objects\/obj_hut\/obj_hut.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -375,6 +399,14 @@
             }
         },
         {
+            "Key": "828a13f4-da63-400b-96e1-d4d5d89063f3",
+            "Value": {
+                "id": "14d50a17-625b-45d3-90cf-737fc3c69c15",
+                "resourcePath": "scripts\/destroy_soldier\/destroy_soldier.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "8314a58b-4224-4845-a18c-9f8b0e6a3559",
             "Value": {
                 "id": "dbf5ab1b-2357-4ae1-bb32-7d205deead22",
@@ -388,6 +420,14 @@
                 "id": "859f2537-85c1-4cfe-8d92-1a71bc7a928c",
                 "resourcePath": "scripts\/soldier_erase_attack\/soldier_erase_attack.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "83557c47-fae7-44f1-91e0-26c0cd2db5de",
+            "Value": {
+                "id": "54c71151-243c-4055-8fc8-f8f69eedb5fe",
+                "resourcePath": "fonts\/font0\/font0.yy",
+                "resourceType": "GMFont"
             }
         },
         {
@@ -447,6 +487,14 @@
             }
         },
         {
+            "Key": "8c9f7a17-5db4-4238-b162-74c8c99a4419",
+            "Value": {
+                "id": "ff2340e5-fe2c-4576-9937-a9db21c0b6e0",
+                "resourcePath": "objects\/obj_hut_conquer\/obj_hut_conquer.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "8f32d578-51cc-44aa-bc78-6ec4e8b570f6",
             "Value": {
                 "id": "5fedc03d-87d7-4021-8622-e3770b24b840",
@@ -495,19 +543,19 @@
             }
         },
         {
-            "Key": "9fad8cf2-88ef-44c8-9d6a-dd14e8f36b19",
-            "Value": {
-                "id": "e936a417-68e6-4f6f-a8fc-ba3483a13351",
-                "resourcePath": "scripts\/soldier_moving\/soldier_moving.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "a2468151-1843-4e1f-ac4a-514b5ecc46c7",
             "Value": {
                 "id": "3ce75b86-b874-4883-9170-99214f72f6e6",
                 "resourcePath": "sprites\/spr_tile_flat\/spr_tile_flat.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "a25e5e77-8728-4f7c-985f-4770bb8e24a0",
+            "Value": {
+                "id": "755867c4-ad75-44a3-a316-4d2e28183fe4",
+                "resourcePath": "fonts\/font_soldier_vars\/font_soldier_vars.yy",
+                "resourceType": "GMFont"
             }
         },
         {
@@ -793,8 +841,9 @@
         "3ecb97cd-5f6b-4bc3-8dde-c9bb8b862c59",
         "d0fb0ed7-9bee-4067-b3e1-e2c689a1d036",
         "4893eb0a-89a1-4e9e-bf6a-46016cfc7ec7",
+        "1246e8cc-9920-464c-ab50-e8f11e894fcb",
+        "828a13f4-da63-400b-96e1-d4d5d89063f3",
         "1334c1a4-9196-4d34-aa61-dd51bb4b0624",
-        "9fad8cf2-88ef-44c8-9d6a-dd14e8f36b19",
         "00da0f7d-add5-4aeb-9567-e875f5533020"
     ],
     "tutorial": ""

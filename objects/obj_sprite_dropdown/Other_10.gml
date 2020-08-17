@@ -15,6 +15,9 @@ if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sp
 		sprite_index = other.options[options_id];
 		global.changeSprite[what] = sprite_index;
 	}
+	
+	// change move range?
+	
 } 
 
 dropdown_active = !dropdown_active;

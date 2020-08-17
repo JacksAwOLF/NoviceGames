@@ -10,7 +10,15 @@ for (var i=0; i<n; i++){
 	}
 }
 
-global.turn++;
+n = instance_number(obj_hut);
+for (var i=0; i<n; i++)
+	with(instance_find(obj_hut, i))
+		if (get_team(soldier_sprite) == global.turn%2)
+			cur = min(cur+1, limit);
+			
+			
+		
+global.turn++; // relative positioning is important
 
 
 
@@ -20,3 +28,9 @@ global.selectedSoldier = -1;
 
 
 update_fog();
+
+
+
+
+
+

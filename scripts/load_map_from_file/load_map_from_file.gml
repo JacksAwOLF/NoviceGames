@@ -11,13 +11,27 @@ enum Classes {
 	scout, melee, range
 };
 
+// used for Classes obj_change_var only...
+global.soldier_classes = [Classes.melee, Classes.scout, Classes.range];
+
 global.energy[Soldiers.tanks] = [2,3,3,99];
 global.energy[Soldiers.infantry] = [1,1,2,2];
 global.energy[Soldiers.ifvs] = [3,5,99,99];
 
-global.vision[Classes.scout] = 1;
+global.vision[Classes.scout] = 5;
 global.vision[Classes.melee] = 3;
-global.vision[Classes.range] = 5;
+global.vision[Classes.range] = 1;
+
+
+global.hutlimit[Soldiers.tanks] = 3;
+global.hutlimit[Soldiers.infantry] = 2;
+global.hutlimit[Soldiers.ifvs] = 5;
+
+
+global.ranges[Classes.scout] = 2;
+global.ranges[Classes.melee] = 1;
+global.ranges[Classes.range] = 3;
+
 
 map_loaded = true;
 
@@ -46,10 +60,12 @@ var tile_size = min((room_height-tb_padd*2)/global.mapHeight,
 // create the tile selections on the top left
 global.changeSprite[0] = -1;				// the selected tile sprite
 global.changeSprite[1] = -1;				// the selected army sprite
-global.changeSprite[2] = -1;				// the selected things that are drawn on terrain
+global.changeSprite[2] = -1;				// the road
+global.changeSprite[3] = -1;				// the hut
 var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border, 
 	spr_infantry, spr_infantry1, spr_infantry_delete,
-	spr_tile_road);
+	spr_tile_road,
+	spr_soldier_generate);
 var index = 0; var w = 0;
 var slctSld1 = -1, slctSld2 = -1; // instance ids for soldier select tile buttons
 
@@ -62,7 +78,7 @@ for (var index=0; index<array_length_1d(possibleTiles); index++){
 		if (possibleTiles[index] == spr_infantry1) slctSld2 = id;
 	}
 	
-	if (index == 3 || index == 6) w++;
+	if (index==3 || index==6 || index==7) w++;
 	
 }
 
@@ -81,13 +97,18 @@ with(instance_create_depth(slctSld2.x, y_axis+slctSld2.sprite_height, -1, obj_sp
 
 // create the soldier modification vars on top right
 var names; 
-global.soldier_vars[0] = 2; names[0] = "move range";
-global.soldier_vars[1] = 1; names[1] = "attack range";
-global.soldier_vars[2] = 15; names[2] = "max health";
-global.soldier_vars[3] = 8; names[3] = "max damage";
-global.soldier_vars[4] = 2; names[4] = "vision";
-global.soldier_vars[5] = Classes.melee;
 
+enum Svars {
+	attack_range, max_health, max_damage, class, vision, move_range
+};
+global.soldier_vars[Svars.attack_range] = 1; names[Svars.attack_range] = "attack range";   
+global.soldier_vars[Svars.max_health] = 15; names[Svars.max_health] = "max health";   // probably  dependent on class too
+global.soldier_vars[Svars.max_damage] = 8; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
+global.soldier_vars[Svars.vision] = global.vision[global.soldier_classes[0]]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
+// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
+
+hor_spacing = 60;
 for (var index=array_length_1d(names)-1; index>=0; index--){
 	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 16, -1, obj_change_var)){
 		ind = index;
@@ -187,10 +208,11 @@ if argument0 != ""{
 				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
 				can_move = real(file_text_read_real(file)); file_text_readln(file);
 				can_attack = real(file_text_read_real(file)); file_text_readln(file);
-				
 				vision = real(file_text_read_real(file)); file_text_readln(file);
+				class = real(file_text_read_real(file)); file_text_readln(file);
+				
 				vision = global.vision[class];
-				update_team();
+				team = get_team(sprite_index);
 			}
 		}
 	}

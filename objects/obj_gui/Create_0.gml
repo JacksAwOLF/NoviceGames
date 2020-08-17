@@ -19,3 +19,8 @@ enum VisualState
 
 state = VisualState.active;
 inactive_offset = [4*room_width, 0];
+
+
+
+
+//depth =  -100

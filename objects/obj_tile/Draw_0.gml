@@ -43,5 +43,22 @@ if (soldier != -1 && !hide_soldier){
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }
 
+
+
+// the soldier thingy while moving
 if (draw_temp_soldier != -1)
-	draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.5);								// the iamge of potential soldier placed here
+	draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.8);								// the iamge of potential soldier placed here
+	
+	
+// draw the  hut if needed
+if (hut != -1 /*&& !hide_soldier*/ ){
+with(hut){
+	var ss = other.size;
+	var scale_factor = ss/sprite_get_width(soldier_sprite);
+	
+	if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.5);
+	draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+
+	draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+}
+}
