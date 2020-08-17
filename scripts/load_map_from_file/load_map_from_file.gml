@@ -200,8 +200,7 @@ if argument0 != ""{
 			
 			soldier = instance_create_depth(x, y, 0, obj_infantry);
 			with soldier {
-				move_range = line;
-				attack_range = real(file_text_read_real(file)); file_text_readln(file);
+				attack_range = line
 				max_health = real(file_text_read_real(file)); file_text_readln(file);
 				max_damage = real(file_text_read_real(file)); file_text_readln(file);
 				my_health = real(file_text_read_real(file)); file_text_readln(file);

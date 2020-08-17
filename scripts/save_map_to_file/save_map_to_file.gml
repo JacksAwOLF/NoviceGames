@@ -13,7 +13,6 @@ for (var i=0; i<global.mapWidth * global.mapHeight; i+=1){
 			data += "1\n";
 		} else data += "0\n";
 		if (soldier != -1){
-			data += string(soldier.move_range) + "\n";
 			data += string(soldier.attack_range) + "\n";
 			data += string(soldier.max_health) + "\n";
 			data += string(soldier.max_damage) + "\n";
