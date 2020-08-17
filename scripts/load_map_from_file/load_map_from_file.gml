@@ -86,7 +86,7 @@ global.soldier_vars[1] = 1; names[1] = "attack range";
 global.soldier_vars[2] = 15; names[2] = "max health";
 global.soldier_vars[3] = 8; names[3] = "max damage";
 global.soldier_vars[4] = 2; names[4] = "vision";
-global.soldier_vars[5] = Classes.melee;
+global.soldier_vars[5] = Classes.scout;
 
 for (var index=array_length_1d(names)-1; index>=0; index--){
 	with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 16, -1, obj_change_var)){
