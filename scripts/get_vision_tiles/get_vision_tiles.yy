@@ -1,8 +1,12 @@
 {
-    "id": "00da0f7d-add5-4aeb-9567-e875f5533020",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "get_vision_tiles",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "get_vision_tiles",
+  "tags": [],
+  "resourceType": "GMScript",
 }

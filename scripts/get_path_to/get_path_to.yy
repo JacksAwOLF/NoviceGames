@@ -1,8 +1,12 @@
 {
-    "id": "27521a7c-5eac-4628-bbe8-3c415547cf1c",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "get_path_to",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "pathfinding",
+    "path": "folders/Scripts/pathfinding.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "get_path_to",
+  "tags": [],
+  "resourceType": "GMScript",
 }

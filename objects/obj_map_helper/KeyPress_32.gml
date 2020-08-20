@@ -1,9 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-soldier_erase_attack();
-soldier_erase_move();
-
+erase_blocks();
 global.selectedSoldier = -1;
 
 for (var i=0; i<array_length_1d(global.changeSprite); i++)

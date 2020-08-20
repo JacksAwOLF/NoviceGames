@@ -1,8 +1,12 @@
 {
-    "id": "3f6a638a-a91f-4d71-bc1e-e2e0fbc54ecb",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "init_dijkstra",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "pathfinding",
+    "path": "folders/Scripts/pathfinding.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "init_dijkstra",
+  "tags": [],
+  "resourceType": "GMScript",
 }

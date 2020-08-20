@@ -4,8 +4,7 @@
 if (async_load == -1){
 		
 	global.selectedSoldier = -1;
-	soldier_erase_attack();
-	soldier_erase_move();
+	erase_blocks();
 		
 	fileName = get_string_async("Name of file: ", "hi.txt");
 }

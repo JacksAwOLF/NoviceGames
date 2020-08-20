@@ -58,23 +58,32 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 		// move block (not self)
 		if (possible_move) {
 			
-			debug(global.selectedSoldier.soldier.poss_paths);
+			
 			with (global.selectedSoldier.soldier){	
 				
-				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1) {
-				
-					can = false;
+				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1
+					&& array_length_1d(poss_paths)>=1 ) {
+					
+					
+					
+					if (array_length_1d(poss_paths) > 1) can = false;
+					
 					var i;
 					for (i = array_length_1d(poss_paths)-2; i>=0; i--)
 						if (poss_paths[i].soldier!=-1 && poss_paths[i] != global.selectedSoldier) break;	
 				
-					// clear fog if encountered soldier
-					if (i != -1) poss_paths[i].hide_soldier = false;
-				
+					// clear fog if encountered soldier (stuck and  can't move)
+					if (i != -1){
+						poss_paths[i].hide_soldier = false;
+						error = true;
+					}
+					
 					// if you dont get stuck, move and change direction
 					if (i != array_length_1d(poss_paths)-2){
 				
-						// direction
+						// calculate direction  assuming you arrived  
+						//  at  the blocked  tile then  was pushed back
+						if (error) i--;
 						var diff = poss_paths[i+1] - poss_paths[i+2];
 						switch (diff) {
 							case 1: direction = 270; break;
@@ -83,17 +92,19 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 							default: direction = 0;
 						}
 				
-						// move
-						poss_paths[i+1].soldier = global.selectedSoldier.soldier;											
-						global.selectedSoldier.soldier = -1;
-						global.selectedSoldier = poss_paths[i+1];
-						update_fog();
+						// move to the pushed back tile (not  changing x or y)
+						if (error) i++;
+						if (poss_paths[i+1] != global.selectedSoldier){
+							poss_paths[i+1].soldier = global.selectedSoldier.soldier;											
+							global.selectedSoldier.soldier = -1;
+							global.selectedSoldier = poss_paths[i+1];
+							update_fog();
+						}
 						
 					
-						//clear fog if encountered soldier; after update_fog
+						//clear fog if encountered soldier  (actually moved)
 						if (i != -1) poss_paths[i].hide_soldier = false;
 					
-						erase_blocks();
 					}
 				}
 			
@@ -129,7 +140,7 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 				global.selectedSoldier = id;
 				soldier_init_move();
 				soldier_init_attack();
-			}
+			} else soldier.error = true;
 		}
 	} 
 	
@@ -140,8 +151,10 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 
 	// if soldier is selected, but it can't  attack or move, deselect  it
 	if (global.selectedSoldier != -1) 
-		if (!global.selectedSoldier.soldier.can) 
+		if (!global.selectedSoldier.soldier.can) {
 			global.selectedSoldier = -1;
+			error = true;
+		}
 }
 		
 		

@@ -1,8 +1,12 @@
 {
-    "id": "1246e8cc-9920-464c-ab50-e8f11e894fcb",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "create_soldier",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "soldier",
+    "path": "folders/Scripts/soldier.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "create_soldier",
+  "tags": [],
+  "resourceType": "GMScript",
 }

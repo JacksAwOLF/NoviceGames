@@ -26,12 +26,25 @@ if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, s
 if (possible_attack && !hide_soldier) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
 
+
 // draw soldiers if needed
-var soldier_index = 0; if (global.selectedSoldier == id) soldier_index = 1;
 if (soldier != -1 && !hide_soldier){	
 	
 	var spr_index = soldier.sprite_index;
 	var scale_factor = size/sprite_get_width(spr_index);
+	
+	// index to draw
+	var soldier_index = 0; 
+	if (global.selectedSoldier == id) soldier_index = 1;
+	with(soldier) if (error){
+		soldier_index = (floor(error_count/error_wait)+1) % 2
+		if (error_count == error_limit * error_wait){
+			error = false;
+			error_count = 0;
+		}
+		error_count += 1;
+	}
+
 	
 	var xx = x, yy = y;
 	
