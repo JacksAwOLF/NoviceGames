@@ -205,14 +205,15 @@ if argument0 != ""{
 				max_damage = real(file_text_read_real(file)); file_text_readln(file);
 				my_health = real(file_text_read_real(file)); file_text_readln(file);
 				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-				can_move = real(file_text_read_real(file)); file_text_readln(file);
-				can_attack = real(file_text_read_real(file)); file_text_readln(file);
+				can = real(file_text_read_real(file)); file_text_readln(file);
 				vision = real(file_text_read_real(file)); file_text_readln(file);
 				class = real(file_text_read_real(file)); file_text_readln(file);
 				
 				vision = global.vision[class];
 				team = get_team(sprite_index);
 			}
+			
+			
 		}
 	}
 }

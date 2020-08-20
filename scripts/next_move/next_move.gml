@@ -2,11 +2,10 @@ for (var i=0; i<array_length_1d(global.changeSprite); i++)
 	global.changeSprite[i] = -1;
 
 
-var n = instance_number(obj_moveAndAttack);
+var n = instance_number(obj_infantry);
 for (var i=0; i<n; i++){
-	with(instance_find(obj_moveAndAttack, i)){
-		can_move = true;
-		can_attack = true;
+	with(instance_find(obj_infantry, i)){
+		can = true;
 	}
 }
 

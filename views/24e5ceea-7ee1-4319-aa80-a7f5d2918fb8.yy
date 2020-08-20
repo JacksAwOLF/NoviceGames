@@ -11,7 +11,9 @@
         "d0fb0ed7-9bee-4067-b3e1-e2c689a1d036",
         "4893eb0a-89a1-4e9e-bf6a-46016cfc7ec7",
         "1246e8cc-9920-464c-ab50-e8f11e894fcb",
-        "828a13f4-da63-400b-96e1-d4d5d89063f3"
+        "828a13f4-da63-400b-96e1-d4d5d89063f3",
+        "a24f4765-072e-46a4-a4da-190f117eeb6d",
+        "2e2a30e8-c054-4d9a-80e2-b5d49c4290e0"
     ],
     "filterType": "GMScript",
     "folderName": "soldier",

@@ -15,7 +15,7 @@
 // selected a soldier
 if (global.changeSprite[1] != -1){
 			
-	// if there's a soldier here,  activate the next block of if statement
+	// if there's a soldier here, activate the next block of if statement
 	if  (soldier != -1) {
 		if (global.changeSprite[1] != spr_infantry_delete)
 			global.changeSprite[1] = -1;  
@@ -49,109 +49,99 @@ else if (global.changeSprite[3] != -1){
 
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
-else if (global.changeSprite[0] == -1){		
-		
+if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.changeSprite[3] == -4){		
+	
 	// clear the selected soldier things if this block is not a possible move or attack
 	if (global.selectedSoldier != -1){
+
+	
+		// move block (not self)
+		if (possible_move) {
+			
+			debug(global.selectedSoldier.soldier.poss_paths);
+			with (global.selectedSoldier.soldier){	
 				
-		var xx = x;
-		var yy  = y;
+				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1) {
 				
-		if (possible_move && id != global.selectedSoldier){						// if this tile is a possible move (not itself)
+					can = false;
+					var i;
+					for (i = array_length_1d(poss_paths)-2; i>=0; i--)
+						if (poss_paths[i].soldier!=-1 && poss_paths[i] != global.selectedSoldier) break;	
+				
+					// clear fog if encountered soldier
+					if (i != -1) poss_paths[i].hide_soldier = false;
+				
+					// if you dont get stuck, move and change direction
+					if (i != array_length_1d(poss_paths)-2){
+				
+						// direction
+						var diff = poss_paths[i+1] - poss_paths[i+2];
+						switch (diff) {
+							case 1: direction = 270; break;
+							case -1: direction = 90; break;
+							case global.mapWidth: direction = 180; break;
+							default: direction = 0;
+						}
+				
+						// move
+						poss_paths[i+1].soldier = global.selectedSoldier.soldier;											
+						global.selectedSoldier.soldier = -1;
+						global.selectedSoldier = poss_paths[i+1];
+						update_fog();
+						
 					
-			with (global.selectedSoldier){	
-				with(soldier){			  // move the soldier
-					x = xx;
-					y = yy;
-					can_move = false;
+						//clear fog if encountered soldier; after update_fog
+						if (i != -1) poss_paths[i].hide_soldier = false;
 					
-					var diff = poss_paths[0] - poss_paths[1];
-					switch (diff) {
-						case 1: direction = 270; break;
-						case -1: direction = 90; break;
-						case global.mapWidth: direction = 180; break;
-						default: direction = 0;
+						erase_blocks();
 					}
 				}
-				
-				other.soldier = soldier;											// change the  soldier acces
-				soldier =  -1;
+			
 			}
-			update_fog();
-				
-			global.selectedSoldier = id;											// change the global tile access
-			soldier_erase_move();
-					
-					
-			if (!soldier_init_attack()){
-				global.selectedSoldier = -1;
-				exit;
-			}
-					
-					
+			
 		}
 				
-				
-				
+			
+		// attack block
 		else if (possible_attack && !hide_soldier){
 					
 			with(global.selectedSoldier.soldier){
-				var damage_inflicted = (my_health/max_health) * max_damage;
-				other.soldier.my_health -= damage_inflicted;
-				can_attack = false;
+				other.soldier.my_health -= calculate_damage(id, other.soldier);
+				can = false;
 			}
 						
 			if (soldier.my_health <= 0){
 				instance_destroy(soldier);
 				soldier = -1;
 			}
-					
-			soldier_erase_attack();
-			soldier_init_move();
 		}
-				
-				
-		else{
-			soldier_erase_attack();
-			soldier_erase_move();
-					
-			global.selectedSoldier = (id == global.selectedSoldier ? -2 : -1);
-		}
-				
-				
+		
+		erase_blocks();
+		global.selectedSoldier = (id == global.selectedSoldier ? -2 : -1);
 	}
 			
 			
-		
 			
-	if (global.selectedSoldier == -1){										// if not assigned selected soldier yet
-		//debug("selecting  this  soldier", soldier.team, global.turn, global.turn%2)
-		if (soldier != -1 && soldier.team == (global.turn)%2){					// if there is a soldier on this tile
-					
-			if (soldier.can_move){													// if the soldier can move
-				global.selectedSoldier = id;											// draw on the moving tiles
-				soldier_init_move();			
-			}
-					
-					
-			if (soldier.can_attack){												// if soldier can attack	
-				global.selectedSoldier = id;											// daw on the  attack tiles
+	// select other soldier when clicked on them
+	if (global.selectedSoldier == -1){										
+		if (soldier != -1 && soldier.team == (global.turn)%2){
+			if (soldier.can){
+				global.selectedSoldier = id;
+				soldier_init_move();
 				soldier_init_attack();
 			}
 		}
 	} 
-			
+	
+
 	if (global.selectedSoldier == -2) global.selectedSoldier = -1;
 			
 			
 
 	// if soldier is selected, but it can't  attack or move, deselect  it
-	if (global.selectedSoldier != -1) with(global.selectedSoldier.soldier){
-		if (!can_attack and !can_move)
+	if (global.selectedSoldier != -1) 
+		if (!global.selectedSoldier.soldier.can) 
 			global.selectedSoldier = -1;
-	}
-			
-			
-} // end of if global.changeSprites[0] = [1] = -1
+}
 		
 		

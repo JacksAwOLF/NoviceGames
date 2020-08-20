@@ -191,6 +191,14 @@
             }
         },
         {
+            "Key": "2e2a30e8-c054-4d9a-80e2-b5d49c4290e0",
+            "Value": {
+                "id": "34e64a31-4de2-4acf-ab55-d8a030ac0689",
+                "resourcePath": "scripts\/erase_blocks\/erase_blocks.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "31a065de-0ee7-42cf-afb1-7e33724012d7",
             "Value": {
                 "id": "e5f6f6d2-cda6-4578-b46d-1f4a72927804",
@@ -559,19 +567,19 @@
             }
         },
         {
+            "Key": "a24f4765-072e-46a4-a4da-190f117eeb6d",
+            "Value": {
+                "id": "0084cb0a-82bd-46db-87d0-c15b378989bb",
+                "resourcePath": "scripts\/calculate_damage\/calculate_damage.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "a25e5e77-8728-4f7c-985f-4770bb8e24a0",
             "Value": {
                 "id": "755867c4-ad75-44a3-a316-4d2e28183fe4",
                 "resourcePath": "fonts\/font_soldier_vars\/font_soldier_vars.yy",
                 "resourceType": "GMFont"
-            }
-        },
-        {
-            "Key": "a472041f-3525-4717-b96a-07a969d0a763",
-            "Value": {
-                "id": "02e039c8-0e52-40ed-8a44-237f17316ef9",
-                "resourcePath": "objects\/obj_army_parent\/obj_army_parent.yy",
-                "resourceType": "GMObject"
             }
         },
         {
@@ -851,6 +859,8 @@
         "4893eb0a-89a1-4e9e-bf6a-46016cfc7ec7",
         "1246e8cc-9920-464c-ab50-e8f11e894fcb",
         "828a13f4-da63-400b-96e1-d4d5d89063f3",
+        "a24f4765-072e-46a4-a4da-190f117eeb6d",
+        "2e2a30e8-c054-4d9a-80e2-b5d49c4290e0",
         "1334c1a4-9196-4d34-aa61-dd51bb4b0624",
         "00da0f7d-add5-4aeb-9567-e875f5533020",
         "4441ec2f-d6bf-4c35-af30-7a010cf1afbb"

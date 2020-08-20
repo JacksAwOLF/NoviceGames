@@ -81,7 +81,7 @@ while(!ds_priority_empty(s)){
 		
 		
 		// if htere's  a  soldier blocking  here, can't  go
-		if (argument[2] == -1 && global.grid[np].soldier != -1) continue;
+		if (argument[2] == -1 && global.grid[np].soldier != -1 && !global.grid[np].hide_soldier) continue;
 		
 		
 		
