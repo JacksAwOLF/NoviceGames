@@ -11,7 +11,7 @@ if (text == "Class"){
 	
 	// changing class means loading default values
 	
-	var c = global.soldier_classes[global.soldier_vars[ind]];
+	var c = global.soldier_vars[ind];
 	global.soldier_vars[Svars.attack_range] = global.ranges[c];
 	global.soldier_vars[Svars.vision] = global.vision[c];
 }

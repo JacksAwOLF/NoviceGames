@@ -21,7 +21,8 @@ function save_map_to_file(argument0) {
 				data += string(soldier.sprite_index) + "\n";
 				data += string(soldier.can) + "\n";
 				data += string(soldier.vision) + "\n";
-				data += string( posInArray(global.soldier_classes, soldier.class) ) + "\n";
+				data += string(soldier.class) + "\n";
+				
 			} else data += "-1\n";
 		}
 	}

@@ -8,7 +8,7 @@ draw_self();
 
 var drawing = string(global.soldier_vars[ind]);
 if (text == "Class"){
-	switch(global.soldier_classes[ global.soldier_vars[ind] ]){
+	switch(global.soldier_vars[ind]){
 		case Classes.melee:
 			drawing = "M";
 			break;

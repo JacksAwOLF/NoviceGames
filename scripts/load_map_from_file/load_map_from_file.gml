@@ -12,8 +12,8 @@ function load_map_from_file(argument0) {
 		scout, melee, range
 	};
 
+	
 	// used for Classes obj_change_var and save/loading the class
-	global.soldier_classes = [Classes.melee, Classes.scout, Classes.range];
 
 	global.energy[Soldiers.tanks] = [2,3,3,99];
 	global.energy[Soldiers.infantry] = [1,1,2,2];
@@ -106,7 +106,7 @@ function load_map_from_file(argument0) {
 	global.soldier_vars[Svars.max_health] = 15; names[Svars.max_health] = "max health";   // probably  dependent on class too
 	global.soldier_vars[Svars.max_damage] = 8; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 	global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
-	global.soldier_vars[Svars.vision] = global.vision[global.soldier_classes[0]]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
+	global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
 	// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
 	hor_spacing = 60;
@@ -206,8 +206,8 @@ function load_map_from_file(argument0) {
 					sprite_index = real(file_text_read_real(file)); file_text_readln(file);
 					can = real(file_text_read_real(file)); file_text_readln(file);
 					vision = real(file_text_read_real(file)); file_text_readln(file);
-					class = global.soldier_classes[real(file_text_read_real(file))]; 
-					file_text_readln(file);
+					class = real(file_text_read_real(file)); file_text_readln(file);
+					
 				
 					vision = global.vision[class];
 					team = get_team(sprite_index);
