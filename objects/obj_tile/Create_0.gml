@@ -19,6 +19,7 @@ hide_soldier = true;
 road = false;
 
 hut = -1;
+tower = -1;
 
 // other variables are initialized in script create_map
 

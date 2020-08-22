@@ -59,53 +59,40 @@ function load_map_from_file(argument0) {
 
 	var xx, yy, sp_index;
 	
-if (edit){
+if (global.edit){
 
 	// create the tile selections on the top left
-	global.changeSprite[0] = -1;				// the selected tile sprite
-	global.changeSprite[1] = -1;				// the selected army sprite
-	global.changeSprite[2] = -1;				// the road
-	global.changeSprite[3] = -1;				// the hut
-	var possibleTiles = array(spr_tile_flat,
-		spr_infantry, spr_infantry1, spr_infantry_delete,
-		spr_tile_road,
-		spr_soldier_generate);
-	var index = 0; var w = 0;
-	var slctTile=-1, slctSld1 = -1, slctSld2 = -1; // instance ids for soldier select tile buttons
-
-	for (var index=0; index<array_length_1d(possibleTiles); index++){
+	global.changeSprite = -1;
+	var possibleTiles = array(
+		array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border),
+		array(spr_tile_road, spr_soldier_generate, spr_tower),
+		array(spr_infantry, spr_tanks, spr_ifvs), 
+		array(spr_infantry1, spr_tanks1, spr_ifvs1), 
+		spr_infantry_delete);
+	
+	var index = 0;
+	for (; index<4; index++){
 		with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
-			what = w;
-			sprite_index = possibleTiles[index];
-		
-			if (possibleTiles[index] == spr_tile_flat) slctTile = id;
-			if (possibleTiles[index] == spr_infantry) slctSld1 = id;
-			if (possibleTiles[index] == spr_infantry1) slctSld2 = id;
+			sprite_index = possibleTiles[index][0];
+			var  xx = x, yy = y + sprite_height
+			
+			with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
+				x  = other.x;
+				y =  other.y + other.sprite_height;
+				binded_button = other.id;
+				options = possibleTiles[index];
+			}
 		}
-	
-		if (index==0 || index==3 || index==4) w++;
-	
 	}
+	
+	for (;index<array_length(possibleTiles); index++){
+		with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
+			sprite_index=possibleTiles[index];
+		}
+	}
+	
 
-	// create dropdown arrow under spr_infantry button
-	with(instance_create_depth(slctSld1.x, y_axis+slctSld1.sprite_height, -1, obj_sprite_dropdown)) {
-		binded_button = slctSld1;
-		options = [spr_infantry, spr_tanks, spr_ifvs];
-	}
 
-	// create dropdown arrow under spr_infantry1 button
-	with(instance_create_depth(slctSld2.x, y_axis+slctSld2.sprite_height, -1, obj_sprite_dropdown)) {
-		binded_button = slctSld2;
-		options = [spr_infantry1, spr_tanks1, spr_ifvs1];
-	}
-	
-	// dropdown for tiles
-	with(instance_create_depth(slctTile.x, y_axis+slctTile.sprite_height, -1, obj_sprite_dropdown)) {
-		binded_button = slctTile;
-		options = [spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border];
-	}
-
-	
 
 	// create the soldier modification vars on top right
 	var names; 
@@ -201,34 +188,9 @@ if (edit){
 
 
 	if argument0 != ""{
-		for (var i=0; i<global.mapWidth*global.mapHeight; i++){
-			with (global.grid[i]){
-				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-			
-				var line = real(file_text_read_real(file)); file_text_readln(file);
-				if (line == 1) road = true;
-			
-				line = real(file_text_read_real(file)); file_text_readln(file);
-				if line == -1  continue;
-			
-				soldier = instance_create_depth(x, y, 0, obj_infantry);
-				with soldier {
-					attack_range = line
-					max_health = real(file_text_read_real(file)); file_text_readln(file);
-					max_damage = real(file_text_read_real(file)); file_text_readln(file);
-					my_health = real(file_text_read_real(file)); file_text_readln(file);
-					sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-					can = real(file_text_read_real(file)); file_text_readln(file);
-					vision = real(file_text_read_real(file)); file_text_readln(file);
-					class = real(file_text_read_real(file)); file_text_readln(file);
-					
-					vision = global.vision[class];
-					team = get_team(sprite_index);
-				}
-			
-			
-			}
-		}
+		id.readfile = true;
+		id.filevar = file;
+		set_text();
 	}
 
 	// identifiers for click detection

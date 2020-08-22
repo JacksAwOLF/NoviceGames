@@ -20,6 +20,8 @@ if (road){
 	draw_sprite_stretched_ext(spr_tile_road, ind, x, y, size, size, c_white, alpha_value);
 }
 
+
+
 // draw borders around it
 if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, size, c_white, 1);					// mouse in gray box
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
@@ -74,4 +76,12 @@ with(hut){
 
 	draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
 }
+}
+
+if (tower != -1) with (tower){
+	draw_self();
+
+	var p = global.grid[pos];
+	draw_healthbar(x, y+p.size/8, x+p.size, y+p.size/4, 
+		my_health, c_white, c_gray, c_white,0, 1, 1);
 }

@@ -38,6 +38,7 @@
     {"id":{"name":"init_dijkstra","path":"scripts/init_dijkstra/init_dijkstra.yy",},"order":2,},
     {"id":{"name":"get_energy_to_cross","path":"scripts/get_energy_to_cross/get_energy_to_cross.yy",},"order":3,},
     {"id":{"name":"get_soldier_type","path":"scripts/get_soldier_type/get_soldier_type.yy",},"order":4,},
+    {"id":{"name":"spr_tower","path":"sprites/spr_tower/spr_tower.yy",},"order":19,},
     {"id":{"name":"next_move","path":"scripts/next_move/next_move.yy",},"order":4,},
     {"id":{"name":"soldier_init_move","path":"scripts/soldier_init_move/soldier_init_move.yy",},"order":0,},
     {"id":{"name":"soldier_init_attack","path":"scripts/soldier_init_attack/soldier_init_attack.yy",},"order":1,},

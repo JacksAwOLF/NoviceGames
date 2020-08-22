@@ -5,39 +5,18 @@ function get_tiles_from() {
 	// arg2:
 	// -1 => excluding tiles that have a soldier in it
 	// 0 => all tiles in bounds
-	// 1 => only tiles that have a soldier
+	// 1 => only tiles that have a soldier (or tower)
 
 	// arg3:
 	// true: take into account of mountians/tivers
 	// false: nah
 
-	// arg4:
-	// the energy array
-
-	// data that  goes on the stack stores 3 variables in 1 integer
-	// data%(argument[1]+1) = #energy left
-	// data/(argument[1]+1) = ypos*global.mapWidth + xpos
-
-	// however we only return an array of integers that only
-	// represent the position
 
 
-
-	// energy exhuasted to
-	// 0: move to road
-	// 1: open
-	// 2: rough
-	// 3: mountain
 	var possible_terrain = array(spr_tile_road, spr_tile_flat, spr_tile_ocean, spr_tile_mountain, spr_tile_border);
 	var energy = array(1,1,2,3);
 	if (argument_count == 5) energy = argument[4]
 	energy[4] = 99;
-
-	/*energy[0,0] = 1; energy[0,1] = 2; energy[0,2] = 2; energy[0, 3] = 99999;
-	energy[1,0] = 2; energy[1,1] = 1; energy[1,2] = 3; energy[1, 3] = 99999;
-	energy[2,0] = 2; energy[2,1] = 3; energy[2,2] = 1; energy[2, 3] = 99999;
-	energy[3,0] = 99999; energy[3,1] = 99999; energy[3,2] = 99999; energy[3, 3] = 99999;*/
-
 
 
 	var start = argument[0];
@@ -81,8 +60,9 @@ function get_tiles_from() {
 		
 		
 		
-			// if htere's  a  soldier blocking  here, can't  go
-			if (argument[2] == -1 && global.grid[np].soldier != -1 && !global.grid[np].hide_soldier) continue;
+			// if htere's  a visible soldier or opoosing team  tower blocking  here, can't  go
+			if (argument[2] == -1 && ((global.grid[np].soldier != -1 && !global.grid[np].hide_soldier) || 
+			(global.grid[np].tower!=-1&&global.grid[np].tower.team != global.selectedSoldier.soldier.team)) ) continue;
 		
 		
 		
@@ -98,8 +78,10 @@ function get_tiles_from() {
 			var ns =  steps + dis;
 			if (ns < z) ds_priority_add(s, np, ns);
 		
-
-			if (argument[2] == 1 && global.grid[np].soldier == -1) continue;
+			// if i only want attackables, stop if this is just a regular tile
+			if (argument[2] == 1 && (global.grid[np].soldier == -1  && global.grid[np].tower == -1)) continue;
+			
+			
 			if (!argument[3] || ns<z+1) res[count++] = global.grid[np];
 		}
 	}

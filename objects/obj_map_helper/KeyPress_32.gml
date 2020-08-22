@@ -8,8 +8,8 @@ global.selectedSoldier = -1;
 
 
 if (global.action == "create" || global.action == "load"){
-	for (var i=0; i<array_length_1d(global.changeSprite); i++)
-		global.changeSprite[i] = -1;
+	
+	global.changeSprite = -1;
 	
 	for (var i = 0; i < instance_number(obj_sprite_dropdown); i++)
 		with(instance_find(obj_sprite_dropdown, i))

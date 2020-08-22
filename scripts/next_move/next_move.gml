@@ -1,8 +1,8 @@
 function next_move() {
 	
 	if (global.action == "create" || global.action == "load"){
-		for (var i=0; i<array_length_1d(global.changeSprite); i++)
-			global.changeSprite[i] = -1;
+		
+		global.changeSprite = -1;
 	}
 		
 

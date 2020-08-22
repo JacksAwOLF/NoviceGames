@@ -11,45 +11,53 @@
 		
 // selected a soldier
 
-debug("enter0")
+if (edit)
 
-if (edit && global.changeSprite[1] != -1){
-			
-	// if there's a soldier here, activate the next block of if statement
-	if  (soldier != -1) {
-		if (global.changeSprite[1] != spr_infantry_delete)
-			global.changeSprite[1] = -1;  
-		else {
-			with(soldier) instance_destroy();
+switch (global.changeSprite){
+	
+	case spr_infantry_delete:
+		with(soldier) instance_destroy();
 			soldier = -1;
 			update_fog();
-		}
-	} 
+		break;
 	
-	else if (global.changeSprite[1] != spr_infantry_delete)
-		create_soldier(global.changeSprite[1], pos);
-}
-
-// selected a road 
-else if (edit && global.changeSprite[2] != -1) road = !road;
-
-// selected a hut
-else if (edit && global.changeSprite[3] != -1){
-	if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
-		hut = instance_create_depth(x, y, -0.5, obj_hut);
-		with (hut){
-			soldier_sprite = other.soldier.sprite_index;
-			pos = other.pos;
-			limit = global.hutlimit[get_soldier_type(other.soldier)];
+	case spr_infantry:
+	case spr_tanks:
+	case spr_ifvs:
+	case spr_infantry1:
+	case spr_tanks1:
+	case spr_ifvs1:
+		if (soldier == -1) create_soldier(global.changeSprite, pos);
+		else global.changeSprite = -1;
+		break;
+		
+	case spr_tile_road:
+		road = !road;
+		break;
+	
+	case spr_soldier_generate:
+		if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
+			hut = instance_create_depth(x, y, -0.5, obj_hut);
+			with (hut){
+				soldier_sprite = other.soldier.sprite_index;
+				pos = other.pos;
+				limit = global.hutlimit[get_soldier_type(other.soldier)];
+			}
+			destroy_soldier(pos);
 		}
-		destroy_soldier(pos);
-	}
+		break;
+		
+	case spr_tower:
+		tower = instance_create_depth(x, y, 1, obj_tower);
+		tower.team = global.turn%2;
+		tower.pos  =pos;
+		break;
 }
 
 
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
-if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.changeSprite[3] == -4){		
+if (!edit || global.changeSprite == -1){		
 	
 	// clear the selected soldier things if this block is not a possible move or attack
 	if (global.selectedSoldier != -1){
@@ -57,11 +65,8 @@ if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2
 	
 		// move block (not self)
 		if (possible_move) {
-			debug("trying to  move to", pos);
 			
 			with (global.selectedSoldier.soldier){	
-				
-				debug("posspath", poss_paths);
 				
 				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1
 					&& array_length_1d(poss_paths)>=1 ) {					
@@ -115,16 +120,23 @@ if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2
 			
 		// attack block
 		else if (possible_attack){
-					
+			
+			var attacked;
+			if (soldier  != -1) attacked = soldier;
+			else attacked = tower;
+			
 			with(global.selectedSoldier.soldier){
-				other.soldier.my_health -= calculate_damage(id, other.soldier);
+				attacked.my_health -= calculate_damage(id, attacked);
 				can = false;
 			}
 						
-			if (soldier.my_health <= 0){
-				instance_destroy(soldier);
-				soldier = -1;
+			if (attacked.my_health <= 0){
+				if ( attacked.object_index == obj_infantry ) soldier = -1;
+				else tower = -1;
+				instance_destroy(attacked);
 			}
+			
+				
 		}
 		
 		erase_blocks();
@@ -136,7 +148,6 @@ if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2
 	// select other soldier when clicked on them
 	if (global.selectedSoldier == -1){										
 		if (soldier != -1 && soldier.team == (global.turn)%2){
-			debug("team", soldier.team, "turn", global.turn, "position", pos);
 			if (soldier.can){
 				global.selectedSoldier = id;
 				soldier_init_move();
@@ -152,9 +163,3 @@ if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2
 		
 		
 		
-
-
-if (global.action == "playw" || global.action == "plawb")
-	global.sendStr += encode(pos) + " ";
-		
-debug("leave0");

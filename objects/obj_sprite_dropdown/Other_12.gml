@@ -14,9 +14,7 @@ if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sp
 	with (binded_button){
 		sprite_index = other.options[options_id];
 		
-		for (var i=0; i<array_length_1d(global.changeSprite); i++)
-			global.changeSprite[i] = -1;
-		global.changeSprite[what] = sprite_index;
+		global.changeSprite = sprite_index;
 	}
 	
 	
