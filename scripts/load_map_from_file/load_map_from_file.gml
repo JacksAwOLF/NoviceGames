@@ -1,4 +1,7 @@
 function load_map_from_file(argument0) {
+	
+	global.edit = global.action == "create" || global.action == "load";
+	
 	global.turn = 0;
 	global.movement = [6,2,15];
 	global.energy = [];
@@ -11,9 +14,6 @@ function load_map_from_file(argument0) {
 	enum Classes {
 		scout, melee, range
 	};
-
-	
-	// used for Classes obj_change_var and save/loading the class
 
 	global.energy[Soldiers.tanks] = [2,3,3,99];
 	global.energy[Soldiers.infantry] = [1,1,2,2];
@@ -52,34 +52,38 @@ function load_map_from_file(argument0) {
 
 	var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 	var lr_padd = 64;
-	var hor_spacing = 75;   // x distance between each button on the top row
+	var hor_spacing = 90;   // x distance between each button on the top row
 	var y_axis = 30;    // of the top row on the top
 	var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
 		(room_width-lr_padd*2)/global.mapWidth);
 
+	var xx, yy, sp_index;
+	
+if (edit){
 
 	// create the tile selections on the top left
 	global.changeSprite[0] = -1;				// the selected tile sprite
 	global.changeSprite[1] = -1;				// the selected army sprite
 	global.changeSprite[2] = -1;				// the road
 	global.changeSprite[3] = -1;				// the hut
-	var possibleTiles = array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border, 
+	var possibleTiles = array(spr_tile_flat,
 		spr_infantry, spr_infantry1, spr_infantry_delete,
 		spr_tile_road,
 		spr_soldier_generate);
 	var index = 0; var w = 0;
-	var slctSld1 = -1, slctSld2 = -1; // instance ids for soldier select tile buttons
+	var slctTile=-1, slctSld1 = -1, slctSld2 = -1; // instance ids for soldier select tile buttons
 
 	for (var index=0; index<array_length_1d(possibleTiles); index++){
 		with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 			what = w;
 			sprite_index = possibleTiles[index];
 		
+			if (possibleTiles[index] == spr_tile_flat) slctTile = id;
 			if (possibleTiles[index] == spr_infantry) slctSld1 = id;
 			if (possibleTiles[index] == spr_infantry1) slctSld2 = id;
 		}
 	
-		if (index==3 || index==6 || index==7) w++;
+		if (index==0 || index==3 || index==4) w++;
 	
 	}
 
@@ -94,7 +98,14 @@ function load_map_from_file(argument0) {
 		binded_button = slctSld2;
 		options = [spr_infantry1, spr_tanks1, spr_ifvs1];
 	}
+	
+	// dropdown for tiles
+	with(instance_create_depth(slctTile.x, y_axis+slctTile.sprite_height, -1, obj_sprite_dropdown)) {
+		binded_button = slctTile;
+		options = [spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border];
+	}
 
+	
 
 	// create the soldier modification vars on top right
 	var names; 
@@ -111,7 +122,9 @@ function load_map_from_file(argument0) {
 
 	hor_spacing = 60;
 	for (var index=array_length_1d(names)-1; index>=0; index--){
-		with(instance_create_depth(room_width-(array_length_1d(names)-index)*hor_spacing, 16, -1, obj_change_var)){
+		with(instance_create_depth(
+		room_width-(array_length_1d(names)-index)*hor_spacing, 
+		16, -1, obj_change_var)){
 			ind = index;
 			text = names[index];
 		}
@@ -120,40 +133,41 @@ function load_map_from_file(argument0) {
 
 
 	// create the back, next, save buttons on bottom row
-	var xx, yy, sp_index;
-
+	
 
 	// create the saving button on bottom right
 	sp_index = object_get_sprite(obj_button_saveMap);
 	xx = room_width - sprite_get_width(sp_index);
 	yy = room_height - sprite_get_height(sp_index);
 
-	instance_create_depth(xx, yy, -1, obj_button_saveMap);
+	instance_create_depth(xx, yy, -100, obj_button_saveMap);
 
-
-	// back button bottom left
-	sp_index = object_get_sprite(obj_button_backMenu);
-	xx = room_width - sprite_get_width(sp_index);
-	yy = room_height - sprite_get_height(sp_index);
-
-	instance_create_depth(0, yy, -1, obj_button_backMenu);
-
-
-	// bottom, middle
-	sp_index = object_get_sprite(obj_button_nextStep);
-	xx = (room_width - sprite_get_width(sp_index)) / 2;
-	yy = room_height - sprite_get_height(sp_index);
-
-	instance_create_depth(xx, yy, -1, obj_button_nextStep);
+	
 
 	// bottom bar on the bottom
 	sp_index = object_get_sprite(obj_gui_bottom_bar);
 	xx = 0;
 	yy = room_height - sprite_get_height(sp_index);
 
-	instance_create_depth(xx, yy, -1, obj_gui_bottom_bar);
+	instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
 	instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
 
+}
+
+	// back button bottom left
+	sp_index = object_get_sprite(obj_button_backMenu);
+	xx = 0;
+	yy = room_height - sprite_get_height(sp_index);
+
+	instance_create_depth(0, yy, -100, obj_button_backMenu);
+	
+	// bottom, middle
+	sp_index = object_get_sprite(obj_button_nextStep);
+	xx = (room_width - sprite_get_width(sp_index)) / 2;
+	yy = room_height - sprite_get_height(sp_index);
+
+	instance_create_depth(xx, yy, -100, obj_button_nextStep);
+	
 
 	// create the actual tiles
 	// global.grid[pos]: the 2darray that represents the map grid on the battlefield
@@ -208,7 +222,6 @@ function load_map_from_file(argument0) {
 					vision = real(file_text_read_real(file)); file_text_readln(file);
 					class = real(file_text_read_real(file)); file_text_readln(file);
 					
-				
 					vision = global.vision[class];
 					team = get_team(sprite_index);
 				}

@@ -4,9 +4,14 @@
 erase_blocks();
 global.selectedSoldier = -1;
 
-for (var i=0; i<array_length_1d(global.changeSprite); i++)
-	global.changeSprite[i] = -1;
+
+
+
+if (global.action == "create" || global.action == "load"){
+	for (var i=0; i<array_length_1d(global.changeSprite); i++)
+		global.changeSprite[i] = -1;
 	
-for (var i = 0; i < instance_number(obj_sprite_dropdown); i++)
-	with(instance_find(obj_sprite_dropdown, i))
-		dropdown_active = false;
+	for (var i = 0; i < instance_number(obj_sprite_dropdown); i++)
+		with(instance_find(obj_sprite_dropdown, i))
+			dropdown_active = false;
+}

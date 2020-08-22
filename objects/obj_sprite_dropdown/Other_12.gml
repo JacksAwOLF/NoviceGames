@@ -18,7 +18,7 @@ if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sp
 			global.changeSprite[i] = -1;
 		global.changeSprite[what] = sprite_index;
 	}
-	// change move range?
+	
 	
 } 
 

@@ -32,7 +32,7 @@ var mouseIn = point_in_rectangle(mouse_x,mouse_y,x,y,
 								x+sprite_width,y+sprite_height+(dropdown_active?menu_height*image_yscale:0));
 
 if (mouseIn && (global.mouseInstanceId == -1 || global.mouseInstanceId.depth > depth)) {
-	
+
 	var eventId = -1;
 	
 	if (mouse_check_button_pressed(mb_left)) eventId = 0;

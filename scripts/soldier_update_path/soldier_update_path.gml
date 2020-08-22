@@ -1,3 +1,13 @@
+
+
+
+/// @description in play ode, returns whether or not it si your turn
+function my_turn(){
+	return 	global.action=="playw"&&global.turn%2==0 || 
+		global.action=="playb"&&global.turn%2==1; 
+}
+
+
 /// @description Updates the prospective path for the selected soldier
 /// @param clear_path Boolean whether to clear the paths
 function soldier_update_path() {

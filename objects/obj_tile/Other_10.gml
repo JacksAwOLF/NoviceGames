@@ -1,8 +1,5 @@
 /// @description Insert description here
 // You can write your code in this editor
-
-
-
 	
 	
 // each index of global.changeSprite[] has a different action
@@ -13,7 +10,10 @@
 
 		
 // selected a soldier
-if (global.changeSprite[1] != -1){
+
+debug("enter0")
+
+if (edit && global.changeSprite[1] != -1){
 			
 	// if there's a soldier here, activate the next block of if statement
 	if  (soldier != -1) {
@@ -31,10 +31,10 @@ if (global.changeSprite[1] != -1){
 }
 
 // selected a road 
-else if (global.changeSprite[2] != -1) road = !road;
+else if (edit && global.changeSprite[2] != -1) road = !road;
 
 // selected a hut
-else if (global.changeSprite[3] != -1){
+else if (edit && global.changeSprite[3] != -1){
 	if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
 		hut = instance_create_depth(x, y, -0.5, obj_hut);
 		with (hut){
@@ -49,7 +49,7 @@ else if (global.changeSprite[3] != -1){
 
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
-if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.changeSprite[3] == -4){		
+if (!edit || global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.changeSprite[3] == -4){		
 	
 	// clear the selected soldier things if this block is not a possible move or attack
 	if (global.selectedSoldier != -1){
@@ -57,14 +57,14 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 	
 		// move block (not self)
 		if (possible_move) {
-			
+			debug("trying to  move to", pos);
 			
 			with (global.selectedSoldier.soldier){	
 				
+				debug("posspath", poss_paths);
+				
 				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1
-					&& array_length_1d(poss_paths)>=1 ) {
-					
-					
+					&& array_length_1d(poss_paths)>=1 ) {					
 					
 					if (array_length_1d(poss_paths) > 1) can = false;
 					
@@ -114,7 +114,7 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 				
 			
 		// attack block
-		else if (possible_attack && !hide_soldier){
+		else if (possible_attack){
 					
 			with(global.selectedSoldier.soldier){
 				other.soldier.my_health -= calculate_damage(id, other.soldier);
@@ -132,10 +132,11 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 	}
 			
 			
-			
+	
 	// select other soldier when clicked on them
 	if (global.selectedSoldier == -1){										
 		if (soldier != -1 && soldier.team == (global.turn)%2){
+			debug("team", soldier.team, "turn", global.turn, "position", pos);
 			if (soldier.can){
 				global.selectedSoldier = id;
 				soldier_init_move();
@@ -146,15 +147,14 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 	
 
 	if (global.selectedSoldier == -2) global.selectedSoldier = -1;
-			
-			
 
-	// if soldier is selected, but it can't  attack or move, deselect  it
-	if (global.selectedSoldier != -1) 
-		if (!global.selectedSoldier.soldier.can) {
-			global.selectedSoldier = -1;
-			error = true;
-		}
 }
 		
 		
+		
+
+
+if (global.action == "playw" || global.action == "plawb")
+	global.sendStr += encode(pos) + " ";
+		
+debug("leave0");

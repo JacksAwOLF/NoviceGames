@@ -10,5 +10,5 @@ event_inherited();
 
 // if mouse is pressed again after menu was open
 // close the dropdown menu
-if (mouse_check_button_pressed(mb_left) && prev_state)
+if (mouse_check_button_released(mb_left) && prev_state)
 	dropdown_active = false;

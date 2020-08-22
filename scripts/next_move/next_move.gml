@@ -1,14 +1,16 @@
 function next_move() {
-	for (var i=0; i<array_length_1d(global.changeSprite); i++)
-		global.changeSprite[i] = -1;
-
-
-	var n = instance_number(obj_infantry);
-	for (var i=0; i<n; i++){
-		with(instance_find(obj_infantry, i)){
-			can = true;
-		}
+	
+	if (global.action == "create" || global.action == "load"){
+		for (var i=0; i<array_length_1d(global.changeSprite); i++)
+			global.changeSprite[i] = -1;
 	}
+		
+
+	// reset all soldiers moving thing
+	var n = instance_number(obj_infantry);
+	for (var i=0; i<n; i++)
+		with(instance_find(obj_infantry, i))
+			can = true;
 	
 	// increment the hut spawn times
 	n = instance_number(obj_hut);
@@ -21,7 +23,7 @@ function next_move() {
 	global.turn++; // relative positioning is important
 
 
-	// deselect soldiers and clear  drawings
+	// deselect soldiers and clear drawings
 	erase_blocks();
 	global.selectedSoldier = -1;
 

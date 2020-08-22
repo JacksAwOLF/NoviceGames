@@ -5,11 +5,16 @@ hor = -1
 ver = -1
 load_file = -1
 map_loaded = false
+move = -1;
+global.sendStr = "";
 
-if global.loadMap 
-	load_file = get_string_async("Enter file name: ", "hi.txt");
-else  
-	hor = get_integer_async("How many empty tiles left to right?", 10);
-
-
-
+switch(global.action){
+	case "load": case "playw": case "playb":
+		load_file = get_string_async("Enter file name: ", "hi.txt");
+		break;
+	case "create":
+		hor = get_integer_async("How many empty tiles left to right?", 10);
+		break;
+	default:
+		show_error("ugh", true);
+}

@@ -11,8 +11,10 @@ function update_fog() {
 		with(global.grid[i])
 			if (soldier != -1 && soldier.team == global.turn%2){
 				seen = get_vision_tiles_2(global.grid[i]);//get_tiles_from(pos, soldier.vision, 0, false);	
-				for (var j=0; j<array_length_1d(seen); j++)
+				for (var j=0; j<array_length_1d(seen); j++){
 					seen[j].hide_soldier = false;
+					debug(seen[j].pos, "no fog");
+				}
 			}
 
 }
