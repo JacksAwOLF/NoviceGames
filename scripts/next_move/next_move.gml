@@ -23,8 +23,11 @@ function next_move() {
 	global.turn++; // relative positioning is important
 
 
-	// deselect soldiers and clear drawings
-	erase_blocks();
+
+
+	// deselect soldiers and clear  drawings
+	erase_blocks(true);
+
 	global.selectedSoldier = -1;
 
 

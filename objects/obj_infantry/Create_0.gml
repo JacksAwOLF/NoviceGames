@@ -17,7 +17,9 @@ poss_moves = -1;
 
 
 team = 0;
-poss_paths = -1;
+my_health = max_health
+
+poss_paths = 0;
 
 
 error = false;					// when set to true, flash the soldier

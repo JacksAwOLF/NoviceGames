@@ -23,20 +23,20 @@ else if i_d == load_file {
 	load_map_from_file(string(val));
 	
 	// determine if we should move, or wait for oponnent
-	if (global.action != "laod")
+	/*if (global.action != "laod")
 		if (global.action == "playw" && global.turn%2==1 || 
 		global.action == "playb" && global.turn%2==0){
 			next_move(); // can't let "black" see "white's" fog of war if the loaded map is "white's" turn
 			get_text();
-		}
+		}*/
 }
 
 
-else if i_d == move {
+/*else if i_d == move {
 	// execute the opponents moves
 	next_move();   // go to opponents turn
 	val = string(val);
 	if (val != "") set_text();
 	next_move();    // back to my turn
-}
+}*/
 

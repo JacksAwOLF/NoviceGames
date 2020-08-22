@@ -72,9 +72,10 @@ function init_dijkstra() {
 			// check if visited
 			var np =  nr * global.mapWidth + nc;
 			if (global.from[np] != -1) continue;
-			
+
+
 			if (argument[3] == -1 && 
-			((global.grid[np].soldier != -1 && !global.grid[np].hide_soldier)||
+			((global.grid[np].soldier != -1 && !global.grid[np].hide_soldier && global.grid[np]!=global.selectedSoldier)||
 			(global.grid[np].tower!=-1&&global.grid[np].tower.team != global.selectedSoldier.soldier.team)) )  
 				continue; // if you can see a  soldier on this tile
 		

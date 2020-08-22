@@ -160,6 +160,9 @@ if (global.edit){
 	// global.grid[pos]: the 2darray that represents the map grid on the battlefield
 	// pos: y * global.mapWidth + x
 	global.selectedSoldier = -1;
+	global.selectedPathpointsStack = ds_stack_create();
+	global.pathCost = 0;
+	
 	global.prevHoveredTiles = [-1, -1];
 
 	for (var j=0; j<global.mapHeight; j+=1){
@@ -188,9 +191,35 @@ if (global.edit){
 
 
 	if argument0 != ""{
-		id.readfile = true;
-		id.filevar = file;
-		set_text();
+		for (var i=0; i<global.mapWidth*global.mapHeight; i++){
+			with (global.grid[i]){
+				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
+			
+				var line = real(file_text_read_real(file)); file_text_readln(file);
+				if (line == 1) road = true;
+			
+				line = real(file_text_read_real(file)); file_text_readln(file);
+				if line == -1  continue;
+			
+				soldier = instance_create_depth(x, y, 0, obj_infantry);
+				with soldier {
+					attack_range = line
+					max_health = real(file_text_read_real(file)); file_text_readln(file);
+					max_damage = real(file_text_read_real(file)); file_text_readln(file);
+					my_health = real(file_text_read_real(file)); file_text_readln(file);
+					sprite_index = real(file_text_read_real(file)); file_text_readln(file);
+					can = real(file_text_read_real(file)); file_text_readln(file);
+					vision = real(file_text_read_real(file)); file_text_readln(file);
+					class = real(file_text_read_real(file)); file_text_readln(file);
+					direction = real(file_text_read_real(file)); file_text_readln(file);
+				
+					vision = global.vision[class];
+					team = get_team(sprite_index);
+				}
+			
+			
+			}
+		}
 	}
 
 	// identifiers for click detection

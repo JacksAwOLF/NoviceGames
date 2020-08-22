@@ -1,8 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-debug("enter pressed")
 
-if (global.action == "playw" || global.action == "playb")
+/*if (global.action == "playw" || global.action == "playb")
 	move = get_string_async("Send your move to opponent and enter their move: ", global.sendStr);
-else next_move();
+else */
+
+
+
+next_move();
