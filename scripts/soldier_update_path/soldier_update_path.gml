@@ -8,15 +8,15 @@ function soldier_update_path() {
 		
 			// if the variable that stores paths exists, reset it
 			if (variable_instance_exists(id, "poss_paths") && poss_paths != -1) 
-				for (var i = 0; i < array_length_1d(poss_paths); i++) 
-					poss_paths[i].possible_path = false;
+				for (var i = 0; i < array_length_1d(poss_paths); i++)
+					poss_paths[i].possible_path = max(0, poss_paths[i].possible_path-1);
 	
 			poss_paths = -1;
 	
 		
 			if (argument[0] == 0 && global.prevHoveredTiles[0].possible_move) {
 				var throughPrev = [];			
-				var mobility = global.movement[get_soldier_type(id)];
+				var mobility = global.movement[get_soldier_type(id)] - global.pathCost;
 			
 				if (global.prevHoveredTiles[1] != -1) {
 					with(global.prevHoveredTiles[1]) {
@@ -36,14 +36,14 @@ function soldier_update_path() {
 					}
 				}
 			
-				if (array_length_1d(throughPrev) > 1)
+				if (false && array_length_1d(throughPrev) > 1)
 					poss_paths = throughPrev;
 				else 
 					poss_paths = get_path_to(global.prevHoveredTiles[0].pos,mobility);
 			
 				
 				for (var i = 0; i < array_length_1d(poss_paths); i++)
-					poss_paths[i].possible_path = true;
+					poss_paths[i].possible_path += 1;
 			}
 		}
 	}

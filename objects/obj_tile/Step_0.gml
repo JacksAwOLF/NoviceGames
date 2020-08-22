@@ -10,9 +10,6 @@ event_inherited();
 
 if mouseIn {	
 	
-
-	
-	
 	// draw temp army sprite if there is a selected 
 	if (global.selectedSoldier != -1) {
 		if (possible_move) {

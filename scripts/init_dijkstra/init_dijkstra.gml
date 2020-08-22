@@ -74,7 +74,7 @@ function init_dijkstra() {
 			if (global.from[np] != -1) continue;
 			
 			if (argument[3] == -1 && global.grid[np].soldier != -1
-				&& !global.grid[np].hide_soldier) continue; // if you can see a  soldier on this tile
+				&& !global.grid[np].hide_soldier && global.grid[np]!=global.selectedSoldier) continue; // if you can see a  soldier on this tile
 		
 			var ns = steps + (argument[4] ? 1 : get_energy_to_cross(soldier_id, global.grid[np]));
 			if (ns <= nrg) {

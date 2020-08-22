@@ -159,6 +159,9 @@ function load_map_from_file(argument0) {
 	// global.grid[pos]: the 2darray that represents the map grid on the battlefield
 	// pos: y * global.mapWidth + x
 	global.selectedSoldier = -1;
+	global.selectedPathpointsStack = ds_stack_create();
+	global.pathCost = 0;
+	
 	global.prevHoveredTiles = [-1, -1];
 
 	for (var j=0; j<global.mapHeight; j+=1){

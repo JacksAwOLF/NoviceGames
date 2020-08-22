@@ -22,7 +22,7 @@ function next_move() {
 
 
 	// deselect soldiers and clear  drawings
-	erase_blocks();
+	erase_blocks(true);
 	global.selectedSoldier = -1;
 
 

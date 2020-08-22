@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+event_inherited();
+
 hide_key = ord("E");
 relx = x / camera_get_view_width(0);
 rely = y / camera_get_view_height(0);

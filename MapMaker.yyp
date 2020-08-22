@@ -71,6 +71,7 @@
     {"id":{"name":"obj_gui_bottom_bar","path":"objects/obj_gui_bottom_bar/obj_gui_bottom_bar.yy",},"order":9,},
     {"id":{"name":"obj_hut","path":"objects/obj_hut/obj_hut.yy",},"order":10,},
     {"id":{"name":"obj_hut_conquer","path":"objects/obj_hut_conquer/obj_hut_conquer.yy",},"order":11,},
+    {"id":{"name":"spr_select_possiblePathPoint","path":"sprites/spr_select_possiblePathPoint/spr_select_possiblePathPoint.yy",},"order":19,},
     {"id":{"name":"rm_start_screen","path":"rooms/rm_start_screen/rm_start_screen.yy",},"order":0,},
     {"id":{"name":"rm_map","path":"rooms/rm_map/rm_map.yy",},"order":1,},
     {"id":{"name":"rm_info","path":"rooms/rm_info/rm_info.yy",},"order":2,},

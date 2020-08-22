@@ -25,6 +25,7 @@ if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, siz
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
 if (possible_attack && !hide_soldier) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
+if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
 
 
 // draw soldiers if needed
@@ -65,13 +66,13 @@ if (draw_temp_soldier != -1)
 	
 // draw the  hut if needed
 if (hut != -1 /*&& !hide_soldier*/ ){
-with(hut){
-	var ss = other.size;
-	var scale_factor = ss/sprite_get_width(soldier_sprite);
+	with(hut){
+		var ss = other.size;
+		var scale_factor = ss/sprite_get_width(soldier_sprite);
 	
-	if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.5);
-	draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.5);
+		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 
-	draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
-}
+		draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+	}
 }

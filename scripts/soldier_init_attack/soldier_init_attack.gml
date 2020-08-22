@@ -17,6 +17,7 @@ function soldier_init_attack() {
 				for (var i=1; i<array_length_1d(poss_attacks); i++)
 					with(poss_attacks[i]){
 						if (id != global.selectedSoldier && soldier.team != other.team){
+							debug(id, " is possible attack");
 							possible_attack = true;
 							found  = true;
 						}

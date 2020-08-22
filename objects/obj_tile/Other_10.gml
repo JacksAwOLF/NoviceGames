@@ -3,20 +3,20 @@
 
 
 
-	
+
 	
 // each index of global.changeSprite[] has a different action
 // on this tile
 
 
 // index 0 is implemented in user event 1
-
+enableDoubleClick = false;
 		
 // selected a soldier
 if (global.changeSprite[1] != -1){
 			
 	// if there's a soldier here, activate the next block of if statement
-	if  (soldier != -1) {
+	if (soldier != -1) {
 		if (global.changeSprite[1] != spr_infantry_delete)
 			global.changeSprite[1] = -1;  
 		else {
@@ -51,71 +51,8 @@ else if (global.changeSprite[3] != -1){
 // this block handles other clicking events like moving and attacking
 if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.changeSprite[3] == -4){		
 	
-	// clear the selected soldier things if this block is not a possible move or attack
-	if (global.selectedSoldier != -1){
-
-	
-		// move block (not self)
-		if (possible_move) {
-			
-			
-			with (global.selectedSoldier.soldier){	
-				
-				if (variable_instance_exists(id, "poss_paths") && poss_paths != -1
-					&& array_length_1d(poss_paths)>=1 ) {
-					
-					
-					
-					if (array_length_1d(poss_paths) > 1) can = false;
-					
-					var i;
-					for (i = array_length_1d(poss_paths)-2; i>=0; i--)
-						if (poss_paths[i].soldier!=-1 && poss_paths[i] != global.selectedSoldier) break;	
-				
-					// clear fog if encountered soldier (stuck and  can't move)
-					if (i != -1){
-						poss_paths[i].hide_soldier = false;
-						error = true;
-					}
-					
-					// if you dont get stuck, move and change direction
-					if (i != array_length_1d(poss_paths)-2){
-				
-						// calculate direction  assuming you arrived  
-						//  at  the blocked  tile then  was pushed back
-						if (error) i--;
-						var diff = poss_paths[i+1] - poss_paths[i+2];
-						switch (diff) {
-							case 1: direction = 270; break;
-							case -1: direction = 90; break;
-							case global.mapWidth: direction = 180; break;
-							default: direction = 0;
-						}
-				
-						// move to the pushed back tile (not  changing x or y)
-						if (error) i++;
-						if (poss_paths[i+1] != global.selectedSoldier){
-							poss_paths[i+1].soldier = global.selectedSoldier.soldier;											
-							global.selectedSoldier.soldier = -1;
-							global.selectedSoldier = poss_paths[i+1];
-							update_fog();
-						}
-						
-					
-						//clear fog if encountered soldier  (actually moved)
-						if (i != -1) poss_paths[i].hide_soldier = false;
-					
-					}
-				}
-			
-			}
-			
-		}
-				
-			
-		// attack block
-		else if (possible_attack && !hide_soldier){
-					
+	if (global.selectedSoldier != -1) {
+		if (possible_attack && !hide_soldier) { // process attacking
 			with(global.selectedSoldier.soldier){
 				other.soldier.my_health -= calculate_damage(id, other.soldier);
 				can = false;
@@ -125,36 +62,84 @@ if (global.changeSprite[0]+global.changeSprite[1]+global.changeSprite[2]+global.
 				instance_destroy(soldier);
 				soldier = -1;
 			}
+			
+			erase_blocks(true);
+			global.selectedSoldier = -1;
+			
+		} else if (possible_pathpoint) { // process deselecting blue tiles
+			
+			var cur = ds_stack_top(global.selectedPathpointsStack), met_same = false;
+			while (ds_stack_size(global.selectedPathpointsStack) > 1 &&
+					(!met_same || cur[1] == 0)) {
+				
+				cur[0].possible_pathpoint = false;
+				cur[0].possible_path -= 1;
+					
+				met_same |= (cur[0] == id && cur[1] > 0);
+				global.pathCost -= cur[1];
+				
+				ds_stack_pop(global.selectedPathpointsStack);
+				cur = ds_stack_top(global.selectedPathpointsStack);
+			}
+				
+				
+			erase_blocks();
+			soldier_init_move(cur[0]);
+			soldier_update_path(false);
+			
+		} // process selecting blue tiles
+		else if (possible_move &&
+					(global.selectedSoldier != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
+			
+			enableDoubleClick = true;
+			possible_pathpoint = true;
+				
+			global.pathCost += global.dist[pos];
+			for (var i = array_length_1d(global.selectedSoldier.soldier.poss_paths)-2; i >= 0; i--) {
+				var val = [global.selectedSoldier.soldier.poss_paths[i], (i==0?global.dist[pos]:0)];
+				
+				ds_stack_push(global.selectedPathpointsStack, val);
+				val[0].possible_path += 1;
+			}
+			
+				
+			erase_blocks();
+			soldier_init_move(id);
+			soldier_update_path(false);
+			
+		} // process deselecting own soldier/selecting other soldiers
+		else if (!possible_path || 
+			(global.selectedSoldier == id && ds_stack_size(global.selectedPathpointsStack) == 1)) {
+			
+			var canSelect = global.selectedSoldier != id && ds_stack_size(global.selectedPathpointsStack) == 1;
+			erase_blocks(true);
+			
+			global.selectedSoldier = canSelect ? -1 : -2;
 		}
-		
-		erase_blocks();
-		global.selectedSoldier = (id == global.selectedSoldier ? -2 : -1);
 	}
 			
-			
+	
 			
 	// select other soldier when clicked on them
-	if (global.selectedSoldier == -1){										
+	if (global.selectedSoldier == -1) {										
 		if (soldier != -1 && soldier.team == (global.turn)%2){
 			if (soldier.can){
 				global.selectedSoldier = id;
+			
+				ds_stack_clear(global.selectedPathpointsStack);
+				ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier, 0]);
+				global.selectedSoldier.possible_path = 1;
+				
+			
 				soldier_init_move();
 				soldier_init_attack();
 			} else soldier.error = true;
-		}
-	} 
+		}		
+	}
 	
-
-	if (global.selectedSoldier == -2) global.selectedSoldier = -1;
-			
-			
-
-	// if soldier is selected, but it can't  attack or move, deselect  it
-	if (global.selectedSoldier != -1) 
-		if (!global.selectedSoldier.soldier.can) {
-			global.selectedSoldier = -1;
-			error = true;
-		}
+	
+	if (global.selectedSoldier == -2)
+		global.selectedSoldier = -1;
 }
 		
 		

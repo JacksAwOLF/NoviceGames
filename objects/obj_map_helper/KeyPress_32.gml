@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-erase_blocks();
+erase_blocks(true);
 global.selectedSoldier = -1;
 
 for (var i=0; i<array_length_1d(global.changeSprite); i++)

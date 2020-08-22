@@ -13,7 +13,9 @@ poss_attacks = -1;
 poss_moves = -1;
 team = 0;
 my_health = max_health
+
 poss_paths = -1;
+poss_pathpoints = [];			// stores key points of path
 
 
 error = false;					// when set to true, flash the soldier
