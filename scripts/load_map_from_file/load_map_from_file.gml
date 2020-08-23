@@ -203,7 +203,7 @@ if (global.edit){
 	global.tiles_save_order = array(
 		"sprite_index", 
 		"road", 
-		array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision"), 
+		array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
 		array("hut", "cur", "limit", "pos", "soldier_sprite"),
 		array("tower", "my_health", "team")
 	);

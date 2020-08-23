@@ -31,6 +31,3 @@ if (global.edit){
 	def[Svars.vision] = global.soldier_vars[Svars.vision];
 
 }
-
-
-debug("created this hut", depth);

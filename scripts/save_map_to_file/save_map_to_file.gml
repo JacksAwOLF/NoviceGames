@@ -28,7 +28,7 @@ function save_map_to_file(argument0) {
 					var data = real(variable_instance_get(data1, name[k]))
 					file_text_write_string(file, string(data)+"\n");
 					
-					debug("wrote out", data1, ".",name[k], "as", data);
+					//debug("wrote out", data1, ".",name[k], "as", data);
 					
 				}
 					
@@ -67,7 +67,7 @@ function load_tiles_from_file(file) {
 				}
 				
 				// some variables are only updated in the cvreate event of the objects
-				with(obj) event_perform_object(global.tiles_save_objects[j], ev_create, 0);
+				//with(obj) event_perform_object(global.tiles_save_objects[j], ev_create, 0);
 					
 			} else variable_instance_set(global.grid[i], first, data1);
 				
