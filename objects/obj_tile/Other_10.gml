@@ -17,10 +17,10 @@ if (edit)
 switch (global.changeSprite){
 	
 	case spr_infantry_delete:
-		with(soldier) instance_destroy();
-			soldier = -1;
-			update_fog();
-			break;
+		if (soldier!=-1) with(soldier) instance_destroy();
+		soldier = -1;
+		update_fog();
+		break;
 	
 	case spr_infantry:
 	case spr_tanks:
@@ -43,6 +43,7 @@ switch (global.changeSprite){
 				soldier_sprite = other.soldier.sprite_index;
 				pos = other.pos;
 				limit = global.hutlimit[get_soldier_type(other.soldier)];
+				debug(depth, "is the  depth")
 			}
 			destroy_soldier(pos);
 		}
@@ -51,7 +52,6 @@ switch (global.changeSprite){
 	case spr_tower:
 		tower = instance_create_depth(x, y, 1, obj_tower);
 		tower.team = global.turn%2;
-		tower.pos  =pos;
 		break;
 }
 

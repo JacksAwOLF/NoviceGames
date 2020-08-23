@@ -10,6 +10,8 @@ if (global.selectedSoldier != -1){
 	// move block (not self)
 	if (possible_move) {
 		
+		
+		
 		var path = [];
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);
@@ -23,8 +25,6 @@ if (global.selectedSoldier != -1){
 		with (global.selectedSoldier.soldier){	
 				
 			if (array_length_1d(path)>=1 ) {
-					
-					
 					
 				if (array_length_1d(path) > 1) can = false;
 					
@@ -72,6 +72,7 @@ if (global.selectedSoldier != -1){
 			
 	}
 				
+	
 	
 	
 	erase_blocks(true);

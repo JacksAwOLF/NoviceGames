@@ -41,14 +41,23 @@ function load_map_from_file(argument0) {
 
 	// mapHieght and mapWidth should be already set before calling this function
 	// if no file is specified
+	
+	debug("laoding file", argument0);
 
+	global.global_save_order = ["mapWidth", "mapHeight", "turn"];
 	if argument0 != ""{	
 		var file = file_text_open_read(argument0);
 	
-		global.mapWidth = real(file_text_read_real(file)); file_text_readln(file);
-		global.mapHeight = real(file_text_read_real(file)); file_text_readln(file);
-		global.turn = real(file_text_read_real(file)); file_text_readln(file);
+		for (var i = 0; i<array_length(global.global_save_order); i++){
+			variable_global_set(global.global_save_order[i], real(file_text_read_real(file)));
+			file_text_readln(file);
+		}
+			
+		
+		debug(global.mapWidth, global.mapHeight, global.turn);
 	}
+	
+	
 
 	var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 	var lr_padd = 64;
@@ -60,6 +69,7 @@ function load_map_from_file(argument0) {
 	var xx, yy, sp_index;
 	
 if (global.edit){
+
 
 	// create the tile selections on the top left
 	global.changeSprite = -1;
@@ -184,42 +194,27 @@ if (global.edit){
 		}
 	}
 
-
-
+	
+	
+	
 	// if the file input is specified
 	// open the file and update the tile_sprites and add soldiers if neccessary
-
-
-	if argument0 != ""{
-		for (var i=0; i<global.mapWidth*global.mapHeight; i++){
-			with (global.grid[i]){
-				sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-			
-				var line = real(file_text_read_real(file)); file_text_readln(file);
-				if (line == 1) road = true;
-			
-				line = real(file_text_read_real(file)); file_text_readln(file);
-				if line == -1  continue;
-			
-				soldier = instance_create_depth(x, y, 0, obj_infantry);
-				with soldier {
-					attack_range = line
-					max_health = real(file_text_read_real(file)); file_text_readln(file);
-					max_damage = real(file_text_read_real(file)); file_text_readln(file);
-					my_health = real(file_text_read_real(file)); file_text_readln(file);
-					sprite_index = real(file_text_read_real(file)); file_text_readln(file);
-					can = real(file_text_read_real(file)); file_text_readln(file);
-					vision = real(file_text_read_real(file)); file_text_readln(file);
-					class = real(file_text_read_real(file)); file_text_readln(file);
-					direction = real(file_text_read_real(file)); file_text_readln(file);
-				
-					vision = global.vision[class];
-					team = get_team(sprite_index);
-				}
-			
-			
-			}
-		}
+	
+	global.tiles_save_order = array(
+		"sprite_index", 
+		"road", 
+		array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision"), 
+		array("hut", "cur", "limit", "pos", "soldier_sprite"),
+		array("tower", "my_health", "team")
+	);
+	
+	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
+	
+	
+	if (argument0 != "")  {
+		debug("reading tile input now");
+		load_tiles_from_file(file);    // in save_map_to_file
+		file_text_close(file);
 	}
 
 	// identifiers for click detection

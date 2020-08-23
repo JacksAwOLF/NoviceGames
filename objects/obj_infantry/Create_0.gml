@@ -6,8 +6,7 @@ if (global.action == "create" || global.action  ==  "load"){
 	max_health = global.soldier_vars[Svars.max_health];
 	max_damage = global.soldier_vars[Svars.max_damage];
 	class = global.soldier_vars[Svars.class];
-	vision = global.soldier_vars[Svars.vision]; //global.vision[class];
-	
+	vision = global.soldier_vars[Svars.vision]; //global.vision[class]
 	my_health = max_health
 }
 
@@ -28,3 +27,6 @@ error_limit = 3;				// how many times to flash
 error_wait = 5;					// how many frames per flash
 
 event_inherited();
+
+
+team = get_team(sprite_index);

@@ -15,12 +15,22 @@ cur = 0;
 // pos = 0;
 // soldier_sprite = 0;
 
-depth = -1;
+depth = -0.5;
 
 
 def = []
-def[Svars.attack_range] = global.soldier_vars[Svars.attack_range];
-def[Svars.max_health] = global.soldier_vars[Svars.max_health];
-def[Svars.max_damage] = global.soldier_vars[Svars.max_damage];
-def[Svars.class] = global.soldier_vars[Svars.class];
-def[Svars.vision] = global.soldier_vars[Svars.vision];
+
+
+
+if (global.edit){
+
+	def[Svars.attack_range] = global.soldier_vars[Svars.attack_range];
+	def[Svars.max_health] = global.soldier_vars[Svars.max_health];
+	def[Svars.max_damage] = global.soldier_vars[Svars.max_damage];
+	def[Svars.class] = global.soldier_vars[Svars.class];
+	def[Svars.vision] = global.soldier_vars[Svars.vision];
+
+}
+
+
+debug("created this hut", depth);

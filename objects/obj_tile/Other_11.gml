@@ -13,7 +13,3 @@ switch(global.changeSprite){
 		sprite_index = global.changeSprite;
 		break;
 }
-
-	
-	
-	

@@ -4,7 +4,7 @@
     "path": "sprites/spr_soldier_generate/spr_soldier_generate.yy",
   },
   "solid": false,
-  "visible": true,
+  "visible": false,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {

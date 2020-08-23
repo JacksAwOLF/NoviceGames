@@ -30,6 +30,17 @@ if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, s
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
 
 
+
+// draw tower
+if (tower != -1){
+	var scale_factor = size/sprite_get_width(spr_tower);
+	draw_sprite_ext(spr_tower, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+
+	draw_healthbar(x, y+size/8, x+size, y+size/4, 
+		tower.my_health, c_white, c_gray, c_maroon,0, 1, 1);
+}
+
+
 // draw soldiers if needed
 if (soldier != -1 && !hide_soldier){	
 	
@@ -68,6 +79,7 @@ if (draw_temp_soldier != -1)
 	
 // draw the  hut if needed
 if (hut != -1 /*&& !hide_soldier*/ ){
+	
 	with(hut){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(soldier_sprite);
@@ -76,13 +88,8 @@ if (hut != -1 /*&& !hide_soldier*/ ){
 		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 
 		draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+		
 	}
 }
 
-if (tower != -1) with (tower){
-	draw_self();
 
-	var p = global.grid[pos];
-	draw_healthbar(x, y+p.size/8, x+p.size, y+p.size/4, 
-		my_health, c_white, c_gray, c_white,0, 1, 1);
-}
