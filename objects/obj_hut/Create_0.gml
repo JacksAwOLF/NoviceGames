@@ -3,10 +3,7 @@
 
 event_inherited();
 
-// when cur reaches limit, 
-// you can click on the hut and generate a soldier
-limit = 5;
-cur = 0;
+
 
 
 // these variables are initialized when this is
@@ -14,20 +11,18 @@ cur = 0;
 
 // pos = 0;
 // soldier_sprite = 0;
+//  limit = 5;
 
-depth = -0.5;
-
-
-def = []
-
-
+// when cur reaches limit, 
+// you can click on the hut and generate a soldier
+steps = 0;
+depth = 0;
 
 if (global.edit){
-
+	def = []
 	def[Svars.attack_range] = global.soldier_vars[Svars.attack_range];
 	def[Svars.max_health] = global.soldier_vars[Svars.max_health];
 	def[Svars.max_damage] = global.soldier_vars[Svars.max_damage];
 	def[Svars.class] = global.soldier_vars[Svars.class];
 	def[Svars.vision] = global.soldier_vars[Svars.vision];
-
 }

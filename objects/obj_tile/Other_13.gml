@@ -10,8 +10,6 @@ if (global.selectedSoldier != -1){
 	// move block (not self)
 	if (possible_move) {
 		
-		
-		
 		var path = [];
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);

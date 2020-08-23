@@ -6,7 +6,28 @@ mouseIn = x <= mouse_x && mouse_x <= x+size
 draw_temp_soldier  = -1;
 
 
-event_inherited();
+
+
+if (global.mouseInstanceId == id) {
+	//debug("running event ", global.mouseEventId, " for instance ", instance_id, " of id ", id);
+
+	if (global.mouseEventId == 0)  { // checking for double click
+		if (enableDoubleClick && current_time - prevClickTime <= 300) {
+			global.mouseEventId = 3;
+			prevClickTime = -1;
+		} else {
+			prevClickTime = current_time;
+		}
+	}
+	
+	
+	event_user(global.mouseEventId);
+	
+	global.mouseEventId = -1;
+	global.mouseInstanceId = -1;
+}
+
+
 
 if mouseIn {	
 	

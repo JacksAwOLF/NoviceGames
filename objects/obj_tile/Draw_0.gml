@@ -37,7 +37,7 @@ if (tower != -1){
 	draw_sprite_ext(spr_tower, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 
 	draw_healthbar(x, y+size/8, x+size, y+size/4, 
-		tower.my_health, c_white, c_gray, c_maroon,0, 1, 1);
+		tower.my_health, c_white, c_yellow, c_maroon,0, 1, 1);
 }
 
 
@@ -87,7 +87,7 @@ if (hut != -1 /*&& !hide_soldier*/ ){
 		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.5);
 		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 
-		draw_healthbar(x, y, x+ss, y+(ss)/8, (cur/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+		draw_healthbar(x, y, x+ss, y+(ss)/8, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
 		
 	}
 }

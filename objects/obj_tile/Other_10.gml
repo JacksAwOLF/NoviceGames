@@ -43,7 +43,7 @@ switch (global.changeSprite){
 				soldier_sprite = other.soldier.sprite_index;
 				pos = other.pos;
 				limit = global.hutlimit[get_soldier_type(other.soldier)];
-				debug(depth, "is the  depth")
+				debug("hut vars", steps, limit);
 			}
 			destroy_soldier(pos);
 		}
@@ -140,7 +140,10 @@ if (!edit || global.changeSprite == -1){
 
 	
 	// select other soldier when clicked on them
-	if (global.selectedSoldier == -1) {										
+	if (global.selectedSoldier == -1) {		
+		
+		debug(soldier, hut);
+		
 		if (soldier != -1 && soldier.team == (global.turn)%2){
 			if (soldier.can){
 				global.selectedSoldier = id;
@@ -153,7 +156,35 @@ if (!edit || global.changeSprite == -1){
 				soldier_init_move();
 				soldier_init_attack();
 			} else soldier.error = true;
-		}		
+		} 
+		
+		
+	
+		else if (hut != -1) with(hut){
+		
+			debug("cl;icked on hut", id);
+		
+			if (steps == limit && 
+			global.grid[pos].soldier == -1 && 
+			get_team(soldier_sprite) == global.turn%2){
+				
+				create_soldier(soldier_sprite, pos);
+				steps = 0;
+	
+				// restore snapshot  default variables
+				with(global.grid[pos].soldier){
+					attack_range = other.def[Svars.attack_range]
+					max_health = other.def[Svars.max_health]
+					max_damage = other.def[Svars.max_damage]
+					class = other.def[Svars.class]
+					vision = other.def[Svars.vision]
+				}
+			}
+	
+		}
+	
+		
+		
 	}
 	
 

@@ -212,7 +212,6 @@ if (global.edit){
 	
 	
 	if (argument0 != "")  {
-		debug("reading tile input now");
 		load_tiles_from_file(file);    // in save_map_to_file
 		file_text_close(file);
 	}

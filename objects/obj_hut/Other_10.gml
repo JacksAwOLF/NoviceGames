@@ -1,9 +1,13 @@
 /// @description Mouse click... generate soldier
 // You can write your code in this editor
 
+
 // run click event for grid if
 // there is a selected sodlier that is  moving/attacking (potential to  this block)
 // or there is a soldier on this block
+
+/*debug("click on hut");
+
 if (global.selectedSoldier != -1 || global.grid[pos].soldier != -1){
 	with (global.grid[pos])
 		event_user(0);
@@ -23,4 +27,4 @@ else if (cur == limit && global.grid[pos].soldier == -1 && get_team(soldier_spri
 		vision = other.def[Svars.vision]
 	}
 	
-}
+}*/
