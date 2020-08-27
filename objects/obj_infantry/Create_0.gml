@@ -16,7 +16,7 @@ poss_moves = -1;
 
 
 team = 0;
-my_health = max_health
+
 
 poss_paths = 0;
 
@@ -26,7 +26,7 @@ error_count = 0;				// increment this until reaches limit
 error_limit = 3;				// how many times to flash
 error_wait = 5;					// how many frames per flash
 
+
+
 event_inherited();
-
-
 team = get_team(sprite_index);

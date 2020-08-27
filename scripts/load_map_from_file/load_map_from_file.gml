@@ -41,20 +41,16 @@ function load_map_from_file(argument0) {
 
 	// mapHieght and mapWidth should be already set before calling this function
 	// if no file is specified
-	
-	debug("laoding file", argument0);
 
-	global.global_save_order = ["mapWidth", "mapHeight", "turn"];
+	global.saveVersion = 2;
+
+	global.global_save_order = ["mapWidth", "mapHeight", "turn", "saveVersion"];
 	if argument0 != ""{	
 		var file = file_text_open_read(argument0);
-	
 		for (var i = 0; i<array_length(global.global_save_order); i++){
 			variable_global_set(global.global_save_order[i], real(file_text_read_real(file)));
 			file_text_readln(file);
 		}
-			
-		
-		debug(global.mapWidth, global.mapHeight, global.turn);
 	}
 	
 	
@@ -200,13 +196,23 @@ if (global.edit){
 	// if the file input is specified
 	// open the file and update the tile_sprites and add soldiers if neccessary
 	
-	global.tiles_save_order = array(
-		"sprite_index", 
-		"road", 
-		array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
-		array("hut", "cur", "limit", "pos", "soldier_sprite"),
-		array("tower", "my_health", "team")
-	);
+	if (global.saveVersion == 1)
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
+			array("hut", "steps", "limit", "pos", "soldier_sprite"),
+			array("tower", "my_health", "team", "max_health")
+		);
+	else if (global.saveVersion ==  2)
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
+			array("hut", "steps", "limit", "pos", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision"),
+			array("tower", "my_health", "team", "max_health")
+		);
+		
 	
 	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
 	

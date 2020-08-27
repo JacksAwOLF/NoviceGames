@@ -1,9 +1,5 @@
 function next_move() {
 	
-	if (global.action == "create" || global.action == "load"){
-		
-		global.changeSprite = -1;
-	}
 		
 
 	// reset all soldiers moving thing
@@ -23,14 +19,16 @@ function next_move() {
 	global.turn++; // relative positioning is important
 
 
-
-
 	// deselect soldiers and clear  drawings
 	erase_blocks(true);
 
-	global.selectedSoldier = -1;
 
-
-	update_fog();
+	if  (global.edit){
+		global.changeSprite = -1;
+		global.selectedSoldier = -1;
+		update_fog();
+	} else if (!network_my_turn()){
+		send_buffer(BufferDataType.yourMove, []);
+	}
 
 }

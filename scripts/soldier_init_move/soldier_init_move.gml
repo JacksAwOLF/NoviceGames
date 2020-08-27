@@ -22,7 +22,7 @@ function soldier_init_move() {
 					poss_moves[array_length_1d(poss_moves)] = global.selectedSoldier;
 				}
 				
-				debug("can and poss_moves: ", poss_moves);
+				//debug("can and poss_moves: ", poss_moves);
 				for (var i=0; i<array_length_1d(poss_moves); i++)
 					poss_moves[i].possible_move = true;
 			}

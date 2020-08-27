@@ -30,17 +30,6 @@ if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, s
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
 
 
-
-// draw tower
-if (tower != -1){
-	var scale_factor = size/sprite_get_width(spr_tower);
-	draw_sprite_ext(spr_tower, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
-
-	draw_healthbar(x, y+size/8, x+size, y+size/4, 
-		tower.my_health, c_white, c_yellow, c_maroon,0, 1, 1);
-}
-
-
 // draw soldiers if needed
 if (soldier != -1 && !hide_soldier){	
 	
@@ -73,9 +62,24 @@ if (soldier != -1 && !hide_soldier){
 
 
 // the soldier thingy while moving
-if (draw_temp_soldier != -1)
-	draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.8);								// the iamge of potential soldier placed here
+//if (draw_temp_soldier != -1)
+	//draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.8);								// the iamge of potential soldier placed here
 	
+	
+
+
+// draw tower
+if (tower != -1){
+	var scale_factor = size/sprite_get_width(spr_tower);
+	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
+		real(tower.team!=real(global.action!="playw"))
+	draw_sprite_ext(spr_tower, spIndex, x, y, scale_factor, scale_factor, 0, c_white, 1);
+	draw_healthbar(x, y+size/8, x+size, y+size/4, (tower.my_health/tower.max_health)*100, c_white, c_yellow, c_maroon,0, true, false);
+}
+
+
+
+
 	
 // draw the  hut if needed
 if (hut != -1 /*&& !hide_soldier*/ ){
@@ -84,7 +88,7 @@ if (hut != -1 /*&& !hide_soldier*/ ){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(soldier_sprite);
 	
-		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.5);
+		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.8);
 		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 
 		draw_healthbar(x, y, x+ss, y+(ss)/8, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);

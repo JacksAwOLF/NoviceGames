@@ -1,4 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-my_health = 100;
+// team
+
+my_health = 10;
+max_health = 10;

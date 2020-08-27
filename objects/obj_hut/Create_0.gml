@@ -19,10 +19,9 @@ steps = 0;
 depth = 0;
 
 if (global.edit){
-	def = []
-	def[Svars.attack_range] = global.soldier_vars[Svars.attack_range];
-	def[Svars.max_health] = global.soldier_vars[Svars.max_health];
-	def[Svars.max_damage] = global.soldier_vars[Svars.max_damage];
-	def[Svars.class] = global.soldier_vars[Svars.class];
-	def[Svars.vision] = global.soldier_vars[Svars.vision];
+	def_attack_range = global.soldier_vars[Svars.attack_range];
+	def_max_health = global.soldier_vars[Svars.max_health];
+	def_max_damage = global.soldier_vars[Svars.max_damage];
+	def_class = global.soldier_vars[Svars.class];
+	def_vision = global.soldier_vars[Svars.vision];
 }

@@ -43,7 +43,6 @@ switch (global.changeSprite){
 				soldier_sprite = other.soldier.sprite_index;
 				pos = other.pos;
 				limit = global.hutlimit[get_soldier_type(other.soldier)];
-				debug("hut vars", steps, limit);
 			}
 			destroy_soldier(pos);
 		}
@@ -56,6 +55,14 @@ switch (global.changeSprite){
 }
 
 
+else{    // if edit is  false
+	var t = instance_find(obj_server, 0);
+	if (global.action == "playw" && t.osocket == -1){
+		with(t) txt = "Waiting for other player";
+		exit;
+	}
+}
+
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
 if (!edit || global.changeSprite == -1){		
@@ -63,24 +70,7 @@ if (!edit || global.changeSprite == -1){
 	if (global.selectedSoldier != -1) {
 		if (possible_attack && !hide_soldier) { // process attacking
 			
-			var attacked;
-			if (soldier  != -1) attacked = soldier;
-			else attacked = tower;
-			
-			with(global.selectedSoldier.soldier){
-				attacked.my_health -= calculate_damage(id, attacked);
-				can = false;
-			}
-						
-			if (attacked.my_health <= 0){
-				if ( attacked.object_index == obj_infantry ) soldier = -1;
-				else tower = -1;
-				instance_destroy(attacked);
-			}
-			
-
-			erase_blocks(true);
-			global.selectedSoldier = -1;
+			soldier_execute_attack(global.selectedSoldier.pos, pos);
 			
 		} else if (possible_pathpoint) { // process deselecting blue tiles
 			
@@ -141,8 +131,7 @@ if (!edit || global.changeSprite == -1){
 	
 	// select other soldier when clicked on them
 	if (global.selectedSoldier == -1) {		
-		
-		debug(soldier, hut);
+	
 		
 		if (soldier != -1 && soldier.team == (global.turn)%2){
 			if (soldier.can){
@@ -160,25 +149,34 @@ if (!edit || global.changeSprite == -1){
 		
 		
 	
-		else if (hut != -1) with(hut){
+		else if (hut != -1) with(hut){	
 		
-			debug("cl;icked on hut", id);
-		
-			if (steps == limit && 
+			var  can = steps == limit && 
 			global.grid[pos].soldier == -1 && 
-			get_team(soldier_sprite) == global.turn%2){
+			get_team(soldier_sprite) == global.turn%2;
+			
+			// network side
+			//can = can  || (!global.edit && network_my_turn());
+		
+			if (can  && (global.edit || network_my_turn())){
 				
-				create_soldier(soldier_sprite, pos);
+				//debug(global.turn, get_team(soldier_sprite), sprite_get_name(soldier_sprite));
+				//debug(!global.edit && network_my_turn());
+				
+				create_soldier(soldier_sprite, pos, true);
 				steps = 0;
 	
 				// restore snapshot  default variables
-				with(global.grid[pos].soldier){
-					attack_range = other.def[Svars.attack_range]
-					max_health = other.def[Svars.max_health]
-					max_damage = other.def[Svars.max_damage]
-					class = other.def[Svars.class]
-					vision = other.def[Svars.vision]
-				}
+				/*with(global.grid[pos].soldier){
+					attack_range = other.def_attack_range
+					max_health = other.def_max_health
+					max_damage = other.def_max_damage
+					class = other.def_class
+					vision = other.def_vision
+					my_health = max_health;
+				}*/
+				
+				update_fog();
 			}
 	
 		}

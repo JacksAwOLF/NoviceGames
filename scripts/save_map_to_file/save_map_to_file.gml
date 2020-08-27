@@ -25,6 +25,7 @@ function save_map_to_file(argument0) {
 				
 			if  (is_array(name) && data1 != -1){
 				for (var k=1; k<array_length(name); k++){
+					debug("getting", name[k], "from", first)
 					var data = real(variable_instance_get(data1, name[k]))
 					file_text_write_string(file, string(data)+"\n");
 					
