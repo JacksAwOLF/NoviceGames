@@ -73,6 +73,7 @@ if (!edit || global.changeSprite == -1){
 			soldier_execute_attack(global.selectedSoldier.pos, pos);
 			
 		} else if (possible_pathpoint) { // process deselecting blue tiles
+			enableDoubleClick = true;
 			
 			var cur = ds_stack_top(global.selectedPathpointsStack), met_same = false;
 			while (ds_stack_size(global.selectedPathpointsStack) > 1 &&
