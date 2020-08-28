@@ -14,6 +14,9 @@ function get_vision_tiles_2() {
 
 	var res = [];	// array of results
 	var cnt = 0;	// size of results
+	
+	var soldier_vision = argument[0].soldier.vision;
+	debug("elevation for tile ", argument[0].pos, " is ", global.elevation[get_tile_type(argument[0])]);
 
 
 	for (var nextx = startx-5; nextx <= startx+5; nextx++) {
@@ -34,9 +37,14 @@ function get_vision_tiles_2() {
 			while (entryx != startx || entryy != starty) {
 				var gridid = gridy*global.mapWidth + gridx;
 			
-				var diagonalx = gridx + (signx >= 0 ? 0.5*signx : -0.5);
-				var diagonaly = gridy + (signy >= 0 ? 0.5*signy : -0.5);
-			
+				var diagonalx = gridx + 0.5*signx;//(signx >= 0 ? 0.5*signx : -0.5);
+				var diagonaly = gridy + 0.5*signy;//(signy >= 0 ? 0.5*signy : -0.5);
+				
+				//if (diagonalx != gridx + (signx >= 0 ? 0.5*signx : -0.5))
+				//	show_error("lmao", true);
+				//if (diagonaly != gridy + (signy >= 0 ? 0.5*signy : -0.5))
+				//	show_error("lmao", true);
+					
 				var tempy = diagonalx*ydiff/xdiff + yintercept;
 				var tempx = (diagonaly - yintercept)*xdiff/ydiff;
 			

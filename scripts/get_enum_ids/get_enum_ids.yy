@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "pathfinding",
-    "path": "folders/Scripts/pathfinding.yy",
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
   "resourceVersion": "1.0",
-  "name": "get_soldier_type",
+  "name": "get_enum_ids",
   "tags": [],
   "resourceType": "GMScript",
 }
