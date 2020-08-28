@@ -27,8 +27,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "network",
-    "path": "folders/Objects/network.yy",
+    "name": "helpers",
+    "path": "folders/Objects/helpers.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_server",

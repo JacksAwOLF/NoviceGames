@@ -6,17 +6,30 @@
 // and soldier create data or destroy data
 		
 
+function client_connected(outfalse, outtrue){
+	if outfalse == undefined outfalse = true;
+	if outtrue == undefined outtrue = true;
+
+	if (global.action == "server"){
+		var t = instance_find(obj_server, 0);
+		var res = t.osocket != -1;
+		if (res && outtrue) t.txt = "Can't quit/save while client still connected";
+		else if (!res && outfalse) t.txt = "Waiting for client connection...";
+		return real(res);
+	}
+	return -1;
+}
+
 enum BufferDataType{
-	soldierMoved, soldierAttacked, soldierCreated,  yourMove
+	soldierMoved, soldierAttacked, soldierCreated,  yourMove, mapData
 };
 
-global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer type has
 
+global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer type has
 global.buffer_dataT = array( 
 	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
 	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
 	array(buffer_u16, buffer_u16),           // create data:  spriteIndex     tilePos
-	[]
 );
 
 
@@ -28,7 +41,7 @@ function read_buffer(buff){
 	buffer_seek(buff, buffer_seek_start, 0);
 	var type  = buffer_read(buff, buffer_u8);
 	var data = [];
-	if (type != BufferDataType.yourMove)
+	if (type != BufferDataType.yourMove && type != BufferDataType.mapData)
 		for (var i=0; i<array_length(global.buffer_dataT[type]); i++)
 			data[i] = buffer_read(buff, global.buffer_dataT[type][i]);
 	
@@ -51,6 +64,10 @@ function read_buffer(buff){
 			var t = instance_find(obj_server, 0);
 			t.txt = "Your move!!!";
 			break;
+		
+		case BufferDataType.mapData:
+			init_map(Mediums.buffer, buff);
+			break;
 	}
 	
 	buffer_delete(buff);
@@ -59,8 +76,7 @@ function read_buffer(buff){
 
 
 function network_my_turn(){
-	return (global.action == "playw" && global.turn%2==0 || 
-		global.action == "playb" && global.turn%2==1);
+	return global.playas == global.turn%2;
 }
 
 
@@ -70,7 +86,9 @@ function send_buffer(type, data){
 	// only send a buffer if it is my turn...
 	// if it isn't, that means this function is called while executing
 	// the recieved  buffers
-	if (network_my_turn() && instance_number(obj_server) >= 1){
+	if (!global.edit && network_my_turn() && instance_number(obj_server) >= 1){
+		
+		var t = instance_find(obj_server, 0);
 		var buff = buffer_create(global.buffer_sizes[type], buffer_fixed, 1);
 		
 		buffer_seek(buff, buffer_seek_start, 0);
@@ -80,12 +98,13 @@ function send_buffer(type, data){
 			for (var i=0; i<array_length(global.buffer_dataT[type]); i++)
 				buffer_write(buff, global.buffer_dataT[type][i], data[i]);
 		
-		var t = instance_find(obj_server, 0);
-		var s = (global.action == "playb" ? t.socket : t.osocket);
+		
+		var s = (global.action == "client" ? t.socket : t.osocket);
 		network_send_packet(s, buff, buffer_get_size(buff));
 		
 		buffer_delete(buff);
 	}
+	
 }
 
 

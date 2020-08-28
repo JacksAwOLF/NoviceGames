@@ -15,7 +15,13 @@ if (txt != ""){
 		alpha -= alpha_delta;
 		yy -= y_delta;
 		y_delta -= y_delta_delta;
-		if (alpha <= 0)  txt = "";
+		if (alpha <= 0) {
+			txt = "";
+			if (die){
+				instance_destroy();
+				room_goto(rm_start_screen)
+			}
+		}
 	}
 	
 	

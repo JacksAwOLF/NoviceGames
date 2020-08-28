@@ -1,25 +1,24 @@
 /// @description Insert description here
 
-//debug("created", instance_number(obj_server));
 
-txt  = ""
-
-if (global.action == "playw"){
-	socket = network_create_server(network_socket_tcp, global.port, 1);
-	if (socket<0) txt = "server creation failed";
-	else txt = "Server created"
-} else {
-	socket = network_create_socket(network_socket_tcp);
-	serverurl = get_string_async("Server URL:", "127.0.0.1");
-}
 
 osocket = -1;
 oip = -1;
 
+// variables for the message popup
+txt = "";
 premsg = "";
 alpha = 1;
 count = 0;
-steps = 8;
+steps =5;
 alpha_delta = 0.08
 y_delta = 1;
 y_delta_delta = 0.01;
+die = false;
+
+port = -1;
+serverurl = -1;
+
+
+if (global.action == "server") port = get_string_async("Which port to host on?", "33669");
+else serverurl = get_string_async("Server IP address and port?", "73.70.188.126:33669");

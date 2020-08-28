@@ -2,9 +2,9 @@
 // You can write your code in this editor
 
 if (global.edit || network_my_turn()){
-	if (network_my_turn()){
-		debug("sending that next move buffer");
-		send_buffer(BufferDataType.yourMove, []);
-	}
+	
+	if (client_connected() == 0) exit;
+	
+	send_buffer(BufferDataType.yourMove, []);
 	next_move();
 }

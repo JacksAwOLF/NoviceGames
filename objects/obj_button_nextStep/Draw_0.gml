@@ -12,7 +12,6 @@ draw_text_transformed(x+sprite_width/4,y+sprite_height/10,turn_string, image_xsc
 
 
 if (!global.edit){
-	
-	var me_string = "I am "+(global.action=="playw"?"white":"black");
+	var me_string = "I am "+(global.playas==0?"grey":"black");
 	draw_text_transformed(x+sprite_width/4,y+sprite_height/2,me_string, image_xscale, image_yscale, 0);
 }

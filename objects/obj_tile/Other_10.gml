@@ -28,7 +28,7 @@ switch (global.changeSprite){
 	case spr_infantry1:
 	case spr_tanks1:
 	case spr_ifvs1:
-		if (soldier == -1) create_soldier(global.changeSprite, pos);
+		if (soldier == -1) create_soldier(global.changeSprite, pos);  //ignore warning
 		else global.changeSprite = -1;
 		break;
 		
@@ -56,11 +56,7 @@ switch (global.changeSprite){
 
 
 else{    // if edit is  false
-	var t = instance_find(obj_server, 0);
-	if (global.action == "playw" && t.osocket == -1){
-		with(t) txt = "Waiting for other player";
-		exit;
-	}
+	if (client_connected(true, false) == 0) exit;
 }
 
 // nothing selected...	
@@ -132,8 +128,10 @@ if (!edit || global.changeSprite == -1){
 	// select other soldier when clicked on them
 	if (global.selectedSoldier == -1) {		
 	
+		var myturn =  (global.edit || network_my_turn() );
 		
-		if (soldier != -1 && soldier.team == (global.turn)%2){
+		
+		if (soldier != -1 && soldier.team == (global.turn)%2 && myturn){
 			if (soldier.can){
 				global.selectedSoldier = id;
 			
@@ -158,12 +156,12 @@ if (!edit || global.changeSprite == -1){
 			// network side
 			//can = can  || (!global.edit && network_my_turn());
 		
-			if (can  && (global.edit || network_my_turn())){
+			if (can  && myturn){
 				
 				//debug(global.turn, get_team(soldier_sprite), sprite_get_name(soldier_sprite));
 				//debug(!global.edit && network_my_turn());
 				
-				create_soldier(soldier_sprite, pos, true);
+				create_soldier(soldier_sprite, pos, true); // ignore the warning
 				steps = 0;
 	
 				// restore snapshot  default variables

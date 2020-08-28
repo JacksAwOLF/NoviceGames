@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-if (global.action == "create" || global.action  ==  "load"){
+if (global.edit){
 	attack_range = global.soldier_vars[Svars.attack_range];
 	max_health = global.soldier_vars[Svars.max_health];
 	max_damage = global.soldier_vars[Svars.max_damage];

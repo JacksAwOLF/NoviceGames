@@ -9,6 +9,6 @@ if i_d == fileName && ds_map_find_value(async_load, "status"){
 	fileName = string(ds_map_find_value(async_load, "result"));	
 	fileName = working_directory + fileName;
 	
-	save_map_to_file(fileName);
+	save_map(Mediums.file, fileName);
 }
 
