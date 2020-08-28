@@ -10,14 +10,9 @@ if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sp
 		options_id++;
 	}
 	
-	// options_id was the one selected
-	with (binded_button){
-		sprite_index = other.options[options_id];
-		
-		global.changeSprite = sprite_index;
-	}
 	
-	
+	binded_button.sprite_index = other.options[options_id];
+	update_change_sprite(other.options[options_id]);
 } 
 
 dropdown_active = !dropdown_active;

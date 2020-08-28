@@ -1,7 +1,10 @@
-function get_soldier_type() {
+function get_soldier_type(soldier_instance) {
 	// returns index in global.energy for a given soldier instance (arg0)
+	return get_soldier_type_from_sprite(soldier_instance.sprite_index);
+}
 
-	switch(argument[0].sprite_index) {
+function get_soldier_type_from_sprite(sprite_index) {
+	switch(sprite_index) {
 		case spr_infantry: 
 		case spr_infantry1:
 			return Soldiers.infantry;
@@ -17,10 +20,7 @@ function get_soldier_type() {
 		default:
 			return -1;
 	}
-
-
 }
-
 
 function get_tile_type(tile) {
 	switch (tile.sprite_index) {

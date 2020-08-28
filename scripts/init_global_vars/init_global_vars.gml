@@ -1,0 +1,57 @@
+// Script assets have changed for v2.3.0 see
+// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+function init_game_vars(){
+	
+	global.max_health[Classes.scout, Soldiers.infantry] = 1;
+	global.max_health[Classes.scout, Soldiers.tanks] = 2;
+	global.max_health[Classes.scout, Soldiers.ifvs] = 1;
+	global.max_health[Classes.melee, Soldiers.infantry] = 6;
+	global.max_health[Classes.melee, Soldiers.tanks] = 8;
+	global.max_health[Classes.melee, Soldiers.ifvs] = 4;
+	global.max_health[Classes.range, Soldiers.infantry] = 1;
+	global.max_health[Classes.range, Soldiers.tanks] = 1;
+	global.max_health[Classes.range, Soldiers.ifvs] = 1;
+	
+	global.max_damage[Classes.scout, Soldiers.infantry] = 1;
+	global.max_damage[Classes.scout, Soldiers.tanks] = 1;
+	global.max_damage[Classes.scout, Soldiers.ifvs] = 1;
+	global.max_damage[Classes.melee, Soldiers.infantry] = 2;
+	global.max_damage[Classes.melee, Soldiers.tanks] = 2;
+	global.max_damage[Classes.melee, Soldiers.ifvs] = 4;
+	global.max_damage[Classes.range, Soldiers.infantry] = 4;
+	global.max_damage[Classes.range, Soldiers.tanks] = 4;
+	global.max_damage[Classes.range, Soldiers.ifvs] = 4;
+	
+	global.attack_range[Classes.scout, Soldiers.infantry] = 1;
+	global.attack_range[Classes.scout, Soldiers.tanks] = 1;
+	global.attack_range[Classes.scout, Soldiers.ifvs] = 1;
+	global.attack_range[Classes.melee, Soldiers.infantry] = 1;
+	global.attack_range[Classes.melee, Soldiers.tanks] = 1;
+	global.attack_range[Classes.melee, Soldiers.ifvs] = 1;
+	global.attack_range[Classes.range, Soldiers.infantry] = 3;
+	global.attack_range[Classes.range, Soldiers.tanks] = 4;
+	global.attack_range[Classes.range, Soldiers.ifvs] = 3;
+	
+	
+	global.movement[Soldiers.tanks] = 6;
+	global.movement[Soldiers.infantry] = 2;
+	global.movement[Soldiers.ifvs] = 15;
+	
+	global.elevation[Tiles.open] = 1;
+	global.elevation[Tiles.rough] = 1.1;
+	global.elevation[Tiles.mountain] = 2;
+
+	global.energy[Soldiers.tanks] = [2,3,3,99];
+	global.energy[Soldiers.infantry] = [1,1,2,2];
+	global.energy[Soldiers.ifvs] = [3,5,99,99];
+
+	global.vision[Classes.scout] = 5;
+	global.vision[Classes.melee] = 3;
+	global.vision[Classes.range] = 1;
+
+
+	global.hutlimit[Soldiers.tanks] = 3;
+	global.hutlimit[Soldiers.infantry] = 2;
+	global.hutlimit[Soldiers.ifvs] = 5;
+	
+}

@@ -9,11 +9,21 @@ enum VisualState
 
 function init_map(medium, dataSrc) {
 	
+	
+	
 	global.edit = global.action == "new" || global.action == "load";
 	
+	
+	// needed to decide on variables for the change_vars
+	// since we have to possible choices of soldier types at any moment
+	global.editSoldierType = Soldiers.infantry; 
+	
 	global.turn = 0;
-	global.movement = [6,2,15];
 
+	map_loaded = true;
+	global.fog_on = true;
+	
+	
 	enum Soldiers {
 		tanks, infantry, ifvs
 	};
@@ -26,30 +36,7 @@ function init_map(medium, dataSrc) {
 		open, rough, mountain	
 	};
 	
-	global.elevation[Tiles.open] = 1;
-	global.elevation[Tiles.rough] = 1.1;
-	global.elevation[Tiles.mountain] = 2;
-
-	global.energy[Soldiers.tanks] = [2,3,3,99];
-	global.energy[Soldiers.infantry] = [1,1,2,2];
-	global.energy[Soldiers.ifvs] = [3,5,99,99];
-
-	global.vision[Classes.scout] = 5;
-	global.vision[Classes.melee] = 3;
-	global.vision[Classes.range] = 1;
-
-
-	global.hutlimit[Soldiers.tanks] = 3;
-	global.hutlimit[Soldiers.infantry] = 2;
-	global.hutlimit[Soldiers.ifvs] = 5;
-
-
-	global.ranges[Classes.scout] = 2;
-	global.ranges[Classes.melee] = 1;
-	global.ranges[Classes.range] = 3;
-
-	map_loaded = true;
-	global.fog_on = true;
+	init_game_vars();
 	
 	// global.q = -1; // used in get_vision_tiles1
 
@@ -114,10 +101,14 @@ function init_map(medium, dataSrc) {
 		enum Svars {
 			attack_range, max_health, max_damage, class, vision, move_range
 		};
-		global.soldier_vars[Svars.attack_range] = 1; names[Svars.attack_range] = "attack range";   
-		global.soldier_vars[Svars.max_health] = 15; names[Svars.max_health] = "max health";   // probably  dependent on class too
-		global.soldier_vars[Svars.max_damage] = 8; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+		
 		global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
+		
+		// [0,1] stands for scout, infantry, which is default in edit mode
+		global.soldier_vars[Svars.attack_range] = global.attack_range[0,global.editSoldierType]; names[Svars.attack_range] = "attack range";   
+		global.soldier_vars[Svars.max_health] = global.max_health[0,global.editSoldierType]; names[Svars.max_health] = "max health";   // probably  dependent on class too
+		global.soldier_vars[Svars.max_damage] = global.max_damage[0,global.editSoldierType]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+		
 		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
