@@ -15,12 +15,12 @@ function get_vision_tiles_2() {
 	var res = [];	// array of results
 	var cnt = 0;	// size of results
 	
-	var soldier_vision = argument[0].soldier.vision;
-	debug("elevation for tile ", argument[0].pos, " is ", global.elevation[get_tile_type(argument[0])]);
-
-
-	for (var nextx = startx-5; nextx <= startx+5; nextx++) {
-		for (var nexty = starty-5; nexty <= starty+5; nexty++) {
+	var soldier_vision = argument[0].soldier.vision + 1.25*(argument[0].elevation-1);
+	
+	
+	var range = floor(soldier_vision);
+	for (var nextx = startx-range; nextx <= startx+range; nextx++) {
+		for (var nexty = starty-range; nexty <= starty+range; nexty++) {
 			if (!point_in_rectangle(nextx,nexty,0,0,global.mapWidth-1,global.mapHeight-1))
 				continue;
 		
@@ -68,7 +68,7 @@ function get_vision_tiles_2() {
 				}
 
 				var add = 1;
-				if (argument[0].elevation <= global.grid[gridid].elevation) {
+				if (argument[0].elevation < global.grid[gridid].elevation) {
 					switch(global.grid[gridid].sprite_index) {
 						case spr_tile_flat: 
 						case spr_tile_road:
@@ -106,7 +106,7 @@ function get_vision_tiles_2() {
 			}
 		
 		
-			if (cost <= argument[0].soldier.vision)
+			if (cost <= soldier_vision)// argument[0].soldier.vision)
 				res[cnt++] = global.grid[nexty*global.mapWidth + nextx];
 		}
 	}
