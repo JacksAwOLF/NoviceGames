@@ -128,25 +128,10 @@ function init_map(medium, dataSrc) {
 				text = names[index];
 			}
 		}
-
-
-
-
-
-		// create the back, next, save buttons on bottom row
-	
-
-		// create the saving button on bottom right
-		sp_index = object_get_sprite(obj_button_saveMap);
-		xx = room_width - sprite_get_width(sp_index);
-		yy = room_height - sprite_get_height(sp_index);
-
-		instance_create_depth(xx, yy, -100, obj_button_saveMap);
-
 	
 
 
-		// bottom bar on the bottom
+		// bottom/top bar 
 		sp_index = object_get_sprite(obj_gui_bottom_bar);
 		xx = 0;
 		yy = room_height - sprite_get_height(sp_index);
@@ -162,24 +147,23 @@ function init_map(medium, dataSrc) {
 	sp_index = object_get_sprite(obj_button_backMenu);
 	xx = 0;
 	yy = room_height - sprite_get_height(sp_index);
-
 	instance_create_depth(0, yy, -100, obj_button_backMenu);
+	
 	
 	// bottom, middle next step button
 	sp_index = object_get_sprite(obj_button_nextStep);
 	xx = (room_width - sprite_get_width(sp_index)) / 2;
 	yy = room_height - sprite_get_height(sp_index);
-
 	instance_create_depth(xx, yy, -100, obj_button_nextStep);
+	
 	
 	// create the saving button on bottom right
 	sp_index = object_get_sprite(obj_button_saveMap);
 	xx = room_width - sprite_get_width(sp_index);
-	yy = room_height - sprite_get_height(sp_index);
-
+	yy = room_height - sprite_get_height(sp_index)
 	instance_create_depth(xx, yy, -100, obj_button_saveMap);
 	
-
+	
 
 	// create the actual tiles
 	// global.grid[pos]: the 2darray that represents the map grid on the battlefield

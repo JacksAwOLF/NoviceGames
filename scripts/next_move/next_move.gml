@@ -12,8 +12,10 @@ function next_move() {
 	n = instance_number(obj_hut);
 	for (var i=0; i<n; i++)
 		with(instance_find(obj_hut, i))
-			if (get_team(soldier_sprite) == global.turn%2)
+			if (get_team(soldier_sprite) == global.turn%2){
 				steps = min(steps+1, limit);
+				debug("changed step to", steps,  "at", pos);
+			}
 			
 			
 	global.turn++; // relative positioning is important

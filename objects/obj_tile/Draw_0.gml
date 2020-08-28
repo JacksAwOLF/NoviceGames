@@ -42,8 +42,7 @@ if (hut != -1 /*&& !hide_soldier*/ ){
 	
 		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
 		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
-
-		draw_healthbar(x, y, x+ss, y+(ss)/8, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+		draw_healthbar(x, y, x+ss, y+(ss)/8, (steps*1.0/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
 		
 	}
 }
