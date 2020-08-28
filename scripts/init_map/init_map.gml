@@ -27,7 +27,7 @@ function init_map(medium, dataSrc) {
 	};
 	
 	global.elevation[Tiles.open] = 1;
-	global.elevation[Tiles.rough] = 1;
+	global.elevation[Tiles.rough] = 1.1;
 	global.elevation[Tiles.mountain] = 2;
 
 	global.energy[Soldiers.tanks] = [2,3,3,99];
@@ -48,8 +48,10 @@ function init_map(medium, dataSrc) {
 	global.ranges[Classes.melee] = 1;
 	global.ranges[Classes.range] = 3;
 
-
-	global.q = -1;
+	map_loaded = true;
+	global.fog_on = true;
+	
+	// global.q = -1; // used in get_vision_tiles1
 
 
 
@@ -227,6 +229,9 @@ function init_map(medium, dataSrc) {
 	// identifiers for click detection
 	global.mouseEventId = -1;
 	global.mouseInstanceId = -1;
+	
+	for (var i = 0; i < array_length_1d(global.grid); i++)
+		global.grid[i].elevation = global.elevation[get_tile_type(global.grid[i])];
 
 
 

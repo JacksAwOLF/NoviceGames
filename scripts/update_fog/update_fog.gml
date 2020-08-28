@@ -1,6 +1,7 @@
 /// @function script just updates the fog based on the current turn and troop positions
 function update_fog() {
-
+	if (!global.fog_on) exit;
+	
 	for (var i=0; i<global.mapWidth * global.mapHeight; i++)
 		with(global.grid[i])
 			hide_soldier = true;
