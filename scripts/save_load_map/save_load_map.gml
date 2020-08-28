@@ -80,7 +80,7 @@ function get_data(medium, dataSrc){
 		res = file_text_read_real(dataSrc);
 		file_text_readln(dataSrc);
 	} else if (medium == Mediums.buffer)
-		res = buffer_read(dataSrc, buffer_s16);
+		res = real(buffer_read(dataSrc, buffer_s16));
 	else show_error("Get data medium not recognized", true);
 	return res;
 }
@@ -120,6 +120,7 @@ function load_tiles(medium, dataSrc) {
 				for (var k=1; k<array_length(name); k++){ 
 					if (k != 1){data1 = get_data(medium, dataSrc);}
 					variable_instance_set(obj, name[k], data1);
+					//debug("setting", name[k],"for", first, "to",  data1)
 				}
 				
 				// some variables are only updated in the cvreate event of the objects
