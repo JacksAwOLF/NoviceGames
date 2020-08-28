@@ -11,14 +11,6 @@ origw = camera_get_view_width(0);
 origh = camera_get_view_height(0);
 
 
-enum VisualState
-{
-	active,
-	deactivating,
-	inactive,
-	activating
-}
-
 state = VisualState.active;
 inactive_offset = [4*room_width, 0];
 

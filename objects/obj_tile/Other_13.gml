@@ -10,6 +10,10 @@ if (global.selectedSoldier != -1){
 	if (possible_move) {
 		
 		var path = [];
+		
+		for (var i = 0; i <= array_length_1d(global.selectedSoldier.soldier.poss_paths)-2; i++)
+			path[array_length_1d(path)] = global.selectedSoldier.soldier.poss_paths[i];
+			
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);
 			cur[0].possible_path = 0;
@@ -17,7 +21,6 @@ if (global.selectedSoldier != -1){
 			path[array_length_1d(path)] = cur[0];
 		}
 		
-			
 		with (global.selectedSoldier.soldier){	
 			
 			if (array_length_1d(path)>=1 ) {

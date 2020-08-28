@@ -1,11 +1,18 @@
+enum VisualState
+{
+	active,
+	deactivating,
+	inactive,
+	activating
+}
+
+
 function init_map(medium, dataSrc) {
 	
 	global.edit = global.action == "new" || global.action == "load";
 	
 	global.turn = 0;
 	global.movement = [6,2,15];
-	global.energy = [];
-	global.vision = [];
 
 	enum Soldiers {
 		tanks, infantry, ifvs
@@ -14,6 +21,14 @@ function init_map(medium, dataSrc) {
 	enum Classes {
 		scout, melee, range
 	};
+	
+	enum Tiles {
+		open, rough, mountain	
+	};
+	
+	global.elevation[Tiles.open] = 1;
+	global.elevation[Tiles.rough] = 1;
+	global.elevation[Tiles.mountain] = 2;
 
 	global.energy[Soldiers.tanks] = [2,3,3,99];
 	global.energy[Soldiers.infantry] = [1,1,2,2];
@@ -54,76 +69,94 @@ function init_map(medium, dataSrc) {
 
 	var xx, yy, sp_index;
 	
-	
-	
-if (global.edit){
+	if (global.edit){
 
-	// create the tile selections on the top left
-	global.changeSprite = -1;
-	var possibleTiles = array(
-		array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border),
-		array(spr_tile_road, spr_soldier_generate, spr_tower),
-		array(spr_infantry, spr_tanks, spr_ifvs), 
-		array(spr_infantry1, spr_tanks1, spr_ifvs1), 
-		spr_infantry_delete);
+
+		// create the tile selections on the top left
+		global.changeSprite = -1;
+		var possibleTiles = array(
+			array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border),
+			array(spr_tile_road, spr_soldier_generate, spr_tower),
+			array(spr_infantry, spr_tanks, spr_ifvs), 
+			array(spr_infantry1, spr_tanks1, spr_ifvs1), 
+			spr_infantry_delete);
+
 	
-	var index = 0;
-	for (; index<4; index++){
-		with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
-			sprite_index = possibleTiles[index][0];
-			var  xx = x, yy = y + sprite_height
+		var index = 0;
+		for (; index<4; index++){
+			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
+				sprite_index = possibleTiles[index][0];
+				var  xx = x, yy = y + sprite_height
 			
-			with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
-				x  = other.x;
-				y =  other.y + other.sprite_height;
-				binded_button = other.id;
-				options = possibleTiles[index];
+				with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
+					x  = other.x;
+					y =  other.y + other.sprite_height;
+					binded_button = other.id;
+					options = possibleTiles[index];
+				}
 			}
 		}
-	}
 	
-	for (;index<array_length(possibleTiles); index++){
-		with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
-			sprite_index=possibleTiles[index];
+		for (;index<array_length(possibleTiles); index++){
+			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
+				sprite_index=possibleTiles[index];
+			}
 		}
-	}
 	
 
 
 
-	// create the soldier modification vars on top right
-	var names; 
+		// create the soldier modification vars on top right
+		var names; 
 
-	enum Svars {
-		attack_range, max_health, max_damage, class, vision, move_range
-	};
-	global.soldier_vars[Svars.attack_range] = 1; names[Svars.attack_range] = "attack range";   
-	global.soldier_vars[Svars.max_health] = 15; names[Svars.max_health] = "max health";   // probably  dependent on class too
-	global.soldier_vars[Svars.max_damage] = 8; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
-	global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
-	global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
-	// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
+		enum Svars {
+			attack_range, max_health, max_damage, class, vision, move_range
+		};
+		global.soldier_vars[Svars.attack_range] = 1; names[Svars.attack_range] = "attack range";   
+		global.soldier_vars[Svars.max_health] = 15; names[Svars.max_health] = "max health";   // probably  dependent on class too
+		global.soldier_vars[Svars.max_damage] = 8; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+		global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
+		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
+		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
-	hor_spacing = 60;
-	for (var index=array_length_1d(names)-1; index>=0; index--){
-		with(instance_create_depth(
-		room_width-(array_length_1d(names)-index)*hor_spacing, 
-		16, -1, obj_change_var)){
-			ind = index;
-			text = names[index];
+		hor_spacing = 60;
+		for (var index=array_length_1d(names)-1; index>=0; index--){
+			with(instance_create_depth(
+			room_width-(array_length_1d(names)-index)*hor_spacing, 
+			16, -1, obj_change_var)){
+				ind = index;
+				text = names[index];
+			}
 		}
+
+
+
+
+
+		// create the back, next, save buttons on bottom row
+	
+
+		// create the saving button on bottom right
+		sp_index = object_get_sprite(obj_button_saveMap);
+		xx = room_width - sprite_get_width(sp_index);
+		yy = room_height - sprite_get_height(sp_index);
+
+		instance_create_depth(xx, yy, -100, obj_button_saveMap);
+
+	
+
+
+		// bottom bar on the bottom
+		sp_index = object_get_sprite(obj_gui_bottom_bar);
+		xx = 0;
+		yy = room_height - sprite_get_height(sp_index);
+
+		instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
+		instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
+
+
 	}
 
-
-}
-
-	// bottom bar on the bottom
-	sp_index = object_get_sprite(obj_gui_bottom_bar);
-	xx = 0;
-	yy = room_height - sprite_get_height(sp_index);
-
-	instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
-	instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
 
 	// back button bottom left
 	sp_index = object_get_sprite(obj_button_backMenu);
