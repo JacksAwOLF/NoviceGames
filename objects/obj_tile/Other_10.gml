@@ -12,48 +12,48 @@ enableDoubleClick = false;
 		
 // selected a soldier
 
-if (edit)
+if (edit) {
 
-switch (global.changeSprite){
+	switch (global.changeSprite){
 	
-	case spr_infantry_delete:
-		if (soldier!=-1) with(soldier) instance_destroy();
-		soldier = -1;
-		update_fog();
-		break;
+		case spr_infantry_delete:
+			if (soldier!=-1) with(soldier) instance_destroy();
+			soldier = -1;
+			update_fog();
+			break;
 	
-	case spr_infantry:
-	case spr_tanks:
-	case spr_ifvs:
-	case spr_infantry1:
-	case spr_tanks1:
-	case spr_ifvs1:
-		if (soldier == -1) create_soldier(global.changeSprite, pos);  //ignore warning
-		else global.changeSprite = -1;
-		break;
+		case spr_infantry:
+		case spr_tanks:
+		case spr_ifvs:
+		case spr_infantry1:
+		case spr_tanks1:
+		case spr_ifvs1:
+			if (soldier == -1) create_soldier(global.changeSprite, pos);  //ignore warning
+			else global.changeSprite = -1;
+			break;
 		
-	case spr_tile_road:
-		road = !road;
-		break;
+		case spr_tile_road:
+			road = !road;
+			break;
 	
-	case spr_soldier_generate:
-		if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
-			hut = instance_create_depth(x, y, -0.5, obj_hut);
-			with (hut){
-				soldier_sprite = other.soldier.sprite_index;
-				pos = other.pos;
-				limit = global.hutlimit[get_soldier_type(other.soldier)];
+		case spr_soldier_generate:
+			if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
+				hut = instance_create_depth(x, y, -0.5, obj_hut);
+				with (hut){
+					soldier_sprite = other.soldier.sprite_index;
+					pos = other.pos;
+					limit = global.hutlimit[get_soldier_type(other.soldier)];
+				}
+				destroy_soldier(pos);
 			}
-			destroy_soldier(pos);
-		}
-		break;
+			break;
 		
-	case spr_tower:
-		tower = instance_create_depth(x, y, 1, obj_tower);
-		tower.team = global.turn%2;
-		break;
+		case spr_tower:
+			tower = instance_create_depth(x, y, 1, obj_tower);
+			tower.team = global.turn%2;
+			break;
+	}
 }
-
 
 else{    // if edit is  false
 	if (client_connected(true, false) == 0) exit;
@@ -188,7 +188,9 @@ if (!edit || global.changeSprite == -1){
 	
 	if (global.selectedSoldier == -2)
 		global.selectedSoldier = -1;
-
+		
+		
+	global.won = global.winFunction();
 }
 		
 		
