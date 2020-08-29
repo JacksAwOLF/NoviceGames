@@ -1,8 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-event_inherited();
-
 
 
 
@@ -15,13 +13,26 @@ event_inherited();
 
 // when cur reaches limit, 
 // you can click on the hut and generate a soldier
-steps = 0;
+//steps = 0;
+
+steps = -1;
 depth = 0;
 
-if (global.edit){
-	def_attack_range = global.soldier_vars[Svars.attack_range];
-	def_max_health = global.soldier_vars[Svars.max_health];
-	def_max_damage = global.soldier_vars[Svars.max_damage];
-	def_class = global.soldier_vars[Svars.class];
-	def_vision = global.soldier_vars[Svars.vision];
-}
+max_health = 15;
+my_health = max_health;
+
+pos = -1; // not used anymore, but save file still uses it
+
+
+
+soldier = -1
+team = -1
+
+
+limit = -1
+def_attack_range = -1
+def_max_health = -1
+def_max_damage = -1
+def_class = -1
+def_vision = -1
+soldier_sprite = -1

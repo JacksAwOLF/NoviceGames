@@ -66,27 +66,36 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	
 	var attacked;
 	if (to.tower != -1) attacked = to.tower;
-	else attacked = to.soldier;
+	else if (soldier != -1) attacked = to.soldier;
+	else attacked = to.hut;
 	
 	
 	attacked.my_health -= calculate_damage(fr.soldier, attacked);
 	fr.soldier.can = false;
 						
 	if (attacked.my_health <= 0){
-		if ( attacked.object_index == obj_infantry ) to.soldier = -1;
-		else to.tower = -1;
-		instance_destroy(attacked);
 		
 		
-		if (global.edit) update_fog();
+		if (attacked.object_index == obj_hut){
+			// don't kill the hut, conquer it
+			hut.soldier = fr.soldier;
+			with(hut) event_user(10);
+		} else  {
+			if ( attacked.object_index == obj_infantry ) to.soldier = -1;
+			else to.tower = -1;
+			
+			instance_destroy(attacked);
 		
-		// if you got this through a buffer,
-		// then you update the fog for yourself
-		else if (!network_my_turn()){
-			global.turn++;
-			update_fog();
-			global.turn--;
+			if (global.edit) update_fog();
+			// if you got this through a buffer,
+			// then you update the fog for yourself
+			else if (!network_my_turn()){
+				global.turn++;
+				update_fog();
+				global.turn--;
+			}
 		}
+		
 	}
 	
 	send_buffer(BufferDataType.soldierAttacked, array(frTilePos, toTilePos));

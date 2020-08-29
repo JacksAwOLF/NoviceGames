@@ -38,11 +38,20 @@ if (hut != -1 /*&& !hide_soldier*/ ){
 	
 	with(hut){
 		var ss = other.size;
-		var scale_factor = ss/sprite_get_width(soldier_sprite);
-	
-		if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
-		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
-		draw_healthbar(x, y, x+ss, y+(ss)/8, (steps*1.0/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+		var scale_factor = ss/sprite_get_width(other.sprite_index);
+		if (steps >= 0){
+			// ghost soldier
+			if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
+			// myself
+			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+			// loading bar
+			draw_healthbar(x, y+ss*7/8, x+ss, y+ss, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
+		} else {
+			// myself
+			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+			// health bar
+			draw_healthbar(x, y, x+ss, y+ss/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
+		}
 		
 	}
 }

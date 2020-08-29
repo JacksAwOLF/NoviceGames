@@ -44,15 +44,20 @@ function save_map(saveAs, helpData) {
 			
 			// if array, -1 or instance id; otherwise,just a value
 			var data1 = real(variable_instance_get(global.grid[i], first));
+			
+			//debug("saving", data1, "for", first);
 				
 			if  (is_array(name) && data1 != -1){
 				for (var k=1; k<array_length(name); k++){
 					var data = real(variable_instance_get(data1, name[k]))
 					save_data(data, med, saveAs);
+					//debug("saving", data, "for", name[k]);
 				}
 					
-			} else 
-			save_data(data1, med, saveAs);
+			} else save_data(data1, med, saveAs);
+			
+			
+			
 		}
 	}
 			
@@ -109,6 +114,7 @@ function load_tiles(medium, dataSrc) {
 				
 			var data1 = get_data(medium, dataSrc);
 				
+			//debug("loading", data1, "for", first);
 				
 			if (is_array(name) && data1 != -1){
 					
@@ -120,13 +126,16 @@ function load_tiles(medium, dataSrc) {
 				for (var k=1; k<array_length(name); k++){ 
 					if (k != 1){data1 = get_data(medium, dataSrc);}
 					variable_instance_set(obj, name[k], data1);
-					//debug("setting", name[k],"for", first, "to",  data1)
+					//debug("loading", data1, "for", name[k]);
 				}
 				
 				// some variables are only updated in the cvreate event of the objects
 				//with(obj) event_perform_object(global.tiles_save_objects[j], ev_create, 0);
 					
 			} else variable_instance_set(global.grid[i], first, data1);
+			
+			
+			
 				
 		}
 	}

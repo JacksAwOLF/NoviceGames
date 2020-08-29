@@ -16,11 +16,8 @@ function soldier_init_attack() {
 				poss_attacks = get_tiles_from(p, attack_range, 1, false);
 				for (var i=1; i<array_length_1d(poss_attacks); i++)
 					with(poss_attacks[i]){
-					
-						var team = (soldier == -1 ? tower.team  : soldier.team);
-						
+						var team = (tower==-1 ? (soldier==-1?hut.team:soldier.team) : tower.team );
 						if (id != global.selectedSoldier && team != other.team ){
-
 							possible_attack = true;
 							found  = true;
 						}

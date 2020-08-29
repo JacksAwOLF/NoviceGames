@@ -44,7 +44,7 @@ function init_map(medium, dataSrc) {
 
 	// mapHieght and mapWidth should be already set before calling this function
 	// if no file is specified
-	global.saveVersion = 2;
+	global.saveVersion = 3;
 	if (medium == Mediums.file && dataSrc != undefined) dataSrc = file_text_open_read(dataSrc);
 	load_global_vars(medium, dataSrc);
 	
@@ -192,7 +192,9 @@ function init_map(medium, dataSrc) {
 	// if the file input is specified
 	// open the file and update the tile_sprites and add soldiers if neccessary
 	
-	if (global.saveVersion == 1)
+	// btw the first variable of an object to  save
+	// can't have a negative 1  value
+	if (global.saveVersion == 1){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
@@ -200,7 +202,7 @@ function init_map(medium, dataSrc) {
 			array("hut", "steps", "limit", "pos", "soldier_sprite"),
 			array("tower", "my_health", "team", "max_health")
 		);
-	else if (global.saveVersion ==  2)
+	}else if (global.saveVersion ==  2){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
@@ -208,7 +210,17 @@ function init_map(medium, dataSrc) {
 			array("hut", "steps", "limit", "pos", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision"),
 			array("tower", "my_health", "team", "max_health")
 		);
-		
+	}else if (global.saveVersion ==  3){
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
+			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
+			array("tower", "my_health", "team", "max_health")
+		);
+	}
+	
+	
 	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
 	
 	
@@ -220,6 +232,8 @@ function init_map(medium, dataSrc) {
 	// identifiers for click detection
 	global.mouseEventId = -1;
 	global.mouseInstanceId = -1;
+	
+	
 	
 	for (var i = 0; i < array_length_1d(global.grid); i++)
 		global.grid[i].elevation = global.elevation[get_tile_type(global.grid[i])];

@@ -37,14 +37,25 @@ switch (global.changeSprite){
 		break;
 	
 	case spr_soldier_generate:
-		if (soldier != -1 && soldier.team==global.turn%2 && hut == -1){
-			hut = instance_create_depth(x, y, -0.5, obj_hut);
+	
+		if (hut!=-1) break;
+		
+		if (soldier != -1 && soldier.team==global.turn%2){
+			hut = instance_create_depth(x, y, 0, obj_hut);
 			with (hut){
-				soldier_sprite = other.soldier.sprite_index;
-				pos = other.pos;
-				limit = global.hutlimit[get_soldier_type(other.soldier)];
+				//pos = other.pos;
+				soldier = other.soldier;
+				event_user(10);
 			}
 			destroy_soldier(pos);
+		}
+	
+		else if (soldier == -1){
+			hut = instance_create_depth(x, y, 0, obj_hut);
+			with(hut){
+				steps = -1;
+				team  = -1;
+			}
 		}
 		break;
 		
@@ -148,10 +159,10 @@ if (!edit || global.changeSprite == -1){
 		
 		
 	
-		else if (hut != -1) with(hut){	
+		else if (hut != -1 && hut.steps!=-1) with(hut){	
 		
 			var  can = steps == limit && 
-			global.grid[pos].soldier == -1 && 
+			other.soldier == -1 && 
 			get_team(soldier_sprite) == global.turn%2;
 			
 			// network side
@@ -162,7 +173,7 @@ if (!edit || global.changeSprite == -1){
 				//debug(global.turn, get_team(soldier_sprite), sprite_get_name(soldier_sprite));
 				//debug(!global.edit && network_my_turn());
 				
-				create_soldier(soldier_sprite, pos, true); // ignore the warning
+				create_soldier(soldier_sprite, other.pos, true); // ignore the warning
 				steps = 0;
 	
 				// restore snapshot  default variables
