@@ -7,4 +7,6 @@ if (global.edit || network_my_turn()){
 	
 	send_buffer(BufferDataType.yourMove, []);
 	next_move();
+	
+	global.won = global.winFunction();
 }

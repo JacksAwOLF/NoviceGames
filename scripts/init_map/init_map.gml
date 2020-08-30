@@ -9,8 +9,8 @@ enum VisualState
 
 function init_map(medium, dataSrc) {
 	
-	
-	
+	//debug("start");
+
 	global.edit = global.action == "new" || global.action == "load";
 	
 	
@@ -99,7 +99,7 @@ function init_map(medium, dataSrc) {
 		var names; 
 
 		enum Svars {
-			attack_range, max_health, max_damage, class, vision, move_range
+			attack_range, max_health, max_damage, vision, class, win, move_range
 		};
 		
 		global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
@@ -110,6 +110,7 @@ function init_map(medium, dataSrc) {
 		global.soldier_vars[Svars.max_damage] = global.max_damage[0,global.editSoldierType]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
 		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
+		global.soldier_vars[Svars.win] = 0; names[Svars.win] = "Win";
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
 		hor_spacing = 60;
@@ -247,4 +248,14 @@ function init_map(medium, dataSrc) {
 		update_fog();
 		global.turn -= 1;
 	} else update_fog();
+	
+	
+	
+	
+	global.objectiveOptions = [all_huts_destroyed, all_towers_destroyed, all_soldiers_destroyed];
+	
+	global.winFunction = all_soldiers_destroyed;
+	global.won = global.winFunction();
+	
+	//debug("done")
 }

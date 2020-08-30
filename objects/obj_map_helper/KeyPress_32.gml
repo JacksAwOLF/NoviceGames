@@ -7,7 +7,7 @@ global.selectedSoldier = -1;
 
 
 
-if (global.action == "create" || global.action == "load"){
+if (global.edit){
 	
 	global.changeSprite = -1;
 	

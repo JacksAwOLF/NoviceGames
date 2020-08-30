@@ -66,7 +66,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	
 	var attacked;
 	if (to.tower != -1) attacked = to.tower;
-	else if (soldier != -1) attacked = to.soldier;
+	else if (to.soldier != -1) attacked = to.soldier;
 	else attacked = to.hut;
 	
 	

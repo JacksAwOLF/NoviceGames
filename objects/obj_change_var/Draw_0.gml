@@ -21,6 +21,16 @@ if (text == "Class"){
 	}
 }
 
+if (text == "Win") {
+	switch(global.soldier_vars[ind]) {
+		case 0: drawing = "H"; break;
+		case 1: drawing = "T"; break;
+		case 2: drawing = "S"; break;
+		default: drawing = "?"; break;
+	}
+}
+
+
 var offset = sprite_width/8;
 
 draw_set_color(c_red);
