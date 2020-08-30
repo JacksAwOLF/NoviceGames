@@ -10,7 +10,7 @@ function all_huts_destroyed() {
 	
 	var won = 3;
 	for (var i = 0; i < instance_number(obj_hut); i++)
-		won &= ~(1 << ((instance_find(obj_hut, i).team + 1) % 2));
+		won &= ~(1 << ((get_team(instance_find(obj_hut, i).soldier_sprite)+ 1) % 2));
 		
 	return won;
 }
