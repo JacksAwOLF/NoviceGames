@@ -33,5 +33,8 @@ function get_tile_type(tile) {
 			
 		case spr_tile_ocean:
 			return Tiles.rough;
+			
+		default:
+			return Tiles.other;
 	}
 }

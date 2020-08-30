@@ -40,6 +40,7 @@ function init_game_vars(){
 	global.elevation[Tiles.open] = 1;
 	global.elevation[Tiles.rough] = 1.1;
 	global.elevation[Tiles.mountain] = 2;
+	global.elevation[Tiles.other] = 0;
 
 	global.energy[Soldiers.tanks] = [2,3,3,99];
 	global.energy[Soldiers.infantry] = [1,1,2,2];
