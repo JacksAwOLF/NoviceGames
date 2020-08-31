@@ -33,7 +33,7 @@ function init_map(medium, dataSrc) {
 	};
 	
 	enum Tiles {
-		open, rough, mountain, other	
+		open, rough, mountain, others	
 	};
 	
 	init_game_vars();

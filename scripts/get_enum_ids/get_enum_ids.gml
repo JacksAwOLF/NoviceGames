@@ -35,6 +35,6 @@ function get_tile_type(tile) {
 			return Tiles.rough;
 			
 		default:
-			return Tiles.other;
+			return Tiles.others;
 	}
 }
