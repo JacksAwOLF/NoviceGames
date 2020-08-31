@@ -34,7 +34,7 @@ if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 
 
 	
 // draw the  hut if needed
-if (hut != -1 /*&& !hide_soldier*/ ){
+if (hut != -1 && !hide_soldier){
 	
 	with(hut){
 		var ss = other.size;
@@ -83,7 +83,10 @@ if (soldier != -1 && !hide_soldier){
 	if (soldier.direction == 180 || soldier.direction == 270) xx += size;
 	if (soldier.direction == 90 || soldier.direction == 180) yy += size;
 		
+	var width = scale_factor*sprite_get_width(spr_index); 
+	
 	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, c_white, 1);				// the soldier on this tile
+	draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier.class],global.colors[soldier.class],false);
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }
 

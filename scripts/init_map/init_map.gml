@@ -37,6 +37,9 @@ function init_map(medium, dataSrc) {
 	};
 	
 	init_game_vars();
+	global.colors[Classes.melee] = c_aqua;
+	global.colors[Classes.range] = c_orange;
+	global.colors[Classes.scout] = c_purple;
 	
 	// global.q = -1; // used in get_vision_tiles1
 

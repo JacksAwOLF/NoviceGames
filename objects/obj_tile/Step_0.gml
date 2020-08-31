@@ -1,7 +1,7 @@
 /// @description set mouseIn and chage sprite on click
 
-mouseIn = x <= mouse_x && mouse_x <= x+size
-	&& y <= mouse_y && mouse_y <= y+size;
+mouseIn = x < mouse_x && mouse_x < x+size
+	&& y < mouse_y && mouse_y < y+size;
 
 draw_temp_soldier  = -1;
 
