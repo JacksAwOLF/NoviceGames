@@ -39,9 +39,15 @@ if (hut != -1 && (global.turn % 2 == get_team(hut.soldier_sprite) || !hide_soldi
 	with(hut){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(other.sprite_index);
+		
 		if (steps >= 0){
 			// ghost soldier
-			if (other.soldier == -1) draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
+			if (other.soldier == -1) {
+				var width = sprite_get_width(soldier_sprite)*scale_factor;
+				
+				draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
+				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[def_class],global.colors[def_class],false);
+			}
 			// myself
 			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
 			// loading bar
