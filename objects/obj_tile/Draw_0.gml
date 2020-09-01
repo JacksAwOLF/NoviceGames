@@ -34,7 +34,7 @@ if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 
 
 	
 // draw the  hut if needed
-if (hut != -1 && !hide_soldier){
+if (hut != -1 && (global.turn % 2 == get_team(hut.soldier_sprite) || !hide_soldier)) {
 	
 	with(hut){
 		var ss = other.size;
