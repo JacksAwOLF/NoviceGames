@@ -9,7 +9,7 @@ function save_data(data, medium, which){
 			file_text_write_string(medium, string(data)+"\n" );
 			break;
 		case Mediums.buffer:
-			buffer_write(medium, buffer_s16, real(data));
+			buffer_write(medium, buffer_f16, real(data));
 			break;
 
 	}
@@ -85,7 +85,7 @@ function get_data(medium, dataSrc){
 		res = file_text_read_real(dataSrc);
 		file_text_readln(dataSrc);
 	} else if (medium == Mediums.buffer)
-		res = real(buffer_read(dataSrc, buffer_s16));
+		res = real(buffer_read(dataSrc, buffer_f16));
 	else show_error("Get data medium not recognized", true);
 	return res;
 }
