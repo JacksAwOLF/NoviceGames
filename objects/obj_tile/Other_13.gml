@@ -69,4 +69,5 @@ if (global.selectedSoldier != -1){
 	
 	erase_blocks(true);
 	global.selectedSoldier = -1;
+	global.displayTileInfo = id;
 }

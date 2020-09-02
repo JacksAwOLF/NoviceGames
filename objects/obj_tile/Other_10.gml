@@ -9,7 +9,10 @@
 
 // index 0 is implemented in user event 1
 enableDoubleClick = false;
-		
+
+if (global.changeSprite == -1 && global.selectedSoldier == -1) {
+	global.displayTileInfo = id;
+}
 // selected a soldier
 
 if (edit) {
@@ -132,6 +135,7 @@ if (!edit || global.changeSprite == -1){
 			erase_blocks(true);
 			
 			global.selectedSoldier = canSelect ? -1 : -2;
+			global.displayTileInfo = id;
 
 		}
 	}
