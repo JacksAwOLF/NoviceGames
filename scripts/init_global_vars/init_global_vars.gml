@@ -55,4 +55,18 @@ function init_game_vars(){
 	global.hutlimit[Soldiers.infantry] = 2;
 	global.hutlimit[Soldiers.ifvs] = 5;
 	
+	
+	global.classNames[Classes.scout] = "Scout";
+	global.classNames[Classes.melee] = "Melee";
+	global.classNames[Classes.range] = "Ranged";
+	
+	global.unitNames[Soldiers.tanks] = "Tanks";
+	global.unitNames[Soldiers.infantry] = "Infantry";
+	global.unitNames[Soldiers.ifvs] = "IFVs";
+	
+	global.tileNames[Tiles.mountain] = "Mountain";
+	global.tileNames[Tiles.open] = "Open";
+	global.tileNames[Tiles.rough] = "Rough";
+	global.tileNames[Tiles.others] = "Other?";
+	
 }

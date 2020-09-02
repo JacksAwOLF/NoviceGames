@@ -160,12 +160,19 @@ function init_map(medium, dataSrc) {
 	yy = room_height - sprite_get_height(sp_index)
 	instance_create_depth(xx, yy, -100, obj_button_saveMap);
 	
+	// create soldier info screen
+	sp_index = object_get_sprite(obj_gui_info_screen);
+	xx = room_width - sprite_get_width(sp_index) - 30;
+	yy = (1/6*room_height);// - sprite_get_height(sp_index))/2;
+	instance_create_depth(xx, yy, -100, obj_gui_info_screen);
 	
 
 	// create the actual tiles
 	// global.grid[pos]: the 2darray that represents the map grid on the battlefield
 	// pos: y * global.mapWidth + x
 	global.selectedSoldier = -1;
+	global.displayTileInfo = -1;
+	
 	global.selectedPathpointsStack = ds_stack_create();
 	global.pathCost = 0;
 	
@@ -232,11 +239,10 @@ function init_map(medium, dataSrc) {
 	load_tiles(medium, dataSrc);
 	
 	
-
+	
 	// identifiers for click detection
 	global.mouseEventId = -1;
 	global.mouseInstanceId = -1;
-	
 	
 	
 	for (var i = 0; i < array_length_1d(global.grid); i++)
