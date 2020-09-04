@@ -24,3 +24,7 @@ switch(global.action){
 	default:
 		show_error("ugh", true);
 }
+
+
+
+selected_dropdown = -1;

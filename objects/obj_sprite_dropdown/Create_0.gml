@@ -11,3 +11,5 @@ dropdown_active = false;
 // list of dropdown sprites and their total heights
 options = [];
 menu_height = 0;
+
+options_id = -1;

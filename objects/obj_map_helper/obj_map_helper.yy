@@ -24,6 +24,7 @@
     {"isDnD":false,"eventNum":63,"eventType":7,"collisionObjectId":null,"parent":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
     {"isDnD":false,"eventNum":77,"eventType":9,"collisionObjectId":null,"parent":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
     {"isDnD":false,"eventNum":70,"eventType":9,"collisionObjectId":null,"parent":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"parent":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
