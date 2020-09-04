@@ -27,8 +27,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "buttons",
+    "path": "folders/Objects/buttons.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_selectTile",

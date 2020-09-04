@@ -71,15 +71,14 @@ function init_map(medium, dataSrc) {
 			array(spr_tile_road, spr_soldier_generate, spr_tower),
 			array(spr_infantry, spr_tanks, spr_ifvs), 
 			array(spr_infantry1, spr_tanks1, spr_ifvs1), 
-			spr_infantry_delete);
+			array(spr_infantry_delete)
+		);
 
-	
-		var index = 0;
-		for (; index<4; index++){
+		for (var index = 0; index<array_length(possibleTiles); index++){
 			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 				sprite_index = possibleTiles[index][0];
+				
 				var  xx = x, yy = y + sprite_height
-			
 				with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
 					x  = other.x;
 					y =  other.y + other.sprite_height;
@@ -88,14 +87,7 @@ function init_map(medium, dataSrc) {
 				}
 			}
 		}
-	
-		for (;index<array_length(possibleTiles); index++){
-			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
-				sprite_index=possibleTiles[index];
-			}
-		}
-	
-
+		
 
 
 		// create the soldier modification vars on top right

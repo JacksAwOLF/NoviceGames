@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 // Inherit the parent event
-if (state == VisualState.inactive) exit;
+if (state == VisualState.inactive || array_length(options) == 1) exit;
 draw_sprite_ext(sprite_index, dropdown_active, x, y, image_xscale, image_yscale, 0, c_white, 1);
 
 

@@ -20,9 +20,16 @@ if (edit) {
 	switch (global.changeSprite){
 	
 		case spr_infantry_delete:
-			if (soldier!=-1) with(soldier) instance_destroy();
-			soldier = -1;
-			update_fog();
+			if (soldier != -1) destroy_soldier(pos);
+			else if (tower != -1){
+				with(tower) instance_destroy();
+				tower = -1;
+			} else if (hut != -1){
+				with (hut) instance_destroy();
+				hut = -1;
+			}
+			
+			
 			break;
 	
 		case spr_infantry:

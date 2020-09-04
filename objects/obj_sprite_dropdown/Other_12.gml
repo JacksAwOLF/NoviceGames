@@ -1,5 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
+if (array_length(options) == 1) exit;
 
 if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sprite_width,y+sprite_height+menu_height*image_yscale)) {
 	options_id = 0;
