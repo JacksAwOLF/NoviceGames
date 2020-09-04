@@ -35,7 +35,7 @@ if ((mouseIn || is_selected) && (global.mouseInstanceId == -1 || global.mouseIns
 	var eventId = -1;
 	
 	if (mouse_check_button_pressed(mb_left)) eventId = 0;
-	else if (mouse_check_button(mb_left)) eventId = 1;
+	else if (mouse_check_button(mb_left) && is_selected) eventId = 1;
 	else if (mouse_check_button_released(mb_left)) {
 		eventId = 2;
 		is_selected = false;
