@@ -51,9 +51,9 @@ function init_game_vars(){
 	global.vision[Classes.range] = 1;
 
 
-	global.hutlimit[Soldiers.tanks] = 3;
-	global.hutlimit[Soldiers.infantry] = 2;
-	global.hutlimit[Soldiers.ifvs] = 5;
+	global.hutlimit[Classes.scout] = 5;
+	global.hutlimit[Classes.melee] = 3;
+	global.hutlimit[Classes.range] = 7;
 	
 	
 	global.classNames[Classes.scout] = "Scout";

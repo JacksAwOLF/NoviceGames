@@ -51,3 +51,7 @@ if mouseIn {
 
 }   // end of if (mouse_in)
 
+
+
+
+preMouseIn = mouseIn;

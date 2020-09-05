@@ -36,3 +36,6 @@ def_max_damage = -1
 def_class = -1
 def_vision = -1
 soldier_sprite = -1
+
+
+sprite_dir = -1;

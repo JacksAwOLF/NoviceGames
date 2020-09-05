@@ -5,7 +5,7 @@
 // load the generate variables
 // set soldier first  before  calling this
 steps = 0;
-limit = global.hutlimit[get_soldier_type(soldier)];
+limit = global.hutlimit[soldier.class];
 def_attack_range = soldier.attack_range;
 def_max_health = soldier.max_health;
 def_max_damage = soldier.max_damage;

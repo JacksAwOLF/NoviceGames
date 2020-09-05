@@ -13,5 +13,9 @@ if (edit) {
 			elevation = global.elevation[get_tile_type(id)];
 		
 			break;
+		
+		case spr_tile_road:
+			if (mouseIn && !preMouseIn) road = !road;
+			break;
 	}
 }
