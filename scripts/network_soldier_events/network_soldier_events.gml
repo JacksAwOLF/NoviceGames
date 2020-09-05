@@ -69,8 +69,20 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	else if (to.soldier != -1) attacked = to.soldier;
 	else attacked = to.hut;
 	
+	var damage = calculate_damage(fr.soldier, attacked);
 	
-	attacked.my_health -= calculate_damage(fr.soldier, attacked);
+	// process attacking from the side
+	if (attacked == to.soldier && to.soldier != -1) {
+		var ohko = false, posdiff = frTilePos - toTilePos;
+		if (posdiff == 1 || posdiff == -1)
+			ohko = (to.soldier.direction % 180 == 0);
+		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)
+			ohko = (to.soldier.direction == 90 || to.soldier.direction == 270);
+			
+		if (ohko) damage = to.soldier.my_health;
+	}
+	
+	attacked.my_health -= damage;
 	fr.soldier.can = false;
 						
 	if (attacked.my_health <= 0){
