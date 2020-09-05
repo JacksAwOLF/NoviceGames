@@ -39,6 +39,7 @@ if (hut != -1 && (global.turn % 2 == get_team(hut.soldier_sprite) || !hide_soldi
 	with(hut){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(other.sprite_index);
+		var color = get_team(soldier_sprite) ? c_gray : c_white;
 		
 		if (steps >= 0){
 			// ghost soldier
@@ -49,12 +50,12 @@ if (hut != -1 && (global.turn % 2 == get_team(hut.soldier_sprite) || !hide_soldi
 				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[def_class],global.colors[def_class],false);
 			}
 			// myself
-			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, color, 1);
 			// loading bar
 			draw_healthbar(x, y+ss*7/8, x+ss, y+ss, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
 		} else {
 			// myself
-			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);
+			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, color, 1);
 			// health bar
 			draw_healthbar(x, y, x+ss, y+ss/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
 		}

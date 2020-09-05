@@ -51,7 +51,7 @@ if (edit) {
 	
 		if (hut!=-1) break;
 		
-		if (soldier != -1 && soldier.team==global.turn%2){
+		if (soldier != -1) {// && soldier.team==global.turn%2){
 			hut = instance_create_depth(x, y, 0, obj_hut);
 			with (hut){
 				//pos = other.pos;
