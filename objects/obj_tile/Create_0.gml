@@ -30,4 +30,4 @@ tower = -1;
 
 
 edit = global.edit;
-preMousesIn  = false;
+preMouseIn  = false;
