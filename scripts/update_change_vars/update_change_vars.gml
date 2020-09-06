@@ -2,6 +2,9 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 function update_change_sprite(sprite_index) {
+	erase_blocks(true);
+	global.selectedSoldier = -1;
+	
 	global.changeSprite = sprite_index;
 
 	// if this button is a soldier button, update editSoldierType
