@@ -17,7 +17,7 @@ if (global.won != 0) {
 	if (global.won == 3) turn_string += "Both";
 	
 	draw_set_color(c_green);
-	draw_text_transformed(x+sprite_width/6.5,y+4*sprite_height/7,turn_string, image_xscale, image_yscale, 0);
+	draw_text_transformed(x+sprite_width/6.5,y+4*sprite_height/6,turn_string, image_xscale, image_yscale, 0);
 	draw_set_color(c_black);
 }
 

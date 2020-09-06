@@ -11,6 +11,7 @@ function init_map(medium, dataSrc) {
 	
 	//debug("start");
 
+	//global.playas = 0;
 	global.edit = global.action == "new" || global.action == "load";
 	
 	
