@@ -19,14 +19,41 @@ else if i_d == hor  {
 	global.mapHeight = ver
 	global.mapWidth = hor
 	
-	init_map(Mediums.file);
+	init_map(Mediums.file); // ignore warning
 	map_loaded = true;
 } 
 
 else if i_d == load_file {
+	
+	/*if global.action == "server"{
+		load_file = string(val);
+		port = get_string_async("Which port to host on?", "33669");
+		exit;
+	}*/
+	
 	init_map(Mediums.file, string(val));
 	map_loaded = true;
-		
-	if (global.action == "server") 
-		instance_create_depth(x, y, 0, obj_server);	
+	
+	if global.action == "server"
+		instance_create_depth(x, y, 0, obj_server)
 }
+
+/*else if i_d == port{
+	with(){
+		port = other.port;
+		
+		socket = network_create_server(network_socket_tcp, real(val), 1);
+		if (socket<0){
+			txt = "server creation failed";
+			die = true;
+		} else {
+			txt = "Server created";
+			init_map(Mediums.file, other.load_file);
+			other.map_loaded = true;
+		}
+			
+	}
+	
+
+}
+*/

@@ -1,7 +1,6 @@
 
-enum Mediums{
-	file, buffer
-}
+enum Mediums{file, buffer}
+
 
 function save_data(data, medium, which){
 	switch (which){
@@ -9,7 +8,7 @@ function save_data(data, medium, which){
 			file_text_write_string(medium, string(data)+"\n" );
 			break;
 		case Mediums.buffer:
-			buffer_write(medium, buffer_s16, real(data));
+			buffer_write(medium, buffer_f32, real(data));
 			//buffer_write(medium, buffer_f16, real(data));
 			break;
 
@@ -46,17 +45,14 @@ function save_map(saveAs, helpData) {
 			// if array, -1 or instance id; otherwise,just a value
 			var data1 = real(variable_instance_get(global.grid[i], first));
 			
-			//debug("saving", data1, "for", first);
 				
 			if  (is_array(name) && data1 != -1){
 				for (var k=1; k<array_length(name); k++){
 					var data = real(variable_instance_get(data1, name[k]))
 					save_data(data, med, saveAs);
-					//debug("saving", data, "for", name[k]);
 				}
 					
 			} else save_data(data1, med, saveAs);
-			
 			
 			
 		}
@@ -86,7 +82,7 @@ function get_data(medium, dataSrc){
 		res = file_text_read_real(dataSrc);
 		file_text_readln(dataSrc);
 	} else if (medium == Mediums.buffer){
-		res = real(buffer_read(dataSrc, buffer_s16));
+		res = real(buffer_read(dataSrc, buffer_f32));
 		//res = real(buffer_read(dataSrc, buffer_f16));
 	}
 	else show_error("Get data medium not recognized", true);
@@ -96,10 +92,12 @@ function get_data(medium, dataSrc){
 
 
 function load_global_vars(medium, dataSrc){
-	global.global_save_order = ["mapWidth", "mapHeight", "turn", "saveVersion"];
 	if dataSrc != undefined
-		for (var i = 0; i<array_length(global.global_save_order); i++)
-			variable_global_set(global.global_save_order[i], real(get_data(medium, dataSrc)));
+		for (var i = 1; i<array_length(global.global_save_order); i++){ 
+			var d = get_data(medium, dataSrc);
+			variable_global_set(global.global_save_order[i], real(d));
+			//debug ("set", global.global_save_order[i], "to", d)
+		}
 }
 
 

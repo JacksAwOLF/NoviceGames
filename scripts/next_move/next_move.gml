@@ -1,6 +1,6 @@
 function next_move() {
 	
-		
+	debug("called next move");
 
 	// reset all soldiers moving thing
 	var n = instance_number(obj_infantry);
@@ -16,6 +16,10 @@ function next_move() {
 				steps = min(steps+1, limit);
 				//debug("changed step to", steps,  "at", pos);
 			}
+	
+	
+	if (!global.edit && network_my_turn())
+		send_buffer(BufferDataType.yourMove, []);
 			
 			
 	global.turn++; // relative positioning is important
@@ -29,8 +33,8 @@ function next_move() {
 		global.changeSprite = -1;
 		global.selectedSoldier = -1;
 		update_fog();
-	} else if (!network_my_turn()){
-		send_buffer(BufferDataType.yourMove, []);
-	}
-
+	} 
+	
+	
+	update_won();
 }

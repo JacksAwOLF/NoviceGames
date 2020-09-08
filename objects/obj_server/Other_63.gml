@@ -14,6 +14,7 @@ else if i_d == serverurl {
 	var pos = string_pos(":", val);
 	if (pos == 0){
 		txt = "Add the port after the colon";
+		audio_play_sound(snd_error, 0, false);
 		die = true;
 	}
 	
@@ -25,14 +26,26 @@ else if i_d == serverurl {
 	var res = network_connect(socket, url , port);
 	if (res < 0 || res == 8){
 		txt = "failed to connect to "+string(val);
+		audio_play_sound(snd_error, 0, false);
 		die = true;
 	} else txt = "client created";
 	
 }
 
+
 else if i_d == port{
 	socket = network_create_server(network_socket_tcp, real(val), 1);
-	if (socket<0) txt = "server creation failed";
-	else txt = "Server created"
+	if (socket<0){
+		txt = "server creation failed";
+		audio_play_sound(snd_error, 0, false);
+		die = true;
+	} else {
+		txt = "Server created";
+		
+		//with(MH){
+		//	init_map(Mediums.file, string(val));
+		//	map_loaded = true;
+		//}
+	}
 }
 

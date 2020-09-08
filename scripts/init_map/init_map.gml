@@ -9,9 +9,7 @@ enum VisualState
 
 function init_map(medium, dataSrc) {
 	
-	//debug("start");
-
-	//global.playas = 0;
+	
 	global.edit = global.action == "new" || global.action == "load";
 	
 	
@@ -19,38 +17,36 @@ function init_map(medium, dataSrc) {
 	// since we have to possible choices of soldier types at any moment
 	global.editSoldierType = Soldiers.infantry; 
 	
+	global.objectiveOptions = [all_huts_destroyed, all_towers_destroyed, all_soldiers_destroyed];
+	global.winFunction = 0;
+	
 	global.turn = 0;
-
-	map_loaded = true;
 	global.fog_on = true;
 	
+	enum Soldiers {tanks, infantry, ifvs};
+	enum Classes {scout, melee, range};
+	enum Tiles {open, rough, mountain, others};
 	
-	enum Soldiers {
-		tanks, infantry, ifvs
-	};
-
-	enum Classes {
-		scout, melee, range
-	};
-	
-	enum Tiles {
-		open, rough, mountain, others	
-	};
 	
 	init_game_vars();
 	global.colors[Classes.melee] = c_aqua;
 	global.colors[Classes.range] = c_orange;
 	global.colors[Classes.scout] = c_purple;
 	
-	// global.q = -1; // used in get_vision_tiles1
+	
 
-
-
-	// mapHieght and mapWidth should be already set before calling this function
-	// if no file is specified
+	// load the saveVersion
 	global.saveVersion = 3;
 	if (medium == Mediums.file && dataSrc != undefined) dataSrc = file_text_open_read(dataSrc);
+	variable_global_set(global.saveVersion, real(get_data(medium, dataSrc)));
+	
+	
+	// load global variables
+	if (global.saveVersion == 3)
+		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
 	load_global_vars(medium, dataSrc);
+	
+	
 	
 
 	var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
@@ -59,8 +55,10 @@ function init_map(medium, dataSrc) {
 	var y_axis = 30;    // of the top row on the top
 	var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
 		(room_width-lr_padd*2)/global.mapWidth);
-
 	var xx, yy, sp_index;
+	
+	
+	
 	
 	if (global.edit){
 
@@ -106,7 +104,7 @@ function init_map(medium, dataSrc) {
 		global.soldier_vars[Svars.max_damage] = global.max_damage[0,global.editSoldierType]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
 		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
-		global.soldier_vars[Svars.win] = 0; names[Svars.win] = "Win";
+		global.soldier_vars[Svars.win] = global.winFunction; names[Svars.win] = "Win";
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
 		hor_spacing = 60;
@@ -128,8 +126,6 @@ function init_map(medium, dataSrc) {
 
 		instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
 		instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
-
-
 	}
 
 
@@ -137,7 +133,7 @@ function init_map(medium, dataSrc) {
 	sp_index = object_get_sprite(obj_button_backMenu);
 	xx = 0;
 	yy = room_height - sprite_get_height(sp_index);
-	instance_create_depth(0, yy, -100, obj_button_backMenu);
+	instance_create_depth(0, yy, -1, obj_button_backMenu);
 	
 	
 	// bottom, middle next step button
@@ -158,6 +154,7 @@ function init_map(medium, dataSrc) {
 	xx = room_width - sprite_get_width(sp_index) - 30;
 	yy = (1/6*room_height);// - sprite_get_height(sp_index))/2;
 	instance_create_depth(xx, yy, -100, obj_gui_info_screen);
+	
 	
 
 	// create the actual tiles
@@ -198,15 +195,7 @@ function init_map(medium, dataSrc) {
 	
 	// btw the first variable of an object to  save
 	// can't have a negative 1  value
-	if (global.saveVersion == 1){
-		global.tiles_save_order = array(
-			"sprite_index", 
-			"road", 
-			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
-			array("hut", "steps", "limit", "pos", "soldier_sprite"),
-			array("tower", "my_health", "team", "max_health")
-		);
-	}else if (global.saveVersion ==  2){
+	if (global.saveVersion ==  2){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
@@ -222,14 +211,22 @@ function init_map(medium, dataSrc) {
 			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
 			array("tower", "my_health", "team", "max_health")
 		);
+	} else if (global.saveVersion == 4){
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
+			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
+			array("tower", "my_health", "team", "max_health")
+		);
 	}
 	
 	
 	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
 	
-	
 	// load soldiers and things on tiles
 	load_tiles(medium, dataSrc);
+	
 	
 	
 	
@@ -237,14 +234,13 @@ function init_map(medium, dataSrc) {
 	global.mouseEventId = -1;
 	global.mouseInstanceId = -1;
 	
-	
+
+	// set the elevation
 	for (var i = 0; i < array_length_1d(global.grid); i++)
 		global.grid[i].elevation = global.elevation[get_tile_type(global.grid[i])];
 
 
-
-	// change the fog to your view if needed
-	// only for network things
+	// change the fog to your view if neede	
 	if (!global.edit && !network_my_turn()){
 		global.turn += 1;
 		update_fog();
@@ -252,12 +248,6 @@ function init_map(medium, dataSrc) {
 	} else update_fog();
 	
 	
-	
-	
-	global.objectiveOptions = [all_huts_destroyed, all_towers_destroyed, all_soldiers_destroyed];
-	
-	global.winFunction = all_soldiers_destroyed;
-	global.won = global.winFunction();
-	
-	//debug("done")
+	update_won()
+	//map_loaded = true;
 }

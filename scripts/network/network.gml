@@ -1,10 +1,26 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
+enum BufferDataType{
+	soldierMoved, soldierAttacked, soldierCreated,  yourMove, mapData
+};
+
+global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer type has
+global.buffer_dataT = array( 
+	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
+	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
+	array(buffer_u16, buffer_u16),           // create data:  spriteIndex     tilePos
+);
+
+
 
 // data to send should just be moving data and attack data
 // and soldier create data or destroy data
 		
+
+
+
+
 
 function client_connected(outfalse, outtrue){
 	if outfalse == undefined outfalse = true;
@@ -15,24 +31,11 @@ function client_connected(outfalse, outtrue){
 		var res = t.osocket != -1;
 		if (res && outtrue) t.txt = "Can't quit/save while client still connected";
 		else if (!res && outfalse) t.txt = "Waiting for client connection...";
+		if (res==0) audio_play_sound(snd_error, 0, false);
 		return real(res);
 	}
 	return -1;
 }
-
-enum BufferDataType{
-	soldierMoved, soldierAttacked, soldierCreated,  yourMove, mapData
-};
-
-
-global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer type has
-global.buffer_dataT = array( 
-	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
-	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
-	array(buffer_u16, buffer_u16),           // create data:  spriteIndex     tilePos
-);
-
-
 
 /// @function read and execute moves for a buffer (turn must be incremented first)
 
@@ -63,10 +66,13 @@ function read_buffer(buff){
 			next_move();
 			var t = instance_find(obj_server, 0);
 			t.txt = "Your move!!!";
+			audio_play_sound(snd_your_turn, 0, false);
+			//debug("ok next turn", global.turn);
 			break;
 		
 		case BufferDataType.mapData:
 			init_map(Mediums.buffer, buff);
+			audio_play_sound(snd_connected, 0, false);
 			break;
 	}
 	

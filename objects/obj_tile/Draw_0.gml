@@ -38,11 +38,17 @@ if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 
 
 if (hut != -1 && ((!edit && global.playas == get_team(hut.soldier_sprite)) || 
 				  (edit && global.turn % 2 == get_team(hut.soldier_sprite)) || !hide_soldier)) {
-	
+					  
 	with(hut){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(other.sprite_index);
 		var color = get_team(soldier_sprite) ? c_gray : c_white;
+		
+		// myself
+		draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, color, 1);
+		// health bar
+		draw_healthbar(x, y+ss*3/4, x+ss, y+ss*7/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
+		
 		
 		if (steps >= 0){
 			// ghost soldier
@@ -52,16 +58,12 @@ if (hut != -1 && ((!edit && global.playas == get_team(hut.soldier_sprite)) ||
 				draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
 				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[def_class],global.colors[def_class],false);
 			}
-			// myself
-			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, color, 1);
+			
 			// loading bar
 			draw_healthbar(x, y+ss*7/8, x+ss, y+ss, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
-		} else {
-			// myself
-			draw_sprite_ext(sprite_index, 0, x, y, scale_factor, scale_factor, 0, color, 1);
-			// health bar
-			draw_healthbar(x, y, x+ss, y+ss/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
+			
 		}
+		
 		
 	}
 }
@@ -78,6 +80,10 @@ if (soldier != -1 && !hide_soldier){
 	var soldier_index = 0; 
 	if (global.selectedSoldier == id) soldier_index = 1;
 	with(soldier) if (error){
+		
+		if (error_count  == 0)
+			audio_play_sound(snd_error, 0, false);
+		
 		soldier_index = (floor(error_count/error_wait)+1) % 2
 		if (error_count == error_limit * error_wait){
 			error = false;
@@ -111,7 +117,8 @@ if (soldier != -1 && !hide_soldier){
 
 // draw tower
 if (tower != -1){
-	var scale_factor = size/sprite_get_width(spr_tower);
+	var scale_factor = size/sprite_get_width(spr_tower);	
+	
 	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
 		real(tower.team!=real(global.action!="playw"))
 	draw_sprite_ext(spr_tower, spIndex, x, y, scale_factor, scale_factor, 0, c_white, 1);

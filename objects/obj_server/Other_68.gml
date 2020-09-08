@@ -21,6 +21,8 @@ switch(t) {
 		oip = ds_map_find_value(async_load, "ip");
 		txt = "Client "+string(oip)+" Connected";
 		
+		audio_play_sound(snd_connected, 0, false);
+		
 		// send over the map and playAs data
 		save_map(Mediums.buffer, osocket); // osocket is actually the one that is the client
 		

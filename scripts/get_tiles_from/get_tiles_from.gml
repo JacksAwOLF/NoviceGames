@@ -82,7 +82,7 @@ function get_tiles_from() {
 			// anything that is not attackable
 			var p = global.grid[np];
 			// check teams in init_attack()
-			if (argument[2] == 1 && !(p.soldier!=-1 || p.tower!=-1 || (p.hut!=-1&&p.hut.steps==-1)) ) continue;
+			if (argument[2] == 1 && !(p.soldier!=-1 || p.tower!=-1 || p.hut!=-1) ) continue;
 			
 			
 			if (!argument[3] || ns<z+1) res[count++] = global.grid[np];

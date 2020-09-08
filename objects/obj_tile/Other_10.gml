@@ -54,7 +54,6 @@ if (edit) {
 		if (soldier != -1) {
 			hut = instance_create_depth(x, y, 0, obj_hut);
 			with (hut){
-				//pos = other.pos;
 				soldier = other.soldier;
 				event_user(10);
 			}
@@ -214,7 +213,7 @@ if (!edit || global.changeSprite == -1){
 		global.selectedSoldier = -1;
 		
 		
-	global.won = global.winFunction();
+	update_won();
 }
 		
 		

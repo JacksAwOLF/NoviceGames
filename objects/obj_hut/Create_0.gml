@@ -16,13 +16,11 @@
 //steps = 0;
 
 steps = -1;
-depth = 0;
 
-max_health = 15;
+
+
+max_health = 10;
 my_health = max_health;
-
-pos = -1; // not used anymore, but save file still uses it
-
 
 
 soldier = -1
@@ -36,6 +34,7 @@ def_max_damage = -1
 def_class = -1
 def_vision = -1
 soldier_sprite = -1
+
 
 
 sprite_dir = -1;

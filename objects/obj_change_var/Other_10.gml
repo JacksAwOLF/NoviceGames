@@ -13,8 +13,9 @@ if (text == "Class"){
 } else if (text == "Win") {
 	var len = array_length_1d(global.objectiveOptions);
 	global.soldier_vars[ind] = (global.soldier_vars[ind]+len+add)%len;
+	// global.winCondition = global.soldier_vars[ind];
+	global.winFunction = global.soldier_vars[ind];
 	
-	global.winCondition = global.objectiveOptions[global.soldier_vars[ind]];
-	global.won = global.winCondition();
+	update_won()
 }
 else global.soldier_vars[ind] = max(global.soldier_vars[ind]+add, 0);

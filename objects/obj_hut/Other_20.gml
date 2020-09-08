@@ -13,4 +13,4 @@ def_class = soldier.class;
 def_vision = soldier.vision;
 
 soldier_sprite = soldier.sprite_index;
-
+team = get_team(soldier_sprite);

@@ -20,12 +20,9 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 	/// @param pos
 	/// @param [update]
 	
-	//debug("update is ", update);
-	
 
 	if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
-		
 		
 		
 	with (global.grid[pos]){
@@ -65,8 +62,8 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	var fr = global.grid[frTilePos], to = global.grid[toTilePos];
 	
 	var attacked;
-	if (to.tower != -1) attacked = to.tower;
-	else if (to.soldier != -1) attacked = to.soldier;
+	if (to.soldier != -1) attacked = to.soldier;
+	else if (to.tower != -1) attacked = to.tower;
 	else attacked = to.hut;
 	
 	var damage = calculate_damage(fr.soldier, attacked);
@@ -87,18 +84,27 @@ function soldier_execute_attack(frTilePos, toTilePos){
 						
 	if (attacked.my_health <= 0){
 		
-		
-		if (attacked.object_index == obj_hut){
+		if (attacked.object_index == obj_hut && attacked.steps == -1){
+			
 			// don't kill the hut, conquer it
 			hut.soldier = fr.soldier;
 			with(hut) event_user(10);
 		} else  {
-			if ( attacked.object_index == obj_infantry ) to.soldier = -1;
-			else to.tower = -1;
+			
+			switch(attacked.object_index){
+				case obj_infantry:
+					to.soldier = -1; break;
+				case obj_tower:
+					to.tower = -1; break;
+				case obj_hut:
+					to.hut = -1; break;
+			}
 			
 			instance_destroy(attacked);
+			
 		
 			if (global.edit) update_fog();
+			
 			// if you got this through a buffer,
 			// then you update the fog for yourself
 			else if (!network_my_turn()){
