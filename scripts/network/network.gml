@@ -31,7 +31,7 @@ function client_connected(outfalse, outtrue){
 		var res = t.osocket != -1;
 		if (res && outtrue) t.txt = "Can't quit/save while client still connected";
 		else if (!res && outfalse) t.txt = "Waiting for client connection...";
-		if (res==0) audio_play_sound(snd_error1, 0, false);
+		if (res==0) audio_play_sound(snd_error, 0, false);
 		return real(res);
 	}
 	return -1;

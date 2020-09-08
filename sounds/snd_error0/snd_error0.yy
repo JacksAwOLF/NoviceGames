@@ -1,6 +1,6 @@
 {
   "compression": 0,
-  "volume": 0.34,
+  "volume": 1.0,
   "preload": false,
   "bitRate": 128,
   "sampleRate": 44100,
@@ -10,14 +10,14 @@
     "name": "audiogroup_default",
     "path": "audiogroups/audiogroup_default",
   },
-  "soundFile": "snd_error1.mp3",
-  "duration": 0.840918,
+  "soundFile": "snd_error0.wav",
+  "duration": 0.204728,
   "parent": {
     "name": "Sounds",
     "path": "folders/Sounds.yy",
   },
   "resourceVersion": "1.0",
-  "name": "snd_error1",
+  "name": "snd_error0",
   "tags": [],
   "resourceType": "GMSound",
 }

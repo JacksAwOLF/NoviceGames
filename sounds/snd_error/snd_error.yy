@@ -1,6 +1,6 @@
 {
   "compression": 0,
-  "volume": 1.0,
+  "volume": 0.26,
   "preload": false,
   "bitRate": 128,
   "sampleRate": 44100,
@@ -10,8 +10,8 @@
     "name": "audiogroup_default",
     "path": "audiogroups/audiogroup_default",
   },
-  "soundFile": "snd_error.wav",
-  "duration": 0.204728,
+  "soundFile": "snd_error.mp3",
+  "duration": 0.840918,
   "parent": {
     "name": "Sounds",
     "path": "folders/Sounds.yy",
