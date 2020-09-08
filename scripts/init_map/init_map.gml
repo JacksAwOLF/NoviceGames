@@ -37,10 +37,12 @@ function init_map(medium, dataSrc) {
 
 	// load the saveVersion
 	global.saveVersion = 3;
-	if (medium == Mediums.file && dataSrc != undefined) {
-		dataSrc = file_text_open_read(dataSrc);
+	
+	if (dataSrc != undefined) {
+		if (medium == Mediums.file) dataSrc = file_text_open_read(dataSrc);
 		variable_global_set(global.saveVersion, real(get_data(medium, dataSrc)));
 	}
+
 	
 	
 	// load global variables
