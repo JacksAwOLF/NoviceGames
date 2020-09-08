@@ -82,14 +82,15 @@ if (soldier != -1 && !hide_soldier){
 	with(soldier) if (error){
 		
 		if (error_count  == 0)
-			audio_play_sound(snd_error, 0, false);
+			audio_play_sound(snd_error1, 0, false);
 		
 		soldier_index = (floor(error_count/error_wait)+1) % 2
 		if (error_count == error_limit * error_wait){
 			error = false;
 			error_count = 0;
+		} else {
+			error_count += 1;
 		}
-		error_count += 1;
 	}
 
 	
