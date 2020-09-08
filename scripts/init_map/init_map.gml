@@ -37,8 +37,10 @@ function init_map(medium, dataSrc) {
 
 	// load the saveVersion
 	global.saveVersion = 3;
-	if (medium == Mediums.file && dataSrc != undefined) dataSrc = file_text_open_read(dataSrc);
-	variable_global_set(global.saveVersion, real(get_data(medium, dataSrc)));
+	if (medium == Mediums.file && dataSrc != undefined) {
+		dataSrc = file_text_open_read(dataSrc);
+		variable_global_set(global.saveVersion, real(get_data(medium, dataSrc)));
+	}
 	
 	
 	// load global variables
@@ -133,7 +135,7 @@ function init_map(medium, dataSrc) {
 	sp_index = object_get_sprite(obj_button_backMenu);
 	xx = 0;
 	yy = room_height - sprite_get_height(sp_index);
-	instance_create_depth(0, yy, -1, obj_button_backMenu);
+	instance_create_depth(0, yy, -100, obj_button_backMenu);
 	
 	
 	// bottom, middle next step button
