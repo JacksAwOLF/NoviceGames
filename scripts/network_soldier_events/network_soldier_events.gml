@@ -69,7 +69,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	var damage = calculate_damage(fr.soldier, attacked);
 	
 	// process attacking from the side
-	if (attacked == to.soldier && to.soldier != -1) {
+	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
 		var ohko = false, posdiff = frTilePos - toTilePos;
 		if (posdiff == 1 || posdiff == -1)
 			ohko = (to.soldier.direction % 180 == 0);
