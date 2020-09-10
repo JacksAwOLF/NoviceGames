@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_button_saveMap",
-    "path": "sprites/spr_button_saveMap/spr_button_saveMap.yy",
+    "name": "spr_edit_status",
+    "path": "sprites/spr_edit_status/spr_edit_status.yy",
   },
   "solid": false,
   "visible": true,
