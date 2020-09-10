@@ -31,7 +31,7 @@ function client_connected(outfalse, outtrue){
 		var res = t.osocket != -1;
 		if (res && outtrue) t.txt = "Can't quit/save while client still connected";
 		else if (!res && outfalse) t.txt = "Waiting for client connection...";
-		if (res==0) audio_play_sound(snd_error, 0, false);
+		if (res==0) start_sound("error", 0, false);
 		return real(res);
 	}
 	return -1;
@@ -66,13 +66,14 @@ function read_buffer(buff){
 			next_move();
 			var t = instance_find(obj_server, 0);
 			t.txt = "Your move!!!";
-			audio_play_sound(snd_your_turn, 0, false);
+			start_sound("turn", 0, false);
+			
 			//debug("ok next turn", global.turn);
 			break;
 		
 		case BufferDataType.mapData:
 			init_map(Mediums.buffer, buff);
-			audio_play_sound(snd_connected, 0, false);
+			start_sound("connected", 0, false);
 			break;
 	}
 	

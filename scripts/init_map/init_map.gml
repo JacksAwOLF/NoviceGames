@@ -67,6 +67,7 @@ function init_map(medium, dataSrc) {
 		
 		global.hutOn = true;
 		global.fogOn = true;
+		global.soundOn = true;
 
 		// create the tile selections on the top left
 		global.changeSprite = -1;
