@@ -38,7 +38,7 @@ if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 
 
 if (hut != -1 && ((!edit && global.playas == get_team(hut.soldier_sprite)) || 
 				  (edit && global.turn % 2 == get_team(hut.soldier_sprite)) || !hide_soldier)) {
-					  
+
 	with(hut){
 		var ss = other.size;
 		var scale_factor = ss/sprite_get_width(other.sprite_index);

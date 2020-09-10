@@ -8,25 +8,38 @@ if (state == VisualState.inactive) exit;
 draw_sprite_ext(sprite_index,0,x,y,image_xscale,image_yscale,0,c_white,0.7);
 
 	
-var cur = (global.displayTileInfo != -1 ? global.displayTileInfo.soldier : -1);
+var curSoldier = (global.displayTileInfo != -1 ? global.displayTileInfo.soldier : -1);
+var curHut = (global.displayTileInfo != -1 ? global.displayTileInfo.hut : -1);
 var text = [], len = 0;
-	
-if (cur != -1 && cur.team != global.turn % 2 && global.displayTileInfo.hide_soldier)
-	cur = -1;
+
+if (curSoldier != -1 && curSoldier.team != global.turn % 2 && global.displayTileInfo.hide_soldier)
+	curSoldier = -1;
+if (curHut != -1 && curHut.team != global.turn % 2 && global.displayTileInfo.hide_soldier)
+	curHut = -1;
 		
-text[len++] = "Soldier Info: " + (cur == -1 ? " N/A" : "");
-text[len++] = "  Unit Class: " + (cur == -1 ? " N/A" : global.classNames[cur.class]);
-text[len++] = "    Vision Energy: " + (cur == -1 ? " N/A" : string(cur.vision));
-text[len++] = "  Unit Type: " + (cur == -1 ? " N/A" : global.unitNames[get_soldier_type(cur)]);
-text[len++] = "    Type Movement: " + (cur == -1 ? " N/A" : string(global.movement[get_soldier_type(cur)]));
-text[len++] = "  Attack Range: " + (cur == -1 ? " N/A" : string(cur.attack_range));
-text[len++] = "  Max Damage: " + (cur == -1 ? " N/A" : string(cur.max_damage));
-text[len++] = "  Health: " + (cur == -1 ? " N/A" : string(cur.my_health));
-	
-text[len++] = ""
+		
+
 text[len++] = "Tile Info: " + (global.displayTileInfo == -1 ? "N/A" : "");
 text[len++] = "  Tile Type: " + (global.displayTileInfo == -1 ? "N/A" : global.tileNames[get_tile_type(global.displayTileInfo)]);
 text[len++] = "  Elevation: " + (global.displayTileInfo == -1 ? "N/A" : string(global.displayTileInfo.elevation));
+
+text[len++] = "";
+text[len++] = "Soldier Info: " + (curSoldier == -1 ? " N/A" : "");
+text[len++] = "  Unit Class: " + (curSoldier == -1 ? " N/A" : global.classNames[curSoldier.class]);
+text[len++] = "    Vision Energy: " + (curSoldier == -1 ? " N/A" : string(curSoldier.vision));
+text[len++] = "  Unit Type: " + (curSoldier == -1 ? " N/A" : global.unitNames[get_soldier_type(curSoldier)]);
+text[len++] = "    Type Movement: " + (curSoldier == -1 ? " N/A" : string(global.movement[get_soldier_type(curSoldier)]));
+text[len++] = "  Attack Range: " + (curSoldier == -1 ? " N/A" : string(curSoldier.attack_range));
+text[len++] = "  Max Damage: " + (curSoldier == -1 ? " N/A" : string(curSoldier.max_damage));
+text[len++] = "  Health: " + (curSoldier == -1 ? " N/A" : string(curSoldier.my_health));
+
+text[len++] = "";
+text[len++] = "Hut Info: " + (curHut == -1 ? "N/A" : "");
+text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "N/A" : global.unitNames[get_soldier_type_from_sprite(curHut.soldier_sprite)]);
+text[len++] = "  Unit Class: " + (curHut == -1 || curHut.def_class == -1 ? "N/A" : global.classNames[curHut.def_class]);
+text[len++] = "  Turns: " + (curHut == -1 || curHut.steps == -1 ? "N/A" : string(curHut.steps) + "/" + string(curHut.limit));
+text[len++] = "  Health: " + (curHut == -1 ? "N/A" : string(curHut.my_health));
+	
 	
 for (var i = 0; i < len; i++) {
 	var xx = x+10*image_xscale;

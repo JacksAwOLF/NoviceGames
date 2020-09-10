@@ -1,14 +1,14 @@
-/// @description Insert description here
-// You can write your code in this editor
+/// @description Toggle Fog
+
 if (!global.edit) exit;
 
-if (global.fog_on) {
+if (global.fogOn) {
 	for (var i = 0; i < array_length_1d(global.grid); i++)
 		global.grid[i].hide_soldier = false;
-	global.fog_on = false;
+	global.fogOn = false;
 	
 } else {
-	global.fog_on = true;
+	global.fogOn = true;
 	update_fog();
 	
 }

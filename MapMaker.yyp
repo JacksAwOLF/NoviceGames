@@ -73,6 +73,7 @@
     {"id":{"name":"obj_button_info","path":"objects/obj_button_info/obj_button_info.yy",},"order":5,},
     {"id":{"name":"obj_change_var","path":"objects/obj_change_var/obj_change_var.yy",},"order":6,},
     {"id":{"name":"obj_sprite_dropdown","path":"objects/obj_sprite_dropdown/obj_sprite_dropdown.yy",},"order":7,},
+    {"id":{"name":"obj_edit_status","path":"objects/obj_edit_status/obj_edit_status.yy",},"order":4,},
     {"id":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"order":0,},
     {"id":{"name":"obj_draw_info","path":"objects/obj_draw_info/obj_draw_info.yy",},"order":1,},
     {"id":{"name":"obj_tile","path":"objects/obj_tile/obj_tile.yy",},"order":2,},

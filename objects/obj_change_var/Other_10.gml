@@ -11,7 +11,7 @@ if (text == "Class"){
 	// changing class means loading default values
 	refresh_change_vars();
 } else if (text == "Win") {
-	var len = array_length_1d(global.objectiveOptions);
+	var len = array_length(global.objectiveOptions);
 	global.soldier_vars[ind] = (global.soldier_vars[ind]+len+add)%len;
 	// global.winCondition = global.soldier_vars[ind];
 	global.winFunction = global.soldier_vars[ind];

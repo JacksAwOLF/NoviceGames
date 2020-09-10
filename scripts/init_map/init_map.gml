@@ -21,7 +21,6 @@ function init_map(medium, dataSrc) {
 	global.winFunction = 0;
 	
 	global.turn = 0;
-	global.fog_on = true;
 	
 	enum Soldiers {tanks, infantry, ifvs};
 	enum Classes {scout, melee, range};
@@ -65,7 +64,9 @@ function init_map(medium, dataSrc) {
 	
 	
 	if (global.edit){
-
+		
+		global.hutOn = true;
+		global.fogOn = true;
 
 		// create the tile selections on the top left
 		global.changeSprite = -1;
@@ -81,7 +82,7 @@ function init_map(medium, dataSrc) {
 			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 				sprite_index = possibleTiles[index][0];
 				
-				var  xx = x, yy = y + sprite_height
+				var xx = x, yy = y + sprite_height
 				with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
 					x  = other.x;
 					y =  other.y + other.sprite_height;
@@ -91,7 +92,9 @@ function init_map(medium, dataSrc) {
 			}
 		}
 		
-
+		var xx = hor_spacing*array_length(possibleTiles) + hor_spacing/2;
+		instance_create_depth(xx, y_axis/2, -1, obj_edit_status);
+		
 
 		// create the soldier modification vars on top right
 		var names; 
@@ -130,6 +133,9 @@ function init_map(medium, dataSrc) {
 
 		instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
 		instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
+
+	
+		
 	}
 
 
