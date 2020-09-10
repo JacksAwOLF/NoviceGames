@@ -95,3 +95,28 @@ function get_tiles_from() {
 
 
 }
+
+
+// returns all tiles (including its own) within a certain
+// distance of a tile. if with_soldiers is true, only tiles
+// with soldiers will be returned
+function get_tiles_from_euclidean(tile_pos, dist, with_soldiers) {
+	var row = floor(tile_pos / global.mapWidth);
+	var col = tile_pos % global.mapWidth;
+	
+	var res = [], len = 0;
+	for (var xx = col-dist; xx <= col+dist; xx++) {
+		for (var yy = row-dist; yy <= row+dist; yy++) {
+			if (!point_in_rectangle(xx,yy,0,0,global.mapWidth-1,global.mapHeight-1))
+				continue;
+			else if ((xx-col)*(xx-col)+(yy-row)*(yy-row) <= dist*dist) {
+				var np = global.mapWidth*yy + xx;
+				if (!with_soldiers || global.grid[np].soldier != -1) 
+					res[len++] = global.grid[np];
+			}
+		}
+	}
+	
+	
+	return res;
+}
