@@ -53,9 +53,16 @@ if (hut != -1 && ((!edit && global.playas == get_team(hut.soldier_sprite)) ||
 		if (steps >= 0){
 			// ghost soldier
 			if (other.soldier == -1) {
-				var width = sprite_get_width(soldier_sprite)*scale_factor;
 				
-				draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
+				var xx = x, yy = y;
+				var width = scale_factor*sprite_get_width(soldier_sprite);
+	
+				// we need to reposition x, y based on rotation
+				if (sprite_dir == 180 || sprite_dir == 270) xx += ss;
+				if (sprite_dir == 90 || sprite_dir == 180) yy += ss;
+	
+				draw_sprite_ext(soldier_sprite, 0, xx, yy, scale_factor, scale_factor, sprite_dir, c_white, 0.4);				// the soldier on this tile
+				//draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
 				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[def_class],global.colors[def_class],false);
 			}
 			

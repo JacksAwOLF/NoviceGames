@@ -55,6 +55,7 @@ if (edit) {
 			hut = instance_create_depth(x, y, 0, obj_hut);
 			with (hut){
 				soldier = other.soldier;
+				sprite_dir = other.soldier.direction;
 				event_user(10);
 			}
 			destroy_soldier(pos);

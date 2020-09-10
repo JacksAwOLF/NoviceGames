@@ -35,7 +35,7 @@ function init_map(medium, dataSrc) {
 	
 
 	// load the saveVersion
-	global.saveVersion = 3;
+	global.saveVersion = 5;
 	
 	if (dataSrc != undefined) {
 		if (medium == Mediums.file) dataSrc = file_text_open_read(dataSrc);
@@ -45,7 +45,7 @@ function init_map(medium, dataSrc) {
 	
 	
 	// load global variables
-	if (global.saveVersion == 3)
+	if (global.saveVersion == 3 || global.saveVersion == 5)
 		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
 	load_global_vars(medium, dataSrc);
 	
@@ -228,6 +228,14 @@ function init_map(medium, dataSrc) {
 			"road", 
 			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
 			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
+			array("tower", "my_health", "team", "max_health")
+		);
+	} else if (global.saveVersion == 5){
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
+			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health", "sprite_dir"),
 			array("tower", "my_health", "team", "max_health")
 		);
 	}

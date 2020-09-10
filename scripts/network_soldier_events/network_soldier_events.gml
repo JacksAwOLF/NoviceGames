@@ -24,7 +24,7 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 	if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
 		
-		
+	debug("soldier created at ", pos);
 	with (global.grid[pos]){
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);
@@ -43,6 +43,8 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 					class = other.def_class
 					vision = other.def_vision
 					my_health = max_health;
+					if (other.sprite_dir != -1)
+						direction = other.sprite_dir;
 					
 					other.steps = 0;
 				}
