@@ -255,7 +255,7 @@ function init_map(medium, dataSrc) {
 	
 
 	// set the elevation
-	for (var i = 0; i < array_length_1d(global.grid); i++)
+	for (var i = 0; i < array_length(global.grid); i++)
 		global.grid[i].elevation = global.elevation[get_tile_type(global.grid[i])];
 
 

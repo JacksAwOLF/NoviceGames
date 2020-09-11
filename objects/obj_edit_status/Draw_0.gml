@@ -10,4 +10,4 @@ text[len++] = ("Huts(h): " + (global.hutOn ? "On" : "Off"));
 text[len++] = ("Sounds(s): " + (global.soundOn ? "On" : "Off"));
 
 for (var i = 0; i < len; i++)
-	draw_text_transformed(x+10*image_xscale,y+(i*20+10)*image_yscale,text[i],0.8,0.8,0);
+	draw_text_transformed(x+10*image_xscale,y+(i*20+10)*image_yscale,text[i],0.8*image_xscale,0.8*image_yscale,0);
