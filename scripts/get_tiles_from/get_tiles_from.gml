@@ -22,8 +22,8 @@ function get_tiles_from() {
 	var start = argument[0];
 	var z = argument[1];
 
-	var res; var count = 0;
-	res[count++] = global.grid[start];
+	var res = []; var count = 0;
+	//res[count++] = global.grid[start];
 	if (z == 0) return res;
 
 	var vis = array_create(global.mapWidth * global.mapHeight);	// each entry is initialized to 0

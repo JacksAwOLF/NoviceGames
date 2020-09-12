@@ -5,10 +5,8 @@
 //exit;
 // clear the selected soldier things if this block is not a possible move or attack
 if (global.selectedSoldier != -1){
-
 	
-	if (possible_move) {
-		
+	if (possible_move || possible_path) {
 		var path = [];
 		
 		for (var i = 0; i <= array_length(global.selectedSoldier.soldier.poss_paths)-2; i++)
@@ -21,8 +19,8 @@ if (global.selectedSoldier != -1){
 			path[array_length(path)] = cur[0];
 		}
 		
+		
 		with (global.selectedSoldier.soldier){	
-			
 			if (array_length(path)>=1 ) {
 					
 				// if didn't clicked myself again (didn't deselect)
@@ -53,6 +51,7 @@ if (global.selectedSoldier != -1){
 				}
 					
 				if (error) i++;
+				
 				
 				soldier_execute_move(global.selectedSoldier.pos,  path[i+1].pos, direction);
 				global.selectedSoldier = path[i+1];
