@@ -11,25 +11,25 @@ if (global.selectedSoldier != -1){
 		
 		var path = [];
 		
-		for (var i = 0; i <= array_length_1d(global.selectedSoldier.soldier.poss_paths)-2; i++)
-			path[array_length_1d(path)] = global.selectedSoldier.soldier.poss_paths[i];
+		for (var i = 0; i <= array_length(global.selectedSoldier.soldier.poss_paths)-2; i++)
+			path[array_length(path)] = global.selectedSoldier.soldier.poss_paths[i];
 			
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);
 			cur[0].possible_path = 0;
 			cur[0].possible_pathpoint = false;
-			path[array_length_1d(path)] = cur[0];
+			path[array_length(path)] = cur[0];
 		}
 		
 		with (global.selectedSoldier.soldier){	
 			
-			if (array_length_1d(path)>=1 ) {
+			if (array_length(path)>=1 ) {
 					
 				// if didn't clicked myself again (didn't deselect)
-				if (array_length_1d(path) > 1) can = false;
+				if (array_length(path) > 1) can = false;
 				
 				var i; // i is index of first soldier encountered or  -1 of none
-				for (i = array_length_1d(path)-2; i>=0; i--)
+				for (i = array_length(path)-2; i>=0; i--)
 					if (path[i].soldier!=-1 && path[i] != global.selectedSoldier) break;	
 				
 				

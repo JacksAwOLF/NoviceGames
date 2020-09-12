@@ -122,7 +122,7 @@ if (!edit || global.changeSprite == -1){
 			possible_pathpoint = true;
 				
 			global.pathCost += global.dist[pos];
-			for (var i = array_length_1d(global.selectedSoldier.soldier.poss_paths)-2; i >= 0; i--) {
+			for (var i = array_length(global.selectedSoldier.soldier.poss_paths)-2; i >= 0; i--) {
 				var val = [global.selectedSoldier.soldier.poss_paths[i], (i==0?global.dist[pos]:0)];
 				
 				ds_stack_push(global.selectedPathpointsStack, val);
@@ -156,18 +156,24 @@ if (!edit || global.changeSprite == -1){
 		var myturn =  (global.edit || network_my_turn() );
 		
 		
-		if (soldier != -1 && soldier.team == (global.turn)%2 && myturn){
-			if (soldier.can){
-				global.selectedSoldier = id;
+		if (soldier != -1) {
+			if(soldier.team == (global.turn)%2 && myturn){
+				if (soldier.can){
+					global.selectedSoldier = id;
 			
-				ds_stack_clear(global.selectedPathpointsStack);
-				ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier, 0]);
-				global.selectedSoldier.possible_path = 1;
+					ds_stack_clear(global.selectedPathpointsStack);
+					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier, 0]);
+					global.selectedSoldier.possible_path = 1;
 				
 			
-				soldier_init_move();
-				soldier_init_attack();
-			} else soldier.error = true;
+					soldier_init_move();
+					soldier_init_attack();
+				} else soldier.error = true;
+				
+			} else if ((soldier.team == global.turn % 2) != myturn && !hide_soldier) {
+				soldier.display_if_enemy = !soldier.display_if_enemy;
+				update_enemy_outline();
+			}
 		} 
 		
 		
@@ -183,9 +189,6 @@ if (!edit || global.changeSprite == -1){
 		
 			if (can  && myturn){
 				
-				//debug(global.turn, get_team(soldier_sprite), sprite_get_name(soldier_sprite));
-				//debug(!global.edit && network_my_turn());
-				
 				create_soldier(soldier_sprite, other.pos, true); // ignore the warning
 				steps = 0;
 	
@@ -199,7 +202,6 @@ if (!edit || global.changeSprite == -1){
 					my_health = max_health;
 				}*/
 				
-				update_fog();
 			}
 	
 		}

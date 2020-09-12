@@ -25,9 +25,23 @@ if (road){
 // draw borders around it
 if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, size, c_white, 1);					// mouse in gray box
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
-if (possible_attack && !hide_soldier) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
+if ((possible_attack && !hide_soldier)) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
+
+
+var ontop = false;
+if (possible_enemy_attack) {
+	draw_sprite_stretched_ext(spr_orange, 0, x+1/10*size, y+1/10*size, size*4/5, size*4/5, c_white, 1);
+	ontop = true;
+}
+if (enemy_vision) {
+	draw_sprite_stretched_ext(spr_dark_blue, 0, x+3/20*size, y+3/20*size, size*7/10, size*7/10, c_white, 1);
+}
+if (possible_enemy_move) {
+	draw_sprite_stretched_ext(spr_dark_green, 0, x+1/5*size, y+1/5*size, size*3/5, size*3/5, c_white, 1);
+	ontop = true;
+}
 
 
 
@@ -36,8 +50,7 @@ if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 
 // draw the  hut if needed
 
 
-if (hut != -1 && ((!edit && global.playas == get_team(hut.soldier_sprite)) || 
-				  (edit && global.turn % 2 == get_team(hut.soldier_sprite)) || !hide_soldier)) {
+if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 
 	with(hut){
 		var ss = other.size;

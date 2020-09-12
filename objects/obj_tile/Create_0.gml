@@ -13,8 +13,12 @@ possible_pathpoint = false;		// this tile is selected as one of the key points o
 possible_move = false;			// this tile is a possible move
 possible_attack = false;		// this tile is a possible attack
 
+possible_enemy_move = false;
+possible_enemy_attack = false;
+enemy_vision = false;
 
 draw_temp_soldier = -1;			// what sprite of temporary soldier to draw
+
 
 elevation = 1;
 

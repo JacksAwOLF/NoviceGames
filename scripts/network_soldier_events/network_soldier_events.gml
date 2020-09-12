@@ -24,7 +24,6 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 	if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
 		
-	debug("soldier created at ", pos);
 	with (global.grid[pos]){
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);

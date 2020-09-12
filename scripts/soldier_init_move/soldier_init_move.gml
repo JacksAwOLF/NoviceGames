@@ -17,13 +17,11 @@ function soldier_init_move() {
 			if (can){
 				
 				poss_moves = get_tiles_from(source.pos, global.movement[type] - global.pathCost, -1, true, global.energy[type]);
-				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) {
-					//debug("distance to selected soldier is: ", global.dist[global.selectedSoldier.pos]);
-					poss_moves[array_length_1d(poss_moves)] = global.selectedSoldier;
-				}
+				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
+					poss_moves[array_length(poss_moves)] = global.selectedSoldier;
 				
 				//debug("can and poss_moves: ", poss_moves);
-				for (var i=0; i<array_length_1d(poss_moves); i++)
+				for (var i=0; i<array_length(poss_moves); i++)
 					poss_moves[i].possible_move = true;
 			}
 		}

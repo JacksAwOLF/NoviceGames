@@ -14,6 +14,7 @@ if (global.edit){
 poss_attacks = -1;
 poss_moves = -1;
 
+display_if_enemy = false;
 
 team = 0;
 
