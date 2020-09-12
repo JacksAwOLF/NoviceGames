@@ -112,6 +112,8 @@ function soldier_execute_attack(frTilePos, toTilePos){
 				global.turn++;
 				update_fog();
 				global.turn--;
+			} else {
+				update_enemy_outline();
 			}
 		}
 		
@@ -132,12 +134,15 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 	fr.soldier = -1;
 	to.soldier = t;						
 	
-	if (global.edit || network_my_turn()) update_fog();
-	else update_enemy_outline();
+
 	
 	with(to.soldier) direction = dir;
 	send_buffer(BufferDataType.soldierMoved, array(frTilePos, toTilePos, dir));
 	
+	if (global.edit || network_my_turn()) update_fog();
+	else {
+		update_enemy_outline();
+	}
 }
 
 
