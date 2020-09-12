@@ -38,10 +38,11 @@ else if i_d == port{
 	if (socket<0){
 		txt = "server creation failed";
 		start_sound("error", 0, false);
-		die = true;
+		debug(val, socket);
+		//die = true;
 	} else {
 		txt = "Server created";
-		
+		start_sound("connected", 0, false);
 		//with(MH){
 		//	init_map(Mediums.file, string(val));
 		//	map_loaded = true;

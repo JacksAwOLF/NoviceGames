@@ -3,6 +3,7 @@
 
 
 if (txt != ""){
+	debug(txt, premsg, die)
 	
 	if (premsg != txt){
 		alpha =  1;
@@ -18,6 +19,10 @@ if (txt != ""){
 		if (alpha <= 0) {
 			txt = "";
 			if (die){
+
+				if (socket != -1) network_destroy(socket);
+				if (osocket != -1) network_destroy(osocket);
+				
 				instance_destroy();
 				room_goto(rm_start_screen)
 			}

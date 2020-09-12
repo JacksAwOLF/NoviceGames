@@ -30,8 +30,10 @@ function client_connected(outfalse, outtrue){
 		var t = instance_find(obj_server, 0);
 		var res = t.osocket != -1;
 		if (res && outtrue) t.txt = "Can't quit/save while client still connected";
-		else if (!res && outfalse) t.txt = "Waiting for client connection...";
-		if (res==0) start_sound("error", 0, false);
+		else if (!res && outfalse) {
+			t.txt = "Waiting for client connection...";
+			start_sound("error", 0, false);
+		}
 		return real(res);
 	}
 	return -1;
