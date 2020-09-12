@@ -107,7 +107,7 @@ function get_tiles_from_euclidean(tile_pos, dist, with_soldiers) {
 	var res = [], len = 0;
 	for (var xx = col-dist; xx <= col+dist; xx++) {
 		for (var yy = row-dist; yy <= row+dist; yy++) {
-			if (!point_in_rectangle(xx,yy,0,0,global.mapWidth-1,global.mapHeight-1))
+			if ((xx == col && yy == row) || !point_in_rectangle(xx,yy,0,0,global.mapWidth-1,global.mapHeight-1))
 				continue;
 			else if ((xx-col)*(xx-col)+(yy-row)*(yy-row) <= dist*dist) {
 				var np = global.mapWidth*yy + xx;
