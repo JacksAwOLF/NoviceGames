@@ -133,9 +133,11 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 	to.soldier = t;						
 	
 	if (global.edit || network_my_turn()) update_fog();
+	else update_enemy_outline();
 	
 	with(to.soldier) direction = dir;
 	send_buffer(BufferDataType.soldierMoved, array(frTilePos, toTilePos, dir));
+	
 }
 
 
