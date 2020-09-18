@@ -4,5 +4,3 @@
 if (socket != -1) network_destroy(socket);
 if (osocket != -1) network_destroy(osocket);
 
-
-//debug("destroyed server/client");

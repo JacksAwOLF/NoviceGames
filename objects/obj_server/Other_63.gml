@@ -43,10 +43,6 @@ else if i_d == port{
 	} else {
 		txt = "Server created";
 		start_sound("connected", 0, false);
-		//with(MH){
-		//	init_map(Mediums.file, string(val));
-		//	map_loaded = true;
-		//}
 	}
 }
 

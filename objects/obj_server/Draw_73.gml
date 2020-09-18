@@ -3,7 +3,6 @@
 
 
 if (txt != ""){
-	debug(txt, premsg, die)
 	
 	if (premsg != txt){
 		alpha =  1;

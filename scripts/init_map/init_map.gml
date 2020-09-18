@@ -56,8 +56,8 @@ function init_map(medium, dataSrc) {
 	var lr_padd = 64;
 	var hor_spacing = 90;   // x distance between each button on the top row
 	var y_axis = 30;    // of the top row on the top
-	var tile_size = min((room_height-tb_padd*2)/global.mapHeight, 
-		(room_width-lr_padd*2)/global.mapWidth);
+	var tile_size = 64;
+	//min((room_height-tb_padd*2)/global.mapHeight, (room_width-lr_padd*2)/global.mapWidth);
 	var xx, yy, sp_index;
 	
 	
