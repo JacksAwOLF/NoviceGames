@@ -268,5 +268,6 @@ function init_map(medium, dataSrc) {
 	
 	
 	update_won()
-	//map_loaded = true;
+	
+	global.map_loaded = true;
 }

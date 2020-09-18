@@ -4,10 +4,10 @@
 hor = -1
 ver = -1
 load_file = -1
-map_loaded = false
+
+global.map_loaded = false
 move = -1;
 
-//debug(global.action);
 
 switch(global.action){
 	case "client":
