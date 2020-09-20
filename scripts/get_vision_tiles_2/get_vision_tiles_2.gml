@@ -74,8 +74,8 @@ function get_vision_tiles_2() {
 						case spr_tile_road:
 							add = 1; break;
 					
-						case spr_tile_mountain: add = 2.5; break;
-						case spr_tile_ocean: add = 1.5; 
+						case spr_tile_mountain: add = 2; break;
+						case spr_tile_ocean: add = 1.1; 
 					}
 				}
 		

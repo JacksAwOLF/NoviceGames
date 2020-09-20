@@ -1,6 +1,6 @@
 /// @description Clear all selections
 
-if (map_loaded) {
+if (global.map_loaded) {
 	erase_blocks(true);
 	global.selectedSoldier = -1;
 
