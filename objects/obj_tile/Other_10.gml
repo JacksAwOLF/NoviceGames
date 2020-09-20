@@ -90,6 +90,7 @@ if (!edit || global.changeSprite == -1){
 		if (possible_attack && !hide_soldier) { // process attacking
 			
 			soldier_execute_attack(global.selectedSoldier.pos, pos);
+			global.selectedSoldier = -2;
 			
 		} else if (possible_pathpoint) { // process deselecting blue tiles
 			enableDoubleClick = true;
