@@ -11,15 +11,24 @@ function destroy_soldier(pos) {
 }
 
 
+/// @function Initialize the global soldier variables
+/// @param soldierObjId
+function init_global_soldier_vars(soldierId){
+	with(soldierId){
+		var type = get_soldier_type_from_sprite(sprite_index);
+		attack_range = global.attack_range[class,type];
+		max_health = global.max_health[class,type];
+		max_damage = global.max_damage[class,type];
+		vision = global.vision[class];
+	}
+}
 
 /// @function Creates a soldier with sprite sind at position pos
-
+/// @param sind
+/// @param pos
+/// @param [fromHut=false]
+/// @param [updateFog=true]
 function create_soldier(sind, pos, fromHut, updateFog) {
-	
-	/// @param sind
-	/// @param pos
-	/// @param [update]
-	
 
 	if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
@@ -36,15 +45,11 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 			
 			if (fromHut){
 				with(hut) with(other.soldier){
-					attack_range = other.def_attack_range
-					max_health = other.def_max_health
-					max_damage = other.def_max_damage
-					class = other.def_class
-					vision = other.def_vision
+					class = other.soldier_class
+					init_global_soldier_vars(id);
 					my_health = max_health;
 					if (other.sprite_dir != -1)
 						direction = other.sprite_dir;
-					
 					other.steps = 0;
 				}
 			}
@@ -90,6 +95,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 			// don't kill the hut, conquer it
 			hut.soldier = fr.soldier;
 			with(hut) event_user(10);
+			
 		} else  {
 			
 			switch(attacked.object_index){

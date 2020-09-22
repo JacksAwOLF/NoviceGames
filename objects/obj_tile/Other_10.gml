@@ -185,24 +185,11 @@ if (!edit || global.changeSprite == -1){
 			other.soldier == -1 && 
 			get_team(soldier_sprite) == global.turn%2;
 			
-			// network side
-			//can = can  || (!global.edit && network_my_turn());
+			
 		
 			if (can  && myturn){
-				
 				create_soldier(soldier_sprite, other.pos, true); // ignore the warning
 				steps = 0;
-	
-				// restore snapshot  default variables
-				/*with(global.grid[pos].soldier){
-					attack_range = other.def_attack_range
-					max_health = other.def_max_health
-					max_damage = other.def_max_damage
-					class = other.def_class
-					vision = other.def_vision
-					my_health = max_health;
-				}*/
-				
 			}
 	
 		}

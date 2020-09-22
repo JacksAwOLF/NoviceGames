@@ -142,6 +142,9 @@ function load_tiles(medium, dataSrc) {
 					if (k != 1) data1 = get_data(medium, dataSrc, name[k]);
 					variable_instance_set(obj, name[k], data1);
 				}
+				
+				if (first == "soldier")
+					init_global_soldier_vars(obj);
 					
 			} else variable_instance_set(global.grid[i], first, data1);
 			

@@ -66,7 +66,7 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 	
 				draw_sprite_ext(soldier_sprite, 0, xx, yy, scale_factor, scale_factor, sprite_dir, c_white, 0.4);				// the soldier on this tile
 				//draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
-				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[def_class],global.colors[def_class],false);
+				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier_class],global.colors[soldier_class],false);
 			}
 			
 			// loading bar
