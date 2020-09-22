@@ -1,23 +1,60 @@
 
 enum Mediums{file, buffer}
 
-
-function save_data(data, medium, which){
-	switch (which){
+/// @param  data 
+/// @param  Mediums.*** 
+/// @param  dataSrc 
+/// @param  nameOfdata
+function save_data(data, medium, dataSrc, name){
+	var dataT = buffer_f32;
+	if (global.saveVersion >= 6 && name == "sprite_index"){
+		data = sprite_get_name(data);
+		dataT =  buffer_string;
+	}
+	
+	switch (medium){
 		case Mediums.file:
-			file_text_write_string(medium, string(data)+"\n" );
+			file_text_write_string(dataSrc, string(data)+"\n" );
 			break;
 		case Mediums.buffer:
-			buffer_write(medium, buffer_f32, real(data));
-			//buffer_write(medium, buffer_f16, real(data));
+			buffer_write(dataSrc, dataT, data);
 			break;
-
 	}
 }
 
+
+/// @param  Mediums.***
+/// @param  dataSrc
+/// @param  nameOfData
+function get_data(medium, dataSrc, name){
+	var res, dataT = buffer_f32;
+	if (global.saveVersion >= 6 && name == "sprite_index")
+		dataT = buffer_string;
+		
+	switch (medium){
+		case Mediums.file:
+			res = file_text_read_string(dataSrc);
+			file_text_readln(dataSrc);
+			break;
+		case Mediums.buffer:
+			res = buffer_read(dataSrc, dataT);
+			break;
+	}
+	
+	if (global.saveVersion >= 6 && name == "sprite_index")
+		res = asset_get_index(res);
+	
+	return real(res);
+}
+
+
+
+
+/// @param Mediums.***
+/// @param {string} filenameOrNothing
 function save_map(saveAs, helpData) {
 	
-	var med;
+	var med=-1;
 	switch (saveAs){
 		case Mediums.file:
 			med = file_text_open_write(helpData); break;
@@ -30,34 +67,28 @@ function save_map(saveAs, helpData) {
 	if med < 0 show_error("problem opening save medium", false);
 
 	// write out global variables
-	for (var i = 0; i<array_length(global.global_save_order); i++)
-		save_data(variable_global_get(global.global_save_order[i]), med, saveAs);
+	for (var i = 0; i<array_length(global.global_save_order); i++){
+		var name = global.global_save_order[i];
+		save_data(variable_global_get(name), saveAs, med, name);
+	}
 
 
 	// write all the tiles and their objects on the tiles
 	for (var i=0; i<global.mapWidth * global.mapHeight; i+=1){
 		for (var j=0; j<array_length(global.tiles_save_order); j++){
-			
-			// name is either the element, or the first  eleof the array
 			var name = global.tiles_save_order[j], first = name;
 			if  (is_array(name)) first = name[0];
-			
-			// if array, -1 or instance id; otherwise,just a value
 			var data1 = real(variable_instance_get(global.grid[i], first));
 			
-				
 			if  (is_array(name) && data1 != -1){
 				for (var k=1; k<array_length(name); k++){
 					var data = real(variable_instance_get(data1, name[k]))
-					save_data(data, med, saveAs);
+					save_data(data, saveAs, med, name[k]);
 				}
-					
-			} else save_data(data1, med, saveAs);
-			
-			
+			} else save_data(data1, saveAs, med, first);
 		}
 	}
-			
+	
 	
 	switch (saveAs){
 		case Mediums.file:
@@ -73,35 +104,21 @@ function save_map(saveAs, helpData) {
 
 
 
-
-
-
-function get_data(medium, dataSrc){
-	var res = -1;
-	if (medium == Mediums.file){
-		res = file_text_read_real(dataSrc);
-		file_text_readln(dataSrc);
-	} else if (medium == Mediums.buffer){
-		res = real(buffer_read(dataSrc, buffer_f32));
-		//res = real(buffer_read(dataSrc, buffer_f16));
-	}
-	else show_error("Get data medium not recognized", true);
-	return res;
-}
-
-
-
+/// @param Mediums.***
+/// @param dataSrc
 function load_global_vars(medium, dataSrc){
 	if dataSrc != undefined
 		for (var i = 1; i<array_length(global.global_save_order); i++){ 
-			var d = get_data(medium, dataSrc);
-			variable_global_set(global.global_save_order[i], real(d));
-			//debug ("set", global.global_save_order[i], "to", d)
+			var name = global.global_save_order[i];
+			var d = get_data(medium, dataSrc, name);
+			variable_global_set(name, real(d));
 		}
 }
 
 
 
+/// @param Mediums.***
+/// @param dataSrc
 function load_tiles(medium, dataSrc) {
 	
 	if dataSrc != undefined
@@ -110,34 +127,24 @@ function load_tiles(medium, dataSrc) {
 		for (var j=0; j<array_length(global.tiles_save_order); j++){ // loop through the vars saved
 				
 			// name is either the element, or the first  eleof the array
-			var name = global.tiles_save_order[j], first = name;
+			var name = global.tiles_save_order[j], first = name, data1;
 			if  (is_array(name)) first = name[0];
+			var data1 = get_data(medium, dataSrc, first);
 				
-			var data1 = get_data(medium, dataSrc);
-				
-			//debug("loading", data1, "for", first);
 				
 			if (is_array(name) && data1 != -1){
 					
-				var g = global.grid[i], xx = g.x, yy = g.y;
-					
+				var g = global.grid[i], xx = g.x, yy = g.y
 				var obj = instance_create_depth(xx, yy, 0, global.tiles_save_objects[j]);
 				variable_instance_set(g, first, obj);
 					
 				for (var k=1; k<array_length(name); k++){ 
-					if (k != 1){data1 = get_data(medium, dataSrc);}
+					if (k != 1) data1 = get_data(medium, dataSrc, name[k]);
 					variable_instance_set(obj, name[k], data1);
-					//debug("loading", data1, "for", name[k]);
 				}
-				
-				// some variables are only updated in the cvreate event of the objects
-				//with(obj) event_perform_object(global.tiles_save_objects[j], ev_create, 0);
 					
 			} else variable_instance_set(global.grid[i], first, data1);
 			
-			
-			
-				
 		}
 	}
 	

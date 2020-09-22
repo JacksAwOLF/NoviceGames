@@ -35,18 +35,18 @@ function init_map(medium, dataSrc) {
 	
 
 	// load the saveVersion
-	global.saveVersion = 5;
-	
+	global.saveVersion = 6;
 	if (dataSrc != undefined) {
 		if (medium == Mediums.file) dataSrc = file_text_open_read(dataSrc);
-		variable_global_set(global.saveVersion, real(get_data(medium, dataSrc)));
+		variable_global_set("saveVersion", real(get_data(medium, dataSrc)));
 	}
+	
+	debug("save", global.saveVersion)
 
 	
 	
 	// load global variables
-	if (global.saveVersion == 3 || global.saveVersion == 5)
-		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
+	global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
 	load_global_vars(medium, dataSrc);
 	
 	
@@ -206,15 +206,7 @@ function init_map(medium, dataSrc) {
 	
 	// btw the first variable of an object to  save
 	// can't have a negative 1  value
-	if (global.saveVersion ==  2){
-		global.tiles_save_order = array(
-			"sprite_index", 
-			"road", 
-			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
-			array("hut", "steps", "limit", "pos", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision"),
-			array("tower", "my_health", "team", "max_health")
-		);
-	}else if (global.saveVersion ==  3){
+	if (global.saveVersion == 4){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
@@ -222,15 +214,7 @@ function init_map(medium, dataSrc) {
 			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
 			array("tower", "my_health", "team", "max_health")
 		);
-	} else if (global.saveVersion == 4){
-		global.tiles_save_order = array(
-			"sprite_index", 
-			"road", 
-			array("soldier", "attack_range",  "max_health", "max_damage", "my_health", "sprite_index", "can", "class", "direction", "vision", "team"), 
-			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health"),
-			array("tower", "my_health", "team", "max_health")
-		);
-	} else if (global.saveVersion == 5){
+	} else if (global.saveVersion >= 5){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
