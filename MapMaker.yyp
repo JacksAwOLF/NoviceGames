@@ -93,6 +93,7 @@
     {"id":{"name":"snd_your_turn","path":"sounds/snd_your_turn/snd_your_turn.yy",},"order":2,},
     {"id":{"name":"spr_select_possiblePathPoint","path":"sprites/spr_select_possiblePathPoint/spr_select_possiblePathPoint.yy",},"order":20,},
     {"id":{"name":"rm_start_screen","path":"rooms/rm_start_screen/rm_start_screen.yy",},"order":0,},
+    {"id":{"name":"spr_select_teleport","path":"sprites/spr_select_teleport/spr_select_teleport.yy",},"order":25,},
     {"id":{"name":"rm_map","path":"rooms/rm_map/rm_map.yy",},"order":1,},
     {"id":{"name":"font_menu_text3","path":"fonts/font_menu_text3/font_menu_text3.yy",},"order":4,},
     {"id":{"name":"rm_info","path":"rooms/rm_info/rm_info.yy",},"order":2,},

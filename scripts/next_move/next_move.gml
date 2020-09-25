@@ -1,10 +1,13 @@
 function next_move() {
 
-	// reset all soldiers moving thing
+	// reset all soldiers variables
 	var n = instance_number(obj_infantry);
 	for (var i=0; i<n; i++)
-		with(instance_find(obj_infantry, i))
+		with(instance_find(obj_infantry, i)){
 			can = true;
+			just_from_hut = false;
+		}
+	
 	
 	// increment the hut spawn times
 	n = instance_number(obj_hut);

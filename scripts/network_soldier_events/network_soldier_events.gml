@@ -44,13 +44,15 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
 			
 			if (fromHut){
-				with(hut) with(other.soldier){
-					class = other.soldier_class
+				var h = hut;
+				with(soldier){
+					class = h.soldier_class
 					init_global_soldier_vars(id);
 					my_health = max_health;
-					if (other.sprite_dir != -1)
-						direction = other.sprite_dir;
-					other.steps = 0;
+					if (h.sprite_dir != -1)
+						direction = h.sprite_dir;
+					h.steps = 0;
+					just_from_hut = true;
 				}
 			}
 			
@@ -91,18 +93,21 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	if (attacked.my_health <= 0){
 		
 		if (attacked.object_index == obj_hut && attacked.steps == -1){
-			
 			// don't kill the hut, conquer it
 			hut.soldier = fr.soldier;
 			with(hut) event_user(10);
 			
-		} else  {
+		} else if (attacked.object_index == obj_tower) {
+			// make this tower into a teleport place
+			attacked.team = (attacked.team+1)%2;
+			append(global.conqueredTowers[fr.soldier.team], to);
+		}
+		
+		else{
 			
 			switch(attacked.object_index){
 				case obj_infantry:
 					to.soldier = -1; break;
-				case obj_tower:
-					to.tower = -1; break;
 				case obj_hut:
 					to.hut = -1; break;
 			}

@@ -1,7 +1,30 @@
+
+
+// return if tileId is a possible attack for selected soldier or not
+// can't see through fog
+function possible_attack_tiles(tileId) { 
+	
+	var s = global.grid[tileId];
+	if (s.hide_soldier || s.soldier + s.tower + s.hut == -3) return false;
+	
+	// in the order that you will attack them
+	var targets = array("soldier", "tower", "hut")
+	
+	for (var i=0; i<array_length(targets); i++){
+		var oth = variable_instance_get(s, targets[i]);
+		if (oth != -1 && oth.team != global.selectedSoldier.soldier.team)
+			return true;
+	}
+
+	return false;
+}
+
+
+
+// call this from the tile that you want to initiate attacking from
+// returns if an attack is found or not
 function soldier_init_attack() {
 	var found = false;
-
-
 
 	if (global.selectedSoldier != -1){
 
@@ -12,16 +35,12 @@ function soldier_init_attack() {
 			if (can){
 				
 				// soldier_erase_attack();
+				poss_attacks = get_tiles_from_euclidean(p, attack_range);
+				for (var i=0; i<array_length(poss_attacks); i++){
+					poss_attacks[i].possible_attack = true;
+					found  = true;
+				}
 				
-				poss_attacks = get_tiles_from_euclidean(p, attack_range, true); //get_tiles_from(p, attack_range, 1, false);
-				for (var i=0; i<array_length(poss_attacks); i++)
-					with(poss_attacks[i]) {
-						var team = (tower==-1 ? (soldier==-1 ? hut.team : soldier.team) : tower.team );
-						if (id != global.selectedSoldier && team != other.team ){
-							possible_attack = true;
-							found  = true;
-						}
-					}
 			}
 		}
 
@@ -30,6 +49,4 @@ function soldier_init_attack() {
 	}
 
 	return found;
-
-
 }

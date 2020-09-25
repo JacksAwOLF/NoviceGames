@@ -16,7 +16,9 @@ function erase_blocks() {
 					poss_attacks[i].possible_attack = false;
 				poss_attacks = -1;
 			}
-
+		
+			for (var i=0; i<array_length(global.conqueredTowers[team]); i++)
+				global.conqueredTowers[team][i].possible_teleport = false;
 		}
 	}
 

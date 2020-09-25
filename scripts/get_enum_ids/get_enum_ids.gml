@@ -22,8 +22,12 @@ function get_soldier_type_from_sprite(sprite_index) {
 	}
 }
 
+
+
+
 function get_tile_type(tile) {
-	//debug("tile at", tile.pos, "sprite", sprite_get_name(tile.sprite_index));
+	if (tile.road) return Tiles.road;
+	
 	switch (tile.sprite_index) {
 		case spr_tile_flat:
 			return Tiles.open;

@@ -15,6 +15,8 @@ possible_attack = false;		// this tile is a possible attack
 
 possible_enemy_move = false;
 possible_enemy_attack = false;
+possible_teleport = false;
+
 enemy_vision = false;
 
 draw_temp_soldier = -1;			// what sprite of temporary soldier to draw

@@ -22,9 +22,7 @@ function init_map(medium, dataSrc) {
 	
 	global.turn = 0;
 	
-	enum Soldiers {tanks, infantry, ifvs};
-	enum Classes {scout, melee, range};
-	enum Tiles {open, rough, mountain, others};
+	global.conqueredTowers = array(array(), array());
 	
 	
 	init_game_vars();
@@ -236,7 +234,13 @@ function init_map(medium, dataSrc) {
 	load_tiles(medium, dataSrc);
 	
 	
-	
+	// load the teleport areas
+	for (var i = 0; i < array_length(global.grid); i++){
+		with(global.grid[i])
+			if (tower != -1 && tower.my_health <= 0)
+				append(global.conqueredTowers[tower.team], id);
+	}
+		
 	
 	// identifiers for click detection
 	global.mouseEventId = -1;

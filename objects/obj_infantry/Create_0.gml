@@ -31,3 +31,6 @@ error_wait = 5;					// how many frames per flash
 
 event_inherited();
 team = get_team(sprite_index);
+
+
+just_from_hut = false;

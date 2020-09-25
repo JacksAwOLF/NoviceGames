@@ -71,10 +71,10 @@ if (edit) {
 		break;
 
 		
-		case spr_tower:
-			tower = instance_create_depth(x, y, 1, obj_tower);
-			tower.team = global.turn%2;
-			break;
+	case spr_tower:
+		tower = instance_create_depth(x, y, 1, obj_tower);
+		tower.team = global.turn%2;
+		break;
 	}
 }
 
@@ -92,7 +92,15 @@ if (!edit || global.changeSprite == -1){
 			soldier_execute_attack(global.selectedSoldier.pos, pos);
 			global.selectedSoldier = -2;
 			
-		} else if (possible_pathpoint) { // process deselecting blue tiles
+		} 
+		
+		else if (possible_teleport){
+			erase_blocks(true);
+			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
+			global.selectedSoldier = -1; // to trigger the next if statement
+		}
+		
+		else if (possible_pathpoint) { // process deselecting blue tiles
 			enableDoubleClick = true;
 			
 			var cur = ds_stack_top(global.selectedPathpointsStack), met_same = false;
@@ -116,6 +124,7 @@ if (!edit || global.changeSprite == -1){
 			soldier_update_path(false);
 			
 		} // process selecting blue tiles
+		
 		else if (possible_move &&
 					(global.selectedSoldier != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
 			
@@ -136,6 +145,9 @@ if (!edit || global.changeSprite == -1){
 			soldier_update_path(false);
 
 		} // process deselecting own soldier/selecting other soldiers
+		
+		
+		
 		else if (!possible_path || 
 			(global.selectedSoldier == id && ds_stack_size(global.selectedPathpointsStack) == 1)) {
 			
@@ -145,7 +157,7 @@ if (!edit || global.changeSprite == -1){
 			global.selectedSoldier = canSelect ? -1 : -2;
 			global.displayTileInfo = id;
 
-		}
+		} 
 	}
 	
 			
@@ -182,12 +194,11 @@ if (!edit || global.changeSprite == -1){
 		else if (hut != -1 && hut.steps!=-1) with(hut){	
 		
 			var  can = steps == limit && 
-			other.soldier == -1 && 
-			get_team(soldier_sprite) == global.turn%2;
-			
-			
+				other.soldier == -1 && 
+				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can  && myturn){
+				
 				create_soldier(soldier_sprite, other.pos, true); // ignore the warning
 				steps = 0;
 			}

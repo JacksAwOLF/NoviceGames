@@ -92,8 +92,4 @@ function init_dijkstra() {
 	}
 
 	ds_priority_destroy(pq);
-
-
-
-
 }

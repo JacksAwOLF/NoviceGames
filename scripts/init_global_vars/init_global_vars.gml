@@ -2,6 +2,11 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function init_game_vars(){
 	
+	
+	enum Soldiers {tanks, infantry, ifvs};
+	enum Classes {scout, melee, range};
+	enum Tiles {road, open, rough, mountain, others};
+	
 	global.max_health[Classes.scout, Soldiers.infantry] = 1;
 	global.max_health[Classes.scout, Soldiers.tanks] = 1;
 	global.max_health[Classes.scout, Soldiers.ifvs] = 1;

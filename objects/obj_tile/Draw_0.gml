@@ -23,15 +23,20 @@ if (road){
 
 
 // draw borders around it
+
+
 if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, size, c_white, 1);					// mouse in gray box
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
 if ((possible_attack && !hide_soldier)) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
+if (possible_teleport) draw_sprite_stretched_ext(spr_select_teleport, 0, x, y, size, size, c_white, 1);
 
 if (possible_enemy_attack) draw_sprite_stretched_ext(spr_orange, 0, x+1/10*size, y+1/10*size, size*4/5, size*4/5, c_white, 1);
 if (enemy_vision) draw_sprite_stretched_ext(spr_dark_blue, 0, x+3/20*size, y+3/20*size, size*7/10, size*7/10, c_white, 1);
 if (possible_enemy_move) draw_sprite_stretched_ext(spr_dark_green, 0, x+1/5*size, y+1/5*size, size*3/5, size*3/5, c_white, 1);
+
+
 
 
 
@@ -129,11 +134,15 @@ if (soldier != -1 && !hide_soldier){
 // draw tower
 if (tower != -1){
 	var scale_factor = size/sprite_get_width(spr_tower);	
-	
 	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
 		real(tower.team!=global.playas)
+		
+	if (tower.my_health <= 0) {
+		spIndex += 2;
+		tower.my_health = 0; // because -1 is a special number in save files :(
+	}
+	else draw_healthbar(x, y+size*7/8, x+size, y+size, (tower.my_health/tower.max_health)*100, c_white, c_yellow, c_maroon,0, true, false);
 	draw_sprite_ext(spr_tower, spIndex, x, y, scale_factor, scale_factor, 0, c_white, 1);
-	draw_healthbar(x, y+size/8, x+size, y+size/4, (tower.my_health/tower.max_health)*100, c_white, c_yellow, c_maroon,0, true, false);
 }
 
 
