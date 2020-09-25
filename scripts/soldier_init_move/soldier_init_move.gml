@@ -8,6 +8,9 @@ function possible_move_tiles(tileId) {
 	// cant go here if there is a visible soldier blocking path
 	if (s.soldier != -1 && !s.hide_soldier) return false;
 	
+	// cant go if enemy tower is here
+	if (s.tower != -1 && s.tower.team != global.selectedSoldier.soldier.team) return false;
+	
 	return true;
 }
 
