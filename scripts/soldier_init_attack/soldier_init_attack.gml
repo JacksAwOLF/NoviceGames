@@ -19,6 +19,10 @@ function possible_attack_tiles(tileId) {
 	return false;
 }
 
+function return_true(tileId){
+	return true;
+}
+
 
 
 // call this from the tile that you want to initiate attacking from

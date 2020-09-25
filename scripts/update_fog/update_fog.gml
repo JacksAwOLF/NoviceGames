@@ -42,7 +42,7 @@ function update_enemy_outline() {
 			var moves = get_tiles_from(i, global.movement[type], global.energy[type]);
 			
 			// we could change this to the global variable too?
-			var attack = get_tiles_from_euclidean(i, global.grid[i].soldier.attack_range);
+			var attack = get_tiles_from_euclidean(i, global.grid[i].soldier.attack_range, return_true);
 	
 			for (var j = 0; j < array_length(seen); j++)
 				seen[j].enemy_vision = true;
