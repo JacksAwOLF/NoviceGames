@@ -9,7 +9,11 @@ function possible_move_tiles(tileId) {
 	if (s.soldier != -1 && !s.hide_soldier) return false;
 	
 	// cant go if enemy tower is here
-	if (s.tower != -1 && s.tower.team != global.selectedSoldier.soldier.team) return false;
+	var t = global.selectedSoldier.soldier.team;
+	if (s.tower != -1 && s.tower.team != t) return false;
+	
+	// cant go if enemy hut is here (or nuetral one)
+	if (s.hut != -1 && s.hut.team != -1 && s.hut.team != t) return false;
 	
 	return true;
 }

@@ -26,7 +26,7 @@ if (global.selectedSoldier != -1){
 				// if didn't clicked myself again (didn't deselect)
 				if (array_length(path) > 1) {
 					can -= moveCost;
-					debug(can, moveCost);
+				//	debug(can, moveCost);
 				}
 				
 				var i; // i is index of first soldier encountered or  -1 of none
