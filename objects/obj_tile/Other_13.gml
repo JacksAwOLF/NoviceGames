@@ -24,11 +24,20 @@ if (global.selectedSoldier != -1){
 			if (array_length(path)>=1 ) {
 					
 				// if didn't clicked myself again (didn't deselect)
-				if (array_length(path) > 1) can = false;
+				if (array_length(path) > 1) {
+					can -= moveCost;
+					debug(can, moveCost);
+				}
 				
 				var i; // i is index of first soldier encountered or  -1 of none
-				for (i = array_length(path)-2; i>=0; i--)
+				var moveHereCost = 0;
+				for (i = array_length(path)-2; i>=0; i--){
 					if (path[i].soldier!=-1 && path[i] != global.selectedSoldier) break;	
+					moveHereCost += global.energy[get_soldier_type(id)][get_tile_type(path[i])];
+				}
+				
+				move_range -= moveHereCost;
+				
 				
 				
 				

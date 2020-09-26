@@ -36,7 +36,7 @@ function soldier_init_attack() {
 	
 
 		with (global.selectedSoldier.soldier){
-			if (can){
+			if (can-attackCost>=0){
 				
 				// soldier_erase_attack();
 				poss_attacks = get_tiles_from_euclidean(p, attack_range);

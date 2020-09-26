@@ -69,6 +69,7 @@ function init_game_vars(){
 	global.unitNames[Soldiers.infantry] = "Infantry";
 	global.unitNames[Soldiers.ifvs] = "IFVs";
 	
+	global.tileNames[Tiles.road] = "Road";
 	global.tileNames[Tiles.mountain] = "Mountain";
 	global.tileNames[Tiles.open] = "Open";
 	global.tileNames[Tiles.rough] = "Rough";

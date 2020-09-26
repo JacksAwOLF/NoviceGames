@@ -20,6 +20,12 @@ function init_global_soldier_vars(soldierId){
 		max_health = global.max_health[class,type];
 		max_damage = global.max_damage[class,type];
 		vision = global.vision[class];
+		
+		if (global.map_loaded) move_range = global.movement[type];
+		
+	//	debug("making", type, class);
+		if (type == Soldiers.ifvs) moveCost = 1;
+		//debug("making", type, class, Soldiers.ifvs, moveCost);
 	}
 }
 
@@ -40,6 +46,9 @@ function create_soldier(sind, pos, fromHut, updateFog) {
 				sprite_index = sind;
 				team = get_team(sprite_index);
 			}
+			
+			init_global_soldier_vars(soldier);
+			
 			
 			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
 			
@@ -88,7 +97,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	}
 	
 	attacked.my_health -= damage;
-	fr.soldier.can = false;
+	fr.soldier.can -= fr.soldier.attackCost;
 						
 	if (attacked.my_health <= 0){
 		

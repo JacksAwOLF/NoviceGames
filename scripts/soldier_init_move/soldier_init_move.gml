@@ -28,8 +28,8 @@ function soldier_init_move() {
 		
 		with(global.selectedSoldier.soldier){
 	
-			if (can){
-				poss_moves = get_tiles_from(source.pos, global.movement[type] - global.pathCost, global.energy[type]);
+			if (can-moveCost>=0){
+				poss_moves = get_tiles_from(source.pos, move_range - global.pathCost, global.energy[type]);
 				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
 					poss_moves[array_length(poss_moves)] = global.selectedSoldier;
 					

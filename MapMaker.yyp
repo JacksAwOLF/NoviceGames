@@ -82,7 +82,6 @@
     {"id":{"name":"obj_tile","path":"objects/obj_tile/obj_tile.yy",},"order":2,},
     {"id":{"name":"obj_selectTile","path":"objects/obj_selectTile/obj_selectTile.yy",},"order":9,},
     {"id":{"name":"start_sound","path":"scripts/start_sound/start_sound.yy",},"order":4,},
-    {"id":{"name":"obj_moveAndAttack","path":"objects/obj_moveAndAttack/obj_moveAndAttack.yy",},"order":5,},
     {"id":{"name":"obj_infantry","path":"objects/obj_infantry/obj_infantry.yy",},"order":4,},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":6,},
     {"id":{"name":"spr_orange","path":"sprites/spr_orange/spr_orange.yy",},"order":21,},

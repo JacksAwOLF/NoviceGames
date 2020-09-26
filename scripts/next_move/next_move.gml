@@ -4,8 +4,9 @@ function next_move() {
 	var n = instance_number(obj_infantry);
 	for (var i=0; i<n; i++)
 		with(instance_find(obj_infantry, i)){
-			can = true;
-			just_from_hut = false;
+			can = 2;
+			just_from_hut = false; // i think this can be commented out
+			move_range = global.movement[get_soldier_type(id)];
 		}
 	
 	

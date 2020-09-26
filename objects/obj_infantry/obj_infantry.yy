@@ -7,10 +7,7 @@
   "visible": false,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "obj_moveAndAttack",
-    "path": "objects/obj_moveAndAttack/obj_moveAndAttack.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,

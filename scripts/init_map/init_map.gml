@@ -33,7 +33,7 @@ function init_map(medium, dataSrc) {
 	
 
 	// load the saveVersion
-	global.saveVersion = 6;
+	global.saveVersion = 7;
 	if (dataSrc != undefined) {
 		if (medium == Mediums.file) dataSrc = file_text_open_read(dataSrc);
 		variable_global_set("saveVersion", real(get_data(medium, dataSrc))); // ignore warning
@@ -217,11 +217,19 @@ function init_map(medium, dataSrc) {
 			array("hut", "max_health", "steps", "limit", "soldier_sprite", "def_attack_range", "def_max_health",  "def_max_damage", "def_class", "def_vision", "team", "my_health", "sprite_dir"),
 			array("tower", "my_health", "team", "max_health")
 		);
-	} else if (global.saveVersion >= 6){
+	} else if (global.saveVersion == 6){
 		global.tiles_save_order = array(
 			"sprite_index", 
 			"road", 
 			array("soldier", "my_health", "sprite_index", "can", "class", "direction", "team"), 
+			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_class", "team", "sprite_dir"),
+			array("tower", "my_health", "team", "max_health")
+		);
+	} else if (global.saveVersion >= 7){
+		global.tiles_save_order = array(
+			"sprite_index", 
+			"road", 
+			array("soldier", "my_health", "sprite_index", "can", "class", "direction", "team", "move_range"), 
 			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_class", "team", "sprite_dir"),
 			array("tower", "my_health", "team", "max_health")
 		);
