@@ -12,7 +12,6 @@ function my_turn(){
 /// @param clear_path Boolean whether to clear the paths
 function soldier_update_path() {
 
-
 	if (global.selectedSoldier) {
 		with(global.selectedSoldier.soldier) {
 		

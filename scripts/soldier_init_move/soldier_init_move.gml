@@ -39,17 +39,15 @@ function soldier_init_move() {
 					
 				for (var i=0; i<array_length(poss_moves); i++)
 					poss_moves[i].possible_move = true;
-				
-				// add conquered towers
-				if (just_from_hut) {
-					debug(team, global.conqueredTowers);
+			
+				if (justFromHut){
+					// add conquered towers
 					for (var i=0; i<array_length(global.conqueredTowers[team]); i++){
 						with(global.conqueredTowers[team][i])
 							if (soldier == -1)
 								possible_teleport = true;
 					}
-					// only teleport once
-					just_from_hut = false;
+					justFromHut = false;
 				}
 				
 			}

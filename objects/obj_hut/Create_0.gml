@@ -9,7 +9,7 @@
 
 // pos = 0;
 // soldier_sprite = 0;
-//  limit = 5;
+// limit = 5;
 
 // when cur reaches limit, 
 // you can click on the hut and generate a soldier
@@ -29,3 +29,6 @@ soldier_sprite = -1
 team = -1
 soldier = -1
 sprite_dir = -1;
+
+
+spawnPos = -1;

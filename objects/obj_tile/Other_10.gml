@@ -38,8 +38,10 @@ if (edit) {
 		case spr_infantry1:
 		case spr_tanks1:
 		case spr_ifvs1:
-			if (soldier == -1) create_soldier(global.changeSprite, pos);  //ignore warning
-			else global.changeSprite = -1;
+			if (soldier == -1) {
+				create_soldier(global.changeSprite,  
+					pos, -1, true);
+			} else global.changeSprite = -1;
 			break;
 		
 		case spr_tile_road:
@@ -97,7 +99,8 @@ if (!edit || global.changeSprite == -1){
 		else if (possible_teleport){
 			erase_blocks(true);
 			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
-			global.selectedSoldier = -1; // to trigger the next if statement
+			global.selectedSoldier.hut.spawnPos = pos;
+			global.selectedSoldier = -1; // to trigger the next if statement that init_moves()
 		}
 		
 		else if (possible_pathpoint) { // process deselecting blue tiles
@@ -198,14 +201,22 @@ if (!edit || global.changeSprite == -1){
 				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can  && myturn){
-				
-				create_soldier(soldier_sprite, other.pos, true); // ignore the warning
+				var p = other.pos;
+				if (spawnPos != -1){
+					p = spawnPos;
+					other.possible_teleport = true;	
+				}
+				create_soldier(soldier_sprite, p, other.pos, true);
 				steps = 0;
+				
+				// to help identify which soldier to teleport
+				// if a possible_teleport tile is clicked in the future
+				//global.selectedSoldier = other.pos; 
 			}
+	
 	
 		}
 	
-		
 		
 	}
 	

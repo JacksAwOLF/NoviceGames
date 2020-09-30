@@ -85,6 +85,25 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 
 
 
+
+// draw tower
+if (tower != -1){
+	var scale_factor = size/sprite_get_width(spr_tower);	
+	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
+		real(tower.team!=global.playas)
+		
+	if (tower.my_health <= 0) {
+		spIndex += 2;
+		tower.my_health = 0; // because -1 is a special number in save files :(
+	}
+	else draw_healthbar(x, y+size*7/8, x+size, y+size, (tower.my_health/tower.max_health)*100, c_white, c_yellow, c_maroon,0, true, false);
+	draw_sprite_ext(spr_tower, spIndex, x, y, scale_factor, scale_factor, 0, c_white, 1);
+}
+
+
+
+
+
 // draw soldiers if needed
 if (soldier != -1 && !hide_soldier){	
 	
@@ -129,23 +148,6 @@ if (soldier != -1 && !hide_soldier){
 	//draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.8);								// the iamge of potential soldier placed here
 	
 	
-
-
-// draw tower
-if (tower != -1){
-	var scale_factor = size/sprite_get_width(spr_tower);	
-	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
-		real(tower.team!=global.playas)
-		
-	if (tower.my_health <= 0) {
-		spIndex += 2;
-		tower.my_health = 0; // because -1 is a special number in save files :(
-	}
-	else draw_healthbar(x, y+size*7/8, x+size, y+size, (tower.my_health/tower.max_health)*100, c_white, c_yellow, c_maroon,0, true, false);
-	draw_sprite_ext(spr_tower, spIndex, x, y, scale_factor, scale_factor, 0, c_white, 1);
-}
-
-
 
 
 

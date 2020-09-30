@@ -1,5 +1,5 @@
-/// @function Destroys the soldier at pos
-/// @param pos
+// @function Destroys the soldier at pos
+// @param positionToDestroy
 function destroy_soldier(pos) {
 	with (global.grid[pos]){
 		if (soldier != -1){
@@ -11,69 +11,79 @@ function destroy_soldier(pos) {
 }
 
 
-/// @function Initialize the global soldier variables
-/// @param soldierObjId
+// @function Initialize the global soldier variables; class should be set already
+// @param soldierObjId
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
 		var type = get_soldier_type_from_sprite(sprite_index);
+		
+		
 		attack_range = global.attack_range[class,type];
 		max_health = global.max_health[class,type];
 		max_damage = global.max_damage[class,type];
 		vision = global.vision[class];
+		if (my_health == 0) my_health = max_health;
 		
 		if (global.map_loaded) move_range = global.movement[type];
-		
-	//	debug("making", type, class);
 		if (type == Soldiers.ifvs) moveCost = 1;
-		//debug("making", type, class, Soldiers.ifvs, moveCost);
 	}
 }
 
-/// @function Creates a soldier with sprite sind at position pos
-/// @param sind
-/// @param pos
-/// @param [fromHut=false]
-/// @param [updateFog=true]
-function create_soldier(sind, pos, fromHut, updateFog) {
 
-	if (fromHut == undefined) fromHut = false;
+// @function Creates a soldier from hut
+// @param sind
+// @param pos
+// @param fromHut
+// @param [updateFog=true]
+function create_soldier(sind, pos, fromHutPos, updateFog) {
+
+	//if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
+	
+	// if its not from hut, its in edit mode
+	var sclass = (fromHutPos!=-1 ? global.grid[fromHutPos].hut.soldier_class : 
+		global.soldier_vars[Svars.class] );
 		
-	with (global.grid[pos]){
+	with (global.grid[pos]){ 
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);
 			with(soldier){
 				sprite_index = sind;
 				team = get_team(sprite_index);
+				class = sclass;
 			}
 			
-			init_global_soldier_vars(soldier);
 			
 			
 			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
 			
-			if (fromHut){
-				var h = hut;
-				with(soldier){
-					class = h.soldier_class
-					init_global_soldier_vars(id);
-					my_health = max_health;
-					if (h.sprite_dir != -1)
-						direction = h.sprite_dir;
-					h.steps = 0;
-					just_from_hut = true;
+			if (fromHutPos != -1){
+				
+				init_global_soldier_vars(soldier);
+				with (global.grid[fromHutPos].hut){
+					if (sprite_dir != -1)
+						other.soldier.direction = sprite_dir;
 				}
+				soldier.justFromHut = true;
+				
+				
+			} else with (soldier){ 
+				attack_range = global.soldier_vars[Svars.attack_range];
+				max_health = global.soldier_vars[Svars.max_health];
+				max_damage = global.soldier_vars[Svars.max_damage];
+				vision = global.soldier_vars[Svars.vision];
+				my_health = max_health;
 			}
+		
 			
 			if (updateFog) update_fog();
-				
 		}
 	}
 }
 
 
 
-/// @function actually execute an attack
+// @function actually execute an attack
 function soldier_execute_attack(frTilePos, toTilePos){
 	
 	var fr = global.grid[frTilePos], to = global.grid[toTilePos];

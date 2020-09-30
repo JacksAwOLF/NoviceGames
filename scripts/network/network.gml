@@ -61,7 +61,7 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierCreated:
-			create_soldier(data[0], data[1], true, false); // create soldier from hut
+			create_soldier(data[0], data[1], data[1], false); // create soldier from hut
 			break;
 		
 		case BufferDataType.yourMove:
