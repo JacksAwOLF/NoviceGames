@@ -54,17 +54,16 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 			}
 			
 			
-			
-			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
+			init_global_soldier_vars(soldier);
 			
 			if (fromHutPos != -1){
 				
-				init_global_soldier_vars(soldier);
+				
 				with (global.grid[fromHutPos].hut){
 					if (sprite_dir != -1)
 						other.soldier.direction = sprite_dir;
 				}
-				soldier.justFromHut = true;
+				soldier.justFromHut = fromHutPos;
 				
 				
 			} else with (soldier){ 
@@ -77,6 +76,7 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 		
 			
 			if (updateFog) update_fog();
+			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
 		}
 	}
 }

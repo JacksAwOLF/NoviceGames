@@ -4,11 +4,11 @@
 // enum Tiles {road, open, rough, mountain, others};
 
 
-/// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
-/// @param startTile
-/// @param distance
-/// @param energyTo=1
-/// @param canReachFunc=move
+// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
+// @param startTile
+// @param distance
+// @param energyTo=1
+// @param canReachFunc=move
 
 function get_tiles_from(start, maxDis, energyTo, canFunc) {
 	

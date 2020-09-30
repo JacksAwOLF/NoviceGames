@@ -22,7 +22,7 @@ display_if_enemy = false;
 
 
 team = get_team(sprite_index);
-justFromHut = false;
+justFromHut = -1;
 
 
 class = -1;

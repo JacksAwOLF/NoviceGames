@@ -98,9 +98,11 @@ if (!edit || global.changeSprite == -1){
 		
 		else if (possible_teleport){
 			erase_blocks(true);
+			//global.selectedSoldier.hut.spawnPos = pos;
+			global.grid[global.selectedSoldier.soldier.justFromHut].hut.spawnPos = pos;
+			
 			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
-			global.selectedSoldier.hut.spawnPos = pos;
-			global.selectedSoldier = -1; // to trigger the next if statement that init_moves()
+			global.selectedSoldier = -2; 
 		}
 		
 		else if (possible_pathpoint) { // process deselecting blue tiles
@@ -146,6 +148,7 @@ if (!edit || global.changeSprite == -1){
 			erase_blocks();
 			soldier_init_move(id);
 			soldier_update_path(false);
+			global.selectedSoldier.soldier.justFromHut = -1;
 
 		} // process deselecting own soldier/selecting other soldiers
 		
@@ -202,16 +205,16 @@ if (!edit || global.changeSprite == -1){
 		
 			if (can  && myturn){
 				var p = other.pos;
-				if (spawnPos != -1){
+				if (spawnPos != -1 && global.grid[spawnPos].soldier == -1){
 					p = spawnPos;
-					other.possible_teleport = true;	
+					
 				}
 				create_soldier(soldier_sprite, p, other.pos, true);
 				steps = 0;
 				
 				// to help identify which soldier to teleport
 				// if a possible_teleport tile is clicked in the future
-				//global.selectedSoldier = other.pos; 
+				
 			}
 	
 	
