@@ -39,9 +39,8 @@ if mouseIn {
 		}
 		
 		// always maintain the last two tiles we hovered over
-		if (global.prevHoveredTiles[0] != id) {
-			global.prevHoveredTiles[1] = global.prevHoveredTiles[0];
-			global.prevHoveredTiles[0] = id;
+		if (global.prevHoveredTile != id) {
+			global.prevHoveredTile = id;
 		
 			soldier_update_path(0);
 		}

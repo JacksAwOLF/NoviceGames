@@ -10,16 +10,7 @@ attackCost = 2;
 move_range = -1;   // to implement ifvs move twice
 
 
-// these vars should be global
-poss_attacks = -1;
-poss_moves = -1;
-poss_paths = -1;
-
-
 display_if_enemy = false;
-
-
-
 
 team = get_team(sprite_index);
 justFromHut = -1;

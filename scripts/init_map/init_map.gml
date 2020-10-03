@@ -25,6 +25,11 @@ function init_map(medium, dataSrc) {
 	global.conqueredTowers = array(array(), array());
 	
 	
+	global.poss_moves = -1;
+	global.poss_paths = -1;
+	global.poss_attacks = -1;
+	
+	
 	init_game_vars();
 	global.colors[Classes.melee] = c_aqua;
 	global.colors[Classes.range] = c_orange;
@@ -172,7 +177,7 @@ function init_map(medium, dataSrc) {
 	global.selectedPathpointsStack = ds_stack_create();
 	global.pathCost = 0;
 	
-	global.prevHoveredTiles = [-1, -1];
+	global.prevHoveredTile = -1;
 
 	for (var j=0; j<global.mapHeight; j+=1){
 		for (var i=0; i<global.mapWidth; i+=1){

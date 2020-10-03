@@ -9,8 +9,8 @@ if (global.selectedSoldier != -1){
 	if (possible_move || possible_path) {
 		var path = [];
 		
-		for (var i = 0; i <= array_length(global.selectedSoldier.soldier.poss_paths)-2; i++)
-			path[array_length(path)] = global.selectedSoldier.soldier.poss_paths[i];
+		for (var i = 0; i <= array_length(global.poss_paths)-2; i++)
+			path[array_length(path)] = global.poss_paths[i];
 			
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);

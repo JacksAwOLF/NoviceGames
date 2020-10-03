@@ -137,8 +137,8 @@ if (!edit || global.changeSprite == -1){
 			possible_pathpoint = true;
 				
 			global.pathCost += global.dist[pos];
-			for (var i = array_length(global.selectedSoldier.soldier.poss_paths)-2; i >= 0; i--) {
-				var val = [global.selectedSoldier.soldier.poss_paths[i], (i==0?global.dist[pos]:0)];
+			for (var i = array_length(global.poss_paths)-2; i >= 0; i--) {
+				var val = [global.poss_paths[i], (i==0?global.dist[pos]:0)];
 				
 				ds_stack_push(global.selectedPathpointsStack, val);
 				val[0].possible_path += 1;

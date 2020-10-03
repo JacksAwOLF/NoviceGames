@@ -39,9 +39,9 @@ function soldier_init_attack() {
 			if (can-attackCost>=0){
 				
 				// soldier_erase_attack();
-				poss_attacks = get_tiles_from_euclidean(p, attack_range);
-				for (var i=0; i<array_length(poss_attacks); i++){
-					poss_attacks[i].possible_attack = true;
+				global.poss_attacks = get_tiles_from_euclidean(p, attack_range);
+				for (var i=0; i<array_length(global.poss_attacks); i++){
+					global.poss_attacks[i].possible_attack = true;
 					found  = true;
 				}
 				

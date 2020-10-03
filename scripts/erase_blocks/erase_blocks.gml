@@ -5,16 +5,16 @@ function erase_blocks() {
 	if (global.selectedSoldier > 0){
 		with(global.selectedSoldier.soldier){
 			
-			if (poss_moves != -1){
-				for (var i=0; i<array_length(poss_moves); i++)
-					poss_moves[i].possible_move = false;
-				poss_moves = -1;
+			if (global.poss_moves != -1){
+				for (var i=0; i<array_length(global.poss_moves); i++)
+					global.poss_moves[i].possible_move = false;
+				global.poss_moves = -1;
 			}
 		
-			if (poss_attacks != -1){
-				for (var i=0; i<array_length(poss_attacks); i++)
-					poss_attacks[i].possible_attack = false;
-				poss_attacks = -1;
+			if (global.poss_attacks != -1){
+				for (var i=0; i<array_length(global.poss_attacks); i++)
+					global.poss_attacks[i].possible_attack = false;
+				global.poss_attacks = -1;
 			}
 		
 			// clear teleport zones
@@ -34,7 +34,8 @@ function erase_blocks() {
 			cur[0].possible_pathpoint = false;
 		}
 	}
-	soldier_update_path(1);
+	
+	soldier_update_path(true);
 }
 
 

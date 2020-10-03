@@ -30,12 +30,12 @@ function soldier_init_move() {
 		with(global.selectedSoldier.soldier){
 	
 			if (can-moveCost>=0){
-				poss_moves = get_tiles_from(source.pos, move_range-global.pathCost, global.energy[type], true);
+				global.poss_moves = get_tiles_from(source.pos, move_range-global.pathCost, global.energy[type], true);
 				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
-					poss_moves[array_length(poss_moves)] = global.selectedSoldier;
+					global.poss_moves[array_length(global.poss_moves)] = global.selectedSoldier;
 					
-				for (var i=0; i<array_length(poss_moves); i++)
-					poss_moves[i].possible_move = true;
+				for (var i=0; i<array_length(global.poss_moves); i++)
+					global.poss_moves[i].possible_move = true;
 			
 			
 				if (justFromHut != -1){
