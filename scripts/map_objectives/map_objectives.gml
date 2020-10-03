@@ -35,6 +35,5 @@ function all_soldiers_destroyed() {
 
 
 function update_won(){
-	//debug("winfunction is", global.winFunction)
 	global.won = script_execute(global.objectiveOptions[global.winFunction]);
 }

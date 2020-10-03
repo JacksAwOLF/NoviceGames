@@ -10,11 +10,11 @@ function get_team(argument0) {
 	return 0;
 }
 
-function is_my_team(soldier) {
-	return (soldier.team == (global.edit ? global.turn % 2 : global.playas));
+function is_my_team(object) {
+	return (object.team == (global.edit ? global.turn % 2 : global.playas));
 }
 
-function is_my_team_sprite(soldier_sprite) {
-	var team = get_team(soldier_sprite);
+function is_my_team_sprite(object_sprite) {
+	var team = get_team(object_sprite);
 	return (team == (global.edit ? global.turn % 2 : global.playas));
 }

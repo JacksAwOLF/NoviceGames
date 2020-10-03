@@ -10,21 +10,28 @@
 // @param energyTo=1
 // @param canReachFunc=move
 
-function get_tiles_from(start, maxDis, energyTo, canFunc) {
+function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
+	if (storeDist == undefined)
+		storeDist = false;
+	if (canMoveOnto == undefined) 
+		canMoveOnto = possible_move_tiles;
+		
+	energyTo[4] = 99;
 	
-	if (energyTo == undefined) 
-		energyTo = array(1,1,1,1);
-	energyTo [4] = 99;
 	
-	if (canFunc == undefined) 
-		canFunc = possible_move_tiles;
-
-	var res = []; var count = 0;
-	if (maxDis == 0) return res;
-
-	var vis = array_create(global.mapWidth * global.mapHeight);
-	vis[start] = 1;
-
+	if (storeDist) {
+		global.distStored = start;
+		global.dist = array_create(global.mapWidth * global.mapHeight, -1);
+		global.from = array_create(global.mapWidth * global.mapHeight, -1);
+		
+		global.from[start] = start;
+		global.dist[start] = 0;
+	}
+	
+	
+	var res = [], count = 0;
+	var vis = array_create(global.mapWidth * global.mapHeight, 0);
+	
 	var dx = array(0,0,-1,1);		 
 	var dy = array(-1,1,0,0);	
 
@@ -37,27 +44,33 @@ function get_tiles_from(start, maxDis, energyTo, canFunc) {
 		var cur = ds_priority_find_min(s);
 		var steps = ds_priority_find_priority(s, cur);
 		ds_priority_delete_min(s);
-		var row = floor(cur/global.mapWidth);
-		var col =  cur % global.mapWidth;		
 		
-		if (steps > maxDis) break;
-	
+		
+		if (vis[cur]) continue;
+		vis[cur] = true;
+		
 		// add 4 neighbors
+		var row = floor(cur/global.mapWidth);
+		var col = cur % global.mapWidth;		
+		
 		for (var i=0; i<4; i++){
 		
 			// check if off map
 			var nr = row + dx[i];
 			var nc = col + dy[i];
-			if (nr<0 || nc<0 || nr==global.mapHeight || nc==global.mapWidth) continue;
-		
-			// check if visited
-			var np =  nr * global.mapWidth + nc;
-			if (vis[np] == 1) continue;
-			vis[np] = 1;
-		
+			if (nr<0 || nc<0 || nr==global.mapHeight || nc==global.mapWidth) 
+				continue;
+			
 			// add to pqueue, checking special condition
+			var np = nr * global.mapWidth + nc;
 			var ns = steps+energyTo[get_tile_type(global.grid[np])];
-			if (ns <= maxDis && canFunc(np)){
+			
+			if (ns <= maxDis && canMoveOnto(np)) {
+				if (storeDist) {
+					global.dist[np] = ns;
+					global.from[np] = cur;
+				}
+				
 				ds_priority_add(s, np, ns);
 				res[count++] = global.grid[np];
 			}
@@ -72,10 +85,10 @@ function get_tiles_from(start, maxDis, energyTo, canFunc) {
 // returns all tiles (including its own) within a certain
 // distance of a tile. if with_soldiers is true, only tiles
 // with soldiers will be returned
-function get_tiles_from_euclidean(tile_pos, dist, canFunc) {
+function get_tiles_from_euclidean(tile_pos, dist, canMoveOnto) {
 	
-	if (canFunc == undefined)
-		canFunc = possible_attack_tiles;
+	if (canMoveOnto == undefined)
+		canMoveOnto = possible_attack_tiles;
 	
 	var row = floor(tile_pos / global.mapWidth);
 	var col = tile_pos % global.mapWidth;
@@ -87,7 +100,7 @@ function get_tiles_from_euclidean(tile_pos, dist, canFunc) {
 				continue;
 			else if ((xx-col)*(xx-col)+(yy-row)*(yy-row) <= dist*dist) {
 				var np = global.mapWidth*yy + xx;
-				if (canFunc == undefined || canFunc(np)) 
+				if (canMoveOnto == undefined || canMoveOnto(np)) 
 					res[len++] = global.grid[np];
 			}
 		}

@@ -17,7 +17,7 @@ function soldier_update_path() {
 		
 			// if the variable that stores paths exists, reset it
 			if (variable_instance_exists(id, "poss_paths") && poss_paths != -1) 
-				for (var i = 0; i < array_length_1d(poss_paths); i++)
+				for (var i = 0; i < array_length(poss_paths); i++)
 					poss_paths[i].possible_path = max(0, poss_paths[i].possible_path-1);
 	
 			poss_paths = -1;
@@ -45,7 +45,7 @@ function soldier_update_path() {
 					}
 				}
 			
-				if (false && array_length_1d(throughPrev) > 1)
+				if (false && array_length(throughPrev) > 1)
 					poss_paths = throughPrev;
 				else 
 					poss_paths = get_path_to(global.prevHoveredTiles[0].pos,mobility);

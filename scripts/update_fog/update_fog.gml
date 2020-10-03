@@ -39,7 +39,7 @@ function update_enemy_outline() {
 			var seen = get_vision_tiles_2(global.grid[i]);
 			
 			var type = get_soldier_type(global.grid[i].soldier);
-			var moves = get_tiles_from(i, global.movement[type], global.energy[type]);
+			var moves = get_tiles_from(i, global.movement[type], global.energy[type], false, possible_move_tiles);
 			
 			// we could change this to the global variable too?
 			var attack = get_tiles_from_euclidean(i, global.grid[i].soldier.attack_range, return_true);

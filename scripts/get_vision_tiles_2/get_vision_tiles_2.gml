@@ -29,21 +29,15 @@ function get_vision_tiles_2() {
 			var entryx = nextx, entryy = nexty;			// point where we entered current cell
 		
 			var ydiff = starty-nexty, xdiff = startx-nextx;
-			var signy = (ydiff >= 0 ? (ydiff != 0) : -1);
-			var signx = (xdiff >= 0 ? (xdiff != 0) : -1);
+			var signy = sign(ydiff), signx = sign(xdiff);
 		
 			var yintercept = nexty - nextx*ydiff/xdiff;
 		
 			while (entryx != startx || entryy != starty) {
 				var gridid = gridy*global.mapWidth + gridx;
 			
-				var diagonalx = gridx + 0.5*signx;//(signx >= 0 ? 0.5*signx : -0.5);
-				var diagonaly = gridy + 0.5*signy;//(signy >= 0 ? 0.5*signy : -0.5);
-				
-				//if (diagonalx != gridx + (signx >= 0 ? 0.5*signx : -0.5))
-				//	show_error("lmao", true);
-				//if (diagonaly != gridy + (signy >= 0 ? 0.5*signy : -0.5))
-				//	show_error("lmao", true);
+				var diagonalx = gridx + 0.5*signx;
+				var diagonaly = gridy + 0.5*signy;
 					
 				var tempy = diagonalx*ydiff/xdiff + yintercept;
 				var tempx = (diagonaly - yintercept)*xdiff/ydiff;
@@ -96,7 +90,7 @@ function get_vision_tiles_2() {
 				if (abs(gridx - entryx) - 0.5 == 0) { // signx should never be 0 
 					gridx = round(entryx + 0.5*signx);
 					if (signx == 0)
-						show_error("signx not supposed to be zero! nextx: (" + string(nextx) + ", " + string(nexty) + ") to (" + string(startx) + ", " + string(starty) + ") ", true);
+						show_error("signx not supposed to be zero!", true);
 				}
 				if (abs(gridy - entryy) - 0.5 == 0) { // signy should never be 0
 					gridy = round(entryy + 0.5*signy);

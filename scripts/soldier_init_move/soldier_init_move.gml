@@ -9,11 +9,10 @@ function possible_move_tiles(tileId) {
 	if (s.soldier != -1 && !s.hide_soldier) return false;
 	
 	// cant go if enemy tower is here
-	var t = global.selectedSoldier.soldier.team;
-	if (s.tower != -1 && s.tower.team != t) return false;
+	if (s.tower != -1 && !is_my_team(s.tower)) return false;
 	
 	// cant go if enemy hut is here (or nuetral one)
-	if (s.hut != -1 && s.hut.team != -1 && s.hut.team != t) return false;
+	if (s.hut != -1 && s.hut.team != -1 && !is_my_team(s.hut)) return false;
 	
 	return true;
 }
@@ -28,12 +27,10 @@ function soldier_init_move() {
 		var type = get_soldier_type(global.selectedSoldier.soldier);
 		var source = (argument_count > 0 ? argument[0] : global.selectedSoldier);
 		
-		init_dijkstra(source.pos, 0, global.movement[type]-global.pathCost, -1, 0, 0);
-		
 		with(global.selectedSoldier.soldier){
 	
 			if (can-moveCost>=0){
-				poss_moves = get_tiles_from(source.pos, move_range - global.pathCost, global.energy[type]);
+				poss_moves = get_tiles_from(source.pos, move_range-global.pathCost, global.energy[type], true);
 				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
 					poss_moves[array_length(poss_moves)] = global.selectedSoldier;
 					
