@@ -1,21 +1,15 @@
-
-
-
-// enum Tiles {road, open, rough, mountain, others};
-
-
-// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
-// @param startTile
-// @param distance
-// @param energyTo=1
-// @param canReachFunc=move
+/// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
+/// @param startTile
+/// @param distance
+/// @param energyTo=1
+/// @param storeDists=false
+/// @param canReachFunc=move
 
 function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
 	if (storeDist == undefined)
 		storeDist = false;
 	if (canMoveOnto == undefined) 
 		canMoveOnto = possible_move_tiles;
-		
 	energyTo[4] = 99;
 	
 	
@@ -65,8 +59,8 @@ function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
 			var np = nr * global.mapWidth + nc;
 			var ns = steps+energyTo[get_tile_type(global.grid[np])];
 			
-			if (ns <= maxDis && canMoveOnto(np)) {
-				if (storeDist) {
+			if (ns <= maxDis && !vis[np] && canMoveOnto(np)) {
+				if (storeDist && (ns < global.dist[np] || global.dist[np] == -1)) {
 					global.dist[np] = ns;
 					global.from[np] = cur;
 				}

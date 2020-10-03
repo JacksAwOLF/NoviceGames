@@ -13,7 +13,7 @@ move_range = -1;   // to implement ifvs move twice
 // these vars should be global
 poss_attacks = -1;
 poss_moves = -1;
-poss_paths = 0;
+poss_paths = -1;
 
 
 display_if_enemy = false;

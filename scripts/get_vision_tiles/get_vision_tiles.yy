@@ -6,7 +6,7 @@
     "path": "folders/Scripts/pathfinding.yy",
   },
   "resourceVersion": "1.0",
-  "name": "get_energy_to_cross",
+  "name": "get_vision_tiles",
   "tags": [],
   "resourceType": "GMScript",
 }

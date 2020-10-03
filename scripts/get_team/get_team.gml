@@ -18,3 +18,9 @@ function is_my_team_sprite(object_sprite) {
 	var team = get_team(object_sprite);
 	return (team == (global.edit ? global.turn % 2 : global.playas));
 }
+
+/// @description in play mode, returns whether or not it si your turn
+function my_turn(){
+	return 	global.action=="playw"&&global.turn%2==0 || 
+		global.action=="playb"&&global.turn%2==1; 
+}

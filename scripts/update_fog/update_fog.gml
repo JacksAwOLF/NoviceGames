@@ -10,7 +10,7 @@ function update_fog() {
 	for (var i=0; i<global.mapWidth * global.mapHeight; i++)
 		with(global.grid[i])
 			if (soldier != -1 && soldier.team == global.turn%2){
-				seen = get_vision_tiles_2(global.grid[i]);
+				seen = get_vision_tiles(global.grid[i]);
 				for (var j=0; j<array_length(seen); j++){
 					seen[j].hide_soldier = false;
 				}
@@ -36,7 +36,7 @@ function update_enemy_outline() {
 		if (global.grid[i].soldier != -1 && !is_my_team(global.grid[i].soldier) &&
 			global.grid[i].soldier.display_if_enemy && !global.grid[i].hide_soldier) {
 				
-			var seen = get_vision_tiles_2(global.grid[i]);
+			var seen = get_vision_tiles(global.grid[i]);
 			
 			var type = get_soldier_type(global.grid[i].soldier);
 			var moves = get_tiles_from(i, global.movement[type], global.energy[type], false, possible_move_tiles);

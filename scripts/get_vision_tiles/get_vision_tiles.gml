@@ -1,6 +1,6 @@
 /// @description Returns all the tiles that can be seen from the given tile & soldier
 /// @param tile_id Tile with soldier to calculate vision from
-function get_vision_tiles_2() {
+function get_vision_tiles() {
 
 	// data to be stored in queue: (grid pos, leftover vision cost)
 	// calculate using proportions, estimate proportions by dividing each
