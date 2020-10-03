@@ -2,6 +2,27 @@
 
 
 
+var suicide = function(st){
+	var str = "";
+	str += st.message; str += "\n";
+	str += st.longMessage; str += "\n";
+	str += st.script; str += "\n";
+	for (var i=0; i<array_length(st.stacktrace); i++)
+		str += st.stacktrace[i];
+	debug(str);
+	
+	if (socket != -1) network_destroy(socket);
+	if (osocket != -1) network_destroy(osocket);
+	
+	game_end();
+}
+
+exception_unhandled_handler(suicide);
+
+
+
+
+
 osocket = -1;
 oip = -1;
 

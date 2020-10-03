@@ -276,4 +276,8 @@ function init_map(medium, dataSrc) {
 	update_won()
 	
 	global.map_loaded = true;
+	
+	
+	
+	
 }
