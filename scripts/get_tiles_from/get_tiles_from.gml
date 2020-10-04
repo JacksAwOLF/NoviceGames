@@ -1,19 +1,14 @@
-/// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
-/// @param startTile
-/// @param distance
-/// @param energyTo=1
-/// @param storeDists=false
-/// @param canReachFunc=move
+// @func  get all tiles up to 'distance' away from 'startTile' with dijkstra and weighted edges described in energyTo (not including 0 distance)
 
-function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
-	if (storeDist == undefined)
-		storeDist = false;
+function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
+	if (shouldStoreDist == undefined)
+		shouldStoreDist = false;
 	if (canMoveOnto == undefined) 
 		canMoveOnto = possible_move_tiles;
 	energyTo[4] = 99;
 	
 	
-	if (storeDist) {
+	if (shouldStoreDist) {
 		global.distStored = start;
 		global.dist = array_create(global.mapWidth * global.mapHeight, -1);
 		global.from = array_create(global.mapWidth * global.mapHeight, -1);
@@ -41,8 +36,11 @@ function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
 		
 		
 		if (vis[cur]) continue;
-		vis[cur] = true;
 		
+		vis[cur] = true;
+		if (cur != start) 
+			res[count++] = global.grid[cur];
+
 		// add 4 neighbors
 		var row = floor(cur/global.mapWidth);
 		var col = cur % global.mapWidth;		
@@ -60,13 +58,12 @@ function get_tiles_from(start, maxDis, energyTo, storeDist, canMoveOnto) {
 			var ns = steps+energyTo[get_tile_type(global.grid[np])];
 			
 			if (ns <= maxDis && !vis[np] && canMoveOnto(np)) {
-				if (storeDist && (ns < global.dist[np] || global.dist[np] == -1)) {
+				if (shouldStoreDist && (ns < global.dist[np] || global.dist[np] == -1)) {
 					global.dist[np] = ns;
 					global.from[np] = cur;
 				}
 				
 				ds_priority_add(s, np, ns);
-				res[count++] = global.grid[np];
 			}
 		}
 	}

@@ -116,9 +116,9 @@ function init_map(medium, dataSrc) {
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 
 		hor_spacing = 60;
-		for (var index=array_length_1d(names)-1; index>=0; index--){
+		for (var index=array_length(names)-1; index>=0; index--){
 			with(instance_create_depth(
-			room_width-(array_length_1d(names)-index)*hor_spacing, 
+			room_width-(array_length(names)-index)*hor_spacing, 
 			16, -1, obj_change_var)){
 				ind = index;
 				text = names[index];
@@ -153,6 +153,11 @@ function init_map(medium, dataSrc) {
 	yy = room_height - sprite_get_height(sp_index);
 	instance_create_depth(xx, yy, -100, obj_button_nextStep);
 	
+	// create soldier focus button
+	sp_index = object_get_sprite(obj_button_focus);
+	xx = (room_width - sprite_get_width(sp_index)) / 2;
+	yy = yy - sprite_get_height(sp_index) - 20;
+	instance_create_depth(xx, yy, -100, obj_button_focus);
 	
 	// create the saving button on bottom right
 	sp_index = object_get_sprite(obj_button_saveMap);
@@ -165,6 +170,8 @@ function init_map(medium, dataSrc) {
 	xx = room_width - sprite_get_width(sp_index) - 30;
 	yy = (1/6*room_height);// - sprite_get_height(sp_index))/2;
 	instance_create_depth(xx, yy, -100, obj_gui_info_screen);
+	
+	
 	
 	
 
@@ -274,7 +281,20 @@ function init_map(medium, dataSrc) {
 	
 	
 	update_won()
+
+
 	
+	global.followSoldier = 0; // index of movable soldier to follow 
+	global.allSoldiers = [ds_list_create(), ds_list_create()]; // all soldiers of both sides
+	
+	with(obj_infantry)
+		ds_list_add(global.allSoldiers[team], id);
+		
+	for (var i = 0; i < array_length(global.grid); i++) 
+		if (global.grid[i].soldier != -1)
+			global.grid[i].soldier.tilePos = global.grid[i];
+	
+		
 	global.map_loaded = true;
 	
 	

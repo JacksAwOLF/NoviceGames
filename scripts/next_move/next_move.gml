@@ -1,5 +1,4 @@
 function next_move() {
-
 	// reset all soldiers variables
 	var n = instance_number(obj_infantry);
 	for (var i=0; i<n; i++)

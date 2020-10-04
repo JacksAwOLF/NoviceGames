@@ -3,6 +3,8 @@
 function destroy_soldier(pos) {
 	with (global.grid[pos]){
 		if (soldier != -1){
+			ds_list_delete(global.allSoldiers[soldier.team], soldier);
+			
 			with(soldier) instance_destroy();
 			soldier = -1;
 			update_fog();
@@ -47,13 +49,15 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 	with (global.grid[pos]){ 
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);
+			
 			with(soldier){
 				sprite_index = sind;
 				team = get_team(sprite_index);
 				class = sclass;
+				tilePos = global.grid[pos];
 			}
 			
-			
+			ds_list_add(global.allSoldiers[soldier.team], soldier);	
 			init_global_soldier_vars(soldier);
 			
 			if (fromHutPos != -1){
@@ -66,7 +70,7 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 				soldier.justFromHut = fromHutPos;
 				
 				
-			} else with (soldier){ 
+			} else with (soldier) { 
 				attack_range = global.soldier_vars[Svars.attack_range];
 				max_health = global.soldier_vars[Svars.max_health];
 				max_damage = global.soldier_vars[Svars.max_damage];
@@ -162,7 +166,9 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 	
 	var t = fr.soldier;
 	fr.soldier = -1;
-	to.soldier = t;						
+	to.soldier = t;
+	
+	t.tilePos = to;
 	
 
 	

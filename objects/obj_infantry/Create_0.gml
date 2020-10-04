@@ -3,6 +3,8 @@
 
 
 // these vars are updated in next_move
+
+
 can = 2;
 moveCost = 2;
 attackCost = 2;
@@ -19,7 +21,7 @@ justFromHut = -1;
 class = -1;
 my_health = 0;
 
-
+tilePos = -1;
 
 
 error = false;					// when set to true, flash the soldier

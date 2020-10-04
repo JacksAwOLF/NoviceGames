@@ -13,7 +13,6 @@ if (text == "Class"){
 } else if (text == "Win") {
 	var len = array_length(global.objectiveOptions);
 	global.soldier_vars[ind] = (global.soldier_vars[ind]+len+add)%len;
-	// global.winCondition = global.soldier_vars[ind];
 	global.winFunction = global.soldier_vars[ind];
 	
 	update_won()

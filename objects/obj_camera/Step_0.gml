@@ -1,7 +1,10 @@
-//panning
 
+
+#region panning
 #macro width_offset 100
 #macro height_offset 100
+
+
 //when the mouse button is pressed, it captures the values of the mouse's X and Y position.
 //Because the view is going to be moved, we want the position of the mouse in relation to
 // the window, not the view.
@@ -66,6 +69,7 @@ if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
 	point_in_rectangle(neww, newh, room_width/global.mapWidth, room_height/global.mapHeight,
 					   2*room_width, 2*room_height)) {
 	
+	should_follow_turn = -1;
 	camera_set_view_pos(current_camera, newx, newy);
 	camera_set_view_size(current_camera, neww, newh);
 	
@@ -73,3 +77,23 @@ if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
 	mouse_xstart = mouse_x;
 	mouse_ystart = mouse_y;
 }
+
+#endregion panning
+
+
+
+
+
+#region following
+
+if (global.map_loaded && should_follow_turn == global.turn) {
+	// camera processing
+	var visible_team = global.edit ? global.turn % 2 : global.playas;
+	var toFollow = ds_list_find_value(global.allSoldiers[visible_team], global.followSoldier).tilePos;
+		
+	var newx = toFollow.x + toFollow.size/2 - camera_get_view_width(current_camera)/2;
+	var newy = toFollow.y + toFollow.size/2 - camera_get_view_height(current_camera)/2;
+	camera_set_view_pos(current_camera, newx, newy);
+}
+
+#endregion following
