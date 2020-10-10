@@ -30,14 +30,23 @@ function next_move() {
 			
 	global.turn++; // relative positioning is important
 
-	n = instance_number(obj_tile);
-	for (var i=0; i<n; i++)
-		with(instance_find(obj_tile, i)){
-			if (hut != -1) with(hut){
-				if (auto && steps == limit)	
-					hut_createSoldier(other.pos);
-			}
+	with(obj_tile) {
+		if (hut != -1) with (hut) {
+			if (auto && steps == limit)
+				hut_createSoldier(spawnPos);
 		}
+	}
+	
+	//n = instance_number(obj_tile);
+	//for (var i=0; i<n; i++)
+	//	with(instance_find(obj_tile, i)){
+	//		if (hut != -1) {
+	//			with(hut) {
+	//			if (auto && steps == limit)	
+	//				hut_createSoldier(other.pos);
+	//			}
+	//		}
+	//	}
 	
 	
 	

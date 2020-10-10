@@ -28,6 +28,8 @@ hide_soldier = true;
 road = false;
 
 hut = -1;
+originHutPos = -1;	// holds hut information for spawning
+
 tower = -1;
 
 // other variables are initialized in script create_map

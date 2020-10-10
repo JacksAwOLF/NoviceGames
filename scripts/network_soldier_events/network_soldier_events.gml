@@ -116,24 +116,37 @@ function soldier_execute_attack(frTilePos, toTilePos){
 						
 	if (attacked.my_health <= 0){
 		
-		if (attacked.object_index == obj_hut && attacked.steps == -1){
+		if (attacked.object_index == obj_hut && attacked.steps == -1) {
 			// don't kill the hut, conquer it
-			hut.soldier = fr.soldier;
-			with(hut) event_user(10);
+			attacked.soldier = fr.soldier;
+			with(attacked) event_user(10);
 			
 		} else if (attacked.object_index == obj_tower) {
+			
+			// if someone was teleporting to this place already
+			if (to.originHutPos != -1) {
+				var originGrid = global.grid[to.originHutPos];	
+				originGrid.hut.spawnPos = originGrid.pos;
+				originGrid.originHutPos = originGrid.pos;
+			
+				to.originHutPos = -1;
+			}
+			
+			
 			// make this tower into a teleport place
 			attacked.team = (attacked.team+1)%2;
 			append(global.conqueredTowers[fr.soldier.team], to);
 		}
 		
 		else{
-			
 			switch(attacked.object_index){
 				case obj_infantry:
 					to.soldier = -1; break;
 				case obj_hut:
-					to.hut = -1; break;
+					
+					global.grid[attacked.spawnPos].originHutPos = -1;
+					to.hut = -1; 
+					break;
 			}
 			
 			instance_destroy(attacked);
