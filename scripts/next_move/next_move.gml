@@ -6,6 +6,11 @@ function next_move() {
 			can = 2;
 			justFromHut = -1;
 			move_range = global.movement[get_soldier_type(id)];
+			
+			if (is_my_team_sprite(sprite_index) && moveCost == 6969){
+				init_global_soldier_vars(id);
+				debug("restore")
+			}
 		}
 	
 	

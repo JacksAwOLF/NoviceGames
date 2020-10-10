@@ -28,6 +28,7 @@ function init_global_soldier_vars(soldierId){
 		
 		if (global.map_loaded) move_range = global.movement[type];
 		if (type == Soldiers.ifvs) moveCost = 1;
+		else moveCost = 2;
 	}
 }
 
@@ -151,6 +152,12 @@ function soldier_execute_attack(frTilePos, toTilePos){
 			}
 		}
 		
+	}
+	
+	// melee unit fixing ability
+	// this is returned back to default in next_move
+	else if (get_soldier_type(fr.soldier) == Soldiers.infantry && attacked.object_index == obj_infantry){
+		attacked.moveCost = 6969;
 	}
 	
 	send_buffer(BufferDataType.soldierAttacked, array(frTilePos, toTilePos));

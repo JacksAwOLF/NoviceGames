@@ -84,6 +84,7 @@ else{    // if edit is  false
 	if (client_connected(true, false) == 0) exit;
 }
 
+
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
 if (!edit || global.changeSprite == -1){		
@@ -177,6 +178,7 @@ if (!edit || global.changeSprite == -1){
 		
 		if (soldier != -1) {
 			if(soldier.team == (global.turn)%2 && myturn){
+				
 				if (soldier.can){
 					global.selectedSoldier = id;
 			
