@@ -58,11 +58,26 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 		draw_healthbar(x, y+ss*3/4, x+ss, y+ss*7/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
 		
 		
-		if (steps >= 0){
+		
+		
+		
+	}
+}
+
+
+if (hutToSpawn != -1 && (is_my_team_sprite(global.grid[hutToSpawn].hut.soldier_sprite) || !hide_soldier)) {
+	var gridOriginal = global.grid[hutToSpawn];
+	var hutOriginal = gridOriginal.hut;
+	
+	with (hutOriginal) {
+		var ss = other.size;
+		var scale_factor = ss/sprite_get_width(other.sprite_index);
+		var color = get_team(soldier_sprite) ? c_gray : c_white;
+
+		if (hutOriginal.steps >= 0){
 			// ghost soldier
 			if (other.soldier == -1) {
-				
-				var xx = x, yy = y;
+				var xx = other.x, yy = other.y;
 				var width = scale_factor*sprite_get_width(soldier_sprite);
 	
 				// we need to reposition x, y based on rotation
@@ -70,19 +85,17 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 				if (sprite_dir == 90 || sprite_dir == 180) yy += ss;
 	
 				draw_sprite_ext(soldier_sprite, 0, xx, yy, scale_factor, scale_factor, sprite_dir, c_white, 0.4);				// the soldier on this tile
-				//draw_sprite_ext(soldier_sprite, 0, x, y, scale_factor, scale_factor, 0, c_white, 0.4);
-				draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier_class],global.colors[soldier_class],false);
+				draw_circle_color(other.x+width/4.5,other.y+width/3.75,width/8,global.colors[soldier_class],global.colors[soldier_class],false);
 			}
 			
 			// loading bar
-			draw_healthbar(x, y+ss*7/8, x+ss, y+ss, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
-			
+			draw_healthbar(other.x, other.y+ss*7/8, other.x+ss, other.y+ss, (steps/limit)*100, c_gray, c_purple, c_blue, 0, true,false);
 		}
 		
 		
 		if (auto) draw_set_color(c_green);
 		else draw_set_color(c_red);
-		draw_circle(x+ss/2, y+ss/2, ss/8, false);	
+		draw_circle(other.x+ss/2, other.y+ss/2, ss/8, false);	
 	}
 }
 

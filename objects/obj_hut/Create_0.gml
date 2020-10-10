@@ -21,7 +21,7 @@ max_health = 10;
 my_health = max_health;
 
 
-
+auto = true;
 steps = -1;
 limit = -1
 soldier_class = -1

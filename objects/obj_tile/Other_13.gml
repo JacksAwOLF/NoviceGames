@@ -82,7 +82,7 @@ if (global.selectedSoldier != -1){
 
 
 // double click on a hut while there is no global selected soldier
-else if (hut != -1){
+else if (hutToSpawn != -1){
 	// chagne auto state
-	hut.auto = !hut.auto;
+	global.grid[hutToSpawn].hut.auto = !global.grid[hutToSpawn].hut.auto;
 }

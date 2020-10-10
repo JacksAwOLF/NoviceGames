@@ -51,7 +51,7 @@ if (edit) {
 
 	case spr_soldier_generate:
 	
-		if (hut!=-1) break;
+		if (hut!=-1 || tower!=-1) break;
 		
 		if (soldier != -1) {
 			hut = instance_create_depth(x, y, 0, obj_hut);
@@ -70,6 +70,10 @@ if (edit) {
 				team  = -1;
 			}
 		}
+		
+		
+		hut.spawnPos = pos;
+		hutToSpawn = pos;
 		break;
 
 		
@@ -100,7 +104,14 @@ if (!edit || global.changeSprite == -1){
 		else if (possible_teleport){
 			erase_blocks(true);
 			//global.selectedSoldier.hut.spawnPos = pos;
-			global.grid[global.selectedSoldier.soldier.justFromHut].hut.spawnPos = pos;
+			
+			
+			var relatedHut = global.grid[global.selectedSoldier.soldier.justFromHut].hut;
+			
+			
+			hutToSpawn = global.grid[relatedHut.spawnPos].hutToSpawn;
+			global.grid[relatedHut.spawnPos].hutToSpawn = -1;	
+			relatedHut.spawnPos = pos;
 			
 			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
 			global.selectedSoldier = -2; 
@@ -196,10 +207,9 @@ if (!edit || global.changeSprite == -1){
 				update_enemy_outline();
 			}
 		} 
-		
-		
-	
-		else if (hut != -1 && hut.steps!=-1) {
+		else if (hutToSpawn != -1 && global.grid[hutToSpawn].hut.steps!=-1 &&
+				 is_my_team_sprite(global.grid[hutToSpawn].hut.soldier_sprite)) {
+					 
 			hut_createSoldier(pos);
 			enableDoubleClick = true;
 		}
