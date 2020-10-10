@@ -197,27 +197,9 @@ if (!edit || global.changeSprite == -1){
 		
 		
 	
-		else if (hut != -1 && hut.steps!=-1) with(hut){	
-		
-			var  can = steps == limit && 
-				other.soldier == -1 && 
-				get_team(soldier_sprite) == global.turn%2;
-		
-			if (can  && myturn){
-				var p = other.pos;
-				if (spawnPos != -1 && global.grid[spawnPos].soldier == -1){
-					p = spawnPos;
-					
-				}
-				create_soldier(soldier_sprite, p, other.pos, true);
-				steps = 0;
-				
-				// to help identify which soldier to teleport
-				// if a possible_teleport tile is clicked in the future
-				
-			}
-	
-	
+		else if (hut != -1 && hut.steps!=-1) {
+			hut_createSoldier(pos);
+			enableDoubleClick = true;
 		}
 	
 		

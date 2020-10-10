@@ -79,3 +79,10 @@ if (global.selectedSoldier != -1){
 	global.selectedSoldier = -1;
 	global.displayTileInfo = id;
 }
+
+
+// double click on a hut while there is no global selected soldier
+else if (hut != -1){
+	// chagne auto state
+	hut.auto = !hut.auto;
+}

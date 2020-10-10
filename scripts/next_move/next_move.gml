@@ -15,7 +15,6 @@ function next_move() {
 		with(instance_find(obj_hut, i))
 			if ((!global.edit || global.hutOn) && 
 				steps!=-1 && get_team(soldier_sprite) == global.turn%2){
-					
 				steps = min(steps+1, limit);
 			}
 	
@@ -26,7 +25,17 @@ function next_move() {
 			
 	global.turn++; // relative positioning is important
 
-
+	n = instance_number(obj_tile);
+	for (var i=0; i<n; i++)
+		with(instance_find(obj_tile, i)){
+			if (hut != -1) with(hut){
+				if (auto && steps == limit)	
+					hut_createSoldier(other.pos);
+			}
+		}
+	
+	
+	
 	// deselect soldiers and clear  drawings
 	erase_blocks(true);
 
