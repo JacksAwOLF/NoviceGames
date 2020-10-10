@@ -6,17 +6,17 @@ if (txt != ""){
 	
 	
 	var cam = view_get_camera(0);
+	var camw = camera_get_view_width(cam), camh = camera_get_view_height(cam);
+	var pw = (camw/view_wport[0]), ph = (camh/view_hport[0]);
+	var tw = string_width(txt) * pw , th = string_height(txt) * ph;
+	
 	
 	if (premsg != txt){
 		alpha =  1;
 		
+		xx = camera_get_view_x(cam) + (camw-tw)/2;
+		yy = camera_get_view_y(cam) + (camh/5);
 		
-	
-		xx = camera_get_view_x(cam) + (camera_get_view_width(cam)-string_width(txt))/2;
-		yy = camera_get_view_y(cam) + (camera_get_view_height(cam)/5);
-		
-		
-		//debug(camera_get_view_width(cam), camera_get_view_height(cam), camera_get_view_x(cam), camera_get_view_y(cam))
 		
 		y_delta = 1.5;
 	}
@@ -41,19 +41,14 @@ if (txt != ""){
 	
 	
 	var spr = spr_orange;
-	var tw = string_width(txt), th = string_height(txt);
+	
 	
 	draw_sprite_ext(spr, 0, xx, yy, 
 		tw/sprite_get_width(spr), 
 		th/sprite_get_height(spr), 0, c_white, alpha );
 	
 	draw_set_color(c_black);
-	/*draw_text_ext_transformed(xx, yy, txt, 5, 
-		tw / room_width * camera_get_view_width(cam),
-		view_get_wport(0)/ camera_get_view_width(cam) , 
-		view_get_hport(0)/ camera_get_view_height(cam) ,  0);*/
-		
-	draw_text(xx, yy, txt);
+	draw_text_transformed(xx, yy, txt, pw, ph, 0);
 	
 	count++;
 }

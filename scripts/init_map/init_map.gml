@@ -213,6 +213,10 @@ function init_map(medium, dataSrc) {
 	
 	// btw the first variable of an object to  save
 	// can't have a negative 1  value
+	
+	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
+	
+	
 	if (global.saveVersion == 4){
 		global.tiles_save_order = array(
 			"sprite_index", 
@@ -254,10 +258,12 @@ function init_map(medium, dataSrc) {
 			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_class", "team", "sprite_dir", "spawnPos"),
 			array("tower", "my_health", "team", "max_health")
 		);
+		
+		global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower);
 	}
 	
 	
-	global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower);
+	
 	
 	// load soldiers and things on tiles
 	load_tiles(medium, dataSrc);
