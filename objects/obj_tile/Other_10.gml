@@ -24,9 +24,12 @@ if (edit) {
 			else if (tower != -1){
 				with(tower) instance_destroy();
 				tower = -1;
-			} else if (hut != -1){
-				with (hut) instance_destroy();
-				hut = -1;
+			} else if (originHutPos != -1){
+				with (global.grid[originHutPos]){
+					with(hut) instance_destroy();
+					hut = -1;
+				}
+				originHutPos = -1;
 			}
 			
 			
@@ -207,6 +210,7 @@ if (!edit || global.changeSprite == -1){
 				update_enemy_outline();
 			}
 		} 
+		
 		else if (originHutPos != -1 && global.grid[originHutPos].hut.steps!=-1 &&
 				 is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite)) {
 					 

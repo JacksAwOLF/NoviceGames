@@ -57,10 +57,6 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 		// health bar
 		draw_healthbar(x, y+ss*3/4, x+ss, y+ss*7/8, (my_health/max_health)*100, c_black, c_red, c_green, 0, true,false);		
 		
-		
-		
-		
-		
 	}
 }
 
