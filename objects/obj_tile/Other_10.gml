@@ -73,7 +73,7 @@ if (edit) {
 		
 		
 		hut.spawnPos = pos;
-		hutToSpawn = pos;
+		originHutPos = pos;
 		break;
 
 		
@@ -109,8 +109,8 @@ if (!edit || global.changeSprite == -1){
 			var relatedHut = global.grid[global.selectedSoldier.soldier.justFromHut].hut;
 			
 			
-			hutToSpawn = global.grid[relatedHut.spawnPos].hutToSpawn;
-			global.grid[relatedHut.spawnPos].hutToSpawn = -1;	
+			originHutPos = global.grid[relatedHut.spawnPos].originHutPos;
+			global.grid[relatedHut.spawnPos].originHutPos = -1;	
 			relatedHut.spawnPos = pos;
 			
 			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
@@ -207,8 +207,8 @@ if (!edit || global.changeSprite == -1){
 				update_enemy_outline();
 			}
 		} 
-		else if (hutToSpawn != -1 && global.grid[hutToSpawn].hut.steps!=-1 &&
-				 is_my_team_sprite(global.grid[hutToSpawn].hut.soldier_sprite)) {
+		else if (originHutPos != -1 && global.grid[originHutPos].hut.steps!=-1 &&
+				 is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite)) {
 					 
 			hut_createSoldier(pos);
 			enableDoubleClick = true;

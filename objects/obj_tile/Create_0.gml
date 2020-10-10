@@ -28,7 +28,7 @@ hide_soldier = true;
 road = false;
 
 hut = -1;
-hutToSpawn = -1;	// holds hut information for spawning
+originHutPos = -1;	// holds hut information for spawning
 
 tower = -1;
 

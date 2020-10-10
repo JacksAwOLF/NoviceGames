@@ -124,12 +124,12 @@ function soldier_execute_attack(frTilePos, toTilePos){
 		} else if (attacked.object_index == obj_tower) {
 			
 			// if someone was teleporting to this place already
-			if (to.hutToSpawn != -1) {
-				var originGrid = global.grid[to.hutToSpawn];	
+			if (to.originHutPos != -1) {
+				var originGrid = global.grid[to.originHutPos];	
 				originGrid.hut.spawnPos = originGrid.pos;
-				originGrid.hutToSpawn = originGrid.pos;
+				originGrid.originHutPos = originGrid.pos;
 			
-				to.hutToSpawn = -1;
+				to.originHutPos = -1;
 			}
 			
 			
@@ -144,7 +144,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 					to.soldier = -1; break;
 				case obj_hut:
 					
-					global.grid[attacked.spawnPos].hutToSpawn = -1;
+					global.grid[attacked.spawnPos].originHutPos = -1;
 					to.hut = -1; 
 					break;
 			}

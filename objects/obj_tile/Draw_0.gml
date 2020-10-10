@@ -65,8 +65,8 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
 }
 
 
-if (hutToSpawn != -1 && (is_my_team_sprite(global.grid[hutToSpawn].hut.soldier_sprite) || !hide_soldier)) {
-	var gridOriginal = global.grid[hutToSpawn];
+if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite) || !hide_soldier)) {
+	var gridOriginal = global.grid[originHutPos];
 	var hutOriginal = gridOriginal.hut;
 	
 	with (hutOriginal) {

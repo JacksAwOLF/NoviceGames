@@ -6,14 +6,14 @@ function hut_createSoldier(tilePos){
 	
 	
 	with(global.grid[tilePos]) {
-		with(global.grid[hutToSpawn].hut){	
+		with(global.grid[originHutPos].hut){	
 		
 			var can = steps == limit && 
 				other.soldier == -1 && 
 				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can && myturn){
-				create_soldier(soldier_sprite, tilePos, other.hutToSpawn, true);
+				create_soldier(soldier_sprite, tilePos, other.originHutPos, true);
 				steps = 0;
 				
 				// to help identify which soldier to teleport
