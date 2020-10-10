@@ -69,7 +69,7 @@ if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
 	point_in_rectangle(neww, newh, room_width/global.mapWidth, room_height/global.mapHeight,
 					   2*room_width, 2*room_height)) {
 	
-	should_follow_turn = -1;
+	global.shouldFocusTurn = -1;
 	camera_set_view_pos(current_camera, newx, newy);
 	camera_set_view_size(current_camera, neww, newh);
 	
@@ -86,7 +86,7 @@ if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
 
 #region following
 
-if (global.map_loaded && should_follow_turn == global.turn) {
+if (global.map_loaded && global.shouldFocusTurn == global.turn) {
 	// camera processing
 	var visible_team = global.edit ? global.turn % 2 : global.playas;
 	var toFollow = ds_list_find_value(global.allSoldiers[visible_team], global.followSoldier).tilePos;

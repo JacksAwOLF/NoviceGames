@@ -300,6 +300,8 @@ function init_map(medium, dataSrc) {
 
 	
 	global.followSoldier = 0; // index of movable soldier to follow 
+	global.shouldFocusTurn = -1; // checks (shouldFocusTurn == this turn) to follow a soldier
+	
 	global.allSoldiers = [ds_list_create(), ds_list_create()]; // all soldiers of both sides
 	
 	with(obj_infantry)

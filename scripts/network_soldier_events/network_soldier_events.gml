@@ -3,7 +3,11 @@
 function destroy_soldier(pos) {
 	with (global.grid[pos]){
 		if (soldier != -1){
-			ds_list_delete(global.allSoldiers[soldier.team], soldier);
+			var index = ds_list_find_index(global.allSoldiers[soldier.team], soldier);
+			ds_list_delete(global.allSoldiers[soldier.team], index);
+			if (!refreshFocus()) 
+				global.shouldFocusTurn = -1;
+			
 			
 			with(soldier) instance_destroy();
 			soldier = -1;

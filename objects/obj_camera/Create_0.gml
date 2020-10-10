@@ -6,4 +6,3 @@ window_max_h = camera_get_view_height(current_camera);
 
 //the rate of which the camera zooms in and out. Adjust this to your liking, lower numbers are faster
 zoom_speed = 50;
-should_follow_turn = -1; // checks (should_follow_turn == this turn) to follow a soldier
