@@ -18,4 +18,3 @@ team = get_team(soldier_sprite);
 
 
 
-auto = true;

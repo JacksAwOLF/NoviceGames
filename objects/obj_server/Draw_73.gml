@@ -4,12 +4,23 @@
 
 if (txt != ""){
 	
+	
+	var cam = view_get_camera(0);
+	
 	if (premsg != txt){
 		alpha =  1;
-		xx = (room_width-string_width(txt))/2;
-		yy = room_height/10*8;
+		
+		
+	
+		xx = camera_get_view_x(cam) + (camera_get_view_width(cam)-string_width(txt))/2;
+		yy = camera_get_view_y(cam) + (camera_get_view_height(cam)/5);
+		
+		
+		//debug(camera_get_view_width(cam), camera_get_view_height(cam), camera_get_view_x(cam), camera_get_view_y(cam))
+		
 		y_delta = 1.5;
 	}
+	
 
 	if (count % steps == 0){
 		alpha -= alpha_delta;
@@ -30,9 +41,18 @@ if (txt != ""){
 	
 	
 	var spr = spr_orange;
-	draw_sprite_ext(spr, 0, xx, yy, string_width(txt)/sprite_get_width(spr), string_height(txt)/sprite_get_height(spr), 0, c_white, alpha );
+	var tw = string_width(txt), th = string_height(txt);
+	
+	draw_sprite_ext(spr, 0, xx, yy, 
+		tw/sprite_get_width(spr), 
+		th/sprite_get_height(spr), 0, c_white, alpha );
 	
 	draw_set_color(c_black);
+	/*draw_text_ext_transformed(xx, yy, txt, 5, 
+		tw / room_width * camera_get_view_width(cam),
+		view_get_wport(0)/ camera_get_view_width(cam) , 
+		view_get_hport(0)/ camera_get_view_height(cam) ,  0);*/
+		
 	draw_text(xx, yy, txt);
 	
 	count++;
