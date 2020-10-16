@@ -16,4 +16,6 @@ if (global.map_loaded) {
 		
 		selected_dropdown = -1;
 	}
+	
+	formationReset();
 }

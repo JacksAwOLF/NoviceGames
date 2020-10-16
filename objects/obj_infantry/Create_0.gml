@@ -28,3 +28,8 @@ error = false;					// when set to true, flash the soldier
 error_count = 0;				// increment this until reaches limit
 error_limit = 3;				// how many times to flash
 error_wait = 5;					// how many frames per flash
+
+
+
+formIndication = false;
+formation = -1;

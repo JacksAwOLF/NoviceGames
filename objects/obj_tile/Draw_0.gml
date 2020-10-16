@@ -125,8 +125,9 @@ if (soldier != -1 && !hide_soldier){
 	// index to draw
 	var soldier_index = 0; 
 	if (global.selectedSoldier == id) soldier_index = 1;
+	
+	// error
 	with(soldier) if (error){
-		
 		if (error_count  == 0)
 			start_sound("error", 0, false);
 		
@@ -138,17 +139,26 @@ if (soldier != -1 && !hide_soldier){
 			error_count += 1;
 		}
 	}
+	
+	
+	// formation 
+	var ccc = c_white;
+	if (soldier.formIndication) {
+		soldier_index = 1;
+		if (global.selectedSoldier != id)
+			ccc = c_aqua;
+	}
+	
 
 	
 	var xx = x, yy = y;
-	
 	// we need to reposition x, y based on rotation
 	if (soldier.direction == 180 || soldier.direction == 270) xx += size;
 	if (soldier.direction == 90 || soldier.direction == 180) yy += size;
 		
 	var width = scale_factor*sprite_get_width(spr_index); 
-	
-	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, c_white, 1);				// the soldier on this tile
+
+	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, ccc, 1);				// the soldier on this tile
 	draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier.class],global.colors[soldier.class],false);
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }

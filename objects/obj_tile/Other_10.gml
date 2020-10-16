@@ -94,11 +94,15 @@ else{    // if edit is  false
 
 // nothing selected...	
 // this block handles other clicking events like moving and attacking
-if (!edit || global.changeSprite == -1){		
+if (!edit || global.changeSprite == -1){	
+	
+	formationReset()
+	
+	
 	
 	if (global.selectedSoldier != -1) {
 		if (possible_attack && !hide_soldier) { // process attacking
-			
+		
 			soldier_execute_attack(global.selectedSoldier.pos, pos);
 			global.selectedSoldier = -2;
 			
@@ -121,6 +125,7 @@ if (!edit || global.changeSprite == -1){
 		}
 		
 		else if (possible_pathpoint) { // process deselecting blue tiles
+			
 			enableDoubleClick = true;
 			
 			var cur = ds_stack_top(global.selectedPathpointsStack), met_same = false;
@@ -145,13 +150,14 @@ if (!edit || global.changeSprite == -1){
 			
 		} // process selecting blue tiles
 		
-		else if (possible_move &&
+		else if ( (possible_move ) &&
 					(global.selectedSoldier != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
 			
 			enableDoubleClick = true;
 			possible_pathpoint = true;
-				
+			
 			global.pathCost += global.dist[pos];
+			
 			for (var i = array_length(global.poss_paths)-2; i >= 0; i--) {
 				var val = [global.poss_paths[i], (i==0?global.dist[pos]:0)];
 				
@@ -175,13 +181,17 @@ if (!edit || global.changeSprite == -1){
 			var canSelect = global.selectedSoldier != id && ds_stack_size(global.selectedPathpointsStack) == 1;
 			erase_blocks(true);
 			
-			global.selectedSoldier = canSelect ? -1 : -2;
+			var formationCondition = (soldier != -1 && soldier.team == global.selectedSoldier.soldier.team &&
+				soldier.formation != -1 && soldier.formation == global.selectedSoldier.soldier.formation);
+			
+			
+			global.selectedSoldier = canSelect || formationCondition ? -1 : -2;
 			global.displayTileInfo = id;
 
-		} 
+		}  
 	}
 	
-			
+	
 
 	
 	// select other soldier when clicked on them
@@ -193,7 +203,29 @@ if (!edit || global.changeSprite == -1){
 		if (soldier != -1) {
 			if(soldier.team == (global.turn)%2 && myturn){
 				
-				if (soldier.can){
+				
+				if (soldier.formation != -1){
+					// disband formation option
+					var cam = view_get_camera(0),
+					    camw = camera_get_view_width(cam), 
+						camh = camera_get_view_height(cam),
+						spr = object_get_sprite(obj_confirmFormation);
+					with( instance_create_depth(
+						(camw-sprite_get_width(spr))*(1/4) , (camh-sprite_get_height(spr))*(3/4), 
+						-1, obj_disbandFormation) ) pos = other.pos;
+					
+					// mark the group
+					//debug(global.formation, soldier.formation)
+					
+					var arr = global.formation[soldier.formation].soldiers;
+					for (var i=0; i<array_length(arr); i++)
+						arr[i].formIndication = true;
+					global.selectedSoldier = id;
+					
+					// movement initialization for the formation
+				}
+				
+				else if (soldier.can){
 					global.selectedSoldier = id;
 			
 					ds_stack_clear(global.selectedPathpointsStack);
@@ -204,6 +236,42 @@ if (!edit || global.changeSprite == -1){
 					soldier_init_move();
 					soldier_init_attack();
 				} else soldier.error = true;
+				
+
+				// formation
+				if (soldier.formation == -1){
+				
+					possFormStructs = partOfNewFormation(pos);
+
+					if (possFormStructs != -1){
+					
+						//debug("poss", possFormStructs);
+					
+						// light up the soldiers
+						whichFormStruct = 0;
+						var fStruct = possFormStructs[whichFormStruct];
+						for (var i=0; i<array_length(fStruct.soldiers); i++)
+							fStruct.soldiers[i].formIndication = true;
+					
+						//debug("fstruct", fStruct);
+					
+						// create the checkmark and the next
+						var cam = view_get_camera(0),
+						    camw = camera_get_view_width(cam), 
+							camh = camera_get_view_height(cam),
+							spr = object_get_sprite(obj_confirmFormation);
+						with ( instance_create_depth(
+							(camw-sprite_get_width(spr))*(1/4) , (camh-sprite_get_height(spr))*(3/4)
+							, -1, obj_confirmFormation) ) pos = other.pos;
+					
+						if (array_length(possFormStructs) > 1)
+							with ( instance_create_depth(
+								(camw-sprite_get_width(spr))*(2/5), (camh-sprite_get_height(spr))*(3/4),
+								-1, obj_nextFormation) ) pos= other.pos;
+					}
+				
+					
+				}
 				
 			} else if ((soldier.team == global.turn % 2) != myturn && !hide_soldier) {
 				soldier.display_if_enemy = !soldier.display_if_enemy;

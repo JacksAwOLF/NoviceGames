@@ -8,13 +8,13 @@ function array() {
 
 
 function append(arr, val){
-	//debug("before append", arr, val);
+	//debug("before append", arr, val, !is_array(val));
 	if (!is_array(val)) arr[array_length(arr)] = val;
 	else {
 		for (var i=0; i<array_length(val); i++)
 			arr[array_length(arr)] = val[i]
 	}
 	
-	//debug("after append", arr, val);
+	//debug("after append", arr, val, !is_array(val));
 	return arr;
 }	

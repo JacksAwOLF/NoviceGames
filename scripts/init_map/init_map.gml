@@ -36,6 +36,8 @@ function init_map(medium, dataSrc) {
 	global.colors[Classes.scout] = c_purple;
 	
 	
+	global.formation = []
+	
 
 	// load the saveVersion
 	global.saveVersion = 8;
