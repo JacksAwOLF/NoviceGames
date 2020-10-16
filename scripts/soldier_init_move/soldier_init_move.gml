@@ -17,6 +17,20 @@ function possible_move_tiles(tileId) {
 	return true;
 }
 
+function possible_move_tiles_including_selected(tileId) {
+	var s = global.grid[tileId];
+	
+	// cant go here if there is a visible soldier blocking path
+	if (s.soldier != -1 && s != global.selectedSoldier && !s.hide_soldier) return false;
+	
+	// cant go if enemy tower is here
+	if (s.tower != -1 && !is_my_team(s.tower)) return false;
+	
+	// cant go if enemy hut is here (or nuetral one)
+	if (s.hut != -1 && s.hut.team != -1 && !is_my_team(s.hut)) return false;
+	
+	return true;
+}
 
 function soldier_init_move() {
 	if (global.selectedSoldier != -1){
@@ -30,7 +44,9 @@ function soldier_init_move() {
 		with(global.selectedSoldier.soldier){
 	
 			if (can-moveCost>=0){
-				global.poss_moves = get_tiles_from(source.pos, move_range-global.pathCost, global.energy[type], true);
+				global.poss_moves = get_tiles_from(source.pos, move_range-global.pathCost, global.energy[type], true, 
+												   possible_move_tiles_including_selected);
+												   
 				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
 					global.poss_moves[array_length(global.poss_moves)] = global.selectedSoldier;
 					
