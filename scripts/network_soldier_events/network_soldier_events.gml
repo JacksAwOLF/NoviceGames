@@ -173,7 +173,8 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	// melee unit fixing ability
 	// this is returned back to default in next_move
 	else if (get_soldier_type(fr.soldier) == Soldiers.infantry && attacked.object_index == obj_infantry){
-		attacked.moveCost = 6969;
+		if (are_tiles_adjacent(frTilePos, toTilePos)) // implemented in grid_helper_functions
+			attacked.moveCost = 6969;
 	}
 	
 	send_buffer(BufferDataType.soldierAttacked, array(frTilePos, toTilePos));

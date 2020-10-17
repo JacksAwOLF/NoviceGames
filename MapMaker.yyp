@@ -6,6 +6,7 @@
     {"id":{"name":"spr_tile_border","path":"sprites/spr_tile_border/spr_tile_border.yy",},"order":3,},
     {"id":{"name":"map_objectives","path":"scripts/map_objectives/map_objectives.yy",},"order":13,},
     {"id":{"name":"network","path":"scripts/network/network.yy",},"order":10,},
+    {"id":{"name":"grid_helper_functions","path":"scripts/grid_helper_functions/grid_helper_functions.yy",},"order":3,},
     {"id":{"name":"obj_disbandFormation","path":"objects/obj_disbandFormation/obj_disbandFormation.yy",},"order":6,},
     {"id":{"name":"spr_tile_road","path":"sprites/spr_tile_road/spr_tile_road.yy",},"order":4,},
     {"id":{"name":"spr_select_underMouse","path":"sprites/spr_select_underMouse/spr_select_underMouse.yy",},"order":5,},
