@@ -15,7 +15,6 @@ move_range = -1;   // to implement ifvs move twice
 display_if_enemy = false;
 
 team = get_team(sprite_index);
-justFromHut = -1;
 
 
 class = -1;

@@ -75,14 +75,15 @@ if (global.selectedSoldier != -1){
 	}
 	
 	
-	erase_blocks(true);
-	global.selectedSoldier = -1;
-	global.displayTileInfo = id;
+
 }
-
-
 // double click on a hut while there is no global selected soldier
 else if (originHutPos != -1){
 	// chagne auto state
 	global.grid[originHutPos].hut.auto = !global.grid[originHutPos].hut.auto;
 }
+
+erase_blocks(true);
+global.selectedSoldier = -1;
+global.selectedSpawn = -1;
+global.displayTileInfo = id;

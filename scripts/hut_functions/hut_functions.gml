@@ -38,3 +38,15 @@ function hut_createSoldier(tilePos){
 	
 	}
 }
+
+function hut_refreshTeleport(hutInstance) {
+	for (var i=0; i<array_length(global.conqueredTowers[hutInstance.team]); i++)
+		with(global.conqueredTowers[hutInstance.team][i])
+			if (soldier == -1 && originHutPos == -1 && hutInstance.spawnPos != pos)
+				possible_teleport = true;
+	
+	// if currently spawning on a teleport location, add originally location as possible teleport
+	var originalHutPos = global.grid[hutInstance.spawnPos].originHutPos;
+	if (hutInstance.spawnPos != originalHutPos)
+		global.grid[originalHutPos].possible_teleport = true;
+}

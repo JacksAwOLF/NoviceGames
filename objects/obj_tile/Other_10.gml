@@ -107,23 +107,6 @@ if (!edit || global.changeSprite == -1){
 			global.selectedSoldier = -2;
 			
 		} 
-		
-		else if (possible_teleport){
-			erase_blocks(true);
-			//global.selectedSoldier.hut.spawnPos = pos;
-			
-			
-			var relatedHut = global.grid[global.selectedSoldier.soldier.justFromHut].hut;
-			
-			
-			originHutPos = global.grid[relatedHut.spawnPos].originHutPos;
-			global.grid[relatedHut.spawnPos].originHutPos = -1;	
-			relatedHut.spawnPos = pos;
-			
-			soldier_execute_move(global.selectedSoldier.pos, pos, global.selectedSoldier.soldier.direction);
-			global.selectedSoldier = -2; 
-		}
-		
 		else if (possible_pathpoint) { // process deselecting blue tiles
 			
 			enableDoubleClick = true;
@@ -169,7 +152,6 @@ if (!edit || global.changeSprite == -1){
 			erase_blocks();
 			soldier_init_move(id);
 			soldier_update_path(false);
-			global.selectedSoldier.soldier.justFromHut = -1;
 
 		} // process deselecting own soldier/selecting other soldiers
 		
@@ -189,6 +171,25 @@ if (!edit || global.changeSprite == -1){
 			global.displayTileInfo = id;
 
 		}  
+	} 
+	else if (global.selectedSpawn != -1) { // teleporting huts
+		if (possible_teleport) {
+			var relatedHut = global.grid[global.selectedSpawn.originHutPos].hut;
+			
+			originHutPos = global.grid[relatedHut.spawnPos].originHutPos;
+			global.grid[relatedHut.spawnPos].originHutPos = -1;	
+			relatedHut.spawnPos = pos;
+			
+			global.selectedSpawn = -2;
+			
+		} else {
+			
+			var canReselect = global.selectedSpawn != id;
+			global.selectedSpawn = canReselect ? -1 : -2;
+			enableDoubleClick = true;
+		}
+		
+		erase_blocks(true);
 	}
 	
 	
@@ -280,9 +281,13 @@ if (!edit || global.changeSprite == -1){
 		} 
 		
 		else if (originHutPos != -1 && global.grid[originHutPos].hut.steps!=-1 &&
-				 is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite)) {
+				 is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite) &&
+				 global.selectedSpawn == -1) {
 					 
 			hut_createSoldier(pos);
+			hut_refreshTeleport(global.grid[originHutPos].hut);
+			
+			global.selectedSpawn = id;
 			enableDoubleClick = true;
 		}
 	
@@ -293,7 +298,8 @@ if (!edit || global.changeSprite == -1){
 	
 	if (global.selectedSoldier == -2)
 		global.selectedSoldier = -1;
-		
+	if (global.selectedSpawn == -2)
+		global.selectedSpawn = -1;
 		
 	update_won();
 }

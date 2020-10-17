@@ -72,7 +72,6 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 					if (sprite_dir != -1)
 						other.soldier.direction = sprite_dir;
 				}
-				soldier.justFromHut = fromHutPos;
 				
 				
 			} else with (soldier) { 

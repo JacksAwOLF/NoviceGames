@@ -16,15 +16,12 @@ function erase_blocks() {
 					global.poss_attacks[i].possible_attack = false;
 				global.poss_attacks = -1;
 			}
-		
-			// clear teleport zones
-			//for (var i=0; i<array_length(global.conqueredTowers[team]); i++)
-			//	global.conqueredTowers[team][i].possible_teleport = false;
-			for (var i=0; i<instance_number(obj_tile); i++)
-				instance_find(obj_tile, i).possible_teleport = false;
 		}
 	}
-
+	
+	// clear teleport zones
+	with(obj_tile)
+		possible_teleport = false;
 
 	if (argument_count > 0 && argument[0] == true) {
 		global.pathCost = 0;

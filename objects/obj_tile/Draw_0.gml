@@ -30,7 +30,7 @@ if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, s
 if ((possible_attack && !hide_soldier)) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
 if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
-if (possible_teleport) draw_sprite_stretched_ext(spr_select_teleport, 0, x, y, size, size, c_white, 1);
+if (possible_teleport || global.selectedSpawn == id) draw_sprite_stretched_ext(spr_select_teleport, 0, x, y, size, size, c_white, 1);
 
 if (possible_enemy_attack) draw_sprite_stretched_ext(spr_orange, 0, x+1/10*size, y+1/10*size, size*4/5, size*4/5, c_white, 1);
 if (enemy_vision) draw_sprite_stretched_ext(spr_dark_blue, 0, x+3/20*size, y+3/20*size, size*7/10, size*7/10, c_white, 1);

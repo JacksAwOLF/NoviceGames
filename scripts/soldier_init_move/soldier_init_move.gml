@@ -52,20 +52,6 @@ function soldier_init_move() {
 					
 				for (var i=0; i<array_length(global.poss_moves); i++)
 					global.poss_moves[i].possible_move = true;
-			
-			
-				if (justFromHut != -1){
-					for (var i=0; i<array_length(global.conqueredTowers[team]); i++){
-						with(global.conqueredTowers[team][i])
-							if (soldier == -1 && originHutPos == -1)
-								possible_teleport = true;
-					}
-					
-					if (justFromHut != global.selectedSoldier.pos) 
-						global.grid[justFromHut].possible_teleport = true;
-				}
-				
-				
 			}
 			
 		}
