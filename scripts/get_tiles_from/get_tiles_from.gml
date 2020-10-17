@@ -85,8 +85,8 @@ function get_tiles_from_euclidean(tile_pos, dist, canMoveOnto) {
 	var col = tile_pos % global.mapWidth;
 	
 	var res = [], len = 0;
-	for (var xx = col-dist; xx <= col+dist; xx++) {
-		for (var yy = row-dist; yy <= row+dist; yy++) {
+	for (var xx = col-ceil(dist); xx <= col+ceil(dist); xx++) {
+		for (var yy = row-ceil(dist); yy <= row+ceil(dist); yy++) {
 			if ((xx == col && yy == row) || !point_in_rectangle(xx,yy,0,0,global.mapWidth-1,global.mapHeight-1))
 				continue;
 			else if ((xx-col)*(xx-col)+(yy-row)*(yy-row) <= dist*dist) {
@@ -96,7 +96,6 @@ function get_tiles_from_euclidean(tile_pos, dist, canMoveOnto) {
 			}
 		}
 	}
-	
 	
 	return res;
 }

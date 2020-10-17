@@ -30,9 +30,9 @@ function init_game_vars(){
 	global.attack_range[Classes.scout, Soldiers.infantry] = 1;
 	global.attack_range[Classes.scout, Soldiers.tanks] = 1;
 	global.attack_range[Classes.scout, Soldiers.ifvs] = 1;
-	global.attack_range[Classes.melee, Soldiers.infantry] = 1;
-	global.attack_range[Classes.melee, Soldiers.tanks] = 1;
-	global.attack_range[Classes.melee, Soldiers.ifvs] = 1;
+	global.attack_range[Classes.melee, Soldiers.infantry] = 1.42;
+	global.attack_range[Classes.melee, Soldiers.tanks] = 1.42;
+	global.attack_range[Classes.melee, Soldiers.ifvs] = 1.42;
 	global.attack_range[Classes.range, Soldiers.infantry] = 3;
 	global.attack_range[Classes.range, Soldiers.tanks] = 3;
 	global.attack_range[Classes.range, Soldiers.ifvs] = 3;
