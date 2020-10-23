@@ -2,7 +2,6 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 function formationReset(){
-	with (obj_infantry) formIndication = false;
 	with(obj_confirmFormation) instance_destroy();
 	with(obj_disbandFormation) instance_destroy();
 	with(obj_nextFormation) instance_destroy();
