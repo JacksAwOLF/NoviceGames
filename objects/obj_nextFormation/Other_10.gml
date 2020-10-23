@@ -5,12 +5,12 @@
 var t = global.grid[pos];
 
 
-var arr = t.possFormStructs[t.whichFormStruct].soldiers;
+var arr = t.possFormStructs[t.whichFormStruct].tiles;
 for (var i=0; i<array_length(arr); i++)
-	arr[i].formIndication = false;
+	arr[i].soldier.formIndication = false;
 
 t.whichFormStruct = (t.whichFormStruct+1)%array_length(t.possFormStructs);
 
-arr = t.possFormStructs[t.whichFormStruct].soldiers;
+arr = t.possFormStructs[t.whichFormStruct].tiles;
 for (var i=0; i<array_length(arr); i++)
-	arr[i].formIndication = true;
+	arr[i].soldier.formIndication = true;

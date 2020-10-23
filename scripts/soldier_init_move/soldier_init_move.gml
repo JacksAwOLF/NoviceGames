@@ -45,7 +45,6 @@ function soldier_init_move() {
 		var source = (argument_count > 0 ? argument[0] : global.selectedSoldier);
 		
 		with(global.selectedSoldier.soldier){
-	
 			if (can-moveCost>=0){
 				global.poss_moves = get_tiles_from(
 					source.pos, move_range-global.pathCost, global.energy[type], true, 
@@ -59,11 +58,7 @@ function soldier_init_move() {
 					global.poss_moves[i].possible_move = true;
 			} 
 			
-			else {
-				debug("cant move no more");
-				global.poss_moves = []
-			}
-			
+			else global.poss_moves = []
 		}
 
 		

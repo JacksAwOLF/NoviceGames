@@ -212,15 +212,8 @@ if (!edit || global.changeSprite == -1){
 				if (soldier.formation != -1){
 					
 					// disband formation option
-					// hey you shoudl make a function for this haha
-					var cam = view_get_camera(0),
-					    camw = camera_get_view_width(cam), 
-						camh = camera_get_view_height(cam),
-						spr = object_get_sprite(obj_confirmFormation);
-						
-					with( instance_create_depth(
-						(camw-sprite_get_width(spr))*(1/4) , (camh-sprite_get_height(spr))*(3/4), 
-						-1, obj_disbandFormation) ) pos = other.pos;
+					with( centerObjectInWindow(
+						obj_disbandFormation, 1/4, 1/2, 0, 1/2) ) pos = other.pos;
 					
 					// mark the group
 					var arr = global.formation[soldier.formation].tiles;
@@ -244,40 +237,32 @@ if (!edit || global.changeSprite == -1){
 				else soldier.error = true;
 				
 
-				// formation
+				// formation checking
 				if (soldier.formation == -1){
 				
 					possFormStructs = partOfNewFormation(pos);
 
 					if (possFormStructs != -1){
-					
-						
-					
 						// light up the soldiers
 						whichFormStruct = 0;
 						var fStruct = possFormStructs[whichFormStruct];
 						for (var i=0; i<array_length(fStruct.tiles); i++)
 							fStruct.tiles[i].soldier.formIndication = true;
 					
+					
+						debug(possFormStructs);
+					
+						// create the checkmark
+						with( centerObjectInWindow(obj_confirmFormation, 1/4, 1/2, 0, 1/2) ) 
+							pos = other.pos;
 						
-					
-						// create the checkmark and the next
-						var cam = view_get_camera(0),
-						    camw = camera_get_view_width(cam), 
-							camh = camera_get_view_height(cam),
-							spr = object_get_sprite(obj_confirmFormation);
-						with ( instance_create_depth(
-							(camw-sprite_get_width(spr))*(1/4) , (camh-sprite_get_height(spr))*(3/4)
-							, -1, obj_confirmFormation) ) pos = other.pos;
-					
+						// create the next formation button
 						if (array_length(possFormStructs) > 1)
-							with ( instance_create_depth(
-								(camw-sprite_get_width(spr))*(2/5), (camh-sprite_get_height(spr))*(3/4),
-								-1, obj_nextFormation) ) pos= other.pos;
-					}
-				
-					
+							with( centerObjectInWindow(obj_nextFormation, 1/4, 1/2, 1/8, 1/2) ) 
+								pos = other.pos; 
+					}	
 				}
+				
 				
 			} else if ((soldier.team == global.turn % 2) != myturn && !hide_soldier) {
 				soldier.display_if_enemy = !soldier.display_if_enemy;
