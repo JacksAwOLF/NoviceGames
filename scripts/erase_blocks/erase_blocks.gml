@@ -2,7 +2,16 @@
 /// @param clear_pathpoints If true, clear all pathpoints and costs
 
 function erase_blocks() {
-	if (global.selectedSoldier > 0){
+	
+	with(obj_tile){
+		possible_move = false;
+		possible_attack = false;
+		possible_teleport = false;
+	}
+	global.poss_moves = -1;
+	global.poss_attacks = -1;
+	
+	/* if (global.selectedSoldier > 0){
 		with(global.selectedSoldier.soldier){
 			
 			if (global.poss_moves != -1){
@@ -17,14 +26,11 @@ function erase_blocks() {
 				global.poss_attacks = -1;
 			}
 		}
-	}
+	}*/
 	
-	// clear teleport zones
-	with(obj_tile)
-		possible_teleport = false;
-
 	if (argument_count > 0 && argument[0] == true) {
 		global.pathCost = 0;
+		
 		while (!ds_stack_empty(global.selectedPathpointsStack)) {
 			var cur = ds_stack_pop(global.selectedPathpointsStack);
 			cur[0].possible_path = 0;

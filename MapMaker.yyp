@@ -26,6 +26,7 @@
     {"id":{"name":"spr_checkmark","path":"sprites/spr_checkmark/spr_checkmark.yy",},"order":10,},
     {"id":{"name":"spr_infantry_delete","path":"sprites/spr_infantry_delete/spr_infantry_delete.yy",},"order":12,},
     {"id":{"name":"spr_infantry1","path":"sprites/spr_infantry1/spr_infantry1.yy",},"order":13,},
+    {"id":{"name":"position","path":"scripts/position/position.yy",},"order":5,},
     {"id":{"name":"spr_tanks1","path":"sprites/spr_tanks1/spr_tanks1.yy",},"order":14,},
     {"id":{"name":"spr_ifvs1","path":"sprites/spr_ifvs1/spr_ifvs1.yy",},"order":15,},
     {"id":{"name":"spr_button_edit","path":"sprites/spr_button_edit/spr_button_edit.yy",},"order":0,},

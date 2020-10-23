@@ -185,6 +185,8 @@ function soldier_execute_attack(frTilePos, toTilePos){
 
 
 function soldier_execute_move(frTilePos, toTilePos, dir){
+
+	
 	// move to the pushed back tile (not  changing x or y)]
 	var fr = global.grid[frTilePos], to = global.grid[toTilePos];
 	

@@ -5,10 +5,10 @@
 // is this mouse release?
 
 var t = global.grid[pos];
-var arr =  t.possFormStructs[t.whichFormStruct].soldiers;
+var arr =  t.possFormStructs[t.whichFormStruct].tiles;
 var n = array_length(global.formation);
 for (var i=0; i<array_length(arr); i++)
-	arr[i].formation =  n;
+	arr[i].soldier.formation =  n;
 
 
 global.formation[ n ] = t.possFormStructs[t.whichFormStruct];

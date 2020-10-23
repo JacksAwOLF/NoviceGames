@@ -75,7 +75,7 @@ global.formationStructures = [{
 
 function possibleFormationStruct(_fid, _sold) constructor {
 	formationId = _fid;
-	soldiers = _sold
+	tiles = _sold
 }
 
 
@@ -98,7 +98,7 @@ function partOfNewFormation(posSoldier){
 		for (var b=0; b<pw; b++){ 
 			
 			if (row - a < 0 || col - b < 0 ) continue;
-			if (row-a+ph >= global.mapHeight || col-b+pw >= global.mapWidth) continue;
+			if (row-a+ph-1 >= global.mapHeight || col-b+pw-1 >= global.mapWidth) continue;
 			
 			// this position needs to be a 1 (because posSolddier definitely haas a soldier)
 			if (str.pattern[a][b] != 1) continue;
@@ -119,7 +119,8 @@ function partOfNewFormation(posSoldier){
 					!str.comparator(posSoldier, posToCheck, i, a2*pw+b2))) matched = false;
 				
 				// add to the soldier array			
-				if (matched && str.pattern[a2][b2]==1) solds = append(solds, global.grid[posToCheck].soldier)
+				if (matched && str.pattern[a2][b2]==1) 
+					solds = append(solds, global.grid[posToCheck])
 			}
 			
 			if (matched){

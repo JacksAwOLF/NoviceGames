@@ -3,21 +3,22 @@
 
 
 
+
+
 var t = global.grid[pos];
+var formId = t.soldier.formation;
 
 
-var arr = global.formation[t.soldier.formation].soldiers;
-for (var i =0; i<array_length(arr); i++)
-	arr[i].formIndication = false;
-
-// temp solution... trading mem for time now
-global.formation[t.soldier.formation] = -1;
-
-for (var i =0; i<array_length(arr); i++)
-	arr[i].formation = -1;
+var arr = global.formation[formId].tiles;
+for (var i =0; i<array_length(arr); i++){
+	arr[i].soldier.formIndication = false;
+	arr[i].soldier.formation = -1;
+}
 
 
+// replace this with a ds_list in the future
+global.formation[formId] = -1;
 
-with(global.grid[pos]) event_user(0);
 
+erase_blocks(true);
 formationReset();

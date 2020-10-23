@@ -133,25 +133,29 @@ if (!edit || global.changeSprite == -1){
 			
 		} // process selecting blue tiles
 		
-		else if ( (possible_move ) &&
+		else if ( (possible_move ) && 
 					(global.selectedSoldier != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
 			
+			
+			
 			enableDoubleClick = true;
-			possible_pathpoint = true;
+			if (global.selectedSoldier.soldier.formation == -1) {
+				possible_pathpoint = true;
 			
-			global.pathCost += global.dist[pos];
-			
-			for (var i = array_length(global.poss_paths)-2; i >= 0; i--) {
-				var val = [global.poss_paths[i], (i==0?global.dist[pos]:0)];
+				global.pathCost += global.dist[pos];
 				
-				ds_stack_push(global.selectedPathpointsStack, val);
-				val[0].possible_path += 1;
+				for (var i = array_length(global.poss_paths)-2; i >= 0; i--) {
+					var val = [global.poss_paths[i], (i==0?global.dist[pos]:0)];
+				
+					ds_stack_push(global.selectedPathpointsStack, val);
+					val[0].possible_path += 1;
+				}
+			
+				
+				erase_blocks();
+				soldier_init_move(id);
+				soldier_update_path(false);
 			}
-			
-				
-			erase_blocks();
-			soldier_init_move(id);
-			soldier_update_path(false);
 
 		} // process deselecting own soldier/selecting other soldiers
 		
@@ -206,37 +210,38 @@ if (!edit || global.changeSprite == -1){
 				
 				
 				if (soldier.formation != -1){
+					
 					// disband formation option
+					// hey you shoudl make a function for this haha
 					var cam = view_get_camera(0),
 					    camw = camera_get_view_width(cam), 
 						camh = camera_get_view_height(cam),
 						spr = object_get_sprite(obj_confirmFormation);
+						
 					with( instance_create_depth(
 						(camw-sprite_get_width(spr))*(1/4) , (camh-sprite_get_height(spr))*(3/4), 
 						-1, obj_disbandFormation) ) pos = other.pos;
 					
 					// mark the group
-					//debug(global.formation, soldier.formation)
-					
-					var arr = global.formation[soldier.formation].soldiers;
+					var arr = global.formation[soldier.formation].tiles;
 					for (var i=0; i<array_length(arr); i++)
-						arr[i].formIndication = true;
-					global.selectedSoldier = id;
+						arr[i].soldier.formIndication = true;
 					
 					// movement initialization for the formation
+					soldier_init_move_formation(pos);
 				}
 				
 				else if (soldier.can){
 					global.selectedSoldier = id;
-			
 					ds_stack_clear(global.selectedPathpointsStack);
 					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier, 0]);
 					global.selectedSoldier.possible_path = 1;
-				
 			
 					soldier_init_move();
 					soldier_init_attack();
-				} else soldier.error = true;
+				} 
+				
+				else soldier.error = true;
 				
 
 				// formation
@@ -246,15 +251,15 @@ if (!edit || global.changeSprite == -1){
 
 					if (possFormStructs != -1){
 					
-						//debug("poss", possFormStructs);
+						
 					
 						// light up the soldiers
 						whichFormStruct = 0;
 						var fStruct = possFormStructs[whichFormStruct];
-						for (var i=0; i<array_length(fStruct.soldiers); i++)
-							fStruct.soldiers[i].formIndication = true;
+						for (var i=0; i<array_length(fStruct.tiles); i++)
+							fStruct.tiles[i].soldier.formIndication = true;
 					
-						//debug("fstruct", fStruct);
+						
 					
 						// create the checkmark and the next
 						var cam = view_get_camera(0),

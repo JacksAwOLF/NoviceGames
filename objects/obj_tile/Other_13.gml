@@ -6,6 +6,36 @@
 // clear the selected soldier things if this block is not a possible move or attack
 if (global.selectedSoldier != -1){
 	
+	if (global.selectedSoldier.soldier.formation != -1){
+		
+		var sS = global.selectedSoldier,
+			formId = sS.soldier.formation,
+			form = global.formation[formId],
+			dR = getRow(pos) - getRow(sS.pos), dC = getCol(pos) - getCol (sS.pos),
+			moveC = 0, n = array_length(form.tiles), moved = array_create(n, false);
+		
+		while (moveC < n){
+			for (var i=0; i<n; i++){
+				
+				if (moved[i]) continue;
+				var tile = form.tiles[i], startPos = tile.pos,
+					newPos = getPos(getRow(startPos)+dR, getCol(startPos)+dC)
+				if (global.grid[newPos].soldier != -1) continue;
+				
+				global.formation[formId].tiles[i] = global.grid[newPos];
+				++moveC; moved[i] = true;
+				with(tile.soldier) can -= moveCost;
+				
+				soldier_execute_move(startPos, newPos, tile.soldier.direction);
+			}
+		}
+		
+		erase_blocks();
+		global.selectedSoldier = -1;
+		
+		exit;
+	}
+	
 	if (possible_move || possible_path) {
 		var path = [];
 		
@@ -26,7 +56,6 @@ if (global.selectedSoldier != -1){
 				// if didn't clicked myself again (didn't deselect)
 				if (array_length(path) > 1) {
 					can -= moveCost;
-				//	debug(can, moveCost);
 				}
 				
 				var i; // i is index of first soldier encountered or  -1 of none
