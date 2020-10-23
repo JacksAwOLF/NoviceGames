@@ -143,7 +143,7 @@ if (soldier != -1 && !hide_soldier){
 	
 	// formation 
 	var ccc = c_white;
-	if (soldier.formIndication) {
+	if (soldier.formation != -1 && soldier.formation == global.selectedFormation) {
 		soldier_index = 1;
 		if (global.selectedSoldier != id)
 			ccc = c_aqua;

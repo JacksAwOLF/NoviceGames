@@ -114,5 +114,6 @@ else if (originHutPos != -1){
 
 erase_blocks(true);
 global.selectedSoldier = -1;
+global.selectedFormation = -1
 global.selectedSpawn = -1;
 global.displayTileInfo = id;
