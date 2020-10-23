@@ -16,8 +16,12 @@ if (global.selectedSoldier != -1){
 		
 		while (moveC < n){
 			for (var i=0; i<n; i++){
-				
 				if (moved[i]) continue;
+				else if (form.tiles[i] ==  -1) {
+					moved[i] = true;
+					moveC++;
+					continue;
+				}
 				var tile = form.tiles[i], startPos = tile.pos,
 					newPos = getPos(getRow(startPos)+dR, getCol(startPos)+dC)
 				if (global.grid[newPos].soldier != -1) continue;

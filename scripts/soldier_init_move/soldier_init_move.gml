@@ -70,11 +70,14 @@ function soldier_init_move_formation(pos){
 	
 	var arr = global.formation[soldier.formation].tiles,
 		mapSize = global.mapWidth * global.mapHeight,
-		delta = array_create(mapSize, 0),
-		n = array_length(arr);
+		delta = array_create(mapSize, 0);
+	var n = 0;
 	
 	// find the delta's
-	for (var i=0; i<n; i++){
+	for (var i=0; i<array_length(arr); i++){
+		if (arr[i] == -1)
+			continue;
+		
 		global.selectedSoldier = arr[i];
 		soldier_init_move();
 		
@@ -85,6 +88,7 @@ function soldier_init_move_formation(pos){
 				getColDiff(arr[i].pos, pmove[j].pos) )] += 1;
 		}
 		
+		n++;
 		erase_blocks(true);
 	}	
 	
