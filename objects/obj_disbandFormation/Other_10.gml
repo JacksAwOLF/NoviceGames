@@ -5,21 +5,21 @@
 
 
 
-var t = global.grid[pos];
-var formId = t.soldier.formation;
+var formId = global.selectedFormation;
+
+if (formId) {
+	var arr = global.formation[formId].tiles;
+	for (var i =0; i<array_length(arr); i++){
+		if (arr[i].soldier == -1)
+			continue;
+		arr[i].soldier.formation = -1;
+	}
 
 
-var arr = global.formation[formId].tiles;
-for (var i =0; i<array_length(arr); i++){
-	if (arr[i].soldier == -1)
-		continue;
-	arr[i].soldier.formation = -1;
+	// replace this with a ds_list in the future
+	global.formation[formId] = -1;
+
+
+	erase_blocks(true);
+	formationReset();
 }
-
-
-// replace this with a ds_list in the future
-global.formation[formId] = -1;
-
-
-erase_blocks(true);
-formationReset();
