@@ -92,6 +92,10 @@ if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldi
 		if (auto) draw_set_color(c_green);
 		else draw_set_color(c_red);
 		draw_circle(other.x+ss/2, other.y+ss/2, ss/8, false);	
+		
+		
+		
+		draw_set_color(c_black);
 	}
 }
 
@@ -162,14 +166,5 @@ if (soldier != -1 && !hide_soldier){
 	draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier.class],global.colors[soldier.class],false);
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }
-
-
-
-// the soldier thingy while moving
-//if (draw_temp_soldier != -1)
-	//draw_sprite_stretched_ext(draw_temp_soldier, 0,  x, y, size, size, c_navy, 0.8);								// the iamge of potential soldier placed here
-	
-	
-
 
 

@@ -29,7 +29,7 @@ function possible_move_tiles_including_selected(tileId) {
 	if (s.tower != -1 && !is_my_team(s.tower)) return false;
 	
 	// cant go if enemy hut is here (or nuetral one)
-	if (s.hut != -1 && s.hut.team != -1 && !is_my_team(s.hut)) return false;
+	if (s.hut != -1 && (s.hut.team == -1 || !is_my_team(s.hut) ) ) return false;
 	
 	return true;
 }

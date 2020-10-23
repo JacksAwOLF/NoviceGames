@@ -39,10 +39,10 @@ text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "
 text[len++] = "  Unit Class: " + (curHut == -1 || curHut.soldier_class == -1 ? "N/A" : global.classNames[curHut.soldier_class]);
 text[len++] = "  Turns: " + (curHut == -1 || curHut.steps == -1 ? "N/A" : string(curHut.steps) + "/" + string(curHut.limit));
 text[len++] = "  Health: " + (curHut == -1 ? "N/A" : string(curHut.my_health));
-	
-	
+
+
 for (var i = 0; i < len; i++) {
 	var xx = x+10*image_xscale;
-	var yy = y+10*image_yscale+i*20*image_yscale
+	var yy = y+10*image_yscale+i*20*image_yscale;
 	draw_text_transformed(xx,yy,text[i],image_xscale,image_yscale,0);
 }
