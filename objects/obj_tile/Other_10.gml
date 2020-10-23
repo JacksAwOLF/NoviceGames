@@ -222,6 +222,7 @@ if (!edit || global.changeSprite == -1){
 					
 					// movement initialization for the formation
 					soldier_init_move_formation(pos);
+					soldier_init_attack();
 				}
 				
 				else if (soldier.can){

@@ -5,6 +5,8 @@ function destroy_soldier(pos) {
 		if (soldier != -1){
 			var index = ds_list_find_index(global.allSoldiers[soldier.team], soldier);
 			ds_list_delete(global.allSoldiers[soldier.team], index);
+			removeFromFormation(soldier.formation, id);
+			
 			if (!refreshFocus()) 
 				global.shouldFocusTurn = -1;
 			
@@ -144,15 +146,17 @@ function soldier_execute_attack(frTilePos, toTilePos){
 		else{
 			switch(attacked.object_index){
 				case obj_infantry:
-					to.soldier = -1; break;
-				case obj_hut:
+					destroy_soldier(toTilePos); break;
 					
+				case obj_hut:
 					global.grid[attacked.spawnPos].originHutPos = -1;
 					to.hut = -1; 
-					break;
+					
+				default:
+					instance_destroy(attacked);
 			}
 			
-			instance_destroy(attacked);
+			
 			
 		
 			if (global.edit) update_fog();

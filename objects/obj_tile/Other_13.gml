@@ -34,13 +34,7 @@ if (global.selectedSoldier != -1){
 			}
 		}
 		
-		erase_blocks();
-		global.selectedSoldier = -1;
-		
-		exit;
-	}
-	
-	if (possible_move || possible_path) {
+	} else if (possible_move || possible_path) {
 		var path = [];
 		
 		for (var i = 0; i <= array_length(global.poss_paths)-2; i++)
