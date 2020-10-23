@@ -250,8 +250,6 @@ if (!edit || global.changeSprite == -1){
 							fStruct.tiles[i].soldier.formIndication = true;
 					
 					
-						debug(possFormStructs);
-					
 						// create the checkmark
 						with( centerObjectInWindow(obj_confirmFormation, 1/4, 1/2, 0, 1/2) ) 
 							pos = other.pos;

@@ -76,6 +76,7 @@ function soldier_init_move_formation(pos){
 	// find the delta's
 	for (var i=0; i<n; i++){
 		global.selectedSoldier = arr[i];
+		if (arr[i] == -1) continue;
 		soldier_init_move();
 		
 		var pmove = global.poss_moves;				
