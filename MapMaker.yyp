@@ -40,6 +40,7 @@
     {"id":{"name":"spr_change_var","path":"sprites/spr_change_var/spr_change_var.yy",},"order":6,},
     {"id":{"name":"spr_change_soldier","path":"sprites/spr_change_soldier/spr_change_soldier.yy",},"order":7,},
     {"id":{"name":"spr_gui_background","path":"sprites/spr_gui_background/spr_gui_background.yy",},"order":17,},
+    {"id":{"name":"formation_functions","path":"scripts/formation_functions/formation_functions.yy",},"order":17,},
     {"id":{"name":"spr_soldier_generate","path":"sprites/spr_soldier_generate/spr_soldier_generate.yy",},"order":18,},
     {"id":{"name":"bgm","path":"sounds/bgm/bgm.yy",},"order":0,},
     {"id":{"name":"array","path":"scripts/array/array.yy",},"order":1,},

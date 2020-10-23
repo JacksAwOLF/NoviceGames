@@ -28,7 +28,7 @@ if (road){
 if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, size, c_white, 1);					// mouse in gray box
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
 if ((possible_attack && !hide_soldier)) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
-if (possible_path) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
+if (possible_path || (possible_move && mouseIn)) draw_sprite_stretched_ext(spr_select_possiblePath, 0, x, y, size, size, c_white, 1);			// possible path
 if (possible_pathpoint) draw_sprite_stretched_ext(spr_select_possiblePathPoint, 0, x, y, size, size, c_white, 1);
 if (possible_teleport || global.selectedSpawn == id) draw_sprite_stretched_ext(spr_select_teleport, 0, x, y, size, size, c_white, 1);
 
@@ -143,7 +143,7 @@ if (soldier != -1 && !hide_soldier){
 	
 	// formation 
 	var ccc = c_white;
-	if (soldier.formIndication) {
+	if (soldier.formation != -1 && soldier.formation == global.selectedFormation) {
 		soldier_index = 1;
 		if (global.selectedSoldier != id)
 			ccc = c_aqua;

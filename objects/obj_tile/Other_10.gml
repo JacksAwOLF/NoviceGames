@@ -222,6 +222,7 @@ if (!edit || global.changeSprite == -1){
 					
 					// movement initialization for the formation
 					soldier_init_move_formation(pos);
+					soldier_init_attack();
 				}
 				
 				else if (soldier.can){
@@ -288,9 +289,12 @@ if (!edit || global.changeSprite == -1){
 		global.selectedSoldier = -1;
 	if (global.selectedSpawn == -2)
 		global.selectedSpawn = -1;
-		
+	
 	update_won();
 }
 		
-		
+
+global.selectedFormation = -1;
+if (global.selectedSoldier != -1 && global.selectedSoldier.soldier != -1)
+	global.selectedFormation = global.selectedSoldier.soldier.formation;
 		

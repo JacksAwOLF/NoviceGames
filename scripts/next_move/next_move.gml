@@ -58,6 +58,8 @@ function next_move() {
 	if  (global.edit){
 		global.changeSprite = -1;
 		global.selectedSoldier = -1;
+		global.selectedSpawn = -1;
+		global.selectedFormation = -1;
 		update_fog();
 	} 
 	

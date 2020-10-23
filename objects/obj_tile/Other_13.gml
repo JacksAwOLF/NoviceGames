@@ -16,8 +16,12 @@ if (global.selectedSoldier != -1){
 		
 		while (moveC < n){
 			for (var i=0; i<n; i++){
-				
 				if (moved[i]) continue;
+				else if (form.tiles[i] ==  -1) {
+					moved[i] = true;
+					moveC++;
+					continue;
+				}
 				var tile = form.tiles[i], startPos = tile.pos,
 					newPos = getPos(getRow(startPos)+dR, getCol(startPos)+dC)
 				if (global.grid[newPos].soldier != -1) continue;
@@ -30,13 +34,7 @@ if (global.selectedSoldier != -1){
 			}
 		}
 		
-		erase_blocks();
-		global.selectedSoldier = -1;
-		
-		exit;
-	}
-	
-	if (possible_move || possible_path) {
+	} else if (possible_move || possible_path) {
 		var path = [];
 		
 		for (var i = 0; i <= array_length(global.poss_paths)-2; i++)
@@ -114,5 +112,6 @@ else if (originHutPos != -1){
 
 erase_blocks(true);
 global.selectedSoldier = -1;
+global.selectedFormation = -1
 global.selectedSpawn = -1;
 global.displayTileInfo = id;

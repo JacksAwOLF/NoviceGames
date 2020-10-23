@@ -182,6 +182,7 @@ function init_map(medium, dataSrc) {
 	// pos: y * global.mapWidth + x
 	global.selectedSoldier = -1;
 	global.selectedSpawn = -1;
+	global.selectedFormation = -1;
 	global.displayTileInfo = -1;
 	
 	global.selectedPathpointsStack = ds_stack_create();

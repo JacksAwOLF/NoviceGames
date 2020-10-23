@@ -11,6 +11,8 @@ var formId = t.soldier.formation;
 
 var arr = global.formation[formId].tiles;
 for (var i =0; i<array_length(arr); i++){
+	if (arr[i].soldier == -1)
+		continue
 	arr[i].soldier.formIndication = false;
 	arr[i].soldier.formation = -1;
 }

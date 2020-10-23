@@ -3,6 +3,8 @@
 if (global.map_loaded) {
 	erase_blocks(true);
 	global.selectedSoldier = -1;
+	global.selectedSpawn = -1;
+	global.selectedFormation = -1;
 
 
 	if (global.edit){
