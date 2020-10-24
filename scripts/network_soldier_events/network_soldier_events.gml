@@ -135,12 +135,30 @@ function soldier_execute_attack(frTilePos, toTilePos){
 				originGrid.originHutPos = originGrid.pos;
 			
 				to.originHutPos = -1;
+				
+				
+			} 
+			
+			// if it is a teleport location
+			if (attacked.my_health + damage <= 0) {
+				for (var i = 0; i < array_length(global.conqueredTowers[attacked.team]); i++) {
+					if (global.conqueredTowers[attacked.team][i] == attacked) {
+						global.conqueredTowers[attacked.team][i] = -1;
+						break;
+					}
+				}
+				
+				to.tower = -1;
+				instance_destroy(attacked);
+				
+			} else {
+				// make this tower into a teleport place
+				attacked.team = (attacked.team+1)%2;
+				append(global.conqueredTowers[fr.soldier.team], to);
 			}
 			
 			
-			// make this tower into a teleport place
-			attacked.team = (attacked.team+1)%2;
-			append(global.conqueredTowers[fr.soldier.team], to);
+			
 		}
 		
 		else{

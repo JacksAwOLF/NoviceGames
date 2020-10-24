@@ -13,7 +13,6 @@ function hut_createSoldier(tilePos){
 				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can && myturn){
-				debug(soldier_sprite, tilePos, other.originHutPos, true);
 				create_soldier(soldier_sprite, tilePos, other.originHutPos, true);
 				steps = 0;
 				
@@ -41,10 +40,14 @@ function hut_createSoldier(tilePos){
 }
 
 function hut_refreshTeleport(hutInstance) {
-	for (var i=0; i<array_length(global.conqueredTowers[hutInstance.team]); i++)
-		with(global.conqueredTowers[hutInstance.team][i])
-			if (soldier == -1 && originHutPos == -1 && hutInstance.spawnPos != pos)
-				possible_teleport = true;
+	for (var i=0; i<array_length(global.conqueredTowers[hutInstance.team]); i++) {
+		if (global.conqueredTowers[hutInstance.team][i] != -1) {
+			with(global.conqueredTowers[hutInstance.team][i])
+				if (soldier == -1 && originHutPos == -1 && hutInstance.spawnPos != pos)
+					possible_teleport = true;
+		}
+	}
+
 	
 	// if currently spawning on a teleport location, add originally location as possible teleport
 	var originalHutPos = global.grid[hutInstance.spawnPos].originHutPos;

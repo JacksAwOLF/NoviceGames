@@ -5,7 +5,7 @@ enum BufferDataType{
 	soldierMoved, soldierAttacked, soldierCreated,  yourMove, mapData
 };
 
-global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer type has
+global.buffer_sizes = array(7, 5, 7, 1);     //  number of bytes each buffer type has
 global.buffer_dataT = array( 
 	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
 	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
