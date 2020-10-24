@@ -15,6 +15,5 @@ soldier_class = soldier.class;
 soldier_sprite = soldier.sprite_index;
 team = get_team(soldier_sprite);
 
-
-
-
+max_health = 10;
+my_health = max_health;

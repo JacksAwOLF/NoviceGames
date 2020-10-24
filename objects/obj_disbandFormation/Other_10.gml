@@ -7,7 +7,7 @@
 
 var formId = global.selectedFormation;
 
-if (formId) {
+if (formId != -1) {
 	var arr = global.formation[formId].tiles;
 	for (var i =0; i<array_length(arr); i++){
 		if (arr[i].soldier == -1)

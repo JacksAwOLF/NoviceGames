@@ -45,7 +45,7 @@ if (possible_enemy_move) draw_sprite_stretched_ext(spr_dark_green, 0, x+1/5*size
 // draw the  hut if needed
 
 
-if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier)) {
+if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier || hut.team == -1)) {
 
 	with(hut){
 		var ss = other.size;

@@ -212,8 +212,8 @@ if (!edit || global.changeSprite == -1){
 				if (soldier.formation != -1){
 					
 					// disband formation option
-					with( centerObjectInWindow(
-						obj_disbandFormation, 1/4, 1/2, 0, 1/2) ) pos = other.pos;
+					centerObjectInWindow(obj_disbandFormation, 1/4, 1/2, 0, 1/2) ;
+					
 					
 					// mark the group
 					var arr = global.formation[soldier.formation].tiles;

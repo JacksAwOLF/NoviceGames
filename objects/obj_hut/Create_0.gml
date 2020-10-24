@@ -17,7 +17,7 @@
 
 
 
-max_health = 10;
+max_health = 3;
 my_health = max_health;
 
 
