@@ -30,6 +30,9 @@
     {"compositeImage":{"FrameId":{"name":"c3f1a20b-89cb-494a-8c7a-fff47413fd58","path":"sprites/spr_infantry1/spr_infantry1.yy",},"LayerId":null,"resourceVersion":"1.0","name":"composite","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
         {"FrameId":{"name":"c3f1a20b-89cb-494a-8c7a-fff47413fd58","path":"sprites/spr_infantry1/spr_infantry1.yy",},"LayerId":{"name":"3a2cf3d4-0b31-4a3e-bc6c-c7e22d2722fe","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
       ],"parent":{"name":"spr_infantry1","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","name":"c3f1a20b-89cb-494a-8c7a-fff47413fd58","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"e46ed2a4-0bfb-458b-9084-d4231ecc725d","path":"sprites/spr_infantry1/spr_infantry1.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"e46ed2a4-0bfb-458b-9084-d4231ecc725d","path":"sprites/spr_infantry1/spr_infantry1.yy",},"LayerId":{"name":"3a2cf3d4-0b31-4a3e-bc6c-c7e22d2722fe","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"spr_infantry1","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","name":"e46ed2a4-0bfb-458b-9084-d4231ecc725d","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
     "spriteId": {"name":"spr_infantry1","path":"sprites/spr_infantry1/spr_infantry1.yy",},
@@ -39,13 +42,14 @@
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
-    "length": 2.0,
+    "length": 3.0,
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"276376e2-762e-46aa-903f-e55ab2065b28","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"589405b6-7772-4555-9d12-54f027c18d2b","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"a6927185-1b3b-4633-9011-d4383d4e9a08","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"c3f1a20b-89cb-494a-8c7a-fff47413fd58","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"3b7f2304-0f84-478d-b50e-b3bb4362a864","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"e46ed2a4-0bfb-458b-9084-d4231ecc725d","path":"sprites/spr_infantry1/spr_infantry1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"modifiers":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack",},
     ],
     "visibleRange": null,

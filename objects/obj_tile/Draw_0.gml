@@ -126,24 +126,12 @@ if (soldier != -1 && !hide_soldier){
 	var spr_index = soldier.sprite_index;
 	var scale_factor = size/sprite_get_width(spr_index);
 	
+	
+	
 	// index to draw
 	var soldier_index = 0; 
 	if (global.selectedSoldier == id) soldier_index = 1;
-	
-	// error
-	with(soldier) if (error){
-		if (error_count  == 0)
-			start_sound("error", 0, false);
-		
-		soldier_index = (floor(error_count/error_wait)+1) % 2
-		if (error_count == error_limit * error_wait){
-			error = false;
-			error_count = 0;
-		} else {
-			error_count += 1;
-		}
-	}
-	
+	if (!(soldier.can && soldier.move_range)) soldier_index = 2;
 	
 	// formation 
 	var ccc = c_white;

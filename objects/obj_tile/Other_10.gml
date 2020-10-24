@@ -207,59 +207,25 @@ if (!edit || global.changeSprite == -1){
 		
 		if (soldier != -1) {
 			if(soldier.team == (global.turn)%2 && myturn){
-				
+				global.selectedSoldier = id;
 				
 				if (soldier.formation != -1){
 					
 					// disband formation option
 					centerObjectInWindow(obj_disbandFormation, 1/4, 1/2, 0, 1/2) ;
 					
-					
-					// mark the group
-					var arr = global.formation[soldier.formation].tiles;
-					for (var i=0; i<array_length(arr); i++)
-						arr[i].soldier.formIndication = true;
-					
 					// movement initialization for the formation
 					soldier_init_move_formation(pos);
 					soldier_init_attack();
 				}
 				
-				else if (soldier.can){
-					global.selectedSoldier = id;
+				else if (soldier.can && soldier.move_range){
 					ds_stack_clear(global.selectedPathpointsStack);
 					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier, 0]);
 					global.selectedSoldier.possible_path = 1;
 			
 					soldier_init_move();
 					soldier_init_attack();
-				} 
-				
-				else soldier.error = true;
-				
-
-				// formation checking
-				if (soldier.formation == -1){
-				
-					possFormStructs = partOfNewFormation(pos);
-
-					if (possFormStructs != -1){
-						// light up the soldiers
-						whichFormStruct = 0;
-						var fStruct = possFormStructs[whichFormStruct];
-						for (var i=0; i<array_length(fStruct.tiles); i++)
-							fStruct.tiles[i].soldier.formIndication = true;
-					
-					
-						// create the checkmark
-						with( centerObjectInWindow(obj_confirmFormation, 1/4, 1/2, 0, 1/2) ) 
-							pos = other.pos;
-						
-						// create the next formation button
-						if (array_length(possFormStructs) > 1)
-							with( centerObjectInWindow(obj_nextFormation, 1/4, 1/2, 1/8, 1/2) ) 
-								pos = other.pos; 
-					}	
 				}
 				
 				
