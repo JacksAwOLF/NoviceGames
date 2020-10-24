@@ -142,7 +142,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 			// if it is a teleport location
 			if (attacked.my_health + damage <= 0) {
 				for (var i = 0; i < array_length(global.conqueredTowers[attacked.team]); i++) {
-					if (global.conqueredTowers[attacked.team][i] == attacked) {
+					if (global.conqueredTowers[attacked.team][i] == to) {
 						global.conqueredTowers[attacked.team][i] = -1;
 						break;
 					}

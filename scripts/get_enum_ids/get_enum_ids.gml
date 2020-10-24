@@ -24,8 +24,6 @@ function get_soldier_type_from_sprite(sprite_index) {
 
 
 function get_tile_type(tile) {
-	if (tile.road) return Tiles.road;
-	
 	switch (tile.sprite_index) {
 		case spr_tile_flat:
 			return Tiles.open;
