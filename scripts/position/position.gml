@@ -28,13 +28,10 @@ function updatePos(pos, dRow, dCol){
 	);
 }
 
-function getWindowWidth(){
-	return camera_get_view_width(view_get_camera(0));
-}
-
-function getWindowHeight(){
-	return camera_get_view_height(view_get_camera(0));
-}
+function getWindowWidth(){return view_wport[0];}
+function getWindowHeight(){return view_hport[0];}
+function getCameraWidth(){return camera_get_view_width(view_get_camera(0))}
+function getCameraHeight(){return camera_get_view_height(view_get_camera(0))}
 
 function getCenteredPos(objSize, canvasSize, proportion){
 	if (proportion == undefined) proportion = 1;
@@ -48,9 +45,16 @@ function centerObjectInWindow(object, xProportion, yProportion, xDeltaPro, yDelt
 	if (ssprite == undefined) ssprite = object_get_sprite(object);;
 	
 	var wH = getWindowHeight(), wW = getWindowWidth();
-	return instance_create_depth(
+	var inst = instance_create_depth(
 		wW * xDeltaPro + getCenteredPos(sprite_get_width(ssprite), wW, xProportion),
 		wH * yDeltaPro + getCenteredPos(sprite_get_height(ssprite), wH, yProportion),
 		ddepth, object
 	);
+	
+	with (inst){
+		image_xscale = getCameraWidth() / wW;
+		image_yscale = getCameraHeight() / wH;
+	}
+	
+	return inst;
 }
