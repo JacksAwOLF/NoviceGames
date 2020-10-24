@@ -9,10 +9,15 @@ var suicide = function(st){
 	str += st.script; str += "\n";
 	for (var i=0; i<array_length(st.stacktrace); i++)
 		str += st.stacktrace[i];
+	
 	debug(str);
 	
 	if (socket != -1) network_destroy(socket);
 	if (osocket != -1) network_destroy(osocket);
+	
+	debug("socket destroyed?");
+	debug(socket);
+	debug(osocket);
 	
 	game_end();
 }

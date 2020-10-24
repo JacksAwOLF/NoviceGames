@@ -86,7 +86,7 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 		
 			
 			if (updateFog) update_fog();
-			send_buffer(BufferDataType.soldierCreated, array(sind, pos));
+			send_buffer(BufferDataType.soldierCreated, array(sind, pos, fromHutPos));
 		}
 	}
 }

@@ -13,6 +13,7 @@ function hut_createSoldier(tilePos){
 				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can && myturn){
+				debug(soldier_sprite, tilePos, other.originHutPos, true);
 				create_soldier(soldier_sprite, tilePos, other.originHutPos, true);
 				steps = 0;
 				

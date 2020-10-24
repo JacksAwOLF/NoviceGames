@@ -9,7 +9,7 @@ global.buffer_sizes = array(7, 5, 5, 1);     //  number of bytes each buffer typ
 global.buffer_dataT = array( 
 	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
 	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
-	array(buffer_u16, buffer_u16),           // create data:  spriteIndex     tilePos
+	array(buffer_u16, buffer_u16, buffer_u16),     // create data:  spriteIndex     tilePos   fromTilePOs
 );
 
 
@@ -61,7 +61,7 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierCreated:
-			create_soldier(data[0], data[1], data[1], false); // create soldier from hut
+			create_soldier(data[0], data[1], data[2], false); // create soldier from hut
 			break;
 		
 		case BufferDataType.yourMove:
