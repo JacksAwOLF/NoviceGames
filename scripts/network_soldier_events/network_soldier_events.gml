@@ -142,7 +142,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 			// if it is a teleport location
 			if (attacked.my_health + damage <= 0) {
 				for (var i = 0; i < array_length(global.conqueredTowers[attacked.team]); i++) {
-					if (global.conqueredTowers[attacked.team][i] == attacked) {
+					if (global.conqueredTowers[attacked.team][i] == to) {
 						global.conqueredTowers[attacked.team][i] = -1;
 						break;
 					}
@@ -230,3 +230,17 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 }
 
 
+function exchange_hut_spawn_position(originHutPosition, newSpawnPosition){
+	
+	//var relatedHut = global.grid[global.selectedSpawn.originHutPos].hut;
+	var relatedHut = global.grid[originHutPosition].hut,
+		newSpawnTile = global.grid[newSpawnPosition];
+			
+	newSpawnTile.originHutPos = global.grid[relatedHut.spawnPos].originHutPos;
+	global.grid[relatedHut.spawnPos].originHutPos = -1;	
+	relatedHut.spawnPos = newSpawnTile.pos;
+	
+	send_buffer(BufferDataType.changeHutPosition, array(originHutPosition, newSpawnPosition));
+			
+	//global.selectedSpawn = -2;
+}

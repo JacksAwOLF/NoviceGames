@@ -98,8 +98,6 @@ if (!edit || global.changeSprite == -1){
 	
 	formationReset()
 	
-	
-	
 	if (global.selectedSoldier != -1) {
 		if (possible_attack && !hide_soldier) { // process attacking
 		
@@ -178,12 +176,7 @@ if (!edit || global.changeSprite == -1){
 	} 
 	else if (global.selectedSpawn != -1) { // teleporting huts
 		if (possible_teleport) {
-			var relatedHut = global.grid[global.selectedSpawn.originHutPos].hut;
-			
-			originHutPos = global.grid[relatedHut.spawnPos].originHutPos;
-			global.grid[relatedHut.spawnPos].originHutPos = -1;	
-			relatedHut.spawnPos = pos;
-			
+			exchange_hut_spawn_position(global.selectedSpawn.originHutPos, pos);
 			global.selectedSpawn = -2;
 			
 		} else {

@@ -2,24 +2,27 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 enum BufferDataType{
-	soldierMoved, soldierAttacked, soldierCreated,  yourMove, mapData
+	soldierMoved, 
+	soldierAttacked, 
+	soldierCreated,  
+	changeHutPosition, 
+	yourMove, mapData
 };
 
-global.buffer_sizes = array(7, 5, 7, 1);     //  number of bytes each buffer type has
+// indices are the values of the enum
+global.buffer_sizes = array(7, 5, 7, 5, 1);     //  number of bytes each buffer type has
 global.buffer_dataT = array( 
 	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
 	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
 	array(buffer_u16, buffer_u16, buffer_u16),     // create data:  spriteIndex     tilePos   fromTilePOs
+	array(buffer_u16, buffer_u16)					// hut change spawn position
 );
 
 
 
 // data to send should just be moving data and attack data
 // and soldier create data or destroy data
-		
-
-
-
+// also updating a global variable
 
 
 function client_connected(outfalse, outtrue){
@@ -38,6 +41,7 @@ function client_connected(outfalse, outtrue){
 	}
 	return -1;
 }
+
 
 /// @function read and execute moves for a buffer (turn must be incremented first)
 
@@ -69,13 +73,15 @@ function read_buffer(buff){
 			var t = instance_find(obj_server, 0);
 			t.txt = "Your move!!!";
 			start_sound("turn", 0, false);
-			
-			//debug("ok next turn", global.turn);
 			break;
-		
+
 		case BufferDataType.mapData:
 			init_map(Mediums.buffer, buff);
 			start_sound("connected", 0, false);
+			break;
+			
+		case BufferDataType.changeHutPosition:
+			exchange_hut_spawn_position(data[0], data[1]);
 			break;
 	}
 	

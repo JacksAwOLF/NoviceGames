@@ -5,3 +5,5 @@
 
 my_health = 10;
 max_health = 10;
+
+team = -1;
