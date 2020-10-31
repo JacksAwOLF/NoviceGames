@@ -113,7 +113,8 @@ function soldier_execute_attack(frTilePos, toTilePos){
 		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)
 			ohko = (to.soldier.direction == 90 || to.soldier.direction == 270);
 			
-		if (ohko) damage = to.soldier.my_health;
+		if (ohko && get_soldier_type(attacked) != Soldiers.tanks) 
+			damage = to.soldier.my_health;
 	}
 	
 	attacked.my_health -= damage;

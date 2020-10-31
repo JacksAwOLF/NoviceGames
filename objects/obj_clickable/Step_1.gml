@@ -2,7 +2,8 @@
 // You can write your code in this editor
 
 
-var mouseIn = point_in_rectangle(mouse_x,mouse_y,x,y,x+sprite_width,y+sprite_height);
+var mouseIn = mouse_x > x && mouse_x < x+sprite_width &&
+			  mouse_y > y && mouse_y < y+sprite_height;
 
 if (mouseIn && (global.mouseInstanceId == -1 || global.mouseInstanceId.depth > depth)) {
 	

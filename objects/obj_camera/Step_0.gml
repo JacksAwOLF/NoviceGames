@@ -37,8 +37,8 @@ if mouse_wheel_up()
 {
 	//increase the view scale based on our zoom_speed variable. Dividing the value based on
 	//the original X and Y scales of the view ensure that the aspect ratio remains consistent.
-	neww = prev_view_w - window_max_w/zoom_speed;
-	newh = prev_view_h - window_max_h/zoom_speed;
+	neww = prev_view_w - room_width/zoom_speed;
+	newh = prev_view_h - room_height/zoom_speed;
 
 	//we now want the view to zoom in towards the center of the view as opposed to the top
 	//left corner as it would natural want to do.
@@ -53,8 +53,8 @@ if mouse_wheel_down()
 {
 	//increase the view scale based on our zoom_speed variable. Dividing the value based on
 	//the original X and Y scales of the view ensure that the aspect ratio remains consistent.
-	neww = prev_view_w + window_max_w/zoom_speed;
-	newh = prev_view_h + window_max_h/zoom_speed;
+	neww = prev_view_w + room_width/zoom_speed;
+	newh = prev_view_h + room_height/zoom_speed;
 
 	//we now want the view to zoom in towards the center of the view as opposed to the top
 	//left corner as it would natural want to do.
@@ -64,10 +64,10 @@ if mouse_wheel_down()
 	changed = true;
 }
 
-if (changed && (newx+neww >= width_offset && newx <= room_width-width_offset) &&
-				(newy+newh >= height_offset && newy <= room_height-height_offset) &&
-	point_in_rectangle(neww, newh, room_width/global.mapWidth, room_height/global.mapHeight,
-					   2*room_width, 2*room_height)) {
+if (changed && (newx+neww >= width_offset && newx <= window_max_w-width_offset) &&
+				(newy+newh >= height_offset && newy <= window_max_h-height_offset) &&
+	point_in_rectangle(neww, newh, window_max_w/global.mapWidth, window_max_h/global.mapHeight,
+					   2*window_max_w, 2*window_max_h)) {
 	
 	global.shouldFocusTurn = -1;
 	camera_set_view_pos(current_camera, newx, newy);
