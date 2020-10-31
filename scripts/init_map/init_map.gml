@@ -208,6 +208,11 @@ function init_map(medium, dataSrc) {
 		
 		}
 	}
+	
+	with (obj_camera) {
+		window_max_h = max(window_max_h, global.mapHeight*tile_size + 400);
+		window_max_w = max(window_max_w, global.mapWidth*tile_size + 100);
+	}
 
 	
 	
