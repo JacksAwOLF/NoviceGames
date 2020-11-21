@@ -45,8 +45,11 @@ function get_tile_type(tile) {
 		case spr_tile_mountain:
 			return Tiles.mountain;
 			
-		case spr_tile_ocean:
+		case spr_tile_rough:
 			return Tiles.rough;
+			
+		case spr_tile_ocean:
+			return Tiles.ocean;
 			
 		default:
 			return Tiles.others;

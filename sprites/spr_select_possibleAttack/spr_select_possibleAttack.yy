@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"b6d32d42-871d-47b9-bc1f-4c1b204e5175","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "outline",
+    "path": "folders/Sprites/outline.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_select_possibleAttack",

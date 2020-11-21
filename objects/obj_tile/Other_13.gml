@@ -6,7 +6,7 @@
 // clear the selected soldier things if this block is not a possible move or attack
 if (global.selectedSoldier != -1){
 	
-	if (global.selectedSoldier.soldier.formation != -1){
+	if (global.selectedSoldier.soldier.formation != -1){ 
 		
 		var sS = global.selectedSoldier,
 			formId = sS.soldier.formation,
@@ -34,7 +34,7 @@ if (global.selectedSoldier != -1){
 			}
 		}
 		
-	} else if (possible_move || possible_path) {
+	} else if (possible_move || possible_path) {  
 		var path = [];
 		
 		for (var i = 0; i <= array_length(global.poss_paths)-2; i++)
@@ -102,7 +102,6 @@ if (global.selectedSoldier != -1){
 	}
 	
 	
-
 }
 // double click on a hut while there is no global selected soldier
 else if (originHutPos != -1){

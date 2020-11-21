@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"b9be3ade-607b-466d-9197-eafba710048f","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "colors",
+    "path": "folders/Sprites/colors.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_tile_border",

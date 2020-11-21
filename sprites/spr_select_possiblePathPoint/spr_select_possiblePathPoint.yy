@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"c5079270-026c-40a1-9480-f3756ab9d8e0","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "outline",
+    "path": "folders/Sprites/outline.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_select_possiblePathPoint",

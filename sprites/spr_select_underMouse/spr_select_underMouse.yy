@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"6ba979e5-ad17-4cbd-a68f-6c2c04b5ad5c","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "outline",
+    "path": "folders/Sprites/outline.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_select_underMouse",

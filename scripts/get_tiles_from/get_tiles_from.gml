@@ -5,7 +5,10 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 		shouldStoreDist = false;
 	if (canMoveOnto == undefined) 
 		canMoveOnto = possible_move_tiles;
-	energyTo[4] = 99;
+	
+	energyTo[Tiles.others] = 100;
+	
+	//debug("energy is ", energyTo, maxDis);
 	
 	
 	if (shouldStoreDist) {

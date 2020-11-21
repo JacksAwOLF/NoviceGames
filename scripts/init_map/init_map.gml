@@ -73,7 +73,7 @@ function init_map(medium, dataSrc) {
 		// create the tile selections on the top left
 		global.changeSprite = -1;
 		var possibleTiles = array(
-			array(spr_tile_flat, spr_tile_mountain, spr_tile_ocean, spr_tile_border),
+			array(spr_tile_flat, spr_tile_mountain, spr_tile_rough, spr_tile_border, spr_tile_ocean),
 			array(spr_tile_road, spr_soldier_generate, spr_tower),
 			array(spr_infantry, spr_tanks, spr_ifvs), 
 			array(spr_infantry1, spr_tanks1, spr_ifvs1), 

@@ -66,10 +66,11 @@ function get_vision_tiles() {
 					switch(global.grid[gridid].sprite_index) {
 						case spr_tile_flat: 
 						case spr_tile_road:
+						case spr_tile_ocean:
 							add = 1; break;
 					
 						case spr_tile_mountain: add = 2; break;
-						case spr_tile_ocean: add = 1.1; 
+						case spr_tile_rough: add = 1.1; 
 					}
 				}
 		
