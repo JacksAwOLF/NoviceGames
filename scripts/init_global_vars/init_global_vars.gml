@@ -3,10 +3,7 @@
 
 
 function init_game_vars(){
-	
-	
-	enum Soldiers {tanks, infantry, ifvs, destroyer, motorboat, carrier, bomber, recon};
-	enum Classes {scout, melee, range, none};
+
 	enum Tiles {road, open, rough, mountain, others};
 	
 	enum Units {
