@@ -38,16 +38,15 @@ function soldier_init_move() {
 	
 	if (global.selectedSoldier != -1){
 
-		// default energy values in global.energy[soldier.type]
-		// default move range is in global.movement[solder.type]
+		// default energy values in global.energy[soldier.unit_id]
+		// default move range is in global.movement[solder.unit_id]
 
-		var type = get_soldier_type(global.selectedSoldier.soldier);
 		var source = (argument_count > 0 ? argument[0] : global.selectedSoldier);
 		
 		with(global.selectedSoldier.soldier){
 			if (can-moveCost>=0){
 				global.poss_moves = get_tiles_from(
-					source.pos, move_range-global.pathCost, global.energy[type], true, 
+					source.pos, move_range-global.pathCost, global.energy[unit_id], true, 
 					possible_move_tiles_including_selected
 				);
 												   

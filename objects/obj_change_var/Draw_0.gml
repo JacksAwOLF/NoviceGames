@@ -7,15 +7,15 @@ draw_self();
 
 
 var drawing = string(global.soldier_vars[ind]);
-if (text == "Class"){
+if (text == "Select"){
 	switch(global.soldier_vars[ind]){
-		case Classes.melee:
+		case 0:
 			drawing = "M";
 			break;
-		case Classes.range:
+		case 1:
 			drawing = "R";
 			break;
-		case Classes.scout:
+		case 2:
 			drawing = "S";
 			break;
 	}

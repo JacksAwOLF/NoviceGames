@@ -11,7 +11,7 @@ steps = 0;
 limit = global.hutlimit[soldier.class];
 
 
-soldier_class = soldier.class;
+soldier_unit = soldier.unit_id;
 soldier_sprite = soldier.sprite_index;
 team = get_team(soldier_sprite);
 

@@ -80,8 +80,13 @@ if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldi
 				if (sprite_dir == 180 || sprite_dir == 270) xx += ss;
 				if (sprite_dir == 90 || sprite_dir == 180) yy += ss;
 	
-				draw_sprite_ext(soldier_sprite, 0, xx, yy, scale_factor, scale_factor, sprite_dir, c_white, 0.4);				// the soldier on this tile
-				draw_circle_color(other.x+width/4.5,other.y+width/3.75,width/8,global.colors[soldier_class],global.colors[soldier_class],false);
+				draw_sprite_ext(soldier_sprite, 0, xx, yy, scale_factor, scale_factor, sprite_dir, c_white, 0.4); // the soldier on this tile
+				
+				// draw colored circles for melee, ranged, scouts
+				var soldier_class = floor(soldier_unit / 3);
+				if (soldier_unit < 3) 
+					draw_circle_color(other.x+width/4.5,other.y+width/3.75,width/8,global.colors[soldier_class],global.colors[soldier_class],false);
+				
 			}
 			
 			// loading bar
@@ -149,9 +154,10 @@ if (soldier != -1 && !hide_soldier){
 	if (soldier.direction == 90 || soldier.direction == 180) yy += size;
 		
 	var width = scale_factor*sprite_get_width(spr_index); 
-
+	var class = floor(soldier.unit_id / 3);
+	
 	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, ccc, 1);				// the soldier on this tile
-	draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[soldier.class],global.colors[soldier.class],false);
+	if (class < 3) draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[class],global.colors[class],false);
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
 }
 

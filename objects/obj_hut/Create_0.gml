@@ -20,11 +20,10 @@
 max_health = 3;
 my_health = max_health;
 
-
 auto = true;
 steps = -1;
 limit = -1
-soldier_class = -1
+soldier_unit = -1;
 soldier_sprite = -1
 team = -1
 soldier = -1

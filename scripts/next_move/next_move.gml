@@ -7,7 +7,7 @@ function next_move() {
 	for (var i=0; i<n; i++)
 		with(instance_find(obj_infantry, i)){
 			can = 2;
-			move_range = global.movement[get_soldier_type(id)];
+			move_range = global.movement[unit_id];
 			
 			if (is_my_team_sprite(sprite_index) && moveCost == 6969){
 				init_global_soldier_vars(id);

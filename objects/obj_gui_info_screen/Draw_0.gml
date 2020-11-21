@@ -25,18 +25,16 @@ text[len++] = "  Elevation: " + (global.displayTileInfo == -1 ? "N/A" : string(g
 
 text[len++] = "";
 text[len++] = "Soldier Info: " + (curSoldier == -1 ? " N/A" : "");
-text[len++] = "  Unit Class: " + (curSoldier == -1 ? " N/A" : global.classNames[curSoldier.class]);
+text[len++] = "  Unit ID: " + (curSoldier == -1 ? " N/A" : global.unitNames[curSoldier.unit_id]);
 text[len++] = "    Vision Energy: " + (curSoldier == -1 ? " N/A" : string(curSoldier.vision));
-text[len++] = "  Unit Type: " + (curSoldier == -1 ? " N/A" : global.unitNames[get_soldier_type(curSoldier)]);
-text[len++] = "    Type Movement: " + (curSoldier == -1 ? " N/A" : string(global.movement[get_soldier_type(curSoldier)]));
+text[len++] = "    Type Movement: " + (curSoldier == -1 ? " N/A" : string(global.movement[curSoldier.unit_id]));
 text[len++] = "  Attack Range: " + (curSoldier == -1 ? " N/A" : string(curSoldier.attack_range));
 text[len++] = "  Max Damage: " + (curSoldier == -1 ? " N/A" : string(curSoldier.max_damage));
 text[len++] = "  Health: " + (curSoldier == -1 ? " N/A" : string(curSoldier.my_health));
 
 text[len++] = "";
 text[len++] = "Hut Info: " + (curHut == -1 ? "N/A" : "");
-text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "N/A" : global.unitNames[get_soldier_type_from_sprite(curHut.soldier_sprite)]);
-text[len++] = "  Unit Class: " + (curHut == -1 || curHut.soldier_class == -1 ? "N/A" : global.classNames[curHut.soldier_class]);
+text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "N/A" : global.unitNames[curSoldier.unit_id]);
 text[len++] = "  Turns: " + (curHut == -1 || curHut.steps == -1 ? "N/A" : string(curHut.steps) + "/" + string(curHut.limit));
 text[len++] = "  Health: " + (curHut == -1 ? "N/A" : string(curHut.my_health));
 

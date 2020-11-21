@@ -12,7 +12,7 @@ function soldier_update_path(shouldClearPath) {
 		}
 		
 		if (!shouldClearPath && global.prevHoveredTile.possible_move) {
-			var mobility = global.movement[get_soldier_type(global.selectedSoldier.soldier)] - global.pathCost;
+			var mobility = global.movement[global.selectedSoldier.soldier.unit_id] - global.pathCost;
 			global.poss_paths = get_path_to(global.prevHoveredTile.pos,mobility);
 				
 			for (var i = 0; i < array_length(global.poss_paths); i++)

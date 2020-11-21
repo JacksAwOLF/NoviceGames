@@ -23,17 +23,17 @@ function destroy_soldier(pos) {
 // @param soldierObjId
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
-		var type = get_soldier_type_from_sprite(sprite_index);
+		//var type = get_solier_type_from_sprite(sprite_index);
 		
 		
-		attack_range = global.attack_range[class,type];
-		max_health = global.max_health[class,type];
-		max_damage = global.max_damage[class,type];
-		vision = global.vision[class];
+		attack_range = global.attack_range[unit_id];
+		max_health = global.max_health[unit_id];
+		max_damage = global.max_damage[unit_id];
+		vision = global.vision[unit_id];
 		if (my_health == 0) my_health = max_health;
 		
-		if (global.map_loaded) move_range = global.movement[type];
-		if (type == Soldiers.ifvs) moveCost = 1;
+		if (global.map_loaded) move_range = global.movement[unit_id];
+		if (is_ifv(id)) moveCost = 1;
 		else moveCost = 2;
 	}
 }
@@ -49,18 +49,22 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 	//if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
 	
-	// if its not from hut, its in edit mode
-	var sclass = (fromHutPos!=-1 ? global.grid[fromHutPos].hut.soldier_class : 
-		global.soldier_vars[Svars.class] );
+	var s_unit_id = -1;
+	if (fromHutPos != -1) {
+		s_unit_id = global.grid[fromHutPos].hut.soldier_unit;
+	} else { // edit mode
+		s_unit_id = posInArray(global.soldierSelectTile[get_team(sind)].binded_dropdown.options, sind);
+		s_unit_id += global.soldier_vars[Svars.unit_page] * 3;
+	}
 		
-	with (global.grid[pos]){ 
+	with (global.grid[pos]) { 
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);
 			
 			with(soldier){
 				sprite_index = sind;
 				team = get_team(sprite_index);
-				class = sclass;
+				unit_id = s_unit_id;
 				tilePos = global.grid[pos];
 			}
 			
@@ -68,8 +72,6 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 			init_global_soldier_vars(soldier);
 			
 			if (fromHutPos != -1){
-				
-				
 				with (global.grid[fromHutPos].hut){
 					if (sprite_dir != -1)
 						other.soldier.direction = sprite_dir;
@@ -83,7 +85,6 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 				vision = global.soldier_vars[Svars.vision];
 				my_health = max_health;
 			}
-		
 			
 			if (updateFog) update_fog();
 			send_buffer(BufferDataType.soldierCreated, array(sind, pos, fromHutPos));
@@ -113,7 +114,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)
 			ohko = (to.soldier.direction == 90 || to.soldier.direction == 270);
 			
-		if (ohko && get_soldier_type(attacked) != Soldiers.tanks) 
+		if (ohko && !is_tank(attacked))
 			damage = to.soldier.my_health;
 	}
 	
@@ -195,7 +196,7 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	
 	// melee unit fixing ability
 	// this is returned back to default in next_move
-	else if (get_soldier_type(fr.soldier) == Soldiers.infantry && attacked.object_index == obj_infantry){
+	else if (is_infantry(fr.soldier) && attacked.object_index == obj_infantry){
 		if (are_tiles_adjacent(frTilePos, toTilePos)) // implemented in grid_helper_functions
 			attacked.moveCost = 6969;
 	}

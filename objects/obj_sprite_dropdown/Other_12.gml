@@ -5,7 +5,7 @@ if (array_length(options) == 1) exit;
 if (dropdown_active && point_in_rectangle(mouse_x,mouse_y,x,y+sprite_height,x+sprite_width,y+sprite_height+menu_height*image_yscale)) {
 	options_id = 0;
 	var cur_height = y+sprite_height;
-	while (options_id < array_length_1d(options)) {
+	while (options_id < array_length(options)) {
 		cur_height += sprite_get_height(options[options_id])*image_yscale;
 		
 		if (cur_height >= mouse_y) break;

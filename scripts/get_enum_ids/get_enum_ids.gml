@@ -7,21 +7,35 @@ function get_soldier_type_from_sprite(sprite_index) {
 	switch(sprite_index) {
 		case spr_infantry: 
 		case spr_infantry1:
-			return Soldiers.infantry;
+			return Units.INFANTRY_M;
 			
 		case spr_tanks:
 		case spr_tanks1:
-			return Soldiers.tanks;
+			return Units.TANK_M;
 				
 		case spr_ifvs:
 		case spr_ifvs1:
-			return Soldiers.ifvs;
+			return Units.IFV_M;
 		
 		default:
 			return -1;
 	}
 }
 
+function is_tank(soldier) {
+	return (soldier.unit_id == Units.TANK_M || soldier.unit_id == Units.TANK_R ||
+			soldier.unit_id == Units.TANK_S);
+}
+
+function is_infantry(soldier) {
+	return (soldier.unit_id == Units.INFANTRY_M || soldier.unit_id == Units.INFANTRY_R ||
+			soldier.unit_id == Units.INFANTRY_S);
+}
+
+function is_ifv(soldier) {
+	return (soldier.unit_id == Units.IFV_M || soldier.unit_id == Units.IFV_R ||
+			soldier.unit_id == Units.IFV_S);
+}
 
 function get_tile_type(tile) {
 	switch (tile.sprite_index) {

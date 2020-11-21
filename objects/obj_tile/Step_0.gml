@@ -15,9 +15,7 @@ if mouseIn {
 			soldier_update_path(0);
 		}	
 	}
-}  
-
-
+} 
 
 
 preMouseIn = mouseIn;

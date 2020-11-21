@@ -15,7 +15,6 @@ function init_map(medium, dataSrc) {
 	
 	// needed to decide on variables for the change_vars
 	// since we have to possible choices of soldier types at any moment
-	global.editSoldierType = Soldiers.infantry; 
 	
 	global.objectiveOptions = [all_huts_destroyed, all_towers_destroyed, all_soldiers_destroyed];
 	global.winFunction = 0;
@@ -31,9 +30,9 @@ function init_map(medium, dataSrc) {
 	
 	
 	init_game_vars();
-	global.colors[Classes.melee] = c_aqua;
-	global.colors[Classes.range] = c_orange;
-	global.colors[Classes.scout] = c_purple;
+	global.colors[0] = c_aqua;
+	global.colors[1] = c_orange;
+	global.colors[2] = c_purple;
 	
 	
 	global.formation = []
@@ -80,17 +79,36 @@ function init_map(medium, dataSrc) {
 			array(spr_infantry1, spr_tanks1, spr_ifvs1), 
 			array(spr_infantry_delete)
 		);
+		
+		var tileInfo = [
+			"tiles",
+			"addon",
+			"units",
+			"units",
+			"delete"
+		];
 
+		global.soldierSelectTile = [-1, -1];
 		for (var index = 0; index<array_length(possibleTiles); index++){
 			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
 				sprite_index = possibleTiles[index][0];
+				description = tileInfo[index];
 				
 				var xx = x, yy = y + sprite_height
 				with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
 					x  = other.x;
 					y =  other.y + other.sprite_height;
+					
+					
 					binded_button = other.id;
+					other.binded_dropdown = id;
 					options = possibleTiles[index];
+				}
+				
+				// save the select tiles for soldiers in respective team indices
+				if (tileInfo[index] == "units") {
+					global.soldierSelectTile[0] = global.soldierSelectTile[1];
+					global.soldierSelectTile[1] = id;
 				}
 			}
 		}
@@ -103,15 +121,15 @@ function init_map(medium, dataSrc) {
 		var names; 
 
 		enum Svars {
-			attack_range, max_health, max_damage, vision, class, win, move_range
+			attack_range, max_health, max_damage, vision, unit_page, win, move_range
 		};
 		
-		global.soldier_vars[Svars.class] = 0; names[Svars.class] = "Class";
+		global.soldier_vars[Svars.unit_page] = 0; names[Svars.unit_page] = "Select";
 		
 		// [0,1] stands for scout, infantry, which is default in edit mode
-		global.soldier_vars[Svars.attack_range] = global.attack_range[0,global.editSoldierType]; names[Svars.attack_range] = "attack range";   
-		global.soldier_vars[Svars.max_health] = global.max_health[0,global.editSoldierType]; names[Svars.max_health] = "max health";   // probably  dependent on class too
-		global.soldier_vars[Svars.max_damage] = global.max_damage[0,global.editSoldierType]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+		global.soldier_vars[Svars.attack_range] = global.attack_range[Units.TANK_M]; names[Svars.attack_range] = "attack range";   
+		global.soldier_vars[Svars.max_health] = global.max_health[Units.TANK_M]; names[Svars.max_health] = "max health";   // probably  dependent on class too
+		global.soldier_vars[Svars.max_damage] = global.max_damage[Units.TANK_M]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
 		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
 		global.soldier_vars[Svars.win] = global.winFunction; names[Svars.win] = "Win";
@@ -126,6 +144,8 @@ function init_map(medium, dataSrc) {
 				text = names[index];
 			}
 		}
+		
+		
 	
 
 
