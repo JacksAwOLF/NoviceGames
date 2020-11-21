@@ -76,8 +76,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"f3ba45a0-c30f-41ed-ab43-af2f5c7e52ef","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "soldiers",
+    "path": "folders/Sprites/soldiers.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_infantry",

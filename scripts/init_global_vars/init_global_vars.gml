@@ -10,13 +10,16 @@ function init_game_vars(){
 		INFANTRY_M, TANK_M, IFV_M,	// must be in infantry, tank, ifv order at the beginning
 		INFANTRY_R, TANK_R, IFV_R, 
 		INFANTRY_S, TANK_S, IFV_S, 
-		END,
+		
 		DESTROYER,
 		MOTORBOAT,
 		CARRIER,
+		END,
+		
 		BOMBER,
 		RECON,
-		FIGHTER
+		FIGHTER,
+		
 	};
 	
 	var unit_param = function(unit, max_health, max_damage, attk_range, 
@@ -65,6 +68,15 @@ function init_game_vars(){
 	global.unitSprites[Units.INFANTRY_M] = [spr_infantry, spr_infantry1];
 	global.unitSprites[Units.INFANTRY_R] = [spr_infantry, spr_infantry1];
 	global.unitSprites[Units.INFANTRY_S] = [spr_infantry, spr_infantry1];
+	
+	global.unitSprites[Units.DESTROYER] = [spr_destroy, spr_destroy1];
+	global.unitSprites[Units.MOTORBOAT] = [spr_motorboat, spr_motorboat1];
+	global.unitSprites[Units.CARRIER]	= [spr_seaplane, spr_seaplane1];
+	global.unitSprites[Units.BOMBER]	= [spr_bomber, spr_bomber1];
+	global.unitSprites[Units.RECON]		= [spr_recon, spr_recon1];
+	global.unitSprites[Units.FIGHTER]	= [spr_fighter, spr_fighter1];
+	
+	
 	
 	global.elevation[Tiles.open] = 1;
 	global.elevation[Tiles.rough] = 1.1;

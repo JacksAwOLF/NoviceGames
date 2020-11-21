@@ -41,6 +41,12 @@ if (edit) {
 		case spr_infantry1:
 		case spr_tanks1:
 		case spr_ifvs1:
+		case spr_motorboat:
+		case spr_motorboat1:
+		case spr_destroy:
+		case spr_destroy1:
+		case spr_seaplane:
+		case spr_seaplane1:
 			if (soldier == -1) {
 				create_soldier(global.changeSprite,  
 					pos, -1, true);
@@ -52,38 +58,38 @@ if (edit) {
 			break;
 	
 
-	case spr_soldier_generate:
+		case spr_soldier_generate:
 	
-		if (hut!=-1 || tower!=-1) break;
+			if (hut!=-1 || tower!=-1) break;
 		
-		if (soldier != -1) {
-			hut = instance_create_depth(x, y, 0, obj_hut);
-			with (hut){
-				soldier = other.soldier;
-				sprite_dir = other.soldier.direction;
-				event_user(10);
+			if (soldier != -1) {
+				hut = instance_create_depth(x, y, 0, obj_hut);
+				with (hut){
+					soldier = other.soldier;
+					sprite_dir = other.soldier.direction;
+					event_user(10);
+				}
+				destroy_soldier(pos);
 			}
-			destroy_soldier(pos);
-		}
 	
-		else if (soldier == -1){
-			hut = instance_create_depth(x, y, 0, obj_hut);
-			with(hut){
-				steps = -1;
-				team  = -1;
+			else if (soldier == -1){
+				hut = instance_create_depth(x, y, 0, obj_hut);
+				with(hut){
+					steps = -1;
+					team  = -1;
+				}
 			}
-		}
 		
 		
-		hut.spawnPos = pos;
-		originHutPos = pos;
-		break;
+			hut.spawnPos = pos;
+			originHutPos = pos;
+			break;
 
 		
-	case spr_tower:
-		tower = instance_create_depth(x, y, 1, obj_tower);
-		tower.team = global.turn%2;
-		break;
+		case spr_tower:
+			tower = instance_create_depth(x, y, 1, obj_tower);
+			tower.team = global.turn%2;
+			break;
 	}
 }
 

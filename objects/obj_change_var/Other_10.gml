@@ -6,18 +6,23 @@ if (mouse_y < y + sprite_height/3) add = 1;
 else if (mouse_y > y + sprite_height/3*2) add = -1;
 
 if (text == "Select"){
-	var size = floor(Units.END / 3);
+	var size = ceil(Units.END / 3);
 	global.soldier_vars[ind] = (global.soldier_vars[ind]+size+add)%size;
 	
 	// change availabe options for soldier select tiles
 	for (var i = 0; i < 2; i++) {
-		with (global.soldierSelectTile[i]) {
-			for (var j = 0; j < 3; j++) 
-				options[j] = global.unitSprites[j];
-
+		with (global.soldierSelectTile[i].binded_dropdown) {
+			options = [];
+			
+			for (var j = 0; j < 3; j++) {
+				var index = j+3*global.soldier_vars[other.ind];
+				if (index < Units.END) 
+					options[j] = global.unitSprites[index][i];
+			}
+			
 			// refresh top display
 			options_id = 0;
-			event_user(15);
+			global.soldierSelectTile[i].sprite_index = options[0];
 		}
 	}
 	

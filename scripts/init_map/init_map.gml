@@ -99,7 +99,6 @@ function init_map(medium, dataSrc) {
 					x  = other.x;
 					y =  other.y + other.sprite_height;
 					
-					
 					binded_button = other.id;
 					other.binded_dropdown = id;
 					options = possibleTiles[index];

@@ -8,7 +8,7 @@
 steps = 0;
 
 
-limit = global.hutlimit[soldier.class];
+//limit = global.hutlimit[soldier.class];
 
 
 soldier_unit = soldier.unit_id;
@@ -17,3 +17,5 @@ team = get_team(soldier_sprite);
 
 max_health = 10;
 my_health = max_health;
+
+

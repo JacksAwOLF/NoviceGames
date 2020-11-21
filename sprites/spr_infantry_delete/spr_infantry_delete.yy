@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"186884e9-3973-45c3-bd09-196b581605a0","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "soldiers",
+    "path": "folders/Sprites/soldiers.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_infantry_delete",

@@ -14,6 +14,7 @@ if (dropdown_active) {
 						10*image_xscale, 10*image_yscale, 0);
 	
 	menu_height = 0;
+	
 	for (var i = 0; i < array_length(options); i++) {
 		draw_sprite_ext(options[i], 0, x, y+sprite_height+menu_height*image_yscale, image_xscale, image_yscale, 0, c_white, 1);
 		menu_height += sprite_get_height(options[i]);

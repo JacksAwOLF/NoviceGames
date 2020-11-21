@@ -76,8 +76,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"b8a4e491-8c3b-4c14-925f-b1748c64ef4b","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "soldiers",
+    "path": "folders/Sprites/soldiers.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_tanks1",
