@@ -27,6 +27,6 @@ error_limit = 3;				// how many times to flash
 error_wait = 5;					// how many frames per flash
 
 
-
+selectedPlaneId = -1;				// for seaplane carrierss
 formIndication = false;
 formation = -1;

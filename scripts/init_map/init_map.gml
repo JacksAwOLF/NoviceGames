@@ -192,6 +192,12 @@ function init_map(medium, dataSrc) {
 	yy = (1/6*room_height);// - sprite_get_height(sp_index))/2;
 	instance_create_depth(xx, yy, -100, obj_gui_info_screen);
 	
+	// create unit options screen
+	sp_index = object_get_sprite(obj_unit_options);
+	xx = 10;
+	yy = (room_height - sprite_get_height(sp_index)) / 2;
+	global.unitOptionsBar = instance_create_depth(xx, yy, -100, obj_unit_options);
+	global.unitOptionsBar.toggle_active();
 	
 	
 	

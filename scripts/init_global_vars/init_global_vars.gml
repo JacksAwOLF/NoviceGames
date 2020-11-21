@@ -50,7 +50,7 @@ function init_game_vars(){
 	// naval units
 	unit_param(Units.DESTROYER,		10, 5,  15,   5,  8,   [99,99,99,99,1],      -1,	 "Destroyer");
 	unit_param(Units.MOTORBOAT,		1,  15, 2,    8,  2,   [99,99,99,99,1],      5,	 "Motorboat");
-	unit_param(Units.CARRIER,		15, -1, 0,  3,  5,   [99,99,99,99,1],      -1,	 "Seaplane Carrier");
+	unit_param(Units.CARRIER,		15, -1, 0,    3,  5,   [99,99,99,99,1],      -1,	 "Seaplane Carrier");
 	// seaplanes
 	unit_param(Units.BOMBER,		1,  5,  999,  10, 0,   [1,1,1,1,1],      2,	 "Bomber Seaplane");
 	unit_param(Units.RECON,			1,  -1, 999,  7,  15,  [1,1,1,1,1],      2,	 "Recon Seaplane");
@@ -75,6 +75,13 @@ function init_game_vars(){
 	global.unitSprites[Units.RECON]		= [spr_recon, spr_recon1];
 	global.unitSprites[Units.FIGHTER]	= [spr_fighter, spr_fighter1];
 	
+	
+	for (var i = 0; i < Units.END; i++)
+		global.unitOptions[i] = [];
+	global.unitOptions[Units.CARRIER] = [{sprite: spr_bomber,	execute: switch_to_bomber},
+										 {sprite: spr_recon,	execute: switch_to_recon},
+										 {sprite: spr_fighter,	execute: switch_to_fighter},
+										 {sprite: spr_deploy,	execute: deploy_plane}];
 	
 	
 	global.elevation[Tiles.open] = 1;
