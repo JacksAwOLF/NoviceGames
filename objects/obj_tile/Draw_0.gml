@@ -94,6 +94,7 @@ if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldi
 		}
 		
 		
+		// auto-genearte indication
 		if (auto) draw_set_color(c_green);
 		else draw_set_color(c_red);
 		draw_circle(other.x+ss/2, other.y+ss/2, ss/8, false);	

@@ -17,8 +17,7 @@ if mouseIn {
 	}
 } 
 
-
-preMouseIn = mouseIn;
 event_inherited();
 
 
+preMouseIn = mouseIn;

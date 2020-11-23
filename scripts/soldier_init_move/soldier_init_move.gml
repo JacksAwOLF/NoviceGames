@@ -57,7 +57,7 @@ function soldier_init_move() {
 					global.poss_moves[i].possible_move = true;
 			} 
 			
-			else global.poss_moves = []
+			else global.poss_moves = [];
 			global.unitOptionsBar.unit_options = global.unitOptions[unit_id];
 		}
 	}

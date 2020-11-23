@@ -118,6 +118,7 @@
     {"id":{"name":"rm_start_screen","path":"rooms/rm_start_screen/rm_start_screen.yy",},"order":0,},
     {"id":{"name":"spr_select_teleport","path":"sprites/spr_select_teleport/spr_select_teleport.yy",},"order":4,},
     {"id":{"name":"obj_button_focus","path":"objects/obj_button_focus/obj_button_focus.yy",},"order":10,},
+    {"id":{"name":"tile_changeSprite","path":"scripts/tile_changeSprite/tile_changeSprite.yy",},"order":0,},
     {"id":{"name":"spr_seaplane","path":"sprites/spr_seaplane/spr_seaplane.yy",},"order":11,},
     {"id":{"name":"rm_map","path":"rooms/rm_map/rm_map.yy",},"order":1,},
     {"id":{"name":"spr_bomber","path":"sprites/spr_bomber/spr_bomber.yy",},"order":13,},
@@ -169,6 +170,7 @@
     {"folderPath":"folders/Sprites/colors.yy","order":27,"resourceVersion":"1.0","name":"colors","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/outline.yy","order":28,"resourceVersion":"1.0","name":"outline","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Scripts/soldier/unit_options.yy","order":11,"resourceVersion":"1.0","name":"unit_options","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/obj_tile.click.yy","order":19,"resourceVersion":"1.0","name":"obj_tile.click","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":461609314234257646,"resourceVersion":"1.0","name":"audiogroup_default","resourceType":"GMAudioGroup",},

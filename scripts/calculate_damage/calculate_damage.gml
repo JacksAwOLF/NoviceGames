@@ -5,8 +5,8 @@ function calculate_damage(argument0, argument1) {
 	var a = argument0, b = argument1;
 	
 	// tanks ignore the first attack
-	if (is_tank(b) && b.my_health == b.max_health)
+	if (b.object_index == obj_infantry && is_tank(b) && b.my_health == b.max_health)
 		return 0.1;
-			
+	
 	return a.max_damage;
 }

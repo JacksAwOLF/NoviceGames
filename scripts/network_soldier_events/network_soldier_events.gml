@@ -56,7 +56,7 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 		s_unit_id = posInArray(global.soldierSelectTile[get_team(sind)].binded_dropdown.options, sind);
 		s_unit_id += global.soldier_vars[Svars.unit_page] * 3;
 	}
-		
+	
 	with (global.grid[pos]) { 
 		if (soldier == -1){
 			soldier = instance_create_depth(x,y,0,obj_infantry);
@@ -97,14 +97,14 @@ function create_soldier(sind, pos, fromHutPos, updateFog) {
 // @function actually execute an attack
 function soldier_execute_attack(frTilePos, toTilePos){
 	
-	var fr = global.grid[frTilePos], to = global.grid[toTilePos];
+	var fr = global.grid[frTilePos], to = global.grid[toTilePos]; 
 	
 	var attacked;
 	if (to.soldier != -1) attacked = to.soldier;
 	else if (to.tower != -1) attacked = to.tower;
 	else attacked = to.hut;
 	
-	var damage = calculate_damage(fr.soldier, attacked);
+	var damage = calculate_damage(fr.soldier, attacked); 
 	
 	// process attacking from the side
 	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
@@ -120,13 +120,22 @@ function soldier_execute_attack(frTilePos, toTilePos){
 	
 	attacked.my_health -= damage;
 	fr.soldier.can -= fr.soldier.attackCost;
+	
 						
 	if (attacked.my_health <= 0){
 		
-		if (attacked.object_index == obj_hut && attacked.steps == -1) {
-			// don't kill the hut, conquer it
-			attacked.soldier = fr.soldier;
-			with(attacked) event_user(10);
+		if (attacked.object_index == obj_hut && attacked.nuetral == true) {
+			
+			//debug("the hut has to be nuetral!", attacked.nuetral, global.hutlimit[fr.soldier.unit_id])
+			
+			// conquer the hut, or destroy it (based on the attacking unit's hut limit)
+			if (global.hutlimit[fr.soldier.unit_id] == -1) {
+				instance_destroy(attacked);
+				attacked.hut = -1;
+			} else {
+				attacked.soldier = fr.soldier;
+				with(attacked) event_user(10);
+			}
 			
 		} else if (attacked.object_index == obj_tower) {
 			
