@@ -243,7 +243,6 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 
 function exchange_hut_spawn_position(originHutPosition, newSpawnPosition){
 	
-	//var relatedHut = global.grid[global.selectedSpawn.originHutPos].hut;
 	var relatedHut = global.grid[originHutPosition].hut,
 		newSpawnTile = global.grid[newSpawnPosition];
 			
@@ -253,5 +252,4 @@ function exchange_hut_spawn_position(originHutPosition, newSpawnPosition){
 	
 	send_buffer(BufferDataType.changeHutPosition, array(originHutPosition, newSpawnPosition));
 			
-	//global.selectedSpawn = -2;
 }

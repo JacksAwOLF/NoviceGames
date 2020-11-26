@@ -161,7 +161,7 @@ if (!edit || global.changeSprite == -1){
 				if (team == global.turn%2)
 					other.enableDoubleClick = true;
 					
-				// teleport locations
+				// show the possible teleport locations
 				if (limit != -1 && steps == 0){
 					hut_refreshTeleport(id);
 					global.selectedSpawn = other.id;

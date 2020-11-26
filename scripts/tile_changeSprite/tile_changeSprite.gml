@@ -47,7 +47,12 @@ function tile_changeSprite(){
 			case spr_soldier_generate:
 				if (hut!=-1 || tower!=-1) break;
 			
-				if (soldier != -1 && global.hutlimit[soldier.unit_id] != -1) {
+				if (soldier != -1) {
+				
+					if (global.hutlimit[soldier.unit_id] == -1){
+						global.changeSprite = -1;
+						break;
+					}
 				
 					hut = instance_create_depth(x, y, 0, obj_hut);
 					hut.nuetral = false;

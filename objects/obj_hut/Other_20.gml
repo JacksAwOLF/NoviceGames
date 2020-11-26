@@ -17,7 +17,3 @@ limit = global.hutlimit[soldier_unit];
 
 max_health = 10;
 my_health = max_health;
-
-debug("team", team, "sprite", soldier_sprite);
-
-
