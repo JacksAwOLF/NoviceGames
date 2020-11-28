@@ -7,7 +7,7 @@ mouseIn = x < mouse_x && mouse_x < x+sprite_width
 if mouseIn {	
 	
 	// draw temp army sprite if there is a selected 
-	if (global.selectedSoldier != -1 && global.selectedSoldier.soldier.formation == -1) {
+	if (global.selectedSoldier != -1 && global.selectedSoldier.formation == -1) {
 		
 		// always maintain the last two tiles we hovered over
 		if (global.prevHoveredTile != id) {
@@ -17,8 +17,5 @@ if mouseIn {
 	}
 } 
 
-
-preMouseIn = mouseIn;
 event_inherited();
-
-
+preMouseIn = mouseIn;

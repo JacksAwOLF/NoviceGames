@@ -3,26 +3,15 @@
 
 
 
-
-// these variables are initialized when this is
-// created in the obj_tile step event
-
-// pos = 0;
-// soldier_sprite = 0;
-// limit = 5;
-
-// when cur reaches limit, 
-// you can click on the hut and generate a soldier
-//steps = 0;
-
-
-
 max_health = 3;
 my_health = max_health;
 
 auto = true;
+nuetral = false;
+
 steps = -1;
-limit = -1
+limit = -1;
+
 soldier_unit = -1;
 soldier_sprite = -1
 team = -1
@@ -32,4 +21,4 @@ sprite_dir = -1;
 
 spawnPos = -1;
 
-auto = true;
+

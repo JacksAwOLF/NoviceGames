@@ -34,7 +34,7 @@ text[len++] = "  Health: " + (curSoldier == -1 ? " N/A" : string(curSoldier.my_h
 
 text[len++] = "";
 text[len++] = "Hut Info: " + (curHut == -1 ? "N/A" : "");
-text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "N/A" : global.unitNames[curSoldier.unit_id]);
+text[len++] = "  Unit Type: " + (curHut == -1 || curHut.soldier_sprite == -1 ? "N/A" : global.unitNames[curHut.soldier_unit]);
 text[len++] = "  Turns: " + (curHut == -1 || curHut.steps == -1 ? "N/A" : string(curHut.steps) + "/" + string(curHut.limit));
 text[len++] = "  Health: " + (curHut == -1 ? "N/A" : string(curHut.my_health));
 

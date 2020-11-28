@@ -21,8 +21,8 @@ function possible_move_tiles_including_selected(tileId) {
 	var s = global.grid[tileId];
 	
 	// cant go here if there is a visible soldier blocking path
-	if (s.soldier != -1 && s != global.selectedSoldier && !s.hide_soldier && 
-		(s.soldier.formation == -1 || s.soldier.formation != global.selectedSoldier.soldier.formation ) ) 
+	if (s.soldier != -1 && s != global.selectedSoldier.tilePos && !s.hide_soldier && 
+		(s.soldier.formation == -1 || s.soldier.formation != global.selectedSoldier.formation ) ) 
 		return false;
 	
 	// cant go if enemy tower is here
@@ -35,32 +35,33 @@ function possible_move_tiles_including_selected(tileId) {
 }
 
 function soldier_init_move() {
-	
-	if (global.selectedSoldier != -1){
-
-		// default energy values in global.energy[soldier.unit_id]
-		// default move range is in global.movement[solder.unit_id]
-
-		var source = (argument_count > 0 ? argument[0] : global.selectedSoldier);
+	if (global.selectedSoldier == -1)
+		return;
 		
-		with(global.selectedSoldier.soldier){
-			if (can-moveCost>=0){
-				global.poss_moves = get_tiles_from(
-					source.pos, move_range-global.pathCost, global.energy[unit_id], true, 
-					possible_move_tiles_including_selected
-				);
+
+	// default energy values in global.energy[soldier.unit_id]
+	// default move range is in global.movement[solder.unit_id]
+
+	var source = (argument_count > 0 ? argument[0] : global.selectedSoldier.tilePos);
+		
+	with(global.selectedSoldier){
+		if (can-moveCost>=0){
+			global.poss_moves = get_tiles_from(
+				source.pos, move_range-global.pathCost, global.energy[unit_id], true, 
+				(is_plane(id) ? return_true : possible_move_tiles_including_selected)
+			);
 												   
-				if (source != global.selectedSoldier && global.dist[global.selectedSoldier.pos] != -1) 
-					global.poss_moves[array_length(global.poss_moves)] = global.selectedSoldier;
+			if (source != tilePos && global.dist[tilePos.pos] != -1) 
+				global.poss_moves[array_length(global.poss_moves)] = tilePos;
 					
-				for (var i=0; i<array_length(global.poss_moves); i++)
-					global.poss_moves[i].possible_move = true;
-			} 
+			for (var i=0; i<array_length(global.poss_moves); i++)
+				global.poss_moves[i].possible_move = true;
+		} 
 			
-			else global.poss_moves = []
-			global.unitOptionsBar.unit_options = global.unitOptions[unit_id];
-		}
+		else global.poss_moves = []
+		global.unitOptionsBar.unit_options = global.unitOptions[unit_id];
 	}
+	
 }
 
 
@@ -76,7 +77,7 @@ function soldier_init_move_formation(pos){
 		if (arr[i] == -1)
 			continue;
 		
-		global.selectedSoldier = arr[i];
+		global.selectedSoldier = arr[i].soldier;
 		if (arr[i] == -1) continue;
 		soldier_init_move();
 		
@@ -96,7 +97,7 @@ function soldier_init_move_formation(pos){
 		if (delta[i] == n)
 			global.grid[ updatePos(pos, getRow(i), getCol(i)) ].possible_move = true;
 		
-	global.selectedSoldier = global.grid[pos];
+	global.selectedSoldier = global.grid[pos].soldier;
 	
 	
 	

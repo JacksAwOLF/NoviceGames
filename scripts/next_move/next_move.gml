@@ -15,43 +15,31 @@ function next_move() {
 		}
 	
 	
-	// increment the hut spawn times
-	n = instance_number(obj_hut);
-	for (var i=0; i<n; i++)
-		with(instance_find(obj_hut, i))
-			if ((!global.edit || global.hutOn) && 
-				steps!=-1 && get_team(soldier_sprite) == global.turn%2){
-				steps = min(steps+1, limit);
-			}
-	
-	
 	if (!global.edit && network_my_turn())
 		send_buffer(BufferDataType.yourMove, []);
-			
-			
+		
+	// process moving planes
+	advance_planes();
+	
 	global.turn++; // relative positioning is important
-
-	with(obj_tile) {
-		if (hut != -1) with (hut) {
-			if (auto && steps == limit)
-				hut_createSoldier(spawnPos);
+	
+	with(obj_hut){
+		
+		//debug("this hut... before", soldier, soldier_sprite, steps);
+		
+		if ((!global.edit || global.hutOn) && steps!=-1 && get_team(soldier_sprite) != global.turn%2){
+			//debug("increase step")
+			steps = min(steps+1, limit)
 		}
+		if (auto && limit != -1 && steps == limit){
+			//debug("creating soldier");
+			hut_createSoldier(spawnPos);	// only creates soldier this turn
+		}
+		
+		//debug("this hut... after", soldier, soldier_sprite, steps);
 	}
-	
-	//n = instance_number(obj_tile);
-	//for (var i=0; i<n; i++)
-	//	with(instance_find(obj_tile, i)){
-	//		if (hut != -1) {
-	//			with(hut) {
-	//			if (auto && steps == limit)	
-	//				hut_createSoldier(other.pos);
-	//			}
-	//		}
-	//	}
-	
-	
-	
-	// deselect soldiers and clear  drawings
+
+	// deselect soldiers and clear drawings
 	erase_blocks(true);
 
 
