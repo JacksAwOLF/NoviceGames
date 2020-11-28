@@ -4,7 +4,6 @@
 // if mouse in and left is pressed down, we change the tiles if neccessary
 
 if (edit) {
-	debug(global.changeSprite, " vs " , spr_tile_road);
 	switch(global.changeSprite){
 		case spr_tile_road:
 			if (mouseIn && !preMouseIn) road = !road;

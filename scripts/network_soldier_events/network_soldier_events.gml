@@ -37,8 +37,6 @@ function destroy_soldier(soldierInstance) {
 // @param soldierObjId
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
-		//var type = get_solier_type_from_sprite(sprite_index);
-		//debug("creating soldier "
 
 		attack_range = global.attack_range[unit_id];
 		max_health = global.max_health[unit_id];
@@ -83,7 +81,7 @@ function create_soldier(sind, pos, fromHutPos, updateFog, s_unit_id) {
 		unit_id = s_unit_id;
 		tilePos = global.grid[pos];
 	}
-	debug("created soldier with", created_soldier.tilePos);
+	
 
 	init_global_soldier_vars(created_soldier);
 
@@ -165,7 +163,6 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 
 		if (attacked.object_index == obj_hut && attacked.nuetral == true) {
 
-			//debug("the hut has to be nuetral!", attacked.nuetral, global.hutlimit[fr.soldier.unit_id])
 
 			// conquer the hut, or destroy it (based on the attacking unit's hut limit)
 			if (global.hutlimit[fr.soldier.unit_id] == -1) {
@@ -262,8 +259,6 @@ function plane_execute_move(planeInst, toTilePos) {
 	remove_from_array(fromTileInst.planeArr, planeInst);
 	add_into_array(global.grid[toTilePos].planeArr, planeInst);
 	planeInst.tilePos = global.grid[toTilePos];
-
-	debug("plane going from", fromTileInst.pos, "to", toTilePos, " with planeArr: ", global.grid[toTilePos].planeArr, "with carrier", planeInst.bindedCarrier);
 
 	//	planeInst.direction = dir; for now, no direction
 

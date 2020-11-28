@@ -25,18 +25,14 @@ function next_move() {
 
 	with(obj_hut){
 
-		//debug("this hut... before", soldier, soldier_sprite, steps);
 
 		if ((!global.edit || global.hutOn) && steps!=-1 && get_team(soldier_sprite) != global.turn%2){
-			//debug("increase step")
 			steps = min(steps+1, limit)
 		}
 		if (auto && limit != -1 && steps == limit){
-			//debug("creating soldier");
 			hut_createSoldier(spawnPos);	// only creates soldier this turn
 		}
 
-		//debug("this hut... after", soldier, soldier_sprite, steps);
 	}
 
 	// deselect soldiers and clear drawings

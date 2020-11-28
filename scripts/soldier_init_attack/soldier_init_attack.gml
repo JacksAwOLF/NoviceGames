@@ -64,7 +64,6 @@ function soldier_init_attack(attack_cond) {
 						}
 					}
 					
-					debug("resulting in", global.poss_attacks);
 				}
 				
 				for (var i=0; i<array_length(global.poss_attacks); i++){

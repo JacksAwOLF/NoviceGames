@@ -97,8 +97,7 @@ function finalize_deployment(planeInst) {
 				var spr_index = asset_get_index("spr_bomber" + (team == 1 ? "1" : ""));
 				bindedPlane = create_soldier(spr_index, tilePos.pos, -1, false, Units.BOMBER);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
-				
-				debug("created with vision ", bindedPlane.vision);
+			
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
 				break;
 				

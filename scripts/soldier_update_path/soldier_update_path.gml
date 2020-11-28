@@ -15,7 +15,6 @@ function soldier_update_path(shouldClearPath) {
 		
 		if (!shouldClearPath && global.prevHoveredTile.possible_move) {
 			var mobility = global.movement[global.selectedSoldier.unit_id] - global.pathCost;
-			debug("updating path with mobility", mobility);
 			global.poss_paths = get_path_to(global.prevHoveredTile.pos,mobility);
 				
 			for (var i = 0; i < array_length(global.poss_paths); i++)

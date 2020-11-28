@@ -58,7 +58,6 @@ function plane_navigate_to(planeInst, toTileInst) {
 	energy = max(0, energy - abs(dest_x - plane_x));
 	var new_y = plane_y + (plane_y < dest_y ? 1 : -1) * min(abs(dest_y - plane_y), energy);
 	
-	debug("with target ", dest_x, dest_y, " in mind, we aim for ", new_x, new_y, " with ", global.movement[planeInst.unit_id]);
 	plane_execute_move(planeInst, new_y * global.mapHeight + new_x);
 	return (new_x == dest_x && new_y == dest_y);
 }

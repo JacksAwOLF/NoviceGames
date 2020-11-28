@@ -1,8 +1,5 @@
 /// @description handle double click event
 
-//debug("double clicked tile ", pos);
-
-//exit;
 // clear the selected soldier things if this block is not a possible move or attack
 if (global.selectedSoldier != -1){
 	
@@ -62,7 +59,7 @@ if (global.selectedSoldier != -1){
 					planePath[pathSize-i-1] = pathpoints[i];
 				
 				finalize_deployment(id);
-				debug("plane going ", planePath);
+				
 				
 			} else if (array_length(path)>=1 ) {
 					
