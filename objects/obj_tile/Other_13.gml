@@ -27,7 +27,7 @@ if (global.selectedSoldier != -1){
 				++moveC; moved[i] = true;
 				with(tile.soldier) can -= moveCost;
 				
-				soldier_execute_move(startPos, newPos, tile.soldier.direction);
+				soldier_execute_move(tile, newPos, tile.soldier.direction);
 			}
 		}
 		
@@ -101,7 +101,7 @@ if (global.selectedSoldier != -1){
 				if (error) i++;
 				
 				
-				soldier_execute_move(global.selectedSoldier.tilePos.pos,  path[i+1].pos, direction);
+				soldier_execute_move(global.selectedSoldier.tilePos,  path[i+1].pos, direction);
 				// global.selectedSoldier = path[i+1];
 				
 				//clear fog if encountered soldier  (actually moved)

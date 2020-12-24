@@ -165,7 +165,6 @@
     {"folderPath":"folders/Extensions.yy","order":13,"resourceVersion":"1.0","name":"Extensions","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sequences.yy","order":1,"resourceVersion":"1.0","name":"Sequences","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Animation Curves.yy","order":2,"resourceVersion":"1.0","name":"Animation Curves","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Objects/network.yy","order":15,"resourceVersion":"1.0","name":"network","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Objects/GUI.yy","order":16,"resourceVersion":"1.0","name":"GUI","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/soldiers.yy","order":26,"resourceVersion":"1.0","name":"soldiers","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Sprites/colors.yy","order":27,"resourceVersion":"1.0","name":"colors","tags":[],"resourceType":"GMFolder",},
