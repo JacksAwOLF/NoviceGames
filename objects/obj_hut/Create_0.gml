@@ -18,7 +18,7 @@ team = -1
 soldier = -1
 sprite_dir = -1;
 
-
+tilePos = -1;
 spawnPos = -1;
 
 

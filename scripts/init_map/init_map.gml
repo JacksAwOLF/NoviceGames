@@ -214,6 +214,7 @@ function init_map(medium, dataSrc) {
 	global.pathCost = 0;
 	
 	global.prevHoveredTile = -1;
+	global.grid = array_create(global.mapHeight * global.mapWidth);
 
 	for (var j=0; j<global.mapHeight; j+=1){
 		for (var i=0; i<global.mapWidth; i+=1){
@@ -257,8 +258,8 @@ function init_map(medium, dataSrc) {
 			"road", 
 			"originHutPos",
 			array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range"), 
-			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_class", "team", "sprite_dir", "spawnPos"),
-			array("tower", "my_health", "team", "max_health")
+			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos"),
+			array("tower", "my_health", "team", "max_health", "tilePos")
 		);
 		
 		global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower);

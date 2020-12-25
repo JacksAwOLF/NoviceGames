@@ -78,6 +78,7 @@ function tile_changeSprite(){
 				if (hut != -1){
 					hut.spawnPos = pos;
 					originHutPos = pos;
+					hut.tilePos = id;
 				}
 				break;
 
@@ -85,6 +86,7 @@ function tile_changeSprite(){
 			case spr_tower:
 				tower = instance_create_depth(x, y, 1, obj_tower);
 				tower.team = global.turn%2;
+				tower.tilePos = id;
 				break;
 		}
 	}

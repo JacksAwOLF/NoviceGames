@@ -16,7 +16,7 @@ enum BufferDataType{
 // note: real buffer size actually +1 bc first byte indicates which BufferDDataType
 global.buffer_sizes[BufferDataType.soldierMoved] = 3;
 global.buffer_sizes[BufferDataType.soldierAttacked] = 2;
-global.buffer_sizes[BufferDataType.soldierCreated] = 3;
+global.buffer_sizes[BufferDataType.soldierCreated] = 4;
 global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
 global.buffer_sizes[BufferDataType.formationCombine] = 2;
 global.buffer_sizes[BufferDataType.formationRemoveTile] = 2;
@@ -74,7 +74,11 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierCreated:
-			create_soldier(data[0], data[1], data[2], false); // create soldier from hut
+			create_soldier(
+				data[0], data[1], 
+				decode_possible_creation_objects(data[2], data[3]), 
+				false
+			); 
 			break;
 		
 		case BufferDataType.yourMove:

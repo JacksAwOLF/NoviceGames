@@ -37,7 +37,6 @@ function destroy_soldier(soldierInstance) {
 // @param soldierObjId
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
-
 		attack_range = global.attack_range[unit_id];
 		max_health = global.max_health[unit_id];
 		max_damage = global.max_damage[unit_id];
@@ -58,16 +57,22 @@ function init_global_soldier_vars(soldierId){
 // @param fromHut
 // @param [updateFog=true]
 // @return instance_id or -1 if failed
-function create_soldier(sind, pos, fromHutPos, updateFog, s_unit_id) {
+function create_soldier(sind, pos, fromUnitInst, updateFog, s_unit_id) {
 
 	//if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
 
 	// get soldier unit id
 	if (s_unit_id == undefined) {
-		if (fromHutPos != -1) {
-			s_unit_id = global.grid[fromHutPos].hut.soldier_unit;
-		} else { // edit mode
+		if (fromUnitInst != -1) {
+			if (fromUnitInst.object_index == obj_hut)
+				s_unit_id = fromUnitInst.soldier_unit;
+			// ADDD THE CARRIER THINGY OR SPECIAL ABILITY THINGS HERE
+			// else if (fromUnitInst.object_index == obj_hut)
+		} 
+		
+		// edit mode
+		else { 
 			s_unit_id = posInArray(global.soldierSelectTile[get_team(sind)].binded_dropdown.options, sind);
 			s_unit_id += global.soldier_vars[Svars.unit_page] * 3;
 		}
@@ -85,8 +90,8 @@ function create_soldier(sind, pos, fromHutPos, updateFog, s_unit_id) {
 
 	init_global_soldier_vars(created_soldier);
 
-	if (fromHutPos != -1){
-		with (global.grid[fromHutPos].hut){
+	if (fromUnitInst != -1){
+		with (fromUnitInst){
 			if (sprite_dir != -1)
 				created_soldier.direction = sprite_dir;
 		}
@@ -120,9 +125,31 @@ function create_soldier(sind, pos, fromHutPos, updateFog, s_unit_id) {
 
 
 	if (updateFog) update_fog();
-	send_buffer(BufferDataType.soldierCreated, array(sind, pos, fromHutPos));
+	
+	
+	var fromPos = -1;
+	if (fromUnitInst.object_index == obj_hut) 
+		fromPos = global.grid[fromUnitInst.spawnPos].originHutPos;
+	else if (fromUnitInst.object_index == obj_hut)
+		fromPos = fromUnitInst.tilePos.pos;
+	
+	send_buffer(
+		BufferDataType.soldierCreated, array(sind, pos, fromPos, 
+		encode_possible_creation_objects(fromUnitInst))
+	);
 
 	return created_soldier;
+}
+
+function encode_possible_creation_objects(inst){
+	var check = array(obj_hut, obj_infantry);
+	return posInArray(inst.object_index, check);
+}
+
+function decode_possible_creation_objects(tilePos, number){
+	var tileInst = global.grid[tilePos];
+	var check = array(tileInst.hut, tileInst.soldier);
+	return check[number];
 }
 
 
@@ -135,15 +162,15 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 
 	soldier_execute_attack(attackUnitInst, attacked);
 	
-	send_buffer(BufferDataType.soldierAttacked, array(attackUnitInst.tilePos.pos, toTilePos));
+	
 }
 
 // @function actually execute an attack
 function soldier_execute_attack(attackerUnitInst, attacked){
+	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;
 
 	var damage = calculate_damage(fr.soldier, attacked);
-
 
 	// process attacking from the side
 	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
@@ -253,6 +280,8 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	erase_blocks(true);
 	if (fr.soldier == global.selectedSoldier)
 		global.selectedSoldier = -1;
+		
+	send_buffer(BufferDataType.soldierAttacked, array(attackUnitInst.tilePos.pos, attacked.tilePos));
 }
 
 

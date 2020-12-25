@@ -4,6 +4,8 @@
 // can't see through fog
 function possible_attack_tiles(tileId) { 
 	
+	debug("tile", tileId)
+	
 	var s = global.grid[tileId];
 	if (s.hide_soldier || s.soldier + s.tower + s.hut == -3) return false;
 	
@@ -11,7 +13,7 @@ function possible_attack_tiles(tileId) {
 	var targets = array("soldier", "tower", "hut")
 	
 	for (var i=0; i<array_length(targets); i++){
-		var oth = variable_instance_get(s, targets[i]);
+		var oth = variable_instance_get(s, targets[i]);	
 		if (oth != -1 && oth.team != global.selectedSoldier.team)
 			return true;
 	}

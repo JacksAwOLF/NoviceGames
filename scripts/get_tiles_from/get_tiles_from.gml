@@ -79,6 +79,8 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 // with soldiers will be returned
 function get_tiles_from_euclidean(tile_pos, dist, canMoveOnto) {
 	
+	debug(tile_pos, dist);
+	
 	if (canMoveOnto == undefined)
 		canMoveOnto = possible_attack_tiles;
 	
