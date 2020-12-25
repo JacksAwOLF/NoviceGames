@@ -15,7 +15,7 @@ enum BufferDataType{
 // if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
 // note: real buffer size actually +1 bc first byte indicates which BufferDDataType
 global.buffer_sizes[BufferDataType.soldierMoved] = 3;
-global.buffer_sizes[BufferDataType.soldierAttacked] = 2;
+global.buffer_sizes[BufferDataType.soldierAttacked] = 3;
 global.buffer_sizes[BufferDataType.soldierCreated] = 4;
 global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
 global.buffer_sizes[BufferDataType.formationCombine] = 2;
@@ -51,6 +51,7 @@ function client_connected(outfalse, outtrue){
 }
 
 
+
 /// @function read and execute moves for a buffer (turn must be incremented first)
 function read_buffer(buff){
 	
@@ -69,11 +70,15 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierAttacked:
-			debug("read:", data)
-			soldier_attack_tile(global.grid[data[0]].soldier, data[1]); // assuming only soldiers can make attacks
+			soldier_execute_attack(
+				global.grid[data[0]].soldier, // assuming only soldiers can make attacks
+				decode_possible_attacked_objects(data[1], data[2])
+			); 
 			break;
 			
 		case BufferDataType.soldierCreated:
+			debug("received", data);
+			debug(decode_possible_creation_objects(data[2], data[3]))
 			create_soldier(
 				data[0], data[1], 
 				decode_possible_creation_objects(data[2], data[3]), 

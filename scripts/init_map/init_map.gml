@@ -255,9 +255,6 @@ function init_map(medium, dataSrc) {
 	// btw the first variable of an object to  save
 	// can't have a negative 1  value
 	
-	global.tiles_save_objects = array(-1, -1, obj_infantry, obj_hut, obj_tower);
-	
-	
 	if (global.saveVersion >= 1){
 		global.tiles_save_order = array(
 			"sprite_index", 

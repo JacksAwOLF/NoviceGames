@@ -82,10 +82,11 @@ function save_map(saveAs, helpData) {
 			
 			if  (is_array(name) && data1 != -1){
 				for (var k=1; k<array_length(name); k++){
-					debug(name[k]);
+					
 					var data = real(variable_instance_get(data1, name[k]))
-					if (name[k] == "tilePos"){								//  special cases
-						data =  real(data.pos);
+					//  special cases
+					if (name[k] == "tilePos"){
+						data = real(data.pos);
 					}
 					save_data(data, saveAs, med, name[k]);
 				}
@@ -156,11 +157,9 @@ function load_tiles(medium, dataSrc) {
 	}
 	
 	
-	// special casses
-	// upddate tile Pos
-	for (var i=0; i<global.mapWidth*global.mapHeight; i++)
-		with (global.grid[i]) if (soldier != -1)
-			soldier.tilePos = id;
+	// special casse: upddate tile Pos
+	with(obj_attackable)
+		tilePos = global.grid[tilePos];
 			
 	
 	switch (medium){

@@ -46,10 +46,10 @@ function advance_planes() {
 // returns whether the plane has arrived at dest after moving
 function plane_navigate_to(planeInst, toTileInst) {
 	var plane_x = planeInst.tilePos.pos % global.mapWidth;
-	var plane_y = floor(planeInst.tilePos.pos / global.mapHeight);
+	var plane_y = floor(planeInst.tilePos.pos / global.mapWidth);
 	
 	var dest_x = toTileInst.pos % global.mapWidth;
-	var dest_y = floor(toTileInst.pos / global.mapHeight);
+	var dest_y = floor(toTileInst.pos / global.mapWidth);
 	
 	// assuming all tile movement is cost one
 	var energy = global.movement[planeInst.unit_id];
@@ -58,6 +58,6 @@ function plane_navigate_to(planeInst, toTileInst) {
 	energy = max(0, energy - abs(dest_x - plane_x));
 	var new_y = plane_y + (plane_y < dest_y ? 1 : -1) * min(abs(dest_y - plane_y), energy);
 	
-	plane_execute_move(planeInst, new_y * global.mapHeight + new_x);
+	plane_execute_move(planeInst, new_y * global.mapWidth + new_x);
 	return (new_x == dest_x && new_y == dest_y);
 }

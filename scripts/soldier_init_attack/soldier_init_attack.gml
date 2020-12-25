@@ -4,8 +4,6 @@
 // can't see through fog
 function possible_attack_tiles(tileId) { 
 	
-	debug("tile", tileId)
-	
 	var s = global.grid[tileId];
 	if (s.hide_soldier || s.soldier + s.tower + s.hut == -3) return false;
 	
@@ -50,12 +48,14 @@ function soldier_init_attack(attack_cond) {
 					
 					global.poss_attacks = [];
 					var cur_x = tilePos.pos % global.mapWidth;
-					var cur_y = floor(tilePos.pos / global.mapHeight);
+					var cur_y = floor(tilePos.pos / global.mapWidth);
 					
 					with (obj_attackable) {
+						
 						if (isActive) {
+							
 							var test_x = tilePos.pos % global.mapWidth;
-							var test_y = floor(tilePos.pos / global.mapHeight);
+							var test_y = floor(tilePos.pos / global.mapWidth);
 							
 							if (attack_cond(tilePos.pos) &&
 								(cur_x-test_x)*(cur_x-test_x) + (cur_y-test_y)*(cur_y-test_y) <= other.attack_range*other.attack_range) {

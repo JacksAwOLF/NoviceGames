@@ -11,7 +11,7 @@ function hut_createSoldier(tilePos){
 				get_team(soldier_sprite) == global.turn%2;
 		
 			if (can && myturn){
-				create_soldier(soldier_sprite, tilePos, other.originHutPos, true);
+				create_soldier(soldier_sprite, tilePos, global.grid[other.originHutPos].hut, true);
 				steps = 0;
 				
 				// to help identify which soldier to teleport

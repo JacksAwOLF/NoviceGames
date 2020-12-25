@@ -37,6 +37,7 @@ function destroy_soldier(soldierInstance) {
 // @param soldierObjId
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
+		debug("?>", unit_id, soldierId);
 		attack_range = global.attack_range[unit_id];
 		max_health = global.max_health[unit_id];
 		max_damage = global.max_damage[unit_id];
@@ -69,6 +70,8 @@ function create_soldier(sind, pos, fromUnitInst, updateFog, s_unit_id) {
 				s_unit_id = fromUnitInst.soldier_unit;
 			// ADDD THE CARRIER THINGY OR SPECIAL ABILITY THINGS HERE
 			// else if (fromUnitInst.object_index == obj_hut)
+			//else 
+			//	debug("lol", fromUnitInst.object_index, obj_hut, fromUnitInst.soldier_unit)
 		} 
 		
 		// edit mode
@@ -133,9 +136,13 @@ function create_soldier(sind, pos, fromUnitInst, updateFog, s_unit_id) {
 	else if (fromUnitInst.object_index == obj_hut)
 		fromPos = fromUnitInst.tilePos.pos;
 	
+	debug("sssending", encode_possible_creation_objects(fromUnitInst))
 	send_buffer(
-		BufferDataType.soldierCreated, array(sind, pos, fromPos, 
-		encode_possible_creation_objects(fromUnitInst))
+		BufferDataType.soldierCreated, 
+		array(
+			sind, pos, fromPos, 
+			encode_possible_creation_objects(fromUnitInst)
+		)
 	);
 
 	return created_soldier;
@@ -143,7 +150,7 @@ function create_soldier(sind, pos, fromUnitInst, updateFog, s_unit_id) {
 
 function encode_possible_creation_objects(inst){
 	var check = array(obj_hut, obj_infantry);
-	return posInArray(inst.object_index, check);
+	return posInArray(check, inst.object_index);
 }
 
 function decode_possible_creation_objects(tilePos, number){
@@ -161,8 +168,7 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 	else attacked = to.hut;
 
 	soldier_execute_attack(attackUnitInst, attacked);
-	
-	
+
 }
 
 // @function actually execute an attack
@@ -281,9 +287,27 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	if (fr.soldier == global.selectedSoldier)
 		global.selectedSoldier = -1;
 		
-	send_buffer(BufferDataType.soldierAttacked, array(attackUnitInst.tilePos.pos, attacked.tilePos));
+	send_buffer(
+		BufferDataType.soldierAttacked, 
+		array(
+			attackerUnitInst.tilePos.pos, 
+			attacked.tilePos.pos, 
+			encode_possible_attacked_objects(attacked)
+		)
+	);
 }
 
+
+function encode_possible_attacked_objects(inst){
+	var check = array(obj_infantry, obj_hut, obj_tower);
+	return posInArray(check, inst.object_index);
+}
+
+function decode_possible_attacked_objects(tilePos, number){
+	var t = global.grid[tilePos];
+	var check = array(t.soldier, t.hut, t.tower);
+	return check[number];
+}
 
 function plane_execute_move(planeInst, toTilePos) {
 	var fromTileInst = planeInst.tilePos;
