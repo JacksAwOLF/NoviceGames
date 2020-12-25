@@ -120,7 +120,7 @@ function init_map(medium, dataSrc) {
 		var names; 
 
 		enum Svars {
-			attack_range, max_health, max_damage, vision, unit_page, win, move_range
+			attack_range, max_health, max_damage, unit_page, win, weather, move_range, vision
 		};
 		
 		global.soldier_vars[Svars.unit_page] = 0; names[Svars.unit_page] = "Select";
@@ -130,9 +130,11 @@ function init_map(medium, dataSrc) {
 		global.soldier_vars[Svars.max_health] = global.max_health[Units.TANK_M]; names[Svars.max_health] = "max health";   // probably  dependent on class too
 		global.soldier_vars[Svars.max_damage] = global.max_damage[Units.TANK_M]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
-		global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
+		//global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
 		global.soldier_vars[Svars.win] = global.winFunction; names[Svars.win] = "Win";
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
+		
+		global.soldier_vars[Svars.weather] = Weather.REGULAR; names[Svars.weather] = "Weather";
 
 		hor_spacing = 60;
 		for (var index=array_length(names)-1; index>=0; index--){
@@ -324,5 +326,10 @@ function init_map(medium, dataSrc) {
 	global.map_loaded = true;
 	global.main_camera = view_get_camera(0);
 	
+	
+	// weather global variables
+	global.weather = Weather.REGULAR;
+	global.rain_center_pos = global.mapWidth * (global.mapHeight + 1) / 2;  // tile position of center of rain
+	global.rain_radius_squared = global.mapWidth * global.mapHeight / 5 / 3.14;
 	
 }

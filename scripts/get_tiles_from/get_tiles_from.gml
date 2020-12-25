@@ -58,7 +58,8 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 			var np = nr * global.mapWidth + nc;
 			var ns = steps+energyTo[get_tile_type(global.grid[np])];
 			
-			if (ns <= maxDis && !vis[np] && canMoveOnto(np)) {
+			// additional arguments to canMoveOnto because of weather
+			if (ns <= maxDis && !vis[np] && canMoveOnto(np, energyTo, maxDis - ns)) {
 				if (shouldStoreDist && (ns < global.dist[np] || global.dist[np] == -1)) {
 					global.dist[np] = ns;
 					global.from[np] = cur;
@@ -78,8 +79,6 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 // distance of a tile. if with_soldiers is true, only tiles
 // with soldiers will be returned
 function get_tiles_from_euclidean(tile_pos, dist, canMoveOnto) {
-	
-	debug(tile_pos, dist);
 	
 	if (canMoveOnto == undefined)
 		canMoveOnto = possible_attack_tiles;

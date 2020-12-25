@@ -49,4 +49,27 @@ function next_move() {
 
 
 	update_won();
+	
+	// updating weather
+	if (global.weather == Weather.RAINY && global.turn % 2 == 1) {
+		var dir = random(2*pi);
+		var magnitude = (global.mapWidth + global.mapHeight) / 10;
+		
+		var nextX = floor(getCol(global.rain_center_pos) + magnitude*cos(dir));
+		var nextY = floor(getRow(global.rain_center_pos) + magnitude*sin(dir));
+		
+		nextX = max(0, min(global.mapWidth-1, nextX));
+		nextY = max(0, min(global.mapHeight-1, nextY));
+		
+		global.rain_center_pos = getPos(nextY, nextX);
+		
+	} else if (global.weather == Weather.SNOWY) {
+		with (obj_infantry) {
+			if (isActive && global.turn % 2 == lastMoved % 2 && global.turn - lastMoved >= 6) 
+				my_health -= max_health / 3;
+			if (my_health <= 0)
+				destroy_soldier(id);
+		}
+			
+	}
 }

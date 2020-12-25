@@ -38,6 +38,8 @@ function destroy_soldier(soldierInstance) {
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
 		debug("?>", unit_id, soldierId);
+		
+		lastMoved = global.turn;
 		attack_range = global.attack_range[unit_id];
 		max_health = global.max_health[unit_id];
 		max_damage = global.max_damage[unit_id];
@@ -330,6 +332,7 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	fr.soldier = -1;
 	to.soldier = t;
 
+	t.lastMoved = global.turn;
 	t.tilePos = to;
 
 	with(to.soldier) direction = dir;

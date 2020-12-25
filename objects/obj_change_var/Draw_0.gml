@@ -7,6 +7,25 @@ draw_self();
 
 
 var drawing = string(global.soldier_vars[ind]);
+if (text == "Weather") {
+	switch (global.soldier_vars[ind]) {
+		case Weather.REGULAR:
+			drawing = "RG";
+			break;
+		case Weather.SNOWY:
+			drawing = "SW";
+			break;
+		case Weather.RAINY:
+			drawing = "RN";
+			break;
+		case Weather.NIGHT:
+			drawing = "NT";
+			break;
+		case Weather.SUNNY:
+			drawing = "SN";
+			break;
+	}
+}
 if (text == "Select"){
 	switch(global.soldier_vars[ind]){
 		case 0:

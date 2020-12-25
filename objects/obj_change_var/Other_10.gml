@@ -5,7 +5,11 @@ var add = 0;
 if (mouse_y < y + sprite_height/3) add = 1;
 else if (mouse_y > y + sprite_height/3*2) add = -1;
 
-if (text == "Select"){
+if (text == "Weather") {
+	global.soldier_vars[ind] = (global.soldier_vars[ind]+add+Weather.SIZE) % Weather.SIZE;
+	global.weather = global.soldier_vars[ind];
+	
+} else if (text == "Select"){
 	var size = ceil(Units.END / 3);
 	global.soldier_vars[ind] = (global.soldier_vars[ind]+size+add)%size;
 	

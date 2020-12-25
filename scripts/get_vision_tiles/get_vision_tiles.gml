@@ -17,6 +17,24 @@ function get_vision_tiles(unitInst) {
 	
 	var soldier_vision = unitInst.vision + 1.25*(unitInst.tilePos.elevation-1);
 	
+	switch (global.weather) {
+		case Weather.SUNNY:
+			soldier_vision += 1;
+			break;
+		
+		case Weather.RAINY:
+			var rowDiff = getRowDiff(unitInst.tilePos.pos, global.rain_center_pos);
+			var colDiff = getColDiff(unitInst.tilePos.pos, global.rain_center_pos);
+			
+			// if outside rain, resume normal operation
+			if (rowDiff*rowDiff + colDiff*colDiff > global.rain_radius_squared)
+				break;
+			
+		case Weather.NIGHT:
+			soldier_vision = max(0, soldier_vision - 1);
+			break;
+	}
+	
 	
 	var range = floor(soldier_vision);
 	for (var nextx = startx-range; nextx <= startx+range; nextx++) {

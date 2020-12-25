@@ -4,6 +4,15 @@
 
 function init_game_vars(){
 
+	enum Weather {
+		SUNNY,
+		REGULAR,
+		RAINY,
+		SNOWY,
+		NIGHT,
+		SIZE,
+	};
+	
 	enum Tiles {road, open, rough, mountain, ocean, others};
 	
 	enum Units {
