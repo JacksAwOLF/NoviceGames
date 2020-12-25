@@ -19,7 +19,6 @@ if (formId != -1) {
 	// replace this with a ds_list in the future
 	global.formation[formId] = -1;
 
-
-	erase_blocks(true);
+	event_perform_object(obj_map_helper, ev_keypress, vk_space);
 	formationReset();
 }

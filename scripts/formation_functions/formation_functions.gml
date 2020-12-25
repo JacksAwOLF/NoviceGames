@@ -2,6 +2,8 @@
 function checkFormationCompatibleId(tileInstance1, formationId) {
 	if (tileInstance1.soldier == -1 || tileInstance1.soldier.team != global.formation[formationId].team)
 		return false;
+	else if (tileInstance1.soldier.formation != -1)
+		return false;
 		
 	var compatible = false;
 	
@@ -70,6 +72,20 @@ function addIntoFormationId(tileInstance1, formationId) {
 	var formationSze = array_length(global.formation[formationId].tiles);
 	global.formation[formationId].tiles[formationSze] = tileInstance1;
 	tileInstance1.soldier.formation = formationId;
+	tileInstance1.soldier.can = 0;
+	
+	// process defense bonuses
+	var dir = [global.mapWidth, -global.mapWidth, 1, -1];
+	for (var i = 0; i < 4; i++) {
+		var gridIndex = tileInstance1.pos + dir[i];
+		if (gridIndex >= 0 && gridIndex < global.mapWidth * global.mapHeight) {
+			
+			// adjust defense bonus if adjacent soldier is part of the same formation
+			if (global.grid[gridIndex].soldier != -1 && 
+				global.grid[gridIndex].soldier.formation == formationId)
+					global.formation[formationId].contact_count += 1;
+		}
+	}
 	
 	return formationId;
 }
@@ -97,14 +113,17 @@ function addIntoFormationSoldier(tileInstance1, tileInstance2) {
 	// create a new formation if both soldiers are formationless
 	if (formationId == -1) {
 		formationId = array_length(global.formation);
-		global.formation[formationId] = { team : tileInstance1.soldier.team, 
-										  tiles : [tileInstance2]};
-
+		global.formation[formationId] = { 
+											team : tileInstance1.soldier.team, 
+											tiles : [tileInstance2],
+											contact_count: 0,
+										};
+		
+		tileInstance2.soldier.can = 0;
 		tileInstance2.soldier.formation = formationId;
 	}
-		
-	send_buffer(BufferDataType.formationCombine, [tileInstance1.pos, tileInstance2.pos])
 	
+	send_buffer(BufferDataType.formationCombine, [tileInstance1.pos, tileInstance2.pos]);
 	return addIntoFormationId(tileInstance1, formationId);
 }
 
@@ -116,6 +135,8 @@ function removeFromFormation(formationId, tileInstance) {
 	if (tileInstance.soldier == -1 || formationId == -1 ||
 		tileInstance.soldier.formation != formationId)
 		return false;
+		
+	tileInstance.soldier.formation = -1;
 	
 	var formationSze = 0, lastIndex = -1;
 	for (var i = 0; i < array_length(global.formation[formationId].tiles); i++) {
@@ -124,6 +145,7 @@ function removeFromFormation(formationId, tileInstance) {
 		else if (global.formation[formationId].tiles[i] == tileInstance)
 			global.formation[formationId].tiles[i] = -1;
 		else {
+			global.formation[formationId].tiles[i].flag = false;
 			formationSze++;
 			lastIndex = i;
 		}
@@ -134,11 +156,72 @@ function removeFromFormation(formationId, tileInstance) {
 	if (formationSze == 1) {
 		global.formation[formationId].tiles[lastIndex].soldier.formation = -1;
 		global.formation[formationId] = -1;
+		
+	} else {
+		
+		var dir = [global.mapWidth, -global.mapWidth, 1, -1];
+		
+		var adjacentCount = 0;		// # of adjacent soldiers in same formation
+		var adjacentFound = false;	// whether an adjacent soldier has been found
+		var allDiscovered = true;	// whether all adjacent soldiers are connected
+		
+		for (var i = 0; i < 4; i++) {
+			var nxtTilePos = tileInstance.pos + dir[i];
+			if (nxtTilePos < 0 || nxtTilePos >= global.mapWidth * global.mapHeight)
+				continue;
+			else if (global.grid[nxtTilePos].soldier != -1 && 
+					 global.grid[nxtTilePos].soldier.formation == formationId) {
+					
+				adjacentCount += 1;
+				if (!adjacentFound) {	// if first adjacent tile, floodfill
+					floodfill_formation(nxtTilePos, formationId);
+					adjacentFound = true;
+					
+				} else { // otherwise, check if floodfill has reached this tile
+					allDiscovered &= global.grid[nxtTilePos].flag;
+				}
+			} 
+		}
+		
+		// disband formation if adjacent soldiers cannot reach each other
+		if (!allDiscovered) {
+			for (var i = 0; i < array_length(global.formation[formationId].tiles); i++) 
+				if (global.formation[formationId].tiles[i] != -1) 
+					global.formation[formationId].tiles[i].soldier.formation = -1;
+			
+			global.formation[formationId] = -1;
+			
+		} else {
+			// decrease number of contact points accordingly
+			global.formation[formationId].contact_count -= adjacentCount;
+		}
 	}
 	
-	tileInstance.soldier.formation = -1;
-	
+	// if formation disbands, reset gui
+	if (global.formation[formationId] == -1)
+		event_perform_object(obj_map_helper, ev_keypress, vk_space);
+		
 	send_buffer(BufferDataType.formationRemoveTile, [formationId, tileInstance.pos]);
-	
 	return true;
 }
+
+
+// floodfill tiles with the same formationId
+// that marks tile.flag when visited
+function floodfill_formation(curTilePos, formationId) {
+	if (global.grid[curTilePos].flag)
+		return;
+		
+	global.grid[curTilePos].flag = true;
+	var dir = [global.mapWidth, -global.mapWidth, 1, -1];
+	
+	for (var i = 0; i < 4; i++) {
+		var nxtTilePos = curTilePos + dir[i];
+		if (nxtTilePos < 0 || nxtTilePos >= global.mapWidth * global.mapHeight)
+			continue;
+		else if (global.grid[nxtTilePos].soldier != -1 && 
+				 global.grid[nxtTilePos].soldier.formation == formationId) 
+			floodfill_formation(nxtTilePos, formationId);
+	}
+}
+
