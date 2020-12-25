@@ -6,7 +6,7 @@ function update_fog() {
 			hide_soldier = true;
 			
 		with (obj_infantry) {
-			if (is_active && is_my_team(id)) {
+			if (isActive && is_my_team(id)) {
 				seen = get_vision_tiles(id);
 				for (var j=0; j<array_length(seen); j++){
 					seen[j].hide_soldier = false;

@@ -6,7 +6,7 @@ function update_stored_plane(new_unit_id) {
 			storedPlaneInst = instance_create_depth(0,0,0,obj_infantry);
 		
 		storedPlaneInst.unit_id = new_unit_id;
-		storedPlaneInst.is_active = false;
+		storedPlaneInst.isActive = false;
 		init_global_soldier_vars(storedPlaneInst);
 	}
 }

@@ -76,6 +76,7 @@ function tile_changeSprite(){
 				}
 
 				if (hut != -1){
+					hut.tilePos = id;
 					hut.spawnPos = pos;
 					originHutPos = pos;
 					hut.tilePos = id;

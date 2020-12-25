@@ -1,11 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-// team
+// Inherit the parent event
+if (state == VisualState.inactive) exit;
 
-event_inherited();
-
-
-my_health = 10;
-max_health = 10;
+draw_self();
 

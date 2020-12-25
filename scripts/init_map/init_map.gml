@@ -195,10 +195,16 @@ function init_map(medium, dataSrc) {
 	// create unit options screen
 	sp_index = object_get_sprite(obj_unit_options);
 	xx = 10;
-	yy = (room_height - sprite_get_height(sp_index)) / 2;
+	yy = (room_height - sprite_get_height(sp_index)) / 2 + 100;
 	global.unitOptionsBar = instance_create_depth(xx, yy, -100, obj_unit_options);
 	global.unitOptionsBar.toggle_active();
 	
+	// create minimap and pass in map parameters
+	with(instance_create_depth(10, 150, -200, obj_minimap)) {
+		tileSize = tile_size;
+		mapPaddingX = lr_padd;
+		mapPaddingY = tb_padd;
+	}
 	
 	
 
@@ -310,17 +316,16 @@ function init_map(medium, dataSrc) {
 	global.allSoldiers = [ds_list_create(), ds_list_create()]; // all soldiers of both sides
 	
 	with (obj_infantry)
-		if (is_active && !is_plane(id))
+		if (isActive && !is_plane(id))
 			ds_list_add(global.allSoldiers[team], id);
 		
-	for (var i = 0; i < array_length(global.grid); i++) 
+	for (var i = 0; i < array_length(global.grid); i++)
 		if (global.grid[i].soldier != -1)
 			global.grid[i].soldier.tilePos = global.grid[i];
 	
 		
 	global.map_loaded = true;
-	
-	
+	global.main_camera = view_get_camera(0);
 	
 	
 }
