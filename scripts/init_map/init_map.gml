@@ -315,10 +315,10 @@ function init_map(medium, dataSrc) {
 	global.allSoldiers = [ds_list_create(), ds_list_create()]; // all soldiers of both sides
 	
 	with (obj_infantry)
-		if (is_active && !is_plane(id))
+		if (isActive && !is_plane(id))
 			ds_list_add(global.allSoldiers[team], id);
 		
-	for (var i = 0; i < array_length(global.grid); i++) 
+	for (var i = 0; i < array_length(global.grid); i++)
 		if (global.grid[i].soldier != -1)
 			global.grid[i].soldier.tilePos = global.grid[i];
 	

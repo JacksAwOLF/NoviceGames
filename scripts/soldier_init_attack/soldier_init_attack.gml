@@ -37,11 +37,11 @@ function soldier_init_attack(attack_cond) {
 		var p = global.selectedSoldier.tilePos.pos;
 	
 
-		with (global.selectedSoldier){
-			if (can-attackCost>=0){
+		with (global.selectedSoldier) { 
+			if (can-attackCost>=0) {
 				
 				// find possible attack tiles
-				var num_soldiers = instance_number(obj_infantry);
+				var num_soldiers = instance_number(obj_attackable);
 				if (attack_range*attack_range*4 < num_soldiers)
 					global.poss_attacks = get_tiles_from_euclidean(p, attack_range, attack_cond);
 				else {
@@ -50,20 +50,18 @@ function soldier_init_attack(attack_cond) {
 					var cur_x = tilePos.pos % global.mapWidth;
 					var cur_y = floor(tilePos.pos / global.mapHeight);
 					
-					with (obj_infantry) {
-						if (is_active) {
-							
+					with (obj_attackable) {
+						if (isActive) {
 							var test_x = tilePos.pos % global.mapWidth;
 							var test_y = floor(tilePos.pos / global.mapHeight);
-						
+							
 							if (attack_cond(tilePos.pos) &&
 								(cur_x-test_x)*(cur_x-test_x) + (cur_y-test_y)*(cur_y-test_y) <= other.attack_range*other.attack_range) {
-							
+								
 								global.poss_attacks[array_length(global.poss_attacks)] = tilePos;
 							}
 						}
 					}
-					
 				}
 				
 				for (var i=0; i<array_length(global.poss_attacks); i++){
