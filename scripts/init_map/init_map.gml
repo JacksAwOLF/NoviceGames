@@ -199,6 +199,12 @@ function init_map(medium, dataSrc) {
 	global.unitOptionsBar = instance_create_depth(xx, yy, -100, obj_unit_options);
 	global.unitOptionsBar.toggle_active();
 	
+	// create minimap and pass in map parameters
+	with(instance_create_depth(10, 150, -200, obj_minimap)) {
+		tileSize = tile_size;
+		mapPaddingX = lr_padd;
+		mapPaddingY = tb_padd;
+	}
 	
 	
 
@@ -318,8 +324,7 @@ function init_map(medium, dataSrc) {
 	
 		
 	global.map_loaded = true;
-	
-	
+	global.main_camera = view_get_camera(0);
 	
 	
 }

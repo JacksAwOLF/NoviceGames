@@ -7,6 +7,8 @@ if (hide_soldier) alpha_value = 0.5;
 // draw the terrain
 draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, c_white, alpha_value);										// the tile on the bottom
 
+
+
 // draw the road if needed
 if (road){
 	var ind = 0;
