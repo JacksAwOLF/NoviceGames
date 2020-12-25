@@ -267,11 +267,11 @@ function plane_execute_move(planeInst, toTilePos) {
 	if (global.edit || network_my_turn()) update_fog();
 }
 
-function soldier_execute_move(frTilePos, toTilePos, dir){
+function soldier_execute_move(frTileInst, toTilePos, dir){
 
 
 	// move to the pushed back tile (not  changing x or y)]
-	var fr = global.grid[frTilePos], to = global.grid[toTilePos];
+	var fr = frTileInst, to = global.grid[toTilePos];
 
 	var t = fr.soldier;
 	fr.soldier = -1;
@@ -282,7 +282,7 @@ function soldier_execute_move(frTilePos, toTilePos, dir){
 
 
 	with(to.soldier) direction = dir;
-	send_buffer(BufferDataType.soldierMoved, array(frTilePos, toTilePos, dir));
+	send_buffer(BufferDataType.soldierMoved, array(frTileInst, toTilePos, dir));
 
 	if (global.edit || network_my_turn()) update_fog();
 	else {
