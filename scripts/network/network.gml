@@ -6,25 +6,33 @@ enum BufferDataType{
 	soldierAttacked, 
 	soldierCreated,  
 	changeHutPosition, 
+	formationCombine,
+	formationRemoveTile,
 	yourMove, mapData
 };
 
-// indices are the values of the enum
-global.buffer_sizes = array(7, 5, 7, 5, 1);     //  number of bytes each buffer type has
-global.buffer_dataT = array( 
-	array(buffer_u16, buffer_u16, buffer_u16),   // moving data: fromTilePos toTilePos soldierDirection
-	array(buffer_u16, buffer_u16),                 //  attack data:  fromTilePos  toTilePos
-	array(buffer_u16, buffer_u16, buffer_u16),     // create data:  spriteIndex     tilePos   fromTilePOs
-	array(buffer_u16, buffer_u16)					// hut change spawn position
-);
+// number of buffer_u16 (2 bytes) that the buffer will conttain
+// if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
+// note: real buffer size actually +1 bc first byte indicates which BufferDDataType
+global.buffer_sizes[BufferDataType.soldierMoved] = 3;
+global.buffer_sizes[BufferDataType.soldierAttacked] = 2;
+global.buffer_sizes[BufferDataType.soldierCreated] = 3;
+global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
+global.buffer_sizes[BufferDataType.formationCombine] = 2;
+global.buffer_sizes[BufferDataType.formationRemoveTile] = 2;
+global.buffer_sizes[BufferDataType.yourMove] = 0;
 
+/* for naval we  need to encode the attacker
+function encode_attacker(tilePos, inst){	
+	
+}
 
+function decode_attacker(tilePos, num){
+	
+}
+*/
 
-// data to send should just be moving data and attack data
-// and soldier create data or destroy data
-// also updating a global variable
-
-
+// stupid function
 function client_connected(outfalse, outtrue){
 	if outfalse == undefined outfalse = true;
 	if outtrue == undefined outtrue = true;
@@ -44,15 +52,15 @@ function client_connected(outfalse, outtrue){
 
 
 /// @function read and execute moves for a buffer (turn must be incremented first)
-
 function read_buffer(buff){
 	
 	buffer_seek(buff, buffer_seek_start, 0);
 	var type  = buffer_read(buff, buffer_u8);
 	var data = [];
+	
 	if (type != BufferDataType.yourMove && type != BufferDataType.mapData)
-		for (var i=0; i<array_length(global.buffer_dataT[type]); i++)
-			data[i] = buffer_read(buff, global.buffer_dataT[type][i]);
+		for (var i=0; i<global.buffer_sizes[type]; i++)
+			data[i] = buffer_read(buff, buffer_u16);
 	
 	
 	switch(type){
@@ -61,7 +69,8 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierAttacked:
-			soldier_execute_attack(data[0], data[1]);
+			debug("read:", data)
+			soldier_attack_tile(global.grid[data[0]].soldier, data[1]); // assuming only soldiers can make attacks
 			break;
 			
 		case BufferDataType.soldierCreated:
@@ -82,6 +91,14 @@ function read_buffer(buff){
 			
 		case BufferDataType.changeHutPosition:
 			exchange_hut_spawn_position(data[0], data[1]);
+			break;
+		
+		case BufferDataType.formationCombine:
+			addIntoFormationSoldier(global.grid[data[0]], global.grid[data[1]]);
+			break;
+			
+		case BufferDataType.formationRemoveTile:
+			removeFromFormation(data[0], global.grid[data[1]]);
 			break;
 	}
 	
@@ -104,19 +121,22 @@ function send_buffer(type, data){
 	if (!global.edit && network_my_turn() && instance_number(obj_server) >= 1){
 		
 		var t = instance_find(obj_server, 0);
-		var buff = buffer_create(global.buffer_sizes[type], buffer_fixed, 1);
+		var n = global.buffer_sizes[type];
+		var buff = buffer_create(2*n+1, buffer_fixed, 1);
 		
 		buffer_seek(buff, buffer_seek_start, 0);
 		buffer_write(buff, buffer_u8, type);
 		
+		//debug(data, n);
+		
 		if (type != BufferDataType.yourMove)
-			for (var i=0; i<array_length(global.buffer_dataT[type]); i++)
-				buffer_write(buff, global.buffer_dataT[type][i], data[i]);
+			for (var i=0; i<n; i++)
+				buffer_write(buff, buffer_u16, real(data[i]));
 		
 		
 		var s = (global.action == "client" ? t.socket : t.osocket);
 		network_send_packet(s, buff, buffer_get_size(buff));
-		
+		debug("sent", data);
 		buffer_delete(buff);
 	}
 	

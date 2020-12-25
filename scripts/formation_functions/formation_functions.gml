@@ -99,9 +99,11 @@ function addIntoFormationSoldier(tileInstance1, tileInstance2) {
 		formationId = array_length(global.formation);
 		global.formation[formationId] = { team : tileInstance1.soldier.team, 
 										  tiles : [tileInstance2]};
-										  
+
 		tileInstance2.soldier.formation = formationId;
 	}
+		
+	send_buffer(BufferDataType.formationCombine, [tileInstance1.pos, tileInstance2.pos])
 	
 	return addIntoFormationId(tileInstance1, formationId);
 }
@@ -135,5 +137,8 @@ function removeFromFormation(formationId, tileInstance) {
 	}
 	
 	tileInstance.soldier.formation = -1;
+	
+	send_buffer(BufferDataType.formationRemoveTile, [formationId, tileInstance.pos]);
+	
 	return true;
 }

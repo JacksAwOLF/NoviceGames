@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description left click
 // You can write your code in this editor
 
 
@@ -143,7 +143,7 @@ if (!edit || global.changeSprite == -1){
 
 		else if (soldier != -1) {
 			if(soldier.team == (global.turn)%2 && myturn){
-				global.selectedSoldier = soldier;
+				global.selectedSoldier = soldier; 
 
 				if (soldier.formation != -1){
 

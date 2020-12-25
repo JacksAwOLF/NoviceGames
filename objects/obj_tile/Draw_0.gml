@@ -142,8 +142,8 @@ if (soldier != -1 && !hide_soldier){
 	var ccc = c_white;
 	if (soldier.formation != -1 && soldier.formation == global.selectedFormation) {
 		soldier_index = 1;
-		if (global.selectedSoldier.tilePos != id)
-			ccc = c_aqua;
+		//if (global.selectedSoldier.tilePos != id)
+		ccc = c_aqua;
 	}
 	
 

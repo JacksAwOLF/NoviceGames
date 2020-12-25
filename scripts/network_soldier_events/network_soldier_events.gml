@@ -134,6 +134,8 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 	else attacked = to.hut;
 
 	soldier_execute_attack(attackUnitInst, attacked);
+	
+	send_buffer(BufferDataType.soldierAttacked, array(attackUnitInst.tilePos.pos, toTilePos));
 }
 
 // @function actually execute an attack
@@ -246,7 +248,7 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 			attacked.moveCost = 6969;
 	}
 
-	send_buffer(BufferDataType.soldierAttacked, array(attackerUnitInst, to.pos));
+	
 
 	erase_blocks(true);
 	if (fr.soldier == global.selectedSoldier)

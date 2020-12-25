@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description left press
 // You can write your code in this editor
 
 // if mouse in and left is pressed down, we change the tiles if neccessary

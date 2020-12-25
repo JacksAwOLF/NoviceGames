@@ -39,9 +39,9 @@ function append(arr, val){
 }	
 
 
-function posInArray(argument0, argument1) {
-	for (var i=0; i<array_length(argument0); i++)
-		if (argument0[i] == argument1)
+function posInArray(arr, val) {
+	for (var i=0; i<array_length(arr); i++)
+		if (arr[i] == val)
 			return  i;
 	return -1;
 }

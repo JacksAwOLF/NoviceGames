@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description right click
 // You can write your code in this editor
 
 if (global.selectedSoldier != -1 || global.selectedFormation != -1) {
