@@ -65,7 +65,7 @@ function read_buffer(buff){
 	
 	switch(type){
 		case BufferDataType.soldierMoved:
-			soldier_execute_move(data[0], data[1], data[2]);
+			soldier_execute_move(global.grid[data[0]], data[1], data[2]);
 			break;
 			
 		case BufferDataType.soldierAttacked:

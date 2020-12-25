@@ -279,10 +279,8 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 
 	t.tilePos = to;
 
-
-
 	with(to.soldier) direction = dir;
-	send_buffer(BufferDataType.soldierMoved, array(frTileInst, toTilePos, dir));
+	send_buffer(BufferDataType.soldierMoved, array(frTileInst.pos, toTilePos, dir));
 
 	if (global.edit || network_my_turn()) update_fog();
 	else {
