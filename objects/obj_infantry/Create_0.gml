@@ -37,3 +37,5 @@ planeFinished = true;			// returning back to base
 
 formIndication = false;
 formation = -1;
+
+lastMoved = 0;					// last moved for snow

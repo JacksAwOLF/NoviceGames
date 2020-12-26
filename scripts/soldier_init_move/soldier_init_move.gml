@@ -12,7 +12,7 @@ function possible_move_tiles(tileId) {
 	if (s.tower != -1 && !is_my_team(s.tower)) return false;
 
 	// cant go if enemy hut is here (or nuetral one)
-	if (s.hut != -1 && s.hut.team != -1 && !is_my_team(s.hut)) return false;
+	if (s.hut != -1 && (s.hut.team == -1 || !is_my_team(s.hut))) return false;
 
 	return true;
 }
@@ -34,6 +34,48 @@ function possible_move_tiles_including_selected(tileId) {
 	return true;
 }
 
+
+// assuming that global.selectedSoldier is soldier to move and that
+// this function is being used to calculate possible moves for selectedSoldier
+function possible_move_considering_weather(tilePos, energyTo, leftoverDistance) {
+	if (!possible_move_tiles_including_selected(tilePos))
+		return false;
+		
+	switch (global.weather) {
+		case Weather.RAINY:
+			var rowDiff = getRowDiff(tilePos, global.rain_center_pos);
+			var colDiff = getColDiff(tilePos, global.rain_center_pos);
+			
+			// if outside rain, resume normal operation
+			if (rowDiff*rowDiff + colDiff*colDiff > global.rain_radius_squared)
+				break;
+				
+		case Weather.SNOWY:
+			// allow if adjacent to selectedSoldier or snowy and there's a road
+			if (abs(getRowDiff(tilePos, global.selectedSoldier.tilePos.pos)) + abs(getColDiff(tilePos, global.selectedSoldier.tilePos.pos)) == 1)
+				return true;
+			else if (global.grid[tilePos].road && global.weather == Weather.SNOWY)
+				return true;
+			
+			// if you can move to another tile, this tile is reachable
+			var dir = [global.mapWidth, -global.mapWidth, 1, -1];
+			for (var i = 0; i < 4; i++) {
+				var nxtTilePos = tilePos + dir[i];
+				
+				if (nxtTilePos < 0 || nxtTilePos >= global.mapWidth * global.mapHeight)
+					continue;
+				else if (energyTo[get_tile_type(global.grid[nxtTilePos])] <= leftoverDistance)
+					return true;
+			}
+			
+			
+			return false;
+	}
+	
+	return true;
+}
+
+
 function soldier_init_move() {
 	if (global.selectedSoldier == -1)
 		return;
@@ -46,9 +88,10 @@ function soldier_init_move() {
 
 	with(global.selectedSoldier){
 		if (can-moveCost>=0){
+			
 			global.poss_moves = get_tiles_from(
 				source.pos, move_range-global.pathCost, global.energy[unit_id], true,
-				(is_plane(id) ? return_true : possible_move_tiles_including_selected)
+				(is_plane(id) ? return_true : possible_move_considering_weather)
 			);
 
 			if (source != tilePos && global.dist[tilePos.pos] != -1)

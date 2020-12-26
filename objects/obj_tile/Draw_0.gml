@@ -4,8 +4,18 @@
 var alpha_value = 1;
 if (hide_soldier) alpha_value = 0.5;
 
+
+var inRain = false;
+
+if (global.weather == Weather.RAINY) {
+	var rowDiff = getRowDiff(pos, global.rain_center_pos);
+	var colDiff = getColDiff(pos, global.rain_center_pos);
+	
+	inRain = (rowDiff*rowDiff + colDiff*colDiff <= global.rain_radius_squared);
+}
+
 // draw the terrain
-draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, c_white, alpha_value);										// the tile on the bottom
+draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, (inRain ? c_teal : c_white), alpha_value);										// the tile on the bottom
 
 
 

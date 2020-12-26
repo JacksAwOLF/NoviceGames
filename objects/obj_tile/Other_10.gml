@@ -20,8 +20,6 @@ tile_changeSprite();
 
 // this block handles events where we didn't put things on the front
 if (!edit || global.changeSprite == -1){
-
-	//formationReset()
 	
 	if (global.selectedSoldier != -1) {
 		if (possible_attack && !hide_soldier) { // process attacking

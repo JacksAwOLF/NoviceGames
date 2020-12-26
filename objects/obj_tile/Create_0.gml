@@ -36,8 +36,9 @@ tower = -1;
 
 // other variables are initialized in script create_map
 
-
-
+// multi-purpose flag; only use this flag if the code runs sequentially
+// aka don't assume that this flag won't change if other code runs in between yours
+flag = false;	
 
 edit = global.edit;
 preMouseIn  = false;

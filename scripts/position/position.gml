@@ -13,11 +13,11 @@ function getPos(row, col){
 }
 
 function getRowDiff(pos1, pos2){
-	return (getRow(pos2) - getRow(pos1) + global.mapHeight) % global.mapHeight;
+	return (getRow(pos2) - getRow(pos1));
 }
 
 function getColDiff(pos1, pos2){
-	return (getCol(pos2) - getCol(pos1) + global.mapWidth) % global.mapWidth;
+	return (getCol(pos2) - getCol(pos1));
 }
 
 
