@@ -58,7 +58,6 @@ if (global.selectedSoldier != -1){
 				for (var i = pathSize-1; i >= 0; i--)
 					planePath[pathSize-i-1] = pathpoints[i];
 				
-				debug("calling from ttile double click", id)
 				finalize_deployment(id);
 				
 				
