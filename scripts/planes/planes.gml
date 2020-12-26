@@ -7,9 +7,10 @@ function advance_plane_inner_loop(planeInst){
 		
 	if (planeInst.planeFinished) {
 			
-		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) 
-		//if (plane_navigate_to(planeInst, planeInst.tilePos)) 
-			destroy_soldier(planeInst);
+		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) {
+			debug("destroiying plane on ", global.action);
+			destroy_soldier(planeInst, true);
+		}
 			
 	} else with (planeInst) {
 		switch (unit_id) {

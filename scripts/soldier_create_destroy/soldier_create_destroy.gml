@@ -1,9 +1,17 @@
 
 // @function Destroys the soldier at pos
 // @param soldier instance to destroy
-function destroy_soldier(soldierInstance) {
+function destroy_soldier(soldierInstance, sendPacket) {
+	
+	if (sendPacket == undefined) sendPacket = false;
+	
+	
 	if (soldierInstance == -1)
 		return;
+		
+	if (sendPacket) send_buffer(BufferDataType.soldierDestroyed, 
+		array(soldierInstance.tilePos.pos, encode_possible_attack_objects(soldierInstance))
+	);
 
 	with (soldierInstance) {
 		if (is_plane(id)) {
@@ -32,6 +40,7 @@ function destroy_soldier(soldierInstance) {
 		instance_destroy();
 		update_fog();
 	}
+	
 }
 
 // @function Initialize the global soldier variables; class should be set already

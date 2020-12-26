@@ -14,12 +14,15 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 // @function actually execute an attack
 function soldier_execute_attack(attackerUnitInst, attacked){
 	
-	debug("attack execute", global.action, attacked.tilePos.planeArr);
+	debug("attack execute1", global.action, attacked.tilePos.planeArr);
+	debug(attackerUnitInst, attacked);
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;
 
-	var damage = calculate_damage(fr.soldier, attacked);
-	debug("attack execute", global.action, attacked.tilePos.planeArr);
+	
+
+	var damage = calculate_damage(attackerUnitInst, attacked);
+	debug("attack execute2", global.action, attacked.tilePos.planeArr);
 	// process attacking from the side
 	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
 		var ohko = false, posdiff = fr.pos - to.pos;
@@ -33,26 +36,43 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	}
 
 	attacked.my_health -= damage;
-	fr.soldier.can -= fr.soldier.attackCost;
+	attackerUnitInst.can -= attackerUnitInst.attackCost;
 
-	debug("attack execute", global.action, attacked.tilePos.planeArr);
+	debug("attack execute3", global.action, attacked.tilePos.planeArr);
+	
+	
+	send_buffer(
+		BufferDataType.soldierAttacked, 
+		array(
+			attackerUnitInst.tilePos.pos, 
+			to.pos, 
+			encode_possible_attack_objects(attackerUnitInst),
+			encode_possible_attack_objects(attacked)
+		)
+	);
+	
+	
 
 	if (attacked.my_health <= 0){
 
+		debug("inside destroy <0", attacked.object_index);
+
 		if (attacked.object_index == obj_hut && attacked.nuetral == true) {
 
+			debug("hut");
 
 			// conquer the hut, or destroy it (based on the attacking unit's hut limit)
-			if (global.hutlimit[fr.soldier.unit_id] == -1) {
+			if (global.hutlimit[attackerUnitInst.unit_id] == -1) {
 				instance_destroy(attacked);
 				attacked.hut = -1;
 			} else {
-				attacked.soldier = fr.soldier;
+				attacked.soldier = attackerUnitInst;
 				with(attacked) event_user(10);
 			}
 
 		} else if (attacked.object_index == obj_tower) {
 
+			debug("tower");
 			// if someone was teleporting to this place already
 			if (to.originHutPos != -1) {
 				var originGrid = global.grid[to.originHutPos];
@@ -79,17 +99,18 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 			} else {
 				// make this tower into a teleport place
 				attacked.team = (attacked.team+1)%2;
-				append(global.conqueredTowers[fr.soldier.team], to);
+				append(global.conqueredTowers[attackerUnitInst.team], to);
 			}
 
 
 
-		}
+		} //else if (object_index == )
 
 		else{
 			switch(attacked.object_index){
 				case obj_infantry:
-					destroy_soldier(attacked); break;
+					debug("desstroy this ")
+					destroy_soldier(attacked, false); break;
 
 				case obj_hut:
 					global.grid[attacked.spawnPos].originHutPos = -1;
@@ -119,28 +140,20 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 
 	// melee unit fixing ability
 	// this is returned back to default in next_move
-	else if (is_infantry(fr.soldier) && attacked.object_index == obj_infantry){
+	else if (is_infantry(attackerUnitInst) && attacked.object_index == obj_infantry){
 		if (are_tiles_adjacent(fr.pos, to.pos)) // implemented in grid_helper_functions
 			attacked.moveCost = 6969;
 	}
-	debug("attack execute", global.action, attacked.tilePos.planeArr);
+	debug("attack execute4", global.action, attacked.tilePos.planeArr);
 	
 
 	erase_blocks(true);
-	if (fr.soldier == global.selectedSoldier)
+	if (attackerUnitInst == global.selectedSoldier)
 		global.selectedSoldier = -1;
 		
-	debug("attack execute", global.action, attacked.tilePos.planeArr);
+	debug("attack execute5", global.action, attacked.tilePos.planeArr);
 	
-	send_buffer(
-		BufferDataType.soldierAttacked, 
-		array(
-			attackerUnitInst.tilePos.pos, 
-			attacked.tilePos.pos, 
-			encode_possible_attack_objects(attackerUnitInst),
-			encode_possible_attack_objects(attacked)
-		)
-	);
+	
 }
 
 

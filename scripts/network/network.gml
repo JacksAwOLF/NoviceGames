@@ -11,7 +11,8 @@ enum BufferDataType{
 	deployPlane,
 	finallyDeployPlane,
 	planeMoved,
-	yourMove, mapData
+	yourMove, mapData,
+	soldierDestroyed
 };
 
 // number of buffer_u16 (2 bytes) that the buffer will conttain
@@ -27,6 +28,7 @@ global.buffer_sizes[BufferDataType.yourMove] = 0;
 global.buffer_sizes[BufferDataType.deployPlane] = 2;
 global.buffer_sizes[BufferDataType.finallyDeployPlane] = 3;
 global.buffer_sizes[BufferDataType.planeMoved] = 3;
+global.buffer_sizes[BufferDataType.soldierDestroyed] = 2;
 
 
 // stupid function
@@ -116,11 +118,7 @@ function read_buffer(buff){
 			removeFromFormation(data[0], global.grid[data[1]]);
 			break;
 			
-		/*case BufferDataType.deployPlane:
-			var who = global.grid[data[1]].soldier;
-			update_stored_plane(data[0], who);
-			deploy_plane(who);
-			break;*/
+	
 		case BufferDataType.finallyDeployPlane:
 			if (data[2] == 65535) data[2] = -1;
 			
@@ -140,6 +138,11 @@ function read_buffer(buff){
 			var planeArrInd = data[1];
 			var toTilePos = data[2];
 			plane_execute_move(global.grid[fromTilePos].planeArr[planeArrInd], toTilePos);
+			break;
+			
+		case BufferDataType.soldierDestroyed:
+			debug("rec destroy", data);
+			destroy_soldier(decode_possible_attack_objects(data[0], data[1]), true);
 			break;
 		
 	}

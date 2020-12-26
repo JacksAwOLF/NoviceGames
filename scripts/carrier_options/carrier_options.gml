@@ -8,6 +8,7 @@ function update_stored_plane(new_unit_id, who) {
 		
 		storedPlaneInst.unit_id = new_unit_id;
 		storedPlaneInst.isActive = false;
+		storedPlaneInst.team = global.turn % 2 ;
 		init_global_soldier_vars(storedPlaneInst);
 	}
 }
