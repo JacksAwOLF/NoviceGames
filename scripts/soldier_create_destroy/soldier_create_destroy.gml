@@ -39,6 +39,7 @@ function destroy_soldier(soldierInstance) {
 function init_global_soldier_vars(soldierId){
 	with(soldierId){
 		
+		lastMoved = global.turn;
 		
 		attack_range = global.attack_range[unit_id];
 		max_health = global.max_health[unit_id];

@@ -26,7 +26,8 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	var t = fr.soldier;
 	fr.soldier = -1;
 	to.soldier = t;
-
+	
+	t.lastMoved = global.turn;
 	t.tilePos = to;
 
 	with(to.soldier) direction = dir;
