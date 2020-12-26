@@ -108,11 +108,8 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	// integrate soldier into tile
 	with (global.grid[pos]) {
 		if (is_plane(created_soldier)) {
-			
-			debug("add intto arra", global.action, created_soldier);
 			add_into_array(planeArr, created_soldier);
 			ds_list_add(global.allPlanes[soldier.team], created_soldier);
-			debug("  arra", global.allPlanes[soldier.team]);
 
 		} else if (soldier == -1) {
 			soldier = created_soldier;
@@ -136,10 +133,6 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	
 	
 	if (sendPacket){
-		debug("encoding creation obhect", 
-			encode_possible_creation_objects(fromUnitInst), 
-			fromUnitInst, fromUnitInst.object_index, obj_infantry)
-		
 		send_buffer(
 			BufferDataType.soldierCreated, 
 			array(

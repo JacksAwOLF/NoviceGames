@@ -68,24 +68,15 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierAttacked:
-			debug("rec attackeed", data);
-			
 			var attacker =  decode_possible_attack_objects(data[0], data[2]),
 				attacked = decode_possible_attack_objects(data[1], data[3]);
-	
-			
-			debug(attacker, attacked);
-			debug(attacker.tilePos.pos, attacked.tilePos.pos);
-			debug(attacker.tilePos.planeArr, attacked.tilePos.planeArr);
 			
 			soldier_execute_attack(attacker, attacked); 
 			break;
 			
 		case BufferDataType.soldierCreated:
-
 			if (data[3] == 65535) data[3] = -1;
 			if (data[4] == 65535) data[4] = -1;
-			debug("rec creation", data);
 		
 			create_soldier(
 				data[0], data[1], data[2],  
@@ -122,18 +113,15 @@ function read_buffer(buff){
 		case BufferDataType.finallyDeployPlane:
 			if (data[2] == 65535) data[2] = -1;
 			
-			debug("rec ddeploy", data);
 			var planeUnitId = data[0];
 			var who = global.grid[data[1]].soldier;
 			update_stored_plane(planeUnitId, who);
 			who.storedPlaneInst.bindedCarrier = who;
 			finalize_deployment(who.storedPlaneInst, data[2]);
 			who.bindedPlane.bindedCarrier = who.storedPlaneInst.bindedCarrier;
-			with(who) debug("check out binded plane", bindedPlane.unitLockedOn, bindedPlane.bindedCarrier.tilePos.pos);
 			break;
 			
 		case BufferDataType.planeMoved:
-			debug("rec plane move", data, global.action);
 			var fromTilePos = data[0];
 			var planeArrInd = data[1];
 			var toTilePos = data[2];
@@ -141,16 +129,12 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierDestroyed:
-			debug("rec destroy", data);
 			destroy_soldier(decode_possible_attack_objects(data[0], data[1]), true);
 			break;
 		
 	}
 	
 	buffer_delete(buff);
-	
-	
-	//debug("formation:",global.formation)
 }
 
 
@@ -174,8 +158,6 @@ function send_buffer(type, data){
 		
 		buffer_seek(buff, buffer_seek_start, 0);
 		buffer_write(buff, buffer_u8, type);
-		
-		debug("sending", type, data);
 		
 		if (type != BufferDataType.yourMove)
 			for (var i=0; i<n; i++)

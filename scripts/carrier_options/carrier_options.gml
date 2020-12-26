@@ -84,14 +84,6 @@ function deploy_plane(who) {
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
 		}
 	}
-	
-	/*send_buffer(
-		BufferDataType.deployPlane,
-		array(who.storedPlaneInst.unit_id, who.tilePos.pos)
-	);
-	
-	debug("ok now sstoredd plane inst shsould have it", who.storedPlaneInst.bindedCarrier);*/
-	
 }
 
 function finalize_deployment(planeInst, tileClickedOnPos) {
@@ -117,8 +109,6 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 				bindedPlane = create_soldier(Units.BOMBER, team, tilePos.pos, -1, false, false);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
 				
-				debug("whatss going on", planeInst.unitLockedOn);
-				
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
 				break;
 				
@@ -133,7 +123,6 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 							break;
 						}
 					}
-				debug("selected unit lock on!", planeInst.unitLockedOn, tileClickedOnInst.planeArr)
 				
 				bindedPlane = create_soldier(Units.FIGHTER, team, tilePos.pos, -1, false, false);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
@@ -149,12 +138,6 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 		bindedPlane.planeFinished = false;
 		bindedPlane.bindedCarrier = planeInst.bindedCarrier;
 	}
-	
-	debug("made binded plane with ", 
-		planeInst.bindedCarrier, 
-		planeInst.bindedCarrier.tilePos.pos,
-		planeInst.bindedCarrier.bindedPlane
-	);
 	
 	send_buffer(
 		BufferDataType.finallyDeployPlane,

@@ -10,10 +10,6 @@ function plane_execute_move(planeInst, toTilePos) {
 	//	planeInst.direction = dir; for now, no direction
 
 	if (global.edit || network_my_turn()) update_fog();
-	
-	debug(global.action, "plane moved", fromTileInst.pos, toTilePos);
-	debug("planeArr", global.grid[toTilePos].planeArr);
-	
 	send_buffer(BufferDataType.planeMoved, array(fromTileInst.pos, fromTilePlaneIndex, toTilePos));
 }
 

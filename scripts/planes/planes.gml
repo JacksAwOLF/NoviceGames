@@ -2,13 +2,9 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 function advance_plane_inner_loop(planeInst){
-	debug("all planess", global.action, global.allPlanes)
-	debug("advance", planeInst.tilePos.pos, planeInst.bindedCarrier.tilePos.pos);
-		
+	
 	if (planeInst.planeFinished) {
-			
 		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) {
-			debug("destroiying plane on ", global.action);
 			destroy_soldier(planeInst, true);
 		}
 			
@@ -16,8 +12,6 @@ function advance_plane_inner_loop(planeInst){
 		switch (unit_id) {
 			case Units.BOMBER:
 			case Units.FIGHTER:
-				
-				debug(global.action, "plane going towareds", unitLockedOn.tilePos.pos);
 				
 				if (unitLockedOn.tilePos.hide_soldier) {
 					planeFinished = true;

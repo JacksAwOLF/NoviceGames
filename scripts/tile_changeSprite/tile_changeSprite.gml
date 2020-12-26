@@ -81,7 +81,6 @@ function tile_changeSprite(){
 
 				if (hut != -1){
 					hut.tilePos = id;
-					debug("setting hut to ", id, id.object_index, obj_tile)
 					hut.spawnPos = pos;
 					originHutPos = pos;
 				}
