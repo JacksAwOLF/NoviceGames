@@ -8,6 +8,9 @@ enum BufferDataType{
 	changeHutPosition, 
 	formationCombine,
 	formationRemoveTile,
+	deployPlane,
+	finallyDeployPlane,
+	planeMoved,
 	yourMove, mapData
 };
 
@@ -15,22 +18,16 @@ enum BufferDataType{
 // if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
 // note: real buffer size actually +1 bc first byte indicates which BufferDDataType
 global.buffer_sizes[BufferDataType.soldierMoved] = 3;
-global.buffer_sizes[BufferDataType.soldierAttacked] = 3;
-global.buffer_sizes[BufferDataType.soldierCreated] = 4;
+global.buffer_sizes[BufferDataType.soldierAttacked] = 4;
+global.buffer_sizes[BufferDataType.soldierCreated] = 5;
 global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
 global.buffer_sizes[BufferDataType.formationCombine] = 2;
 global.buffer_sizes[BufferDataType.formationRemoveTile] = 2;
 global.buffer_sizes[BufferDataType.yourMove] = 0;
+global.buffer_sizes[BufferDataType.deployPlane] = 2;
+global.buffer_sizes[BufferDataType.finallyDeployPlane] = 3;
+global.buffer_sizes[BufferDataType.planeMoved] = 3;
 
-/* for naval we  need to encode the attacker
-function encode_attacker(tilePos, inst){	
-	
-}
-
-function decode_attacker(tilePos, num){
-	
-}
-*/
 
 // stupid function
 function client_connected(outfalse, outtrue){
@@ -51,7 +48,6 @@ function client_connected(outfalse, outtrue){
 }
 
 
-
 /// @function read and execute moves for a buffer (turn must be incremented first)
 function read_buffer(buff){
 	
@@ -70,18 +66,28 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierAttacked:
-			soldier_execute_attack(
-				global.grid[data[0]].soldier, // assuming only soldiers can make attacks
-				decode_possible_attacked_objects(data[1], data[2])
-			); 
+			debug("rec attackeed", data);
+			
+			var attacker =  decode_possible_attack_objects(data[0], data[2]),
+				attacked = decode_possible_attack_objects(data[1], data[3]);
+	
+			
+			debug(attacker, attacked);
+			debug(attacker.tilePos.pos, attacked.tilePos.pos);
+			debug(attacker.tilePos.planeArr, attacked.tilePos.planeArr);
+			
+			soldier_execute_attack(attacker, attacked); 
 			break;
 			
 		case BufferDataType.soldierCreated:
-			debug("received", data);
-			debug(decode_possible_creation_objects(data[2], data[3]))
+
+			if (data[3] == 65535) data[3] = -1;
+			if (data[4] == 65535) data[4] = -1;
+			debug("rec creation", data);
+		
 			create_soldier(
-				data[0], data[1], 
-				decode_possible_creation_objects(data[2], data[3]), 
+				data[0], data[1], data[2],  
+				decode_possible_creation_objects(data[3], data[4]), 
 				false
 			); 
 			break;
@@ -109,9 +115,39 @@ function read_buffer(buff){
 		case BufferDataType.formationRemoveTile:
 			removeFromFormation(data[0], global.grid[data[1]]);
 			break;
+			
+		/*case BufferDataType.deployPlane:
+			var who = global.grid[data[1]].soldier;
+			update_stored_plane(data[0], who);
+			deploy_plane(who);
+			break;*/
+		case BufferDataType.finallyDeployPlane:
+			if (data[2] == 65535) data[2] = -1;
+			
+			debug("rec ddeploy", data);
+			var planeUnitId = data[0];
+			var who = global.grid[data[1]].soldier;
+			update_stored_plane(planeUnitId, who);
+			who.storedPlaneInst.bindedCarrier = who;
+			finalize_deployment(who.storedPlaneInst, data[2]);
+			who.bindedPlane.bindedCarrier = who.storedPlaneInst.bindedCarrier;
+			with(who) debug("check out binded plane", bindedPlane.unitLockedOn, bindedPlane.bindedCarrier.tilePos.pos);
+			break;
+			
+		case BufferDataType.planeMoved:
+			debug("rec plane move", data, global.action);
+			var fromTilePos = data[0];
+			var planeArrInd = data[1];
+			var toTilePos = data[2];
+			plane_execute_move(global.grid[fromTilePos].planeArr[planeArrInd], toTilePos);
+			break;
+		
 	}
 	
 	buffer_delete(buff);
+	
+	
+	//debug("formation:",global.formation)
 }
 
 
@@ -136,7 +172,7 @@ function send_buffer(type, data){
 		buffer_seek(buff, buffer_seek_start, 0);
 		buffer_write(buff, buffer_u8, type);
 		
-		//debug(data, n);
+		debug("sending", type, data);
 		
 		if (type != BufferDataType.yourMove)
 			for (var i=0; i<n; i++)
@@ -145,7 +181,7 @@ function send_buffer(type, data){
 		
 		var s = (global.action == "client" ? t.socket : t.osocket);
 		network_send_packet(s, buff, buffer_get_size(buff));
-		debug("sent", data);
+		
 		buffer_delete(buff);
 	}
 	

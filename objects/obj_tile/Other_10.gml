@@ -25,11 +25,17 @@ if (!edit || global.changeSprite == -1){
 	
 	if (global.selectedSoldier != -1) {
 		if (possible_attack && !hide_soldier) { // process attacking
-			if (global.selectedSoldier.unit_id == Units.BOMBER) {
-				global.selectedSoldier.unitLockedOn = soldier;
-				finalize_deployment(global.selectedSoldier);
+			
+			// put unitLockedOn in finalize deployment
+			
+			if (global.selectedSoldier.unit_id == Units.BOMBER || 
+				global.selectedSoldier.unit_id == Units.FIGHTER) {
+				
+				//global.selectedSoldier.unitLockedOn = soldier;   
+				
+				finalize_deployment(global.selectedSoldier, pos);
 
-			} else if (global.selectedSoldier.unit_id == Units.FIGHTER) {
+			} /*else if (global.selectedSoldier.unit_id == Units.FIGHTER) {
 				for (var i = 0; i < array_length(planeArr); i++) {
 					if (planeArr[i] != -1 && !is_my_team(planeArr[i])) {
 						global.selectedSoldier.unitLockedOn = planeArr[i];
@@ -39,9 +45,11 @@ if (!edit || global.changeSprite == -1){
 
 				finalize_deployment(global.selectedSoldier);
 
-			} else {
+			} */
+			else {
 				soldier_attack_tile(global.selectedSoldier, pos);
 			}
+			
 			global.selectedSoldier = -2;
 
 		}

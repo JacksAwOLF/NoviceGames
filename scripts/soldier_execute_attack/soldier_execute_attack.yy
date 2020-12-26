@@ -6,7 +6,7 @@
     "path": "folders/Scripts/soldier.yy",
   },
   "resourceVersion": "1.0",
-  "name": "network_soldier_events",
+  "name": "soldier_execute_attack",
   "tags": [],
   "resourceType": "GMScript",
 }

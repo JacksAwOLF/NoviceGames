@@ -68,9 +68,10 @@ if (global.selectedSoldier != -1){
 					can -= moveCost;
 				}
 				
-				var i; // i is index of first soldier encountered or  -1 of none
+				
+				var i = -1; // i is index of first soldier encountered or  -1 of none
 				var moveHereCost = 0;
-				for (i = array_length(path)-2; i>=0; i--){
+				for (i = max(-1, array_length(path)-2); i>=0; i--){
 					if (path[i].soldier!=-1 && path[i] != global.selectedSoldier.tilePos) break;	
 					moveHereCost += global.energy[unit_id][get_tile_type(path[i])];
 				}
@@ -78,19 +79,17 @@ if (global.selectedSoldier != -1){
 				move_range -= moveHereCost;
 				
 				
-				
+				error = false;
 				
 				// clear fog if encountered soldier (stuck and  can't move)
 				if (i != -1){
 					path[i].hide_soldier = false;
 					error = true;
 				}
-				
-				
-				// calculate direction  assuming you arrived  
-				//  at  the blocked  tile then  was pushed back
+					
 				if (error) i--;
-				var diff = path[i+1] - path[i+2];
+					
+				var diff = path[i+1] - path[i+2];	
 				switch (diff) {
 					case 1: direction = 270; break;
 					case -1: direction = 90; break;
@@ -99,7 +98,6 @@ if (global.selectedSoldier != -1){
 				}
 					
 				if (error) i++;
-				
 				
 				soldier_execute_move(global.selectedSoldier.tilePos,  path[i+1].pos, direction);
 				// global.selectedSoldier = path[i+1];

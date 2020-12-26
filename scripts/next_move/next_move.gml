@@ -19,7 +19,7 @@ function next_move() {
 		send_buffer(BufferDataType.yourMove, []);
 
 	// process moving planes
-	advance_planes();
+	//advance_planes();
 
 	global.turn++; // relative positioning is important
 

@@ -34,8 +34,12 @@ function tile_changeSprite(){
 			case spr_seaplane:
 			case spr_seaplane1:
 				if (soldier == -1) {
-					create_soldier(global.changeSprite,
-						pos, -1, true);
+					create_soldier(
+						posInArray(
+							global.soldierSelectTile[get_team(global.changeSprite)].binded_dropdown.options, global.changeSprite
+						) + global.soldier_vars[Svars.unit_page] * 3, get_team(global.changeSprite), 
+						pos, -1, true
+					);	
 				} else global.changeSprite = -1;
 				break;
 
@@ -96,3 +100,8 @@ function tile_changeSprite(){
 		if (client_connected(true, false) == 0) exit;
 	}
 }
+
+
+
+
+

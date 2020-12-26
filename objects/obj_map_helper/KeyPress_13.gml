@@ -7,5 +7,8 @@ if (global.edit || network_my_turn()){
 	//send_buffer(BufferDataType.yourMove, []);
 	
 	
+	advance_planes();
+	
+	
 	next_move();// update won is in here
 }

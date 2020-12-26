@@ -1,44 +1,59 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
+function advance_plane_inner_loop(planeInst){
+	debug("all planess", global.action, global.allPlanes)
+	debug("advance", planeInst.tilePos.pos, planeInst.bindedCarrier.tilePos.pos);
+		
+	if (planeInst.planeFinished) {
+			
+		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) 
+		//if (plane_navigate_to(planeInst, planeInst.tilePos)) 
+			destroy_soldier(planeInst);
+			
+	} else with (planeInst) {
+		switch (unit_id) {
+			case Units.BOMBER:
+			case Units.FIGHTER:
+				
+				debug(global.action, "plane going towareds", unitLockedOn.tilePos.pos);
+				
+				if (unitLockedOn.tilePos.hide_soldier) {
+					planeFinished = true;
+				} else if (plane_navigate_to(id, unitLockedOn.tilePos)) {
+					soldier_execute_attack(id, unitLockedOn);
+					planeFinished = true;
+				}
+					
+				break;
+					
+			case Units.RECON:
+				var index = 0;
+				while (index < array_length(planePath) && planePath[index] == -1)
+					index++;
+						
+				if (index < array_length(planePath)) {
+					plane_execute_move(id, planePath[index].pos);
+					planePath[index] = -1;
+				}
+					
+				planeFinished = (index == array_length(planePath));
+				break;
+		}
+	}
+}
+
 function advance_planes() {
 	for (var i = 0; i < ds_list_size(global.allPlanes[global.turn % 2]); i++) {
-		
 		var planeInst = global.allPlanes[global.turn % 2][|i];
-		
-		if (planeInst.planeFinished) {
-			if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) 
-				destroy_soldier(planeInst);
-			
-		} else with (planeInst) {
-			switch (unit_id) {
-				case Units.BOMBER:
-				case Units.FIGHTER:
-					if (unitLockedOn.tilePos.hide_soldier) {
-						planeFinished = true;
-					} else if (plane_navigate_to(id, unitLockedOn.tilePos)) {
-						soldier_execute_attack(id, unitLockedOn);
-						planeFinished = true;
-					}
-					
-					break;
-					
-				case Units.RECON:
-					var index = 0;
-					while (index < array_length(planePath) && planePath[index] == -1)
-						index++;
-						
-					if (index < array_length(planePath)) {
-						plane_execute_move(id, planePath[index].pos);
-						planePath[index] = -1;
-					}
-					
-					planeFinished = (index == array_length(planePath));
-					break;
-			}
-		}
-		
-		
+		if (planeInst.unit_id != Units.FIGHTER) continue;
+		advance_plane_inner_loop(planeInst);
+	}
+	
+	for (var i = 0; i < ds_list_size(global.allPlanes[global.turn % 2]); i++) {
+		var planeInst = global.allPlanes[global.turn % 2][|i];
+		if (planeInst.unit_id == Units.FIGHTER) continue;
+		advance_plane_inner_loop(planeInst);
 	}
 }
 

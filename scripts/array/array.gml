@@ -38,6 +38,11 @@ function append(arr, val){
 	return arr;
 }	
 
+function get_front_array(arr){
+	for (var i=0; i<array_length(arr); i++)
+		if (arr[i] != -1)
+			return arr[i];
+}
 
 function posInArray(arr, val) {
 	for (var i=0; i<array_length(arr); i++)

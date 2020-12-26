@@ -1,7 +1,8 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function update_stored_plane(new_unit_id) {
-	with (global.selectedSoldier) {
+function update_stored_plane(new_unit_id, who) {
+	if (who == undefined) who = global.selectedSoldier;
+	with (who) {
 		if (storedPlaneInst == -1)
 			storedPlaneInst = instance_create_depth(0,0,0,obj_infantry);
 		
@@ -46,13 +47,15 @@ function possible_fighter_attack(toTilePos) {
 	return false;
 }
 
-function deploy_plane() {
-	if (global.selectedSoldier.unit_id != Units.CARRIER)
+function deploy_plane(who) {
+	if (who == undefined) who = global.selectedSoldier;
+	
+	if (who.unit_id != Units.CARRIER)
 		show_error("Deploy plane called when seaplane carrier isn't selected", true);
-	else if (global.selectedSoldier.storedPlaneInst == -1)
+	else if (who.storedPlaneInst == -1)
 		return;
 		
-	with (global.selectedSoldier) {
+	with (who) {
 		
 		storedPlaneInst.bindedCarrier = id;
 		storedPlaneInst.tilePos = tilePos;
@@ -80,30 +83,58 @@ function deploy_plane() {
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
 		}
 	}
+	
+	/*send_buffer(
+		BufferDataType.deployPlane,
+		array(who.storedPlaneInst.unit_id, who.tilePos.pos)
+	);
+	
+	debug("ok now sstoredd plane inst shsould have it", who.storedPlaneInst.bindedCarrier);*/
+	
 }
 
-function finalize_deployment(planeInst) {
+function finalize_deployment(planeInst, tileClickedOnPos) {
+	
+	var tileClickedOnInst;
+	if (tileClickedOnPos == undefined) tileClickedOnPos = -1;
+	else tileClickedOnInst = global.grid[tileClickedOnPos];
 	
 	with (planeInst.bindedCarrier) {
 		switch(planeInst.unit_id) {
 			case Units.RECON:
-				var spr_index = asset_get_index("spr_recon" + (team == 1 ? "1" : ""));
-				bindedPlane = create_soldier(spr_index, tilePos.pos, -1, false, Units.RECON);
+				//var spr_index = asset_get_index("spr_recon" + (team == 1 ? "1" : ""));
+				bindedPlane = create_soldier(Units.RECON, team, tilePos.pos, -1, false, false);
 				bindedPlane.planePath = planeInst.planePath;
 				planeInst.planePath = -1;
 				
 				break;
 			case Units.BOMBER:
-				var spr_index = asset_get_index("spr_bomber" + (team == 1 ? "1" : ""));
-				bindedPlane = create_soldier(spr_index, tilePos.pos, -1, false, Units.BOMBER);
-				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
+			//	var spr_index = asset_get_index("spr_bomber" + (team == 1 ? "1" : ""));
 			
+				planeInst.unitLockedOn = tileClickedOnInst.soldier;
+				
+				bindedPlane = create_soldier(Units.BOMBER, team, tilePos.pos, -1, false, false);
+				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
+				
+				debug("whatss going on", planeInst.unitLockedOn);
+				
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
 				break;
 				
 			case Units.FIGHTER:
-				var spr_index = asset_get_index("spr_fighter" + (team == 1 ? "1" : ""));
-				bindedPlane = create_soldier(spr_index, tilePos.pos, -1, false, Units.FIGHTER);
+				//var spr_index = asset_get_index("spr_fighter" + (team == 1 ? "1" : ""));
+				
+				planeInst.unitLockedOn = -1;
+				with (tileClickedOnInst)
+					for (var i = 0; i < array_length(planeArr); i++) {
+						if (planeArr[i] != -1 && planeArr[i].team != global.turn%2) {
+							planeInst.unitLockedOn = planeArr[i];
+							break;
+						}
+					}
+				debug("selected unit lock on!", planeInst.unitLockedOn, tileClickedOnInst.planeArr)
+				
+				bindedPlane = create_soldier(Units.FIGHTER, team, tilePos.pos, -1, false, false);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
 				
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
@@ -117,5 +148,20 @@ function finalize_deployment(planeInst) {
 		bindedPlane.planeFinished = false;
 		bindedPlane.bindedCarrier = planeInst.bindedCarrier;
 	}
+	
+	debug("made binded plane with ", 
+		planeInst.bindedCarrier, 
+		planeInst.bindedCarrier.tilePos.pos,
+		planeInst.bindedCarrier.bindedPlane
+	);
+	
+	send_buffer(
+		BufferDataType.finallyDeployPlane,
+		array(
+			planeInst.unit_id, 
+			planeInst.bindedCarrier.tilePos.pos,
+			tileClickedOnPos
+		)
+	);
 }
 
