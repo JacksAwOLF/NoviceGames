@@ -88,8 +88,10 @@ function deploy_plane(who) {
 
 function finalize_deployment(planeInst, tileClickedOnPos) {
 	
+	debug("finalize, ddeplayoment", global.action, tileClickedOnPos)
+	
 	var tileClickedOnInst;
-	if (tileClickedOnPos == undefined) tileClickedOnPos = -1;
+	if (tileClickedOnPos == undefined || tileClickedOnPos == -1) tileClickedOnPos = -1;
 	else tileClickedOnInst = global.grid[tileClickedOnPos];
 	
 	with (planeInst.bindedCarrier) {
