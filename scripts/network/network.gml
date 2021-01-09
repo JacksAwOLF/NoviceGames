@@ -8,16 +8,18 @@ enum BufferDataType{
 	changeHutPosition, 
 	formationCombine,
 	formationRemoveTile,
+	formationAddTile,
+	formationDelete,
 	deployPlane,
 	finallyDeployPlane,
 	planeMoved,
 	yourMove, mapData,
-	soldierDestroyed
+	soldierDestroyed,
 };
 
 // number of buffer_u16 (2 bytes) that the buffer will conttain
 // if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
-// note: real buffer size actually +1 bc first byte indicates which BufferDDataType
+// note: real buffer size actually +1 bc first byte indicates which BufferDataType
 global.buffer_sizes[BufferDataType.soldierMoved] = 3;
 global.buffer_sizes[BufferDataType.soldierAttacked] = 4;
 global.buffer_sizes[BufferDataType.soldierCreated] = 5;
@@ -29,6 +31,11 @@ global.buffer_sizes[BufferDataType.deployPlane] = 2;
 global.buffer_sizes[BufferDataType.finallyDeployPlane] = 3;
 global.buffer_sizes[BufferDataType.planeMoved] = 3;
 global.buffer_sizes[BufferDataType.soldierDestroyed] = 2;
+global.buffer_sizes[BufferDataType.formationAddTile] = 2;
+
+// if we need to update more global variables in the future, write a more generalized function
+global.buffer_sizes[BufferDataType.formationDelete] = 1;		
+
 
 
 // stupid function
@@ -109,10 +116,16 @@ function read_buffer(buff){
 			removeFromFormation(data[0], global.grid[data[1]]);
 			break;
 			
+		case BufferDataType.formationAddTile:
+			addIntoFormationId(global.grid[data[0]], data[1])
+			break;
+			
+		case BufferDataType.formationDelete:	
+			disbandEntireFormation(data[0]);
+			break;
 	
 		case BufferDataType.finallyDeployPlane:
 			if (data[2] == 65535) data[2] = -1;
-			
 			var planeUnitId = data[0];
 			var who = global.grid[data[1]].soldier;
 			update_stored_plane(planeUnitId, who);
@@ -131,9 +144,10 @@ function read_buffer(buff){
 		case BufferDataType.soldierDestroyed:
 			destroy_soldier(decode_possible_attack_objects(data[0], data[1]), true);
 			break;
-		
 	}
-	
+
+	debug(global.action, global.formation);
+
 	buffer_delete(buff);
 }
 

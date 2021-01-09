@@ -1,4 +1,24 @@
 
+
+function disbandEntireFormation(formId){
+	if (formId != -1) {
+		var arr = global.formation[formId].tiles;
+		for (var i =0; i<array_length(arr); i++){
+			if (arr[i].soldier == -1)
+				continue;
+			arr[i].soldier.formation = -1;
+		}
+
+		send_buffer(BufferDataType.formationDelete, [formId]);
+
+		// replace this with a ds_list in the future
+		global.formation[formId] = -1;
+
+		event_perform_object(obj_map_helper, ev_keypress, vk_space);
+		formationReset();
+	}
+}
+
 function checkFormationCompatibleId(tileInstance1, formationId) {
 	if (tileInstance1.soldier == -1 || tileInstance1.soldier.team != global.formation[formationId].team)
 		return false;
@@ -65,7 +85,8 @@ function checkFormationCompatibleSoldier(tileInstance1, tileInstance2){
 
 // add tileInstance1 into formation with formationId
 // returns formation id if success, -1 if fail
-function addIntoFormationId(tileInstance1, formationId) {
+function addIntoFormationId(tileInstance1, formationId, sendBuffer) {
+	
 	if (formationId == -1)
 		return -1;
 		
@@ -87,6 +108,9 @@ function addIntoFormationId(tileInstance1, formationId) {
 		}
 	}
 	
+	if (sendBuffer==undefined || sendBuffer == true) 
+		send_buffer(BufferDataType.formationAddTile, [tileInstance1.pos, formationId]);
+		
 	return formationId;
 }
 
@@ -124,7 +148,7 @@ function addIntoFormationSoldier(tileInstance1, tileInstance2) {
 	}
 	
 	send_buffer(BufferDataType.formationCombine, [tileInstance1.pos, tileInstance2.pos]);
-	return addIntoFormationId(tileInstance1, formationId);
+	return addIntoFormationId(tileInstance1, formationId, false);
 }
 
 

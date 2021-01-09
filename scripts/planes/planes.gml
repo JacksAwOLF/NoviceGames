@@ -21,7 +21,7 @@ function advance_plane_inner_loop(planeInst){
 				}
 					
 				break;
-					
+
 			case Units.RECON:
 				var index = 0;
 				while (index < array_length(planePath) && planePath[index] == -1)
