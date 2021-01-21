@@ -86,6 +86,9 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 		special = spec;
 	}
 	
+	if (fromUnitInst != -1 && fromUnitInst.object_index == obj_hut){
+		fromUnitInst.steps = 0;
+	}
 
 	init_global_soldier_vars(created_soldier);
 
