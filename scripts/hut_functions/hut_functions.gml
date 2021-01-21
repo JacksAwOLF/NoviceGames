@@ -16,7 +16,7 @@ function hut_createSoldier(tilePos){
 				
 				create_soldier(
 					theHut.soldier_unit, theHut.team, 
-					tilePos, theHut, true
+					tilePos, theHut, true, true, theHut.soldierSpec
 				);
 				
 				steps = 0;

@@ -115,7 +115,9 @@ function init_map(medium, dataSrc) {
 		
 		//var xx = hor_spacing*array_length(possibleTiles) + hor_spacing/2;
 		//instance_create_depth(xx, y_axis/2, -1, obj_edit_status);
-		
+		// the indicator for fog, huts , sound
+		xx = room_width * 5 / 8;
+		instance_create_depth(xx, room_height-96 , -100, obj_edit_status);
 		
 
 		// create the soldier modification vars on top right
@@ -173,9 +175,7 @@ function init_map(medium, dataSrc) {
 	yy = room_height - sprite_get_height(sp_index);
 	instance_create_depth(0, yy, -100, obj_button_backMenu);
 	
-	// the indicator for fog, huts , sound
-	xx = room_width * 5 / 8;
-	instance_create_depth(xx, room_height-96 , -100, obj_edit_status);
+	
 	
 	// bottom, middle next step button
 	sp_index = object_get_sprite(obj_button_nextStep);
@@ -270,7 +270,7 @@ function init_map(medium, dataSrc) {
 			"road", 
 			"originHutPos",
 			array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special"), 
-			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos"),
+			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos", "soldierSpec"),
 			array("tower", "my_health", "team", "max_health", "tilePos")
 		);
 		

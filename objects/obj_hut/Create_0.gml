@@ -19,4 +19,4 @@ sprite_dir = -1;
 
 spawnPos = -1;
 
-
+soldierSpec = -1;

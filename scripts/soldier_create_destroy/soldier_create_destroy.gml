@@ -138,7 +138,8 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 			BufferDataType.soldierCreated, 
 			array(
 				s_unit_id, s_team, pos, fromPos, 
-				encode_possible_creation_objects(fromUnitInst)
+				encode_possible_creation_objects(fromUnitInst),
+				spec
 			)
 		);
 	}

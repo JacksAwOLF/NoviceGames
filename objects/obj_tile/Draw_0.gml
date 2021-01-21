@@ -158,9 +158,6 @@ if (soldier != -1 && !hide_soldier){
 		ccc = c_aqua;
 	}
 	
-	
-
-	
 	var xx = x, yy = y;
 	// we need to reposition x, y based on rotation
 	if (soldier.direction == 180 || soldier.direction == 270) xx += size;
@@ -181,7 +178,7 @@ if (soldier != -1 && !hide_soldier){
 		draw_circle_color(x+width/2, y+width/2, width/2, c_yellow, c_blue, false);	
 	}
 	
-	
+	// draw the soldier sprite and helath bar
 	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, ccc, 1);				// the soldier on this tile
 	if (class < 3) draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[class],global.colors[class],false);
 	draw_healthbar(x, y, x+size, y+(size)/8, (soldier.my_health/soldier.max_health)*100, c_black, c_red, c_green, 0, true,false);
