@@ -11,8 +11,6 @@ function calculate_damage(argument0, argument1) {
 			return 0.1;
 		else if (b.formation != -1) {	// defense bonus for formations
 			
-			debug("formation exists", b.formation, global.formation);
-			
 			var defenseBonus = max(0.5, 1 - 0.025*global.formation[b.formation].contact_count);
 			return defenseBonus * a.max_damage;
 		}

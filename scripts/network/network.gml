@@ -146,8 +146,6 @@ function read_buffer(buff){
 			break;
 	}
 
-	debug(global.action, global.formation);
-
 	buffer_delete(buff);
 }
 
