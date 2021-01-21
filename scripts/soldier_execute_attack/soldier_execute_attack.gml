@@ -47,6 +47,7 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	
 
 	if (attacked.my_health <= 0){
+		
 		if (attacked.object_index == obj_hut && attacked.nuetral == true) {
 
 			// conquer the hut, or destroy it (based on the attacking unit's hut limit)
@@ -95,7 +96,8 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 		else{
 			switch(attacked.object_index){
 				case obj_infantry:
-					destroy_soldier(attacked, false); break;
+					destroy_soldier(attacked, false); 
+					break;
 
 				case obj_hut:
 					global.grid[attacked.spawnPos].originHutPos = -1;

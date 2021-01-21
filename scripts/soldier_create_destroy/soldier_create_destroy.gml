@@ -70,11 +70,11 @@ function init_global_soldier_vars(soldierId){
 // @param fromHut
 // @param [updateFog=true]
 // @return instance_id or -1 if failed
-function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPacket) {
+function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPacket, spec) {
 
-	//if (fromHut == undefined) fromHut = false;
 	if (updateFog == undefined) updateFog = true;
 	if (sendPacket == undefined) sendPacket = true;
+	if (spec == undefined) spec = false;
 
 	// create infantry instance and initialize vars
 	var created_soldier = instance_create_depth(x,y,0,obj_infantry);
@@ -83,6 +83,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 		sprite_index = global.unitSprites[s_unit_id][team];
 		unit_id = s_unit_id;
 		tilePos = global.grid[pos];
+		special = spec;
 	}
 	
 

@@ -156,6 +156,9 @@ function addIntoFormationSoldier(tileInstance1, tileInstance2) {
 // for now, replaces place in array with -1
 // returns true if successful
 function removeFromFormation(formationId, tileInstance) {
+	
+	debug(global.action, "called remove formatoin", formationId, tileInstance.pos);
+	
 	if (tileInstance.soldier == -1 || formationId == -1 ||
 		tileInstance.soldier.formation != formationId)
 		return false;

@@ -158,6 +158,7 @@ if (soldier != -1 && !hide_soldier){
 		ccc = c_aqua;
 	}
 	
+	
 
 	
 	var xx = x, yy = y;
@@ -167,6 +168,19 @@ if (soldier != -1 && !hide_soldier){
 		
 	var width = scale_factor*sprite_get_width(spr_index); 
 	var class = floor(soldier.unit_id / 3);
+	
+	
+	// draw the spsecial thing first
+	if (soldier.special == 1 
+	&& soldier.unit_id != Units.BOMBER
+	&& soldier.unit_id != Units.FIGHTER
+	&& soldier.unit_id != Units.DESTROYER
+	&& soldier.unit_id != Units.CARRIER
+	&& soldier.unit_id != Units.RECON
+	&& soldier.unit_id != Units.MOTORBOAT){
+		draw_circle_color(x+width/2, y+width/2, width/2, c_yellow, c_blue, false);	
+	}
+	
 	
 	draw_sprite_ext(spr_index, soldier_index, xx, yy, scale_factor, scale_factor, soldier.direction, ccc, 1);				// the soldier on this tile
 	if (class < 3) draw_circle_color(x+width/4.5,y+width/3.75,width/8,global.colors[class],global.colors[class],false);
@@ -179,6 +193,8 @@ if (soldier != -1 && !hide_soldier){
 		draw_rectangle_color(x+size*2/3,y+size*2/3,x+size,y+size,c_orange,c_orange,c_orange,c_orange,false);
 		draw_text(x+size*13/18,y+size*13/18,planeName);
 	}
+	
+	
 }
 
 // draw planes

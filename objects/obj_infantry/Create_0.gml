@@ -39,3 +39,5 @@ formIndication = false;
 formation = -1;
 
 lastMoved = 0;					// last moved for snow
+
+special = true;

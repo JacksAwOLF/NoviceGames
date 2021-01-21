@@ -38,7 +38,7 @@ function tile_changeSprite(){
 						posInArray(
 							global.soldierSelectTile[get_team(global.changeSprite)].binded_dropdown.options, global.changeSprite
 						) + global.soldier_vars[Svars.unit_page] * 3, get_team(global.changeSprite), 
-						pos, -1, true
+						pos, -1, true, true, global.soldier_vars[Svars.special]
 					);	
 				} else global.changeSprite = -1;
 				break;

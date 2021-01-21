@@ -40,5 +40,8 @@ if (text == "Weather") {
 	global.winFunction = global.soldier_vars[ind];
 	
 	update_won()
+	
+} else if (ind == Svars.special){
+	global.soldier_vars[ind] = max((global.soldier_vars[ind]+add+2)%2, 0);
 }
 else global.soldier_vars[ind] = max(global.soldier_vars[ind]+add, 0);

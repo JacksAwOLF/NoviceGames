@@ -47,4 +47,5 @@ serverurl = -1;
 
 
 if (global.action == "server") port = get_string_async("Which port to host on?", "33669");
-else serverurl = get_string_async("Server IP address and port?", "73.70.188.126:33669");
+else serverurl = get_string_async("Server IP address and port?", "127.0.0.1:33669");
+//else serverurl = get_string_async("Server IP address and port?", "73.70.188.126:33669");

@@ -113,30 +113,33 @@ function init_map(medium, dataSrc) {
 			}
 		}
 		
-		var xx = hor_spacing*array_length(possibleTiles) + hor_spacing/2;
-		instance_create_depth(xx, y_axis/2, -1, obj_edit_status);
+		//var xx = hor_spacing*array_length(possibleTiles) + hor_spacing/2;
+		//instance_create_depth(xx, y_axis/2, -1, obj_edit_status);
+		
 		
 
 		// create the soldier modification vars on top right
 		var names; 
 
 		enum Svars {
-			attack_range, max_health, max_damage, unit_page, win, weather, move_range, vision
+			attack_range, max_health, max_damage, unit_page, win, weather, special, move_range, vision
 		};
 		
-		global.soldier_vars[Svars.unit_page] = 0; names[Svars.unit_page] = "Select";
 		
 		// [0,1] stands for scout, infantry, which is default in edit mode
 		global.soldier_vars[Svars.attack_range] = global.attack_range[Units.TANK_M]; names[Svars.attack_range] = "attack range";   
 		global.soldier_vars[Svars.max_health] = global.max_health[Units.TANK_M]; names[Svars.max_health] = "max health";   // probably  dependent on class too
 		global.soldier_vars[Svars.max_damage] = global.max_damage[Units.TANK_M]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
+		global.soldier_vars[Svars.unit_page] = 0; names[Svars.unit_page] = "Select";
+		
 		//global.soldier_vars[Svars.vision] = global.vision[0]; names[Svars.vision] = "vision";   // can delete... vision  is dependent on class
 		global.soldier_vars[Svars.win] = global.winFunction; names[Svars.win] = "Win";
 		// global.soldier_vars[0] = 2; names[0] = "move range";   // can delete... dedpendent on unit type
 		
 		global.soldier_vars[Svars.weather] = Weather.REGULAR; names[Svars.weather] = "Weather";
-
+		global.soldier_vars[Svars.special] = 0; names[Svars.special] = "Spec?";
+		
 		hor_spacing = 60;
 		for (var index=array_length(names)-1; index>=0; index--){
 			with(instance_create_depth(
@@ -170,6 +173,9 @@ function init_map(medium, dataSrc) {
 	yy = room_height - sprite_get_height(sp_index);
 	instance_create_depth(0, yy, -100, obj_button_backMenu);
 	
+	// the indicator for fog, huts , sound
+	xx = room_width * 5 / 8;
+	instance_create_depth(xx, room_height-96 , -100, obj_edit_status);
 	
 	// bottom, middle next step button
 	sp_index = object_get_sprite(obj_button_nextStep);
@@ -263,7 +269,7 @@ function init_map(medium, dataSrc) {
 			"sprite_index", 
 			"road", 
 			"originHutPos",
-			array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range"), 
+			array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special"), 
 			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos"),
 			array("tower", "my_health", "team", "max_health", "tilePos")
 		);
