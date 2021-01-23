@@ -7,7 +7,7 @@ event_inherited();
 var next_state = VisualState.inactive;
 if (global.selectedSoldier != -1 &&
 		global.selectedSoldier.can &&
-		array_length(global.unitOptions[global.selectedSoldier.unit_id]) > 0)
+		array_length(unit_options) > 0)
 	next_state = VisualState.active;
 	
 if (next_state != state)

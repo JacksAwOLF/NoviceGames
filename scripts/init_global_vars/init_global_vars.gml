@@ -87,11 +87,18 @@ function init_game_vars(){
 	
 	
 	for (var i = 0; i < Units.SIZE; i++)
-		global.unitOptions[i] = [];
-	global.unitOptions[Units.CARRIER] = [{sprite: spr_bomber,	execute: switch_to_bomber},
-										 {sprite: spr_recon,	execute: switch_to_recon},
-										 {sprite: spr_fighter,	execute: switch_to_fighter},
-										 {sprite: spr_deploy,	execute: deploy_plane}];
+		for (var j = 0; j < 2; j++)
+			global.unitOptions[i][j] = [];
+	
+	global.unitOptions[Units.CARRIER][0] = [{sprite: spr_bomber,	execute: switch_to_bomber},
+											{sprite: spr_recon,		execute: switch_to_recon},
+											{sprite: spr_fighter,	execute: switch_to_fighter},
+											{sprite: spr_deploy,	execute: deploy_plane}];
+	
+	global.unitOptions[Units.IFV_M][1]		= [{sprite: spr_infantry,	execute: ifv_m_special}];
+	global.unitOptions[Units.INFANTRY_M][1]	= [{sprite: spr_suicide,	execute: infantry_m_special}];
+	global.unitOptions[Units.TANK_S][1]		= [{sprite: spr_heal,		execute: tank_s_special}];
+	
 	
 	
 	global.elevation[Tiles.open] = 1;

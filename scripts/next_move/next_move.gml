@@ -6,7 +6,7 @@ function next_move() {
 	var n = instance_number(obj_infantry);
 	for (var i=0; i<n; i++)
 		with(instance_find(obj_infantry, i)){
-			can = 2;
+			can = defaultCan;
 			move_range = global.movement[unit_id];
 
 			if (is_my_team_sprite(sprite_index) && moveCost == 6969){
@@ -21,8 +21,40 @@ function next_move() {
 	// process moving planes
 	//advance_planes();
 
+	// deal with poison
+	with (obj_tile)
+		poisoned = false;
+	
+	var dir = [[0,1],[0,-1],[1,0],[-1,0],[0,0]];
+	for (var i = 0; i < array_length(global.poison); i++) {
+		var current = global.poison[i];
+		if (current == -1) continue;
+		
+		var aboutToExpire = global.turn - current.turn > 3;
+		for (var j = 0; j < 5; j++) {
+			var curRow = getRow(current.pos) + dir[j][0];
+			var curCol = getCol(current.pos) + dir[j][1];
+			var curPos = getPos(curRow, curCol);
+			
+			if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapHeight) {
+				if (!aboutToExpire)
+					global.grid[curPos].poisoned = true;
+					
+				if (global.grid[curPos].soldier != -1) {
+					global.grid[curPos].soldier.my_health -= 1;
+					if (global.grid[curPos].soldier.my_health <= 0)
+						destroy_soldier(global.grid[curPos].soldier, false);
+				}
+			}
+		}
+		
+		if (aboutToExpire)
+			global.poison[i] = -1;
+	}
+	
 	global.turn++; // relative positioning is important
 
+		
 	with(obj_hut){
 
 
@@ -46,9 +78,7 @@ function next_move() {
 		global.selectedFormation = -1;
 		update_fog();
 	}
-
-
-	update_won();
+	
 	
 	// updating weather
 	if (global.weather == Weather.RAINY && global.turn % 2 == 1) {
@@ -72,4 +102,6 @@ function next_move() {
 		}
 			
 	}
+	
+	update_won();
 }

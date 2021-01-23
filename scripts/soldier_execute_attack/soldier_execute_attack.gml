@@ -5,7 +5,8 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 
 	if (to.soldier != -1) attacked = to.soldier;
 	else if (to.tower != -1) attacked = to.tower;
-	else attacked = to.hut;
+	else if (to.hut != -1) attacked = to.hut;
+	else return;
 
 	soldier_execute_attack(attackUnitInst, attacked);
 
@@ -13,8 +14,37 @@ function soldier_attack_tile(attackUnitInst, toTilePos) {
 
 // @function actually execute an attack
 function soldier_execute_attack(attackerUnitInst, attacked){
-
+	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
+	
+	if (attackerUnitInst.unit_id == Units.TANK_R && attackerUnitInst.special) {
+		attackerUnitInst.special = false;
+		
+		for (var i = -1; i <= 1; i++) {
+			for (var j = -1; j <= 1; j++) {
+				if (i == 0 && j == 0) continue;
+				
+				var curRow = getRow(to.pos) + i;
+				var curCol = getCol(to.pos) + j;
+				var gridPos = getPos(curRow, curCol);
+				
+				if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapWidth)  {
+					if (global.grid[gridPos].soldier != -1 && global.grid[gridPos].soldier != attackerUnitInst) {
+						soldier_execute_attack(attackerUnitInst, global.grid[gridPos].soldier);
+					}
+				}
+				
+			}
+		}
+		
+		attackerUnitInst.special = true;
+	} else if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
+		add_into_array(global.flares[attackerUnitInst.team], 
+			{turn: global.turn, pos: attacked.tilePos.pos});
+			
+	} else if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
+		add_into_array(global.poison, {turn: global.turn, pos: attacked.tilePos.pos});
+	}
 
 	var damage = calculate_damage(attackerUnitInst, attacked);
 	

@@ -7,6 +7,8 @@
 event_inherited();
 
 can = 2;
+defaultCan = 2;
+
 moveCost = 2;
 attackCost = 2;
 

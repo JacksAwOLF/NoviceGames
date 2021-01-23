@@ -13,6 +13,26 @@ function update_fog() {
 				}
 			}
 		}
+		
+		// process 5x5, 3x3, 1x1 squares for flares
+		for (var i = 0; i < array_length(global.flares[global.turn % 2]); i++) {
+			var current = global.flares[global.turn % 2][i];
+			if (current == -1) continue;
+			
+			var flareRange = 2 - (global.turn - current.turn) / 2;
+			for (var dy = -flareRange; dy <= flareRange; dy++) {
+				for (var dx = -flareRange; dx <= flareRange; dx++) {
+					var curRow = getRow(current.pos) + dy;
+					var curCol = getCol(current.pos) + dx;
+				
+					if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapWidth)
+						global.grid[getPos(curRow, curCol)].hide_soldier = false;
+				}
+			}
+				
+			if (flareRange < 0)
+				global.flares[global.turn % 2][i] = -1;
+		}
 	}
 	
 	update_enemy_outline();

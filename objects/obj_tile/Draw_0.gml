@@ -15,7 +15,11 @@ if (global.weather == Weather.RAINY) {
 }
 
 // draw the terrain
-draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, (inRain ? c_teal : c_white), alpha_value);										// the tile on the bottom
+var colorToMix = c_white;
+if (poisoned) colorToMix = c_purple;
+else if (inRain) colorToMix = c_teal;
+
+draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, colorToMix, alpha_value);										// the tile on the bottom
 
 
 

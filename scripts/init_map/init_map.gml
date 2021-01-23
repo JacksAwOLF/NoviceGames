@@ -10,6 +10,8 @@ enum VisualState
 function init_map(medium, dataSrc) {
 	global.weather = Weather.REGULAR;
 	
+	global.flares = [[], []]; // {turn, pos}
+	global.poison = []; // {turn, pos}
 	
 	global.edit = global.action == "new" || global.action == "load";
 	

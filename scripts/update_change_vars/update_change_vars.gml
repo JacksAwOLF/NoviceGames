@@ -21,5 +21,5 @@ function refresh_change_vars(tile_instance, selected_choice) {
 	global.soldier_vars[Svars.max_health] = global.max_health[unit_id]; 
 	global.soldier_vars[Svars.max_damage] = global.max_damage[unit_id];
 		
-	global.soldier_vars[Svars.vision] = global.vision[unit_id];
+	//global.soldier_vars[Svars.vision] = global.vision[unit_id];
 }

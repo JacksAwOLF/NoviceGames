@@ -77,7 +77,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	if (spec == undefined) spec = false;
 
 	// create infantry instance and initialize vars
-	var created_soldier = instance_create_depth(x,y,0,obj_infantry);
+	var created_soldier = instance_create_depth(0,0,0,obj_infantry);
 	with(created_soldier){
 		team = s_team
 		sprite_index = global.unitSprites[s_unit_id][team];
@@ -103,7 +103,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 			attack_range = global.soldier_vars[Svars.attack_range];
 			max_health = global.soldier_vars[Svars.max_health];
 			max_damage = global.soldier_vars[Svars.max_damage];
-			vision = global.soldier_vars[Svars.vision];
+			vision = global.vision[s_unit_id];
 			my_health = max_health;
 		}
 	}

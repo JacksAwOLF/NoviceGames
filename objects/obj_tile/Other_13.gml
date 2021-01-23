@@ -61,7 +61,8 @@ if (global.selectedSoldier != -1){
 				finalize_deployment(id);
 				
 				
-			} else if (array_length(path)>=1 ) {
+			} 
+			else if (array_length(path)>=1 ) {
 					
 				// if didn't clicked myself again (didn't deselect)
 				if (array_length(path) > 1) {

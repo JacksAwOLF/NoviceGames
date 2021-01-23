@@ -25,7 +25,6 @@ if (!edit || global.changeSprite == -1){
 		if (possible_attack && !hide_soldier) { // process attacking
 			
 			// put unitLockedOn in finalize deployment
-			
 			if (global.selectedSoldier.unit_id == Units.BOMBER || 
 				global.selectedSoldier.unit_id == Units.FIGHTER) {
 				
@@ -33,7 +32,11 @@ if (!edit || global.changeSprite == -1){
 				
 				finalize_deployment(global.selectedSoldier, pos);
 
-			} /*else if (global.selectedSoldier.unit_id == Units.FIGHTER) {
+			} else if (global.unit_options_active && global.processClick != -1) {
+				// override regular attack processing (currently used by special units)
+				global.processClick(id);
+			} 
+			/*else if (global.selectedSoldier.unit_id == Units.FIGHTER) {
 				for (var i = 0; i < array_length(planeArr); i++) {
 					if (planeArr[i] != -1 && !is_my_team(planeArr[i])) {
 						global.selectedSoldier.unitLockedOn = planeArr[i];

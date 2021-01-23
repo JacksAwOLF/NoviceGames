@@ -102,7 +102,7 @@ function soldier_init_move() {
 		}
 
 		else global.poss_moves = []
-		global.unitOptionsBar.unit_options = global.unitOptions[unit_id];
+		global.unitOptionsBar.unit_options = global.unitOptions[unit_id][global.selectedSoldier.special];
 	}
 
 }

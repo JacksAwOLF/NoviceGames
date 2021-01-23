@@ -3,8 +3,11 @@
 
 event_inherited();
 
+global.unit_options_active = false;
 // array of structures {sprite, execute}
 unit_options = [];
+on_active_change = -1;
+on_inactive_change = -1;
 
 toggle_active = function() {
 	switch(state) {
@@ -14,6 +17,10 @@ toggle_active = function() {
 			x = inactive_offset[0]
 			y = inactive_offset[1]
 			
+			if (on_inactive_change != -1)
+				on_inactive_change();
+			global.unit_options_active = false;
+			
 			break;
 		}
 		
@@ -22,7 +29,10 @@ toggle_active = function() {
 			state = VisualState.active;
 			x = origw
 			y = origh
-			
+		
+			if (on_active_change != -1)
+				on_active_change();
+				
 			break;
 		}
 	}

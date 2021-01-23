@@ -3,6 +3,8 @@
 
 event_inherited();
 
+poisoned = false;		// whether tile has been poisoned
+
 mouseIn = false;
 soldier = -1;					// the soldier instance that is in this position
 planeArr = [];					// array of plane instances that are in this position
