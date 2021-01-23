@@ -128,7 +128,7 @@ if (!edit || global.changeSprite == -1){
 
 
 
-	else if (global.selectedSoldier == -1) {
+	if (global.selectedSoldier == -1) {
 
 		var myturn =  (global.edit || network_my_turn() );
 
@@ -168,6 +168,10 @@ if (!edit || global.changeSprite == -1){
 
 					soldier_init_move();
 					soldier_init_attack();
+				}
+				
+				else {
+					global.selectedSoldier = -1;
 				}
 
 
