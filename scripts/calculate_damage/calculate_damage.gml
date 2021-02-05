@@ -15,6 +15,5 @@ function calculate_damage(argument0, argument1) {
 			return defenseBonus * a.max_damage;
 		}
 	}
-	
 	return a.max_damage;
 }

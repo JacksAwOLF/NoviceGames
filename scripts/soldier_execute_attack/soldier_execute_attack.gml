@@ -1,18 +1,24 @@
 
 
+// returns if the attacking unit is able to attack the tile or not
+// cant attack tile if there is nothing on that tile, or everything
+// on it has the same team as the attacking unit
 function soldier_attack_tile(attackUnitInst, toTilePos) {
-	var to = global.grid[toTilePos], attacked;
+	var to = global.grid[toTilePos], attacked, tt = attackUnitInst.team;
 
-	if (to.soldier != -1) attacked = to.soldier;
-	else if (to.tower != -1) attacked = to.tower;
-	else if (to.hut != -1) attacked = to.hut;
-	else return;
+	if (to.soldier != -1 && to.soldier.team != tt) attacked = to.soldier;
+	else if (to.tower != -1 && to.soldier.team != tt) attacked = to.tower;
+	else if (to.hut != -1 && to.soldier.team != tt) attacked = to.hut;
+	else return false;
 
-	soldier_execute_attack(attackUnitInst, attacked);
-
+	if (attacked.team != attackUnitInst){
+		soldier_execute_attack(attackUnitInst, attacked);
+		return true;
+	} else return false;
 }
 
 // @function actually execute an attack
+// doesn't actually check for team attacking or what not; deals damage and after affects
 function soldier_execute_attack(attackerUnitInst, attacked){
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	

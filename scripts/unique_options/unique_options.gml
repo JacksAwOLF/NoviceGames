@@ -30,23 +30,24 @@ function ifv_m_special(){
 	}
 }
 
+// suicide and give damage to an unit in the direction it is facing
 function infantry_m_special() {
 	var curSoldier = global.selectedSoldier; // needed cuz attack resets selectedSoldier
 	var curRow = getRow(curSoldier.tilePos.pos);
 	var curCol = getCol(curSoldier.tilePos.pos);
 	
 	switch (global.selectedSoldier.direction) {
-		case 0:
+		case Dir.up:
 			curRow -= 1;
 			break;
-		case 90:
-			curCol += 1;
+		case Dir.left:
+			curCol -= 1;
 			break;
-		case 180:
+		case Dir.down:
 			curRow += 1;
 			break;
-		case 270:
-			curCol -= 1;
+		case Dir.right:
+			curCol += 1;
 			break;
 	}
 	

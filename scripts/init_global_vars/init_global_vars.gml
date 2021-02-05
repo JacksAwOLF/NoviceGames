@@ -15,6 +15,8 @@ function init_game_vars(){
 	
 	enum Tiles {road, open, rough, mountain, ocean, others};
 	
+	enum Dir {up=0, left=90, down=180, right=270};
+	
 	enum Units {
 		INFANTRY_M, TANK_M, IFV_M,	// must be in infantry, tank, ifv order at the beginning
 		INFANTRY_R, TANK_R, IFV_R, 

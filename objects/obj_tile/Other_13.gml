@@ -92,10 +92,10 @@ if (global.selectedSoldier != -1){
 					
 				var diff = path[i+1] - path[i+2];	
 				switch (diff) {
-					case 1: direction = 270; break;
-					case -1: direction = 90; break;
-					case global.mapWidth: direction = 180; break;
-					default: direction = 0;
+					case 1: direction = Dir.right; break;
+					case -1: direction = Dir.left; break;
+					case global.mapWidth: direction = Dir.down; break;
+					default: direction = Dir.up;
 				}
 					
 				if (error) i++;
