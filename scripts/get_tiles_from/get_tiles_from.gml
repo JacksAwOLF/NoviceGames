@@ -59,7 +59,8 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 			var ns = steps+energyTo[get_tile_type(global.grid[np])];
 			
 			// additional arguments to canMoveOnto because of weather
-			if (ns <= maxDis && !vis[np] && canMoveOnto(np, energyTo, maxDis - ns)) {
+			// more for tank melee to move on enemy soldier
+			if (ns <= maxDis && !vis[np] && canMoveOnto(np, energyTo, maxDis - ns, cur)) {
 				if (shouldStoreDist && (ns < global.dist[np] || global.dist[np] == -1)) {
 					global.dist[np] = ns;
 					global.from[np] = cur;

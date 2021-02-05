@@ -82,26 +82,46 @@ if (global.selectedSoldier != -1){
 				
 				error = false;
 				
-				// clear fog if encountered soldier (stuck and  can't move)
+				
+				var gss = global.selectedSoldier;
 				if (i != -1){
-					path[i].hide_soldier = false;
-					error = true;
-				}
+					// take into account the freaking specail case
+					if (gss.special == 1 && gss.unit_id == Units.TANK_M){
 					
+						
+						// move the enemy ssoldier out of the way bitch
+						var where = -1;
+						
+						for (var j=i; j>=0; j--){
+							// the melee ssolddier's last move is from a to b
+							// this move will move the enemy soldier to c;
+							var a = path[j+1].pos, b = path[j].pos, 
+								c = next_tile_in_dir(b, get_dir_from_travel(a, b));
+							
+							if (j == 0) where = c;
+							else if (c != path[j-1].pos){
+								where = c;
+								break;
+							}
+						}
+						
+						soldier_execute_move(path[i], where);
+						
+						// set i as if there were no obstacle
+						i = -1;
+					
+					} else{
+						// clear fog if encountered soldier (stuck and  can't move)
+						path[i].hide_soldier = false;
+						error = true;
+					}
+				}
+				
 				if (error) i--;
-					
-				var diff = path[i+1] - path[i+2];	
-				switch (diff) {
-					case 1: direction = Dir.right; break;
-					case -1: direction = Dir.left; break;
-					case global.mapWidth: direction = Dir.down; break;
-					default: direction = Dir.up;
-				}
-					
+				direction = get_dir_from_travel(path[i+2], path[i+1]);
 				if (error) i++;
 				
 				soldier_execute_move(global.selectedSoldier.tilePos,  path[i+1].pos, direction);
-				// global.selectedSoldier = path[i+1];
 				
 				//clear fog if encountered soldier  (actually moved)
 				if (i != -1) path[i].hide_soldier = false;

@@ -28,6 +28,16 @@ function updatePos(pos, dRow, dCol){
 	);
 }
 
+// return whether or not a position is in bound of the entire grid
+function on_grid_pos(pos){
+	var curRow = getRow(pos), curCol = getCol(pos);
+	return on_grid(curRow, curCol);
+}
+
+function on_grid(curRow, curCol){
+	return curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapWidth;
+}
+
 function getWindowWidth(){return view_wport[0];}
 function getWindowHeight(){return view_hport[0];}
 function getCameraWidth(){return camera_get_view_width(view_get_camera(0))}

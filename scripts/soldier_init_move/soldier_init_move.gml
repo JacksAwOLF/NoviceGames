@@ -17,28 +17,47 @@ function possible_move_tiles(tileId) {
 	return true;
 }
 
-function possible_move_tiles_including_selected(tileId) {
-	var s = global.grid[tileId];
+function possible_move_tiles_including_selected(tilePos, fromTilePos) {
+	var s = global.grid[tilePos], ss = s.soldier, gss = global.selectedSoldier
 
-	// cant go here if there is a visible soldier blocking path
-	if (s.soldier != -1 && s != global.selectedSoldier.tilePos && !s.hide_soldier &&
-		(s.soldier.formation == -1 || s.soldier.formation != global.selectedSoldier.formation ) )
-		return false;
+	// cant go here if there is a visible soldier that is not myself on this tile
+		// exception1: the soldier is someone from your formation
+		// exception2: the soldier is enemy soldier blocking special tank melee path with an empty space behind
+	var specialTank = (gss.special == 1 && gss.unit_id = Units.TANK_M);
+	var nextTilePos = next_tile_in_dir(tilePos, get_dir_from_travel(fromTilePos, tilePos))
+	if (ss != -1 && s != gss.tilePos && !s.hide_soldier){
+		var someoneInMyFormation = (ss.formation != -1 && ss.formation == gss.formation);
+		var tankMSpecial = false;
+		if (fromTilePos != undefined && specialTank && gss.team != ss.team)
+			if (nextTilePos != -1 && global.grid[nextTilePos].soldier == -1)
+				tankMSpecial = true;
+		
+		if (!someoneInMyFormation && !tankMSpecial) return false;
+	}
 
 	// cant go if enemy tower is here
 	if (s.tower != -1 && !is_my_team(s.tower)) return false;
 
 	// cant go if enemy hut is here (or nuetral one)
 	if (s.hut != -1 && (s.hut.team == -1 || !is_my_team(s.hut) ) ) return false;
+	
+	// oh right you also cant go here if you are special, 
+	// the next tile is off the grid,
+	// and the previous tile was an enemy soldier.
+	// if you could, you would push the enemy soldier off the gri
+	if (specialTank && nextTilePos == -1 && global.grid[fromTilePos].soldier != -1 && fromTilePos != gss.tilePos.pos)
+		return false;
 
 	return true;
 }
 
 
+
+
 // assuming that global.selectedSoldier is soldier to move and that
 // this function is being used to calculate possible moves for selectedSoldier
-function possible_move_considering_weather(tilePos, energyTo, leftoverDistance) {
-	if (!possible_move_tiles_including_selected(tilePos))
+function possible_move_considering_weather(tilePos, energyTo, leftoverDistance, fromTilePos) {
+	if (!possible_move_tiles_including_selected(tilePos, fromTilePos))
 		return false;
 		
 	switch (global.weather) {
