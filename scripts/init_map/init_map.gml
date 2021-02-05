@@ -42,15 +42,13 @@ function init_map(medium, dataSrc) {
 	
 
 	// load the saveVersion
-	global.saveVersion = 1;
 	if (dataSrc != undefined) {
 		if (medium == Mediums.file) dataSrc = file_text_open_read(dataSrc);
 		variable_global_set("saveVersion", real(get_data(medium, dataSrc))); // ignore warning
 	}
 	
 	
-	// load global variables
-	global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
+	
 	load_global_vars(medium, dataSrc);
 	
 	
@@ -256,30 +254,6 @@ function init_map(medium, dataSrc) {
 		window_max_h = max(window_max_h, global.mapHeight*tile_size + 400);
 		window_max_w = max(window_max_w, global.mapWidth*tile_size + 100);
 	}
-
-	
-	
-	
-	// if the file input is specified
-	// open the file and update the tile_sprites and add soldiers if neccessary
-	
-	// btw the first variable of an object to  save
-	// can't have a negative 1  value
-	
-	if (global.saveVersion >= 1){
-		global.tiles_save_order = array(
-			"sprite_index", 
-			"road", 
-			"originHutPos",
-			array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special"), 
-			array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos", "soldierSpec"),
-			array("tower", "my_health", "team", "max_health", "tilePos")
-		);
-		
-		global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower);
-	}
-	
-	
 	
 	
 	// load soldiers and things on tiles

@@ -44,3 +44,5 @@ flag = false;
 
 edit = global.edit;
 preMouseIn  = false;
+
+beacon_tile_init();

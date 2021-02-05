@@ -3,6 +3,9 @@
 
 
 function init_game_vars(){
+	
+	
+	
 
 	enum Weather {
 		SUNNY,
@@ -100,6 +103,8 @@ function init_game_vars(){
 	global.unitOptions[Units.IFV_M][1]		= [{sprite: spr_infantry,	execute: ifv_m_special}];
 	global.unitOptions[Units.INFANTRY_M][1]	= [{sprite: spr_suicide,	execute: infantry_m_special}];
 	global.unitOptions[Units.TANK_S][1]		= [{sprite: spr_heal,		execute: tank_s_special}];
+	global.unitOptions[Units.IFV_S][1]		= [{sprite: spr_beacon,		execute: beacon_create}];
+	
 	
 	
 	
@@ -116,4 +121,5 @@ function init_game_vars(){
 	global.tileNames[Tiles.ocean] = "Ocean";
 	global.tileNames[Tiles.others] = "Other?";
 	
+
 }

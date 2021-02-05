@@ -36,10 +36,7 @@ if (road){
 }
 
 
-
-// draw borders around it
-
-
+// draw borders around the tile
 if (mouseIn) draw_sprite_stretched_ext(spr_select_underMouse, 0, x, y, size, size, c_white, 1);					// mouse in gray box
 if (possible_move) draw_sprite_stretched_ext(spr_select_possibleMove, 0, x, y, size, size, c_white, 1);			// a possible move, yellow box
 if ((possible_attack && !hide_soldier)) draw_sprite_stretched_ext(spr_select_possibleAttack, 0, x, y, size, size, c_white, 1);		// a possible attack, red box
@@ -52,19 +49,19 @@ if (enemy_vision) draw_sprite_stretched_ext(spr_dark_blue, 0, x+3/20*size, y+3/2
 if (possible_enemy_move) draw_sprite_stretched_ext(spr_dark_green, 0, x+1/5*size, y+1/5*size, size*3/5, size*3/5, c_white, 1);
 
 
+var ss = size;
+var scale_factor = ss/sprite_get_width(sprite_index);
 
 
-
+beacon_draw(scale_factor);
 
 	
 // draw the  hut if needed
-
-
 if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier || hut.team == -1)) {
 
 	with(hut){
-		var ss = other.size;
-		var scale_factor = ss/sprite_get_width(other.sprite_index);
+		
+		//var scale_factor = ss/sprite_get_width(other.sprite_index);
 		var color = get_team(soldier_sprite) ? c_gray : c_white;
 		
 		// myself
@@ -81,8 +78,6 @@ if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldi
 	var hutOriginal = gridOriginal.hut;
 	
 	with (hutOriginal) {
-		var ss = other.size;
-		var scale_factor = ss/sprite_get_width(other.sprite_index);
 		var color = get_team(soldier_sprite) ? c_gray : c_white;
 
 		if (hutOriginal.steps >= 0){
@@ -125,7 +120,6 @@ if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldi
 
 // draw tower
 if (tower != -1){
-	var scale_factor = size/sprite_get_width(spr_tower);	
 	var spIndex = global.edit ?  real(tower.team != global.turn%2) : 
 		real(tower.team!=global.playas)
 		
@@ -145,8 +139,6 @@ if (tower != -1){
 if (soldier != -1 && !hide_soldier){	
 	
 	var spr_index = soldier.sprite_index;
-	var scale_factor = size/sprite_get_width(spr_index);
-	
 	
 	
 	// index to draw

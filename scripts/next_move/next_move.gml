@@ -54,17 +54,15 @@ function next_move() {
 	
 	global.turn++; // relative positioning is important
 
+	beacon_count();
 		
 	with(obj_hut){
-
-
 		if ((!global.edit || global.hutOn) && steps!=-1 && get_team(soldier_sprite) != global.turn%2){
 			steps = min(steps+1, limit)
 		}
 		if (auto && limit != -1 && steps == limit){
 			hut_createSoldier(spawnPos);	// only creates soldier this turn
 		}
-
 	}
 
 	// deselect soldiers and clear drawings
