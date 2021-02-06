@@ -45,3 +45,4 @@ lastMoved = 0;					// last moved for snow
 special = true;
 
 beacon_soldier_init();
+dummy_soldier_create();

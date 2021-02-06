@@ -8,8 +8,8 @@ if (global.saveVersion >= 1){
 		"sprite_index", 
 		"road", 
 		"originHutPos",
-		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special", "beaconIndex"), 
-		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos", "soldierSpec"),
+		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special", "beaconIndex", "timeToLive", "discovered"), 
+		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "spr3ite_dir", "spawnPos", "tilePos", "soldierSpec"),
 		array("tower", "my_health", "team", "max_health", "tilePos"),
 		"beaconSoldier",
 	);

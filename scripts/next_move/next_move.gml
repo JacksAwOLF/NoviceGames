@@ -52,6 +52,8 @@ function next_move() {
 			global.poison[i] = -1;
 	}
 	
+	dummy_next_move();
+	
 	global.turn++; // relative positioning is important
 
 	beacon_count();

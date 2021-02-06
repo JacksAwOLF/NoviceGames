@@ -104,6 +104,7 @@ function init_game_vars(){
 	global.unitOptions[Units.INFANTRY_M][1]	= [{sprite: spr_suicide,	execute: infantry_m_special}];
 	global.unitOptions[Units.TANK_S][1]		= [{sprite: spr_heal,		execute: tank_s_special}];
 	global.unitOptions[Units.IFV_S][1]		= [{sprite: spr_beacon,		execute: beacon_create}];
+	global.unitOptions[Units.INFANTRY_S][1]	= [{sprite: spr_dummy,		execute: dummy_create_init}];
 	
 	
 	
