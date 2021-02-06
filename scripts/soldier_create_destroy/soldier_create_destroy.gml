@@ -95,12 +95,13 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	init_global_soldier_vars(created_soldier);
 
 	if (fromUnitInst != -1){
-		//with (fromUnitInst){
-			//if (sprite_dir != -1)
-			//	created_soldier.direction = sprite_dir;
-		created_soldier.direction = fromUnitInst.direction;
-		//}
-
+		
+		var newDir = fromUnitInst.direction;
+		if (variable_instance_exists(fromUnitInst, "sprite_dir"))
+			newDir = fromUnitInst.sprite_dir;
+		
+		created_soldier.direction = newDir;
+		
 	} else if (!is_plane(created_soldier)) {
 		with (created_soldier) {
 			attack_range = global.soldier_vars[Svars.attack_range];

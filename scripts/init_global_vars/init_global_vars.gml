@@ -4,7 +4,7 @@
 
 function init_game_vars(){
 	
-	
+	dummy_init_map();
 	
 
 	enum Weather {

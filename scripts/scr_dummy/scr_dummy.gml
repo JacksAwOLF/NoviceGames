@@ -1,9 +1,19 @@
 
+// called in init_map
+function dummy_init_map(){
+	global.lastDummyTurn = [-10,-10];	
+}
 
 // called when user clicks on the button
 // crerates possible deploy tiles for the dummy soldier
 function dummy_create_init(){
 	var gss = global.selectedSoldier;
+	
+	if (gss.can != gss.defaultCan) return;
+	if (global.turn - global.lastDummyTurn[gss.team] < 10) return;
+	global.lastDummyTurn[gss.team] = global.turn;
+	
+	
 	var arr = get_vision_tiles(gss);	// this is an array of tile instances
 	for (var i=0; i<array_length(arr); i++)
 		if (arr[i].soldier == -1)
