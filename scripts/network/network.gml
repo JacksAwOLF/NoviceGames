@@ -2,20 +2,12 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 enum BufferDataType{
-	soldierMoved, 
-	soldierAttacked, 
-	soldierCreated,  
-	changeHutPosition, 
-	formationCombine,
-	formationRemoveTile,
-	formationAddTile,
-	formationDelete,
-	deployPlane,
-	finallyDeployPlane,
-	planeMoved,
 	yourMove, mapData,
-	soldierDestroyed,
-	beaconCreate,
+	changeHutPosition,
+	soldierMoved,  soldierAttacked,  soldierCreated,  soldierDestroyed,
+	formationCombine, formationRemoveTile, formationAddTile, formationDelete,
+	deployPlane, finallyDeployPlane, planeMoved,
+	beaconCreate, beaconDestroy,
 };
 
 // number of buffer_u16 (2 bytes) that the buffer will conttain
@@ -33,7 +25,6 @@ global.buffer_sizes[BufferDataType.finallyDeployPlane] = 3;
 global.buffer_sizes[BufferDataType.planeMoved] = 3;
 global.buffer_sizes[BufferDataType.soldierDestroyed] = 2;
 global.buffer_sizes[BufferDataType.formationAddTile] = 2;
-global.buffer_sizes[BufferDataType.beaconCreate] = 2;
 
 // if we need to update more global variables in the future, write a more generalized function
 global.buffer_sizes[BufferDataType.formationDelete] = 1;		
@@ -149,6 +140,10 @@ function read_buffer(buff){
 		
 		case BufferDataType.beaconCreate:
 			beacon_create(data[0], data[1]);
+			break;
+			
+		case BufferDataType.beaconDestroy:
+			beacon_destroy(data[0], false);
 			break;
 	}
 

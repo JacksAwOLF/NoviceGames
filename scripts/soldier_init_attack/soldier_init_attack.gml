@@ -1,22 +1,30 @@
 // finished updating global selected soldier
 
+function get_attack_target(attackingSoldierInst, targetTileInst){ //debug("checking tile", targetTileInst.pos);
+	// in the order that you will attack them
+	var targets = array("soldier", "tower", "hut", "beacon")
+	for (var i=0; i<array_length(targets); i++){
+		var oth = variable_instance_get(targetTileInst, targets[i]);	
+		
+	//	if (targets[i] == "beacon")
+			//debug("chekcing", targetTileInst.pos, oth, oth.team, attackingSoldierInst.team);
+			
+		if (oth != -1 && oth.team != attackingSoldierInst.team){
+			//debug("got it");
+			return oth;
+		}
+			
+		
+	}
+	return -1;
+}
+
 // return if tileId is a possible attack for selected soldier or not
 // can't see through fog
-function possible_attack_tiles(tileId) { 
-	
-	var s = global.grid[tileId];
-	if (s.hide_soldier || s.soldier + s.tower + s.hut == -3) return false;
-	
-	// in the order that you will attack them
-	var targets = array("soldier", "tower", "hut")
-	
-	for (var i=0; i<array_length(targets); i++){
-		var oth = variable_instance_get(s, targets[i]);	
-		if (oth != -1 && oth.team != global.selectedSoldier.team)
-			return true;
-	}
-
-	return false;
+function possible_attack_tiles(tilePos) { 
+	var tile = global.grid[tilePos];
+	if (tile.hide_soldier) return false;
+	return get_attack_target(global.selectedSoldier, tile) != -1;
 }
 
 function return_true(tileId){

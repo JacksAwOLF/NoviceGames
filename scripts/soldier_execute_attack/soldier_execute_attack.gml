@@ -4,17 +4,10 @@
 // cant attack tile if there is nothing on that tile, or everything
 // on it has the same team as the attacking unit
 function soldier_attack_tile(attackUnitInst, toTilePos) {
-	var to = global.grid[toTilePos], attacked, tt = attackUnitInst.team;
-
-	if (to.soldier != -1 && to.soldier.team != tt) attacked = to.soldier;
-	else if (to.tower != -1 && to.soldier.team != tt) attacked = to.tower;
-	else if (to.hut != -1 && to.soldier.team != tt) attacked = to.hut;
-	else return false;
-
-	if (attacked.team != attackUnitInst){
-		soldier_execute_attack(attackUnitInst, attacked);
-		return true;
-	} else return false;
+	var attacked = get_attack_target(attackUnitInst, global.grid[toTilePos]);	// this is in init_attack()
+	if (attacked == -1) return false;
+	soldier_execute_attack(attackUnitInst, attacked);
+	return true;
 }
 
 // @function actually execute an attack
@@ -69,6 +62,7 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	attacked.my_health -= damage;
 	attackerUnitInst.can -= attackerUnitInst.attackCost;
 	
+	debug("executge attack", attacked.my_health);
 	
 	send_buffer(
 		BufferDataType.soldierAttacked, 
@@ -130,17 +124,27 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 		} //else if (object_index == )
 
 		else{
+			
 			switch(attacked.object_index){
 				case obj_infantry:
+
+				
+				
 					destroy_soldier(attacked, false); 
 					break;
 
 				case obj_hut:
 					global.grid[attacked.spawnPos].originHutPos = -1;
 					to.hut = -1;
-
+					break;
+				
+				case obj_attackable:
+					beacon_destroy(attacked.tilePos.pos, false);
+					break;
+					
 				default:
 					instance_destroy(attacked);
+					break;
 			}
 
 

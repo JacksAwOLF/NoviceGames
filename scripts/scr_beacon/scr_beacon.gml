@@ -1,19 +1,44 @@
 /// all the code relating to beacons
 
 
+
+
+
+
 // called in load_tiles after all the variables are loaded
 // creates the global variables to keep track of beacons on each side
 function beacon_contruct_global(){
-	
 	global.beacons = [[],[]];
-	with(obj_tile) if (beaconSoldier != -1)
-		beaconSoldier.beaconIndex = add_into_array(global.beacons[beaconSoldier.team], pos);
+	with(obj_tile) if (beacon != -1)
+		beacon.linkedSoldier.beaconIndex = add_into_array(global.beacons[beacon.linkedSoldier.team], pos);
 		
 }
+
+// called in obj_tile draw event
+function beacon_draw(scale_factor){
+	if (beacon != -1 && (beacon.linkedSoldier.team == global.turn%2 || !hide_soldier) ){
+		draw_sprite_ext(spr_bacon, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);	
+		if (beacon.num != -1) draw_text(x, y, beacon.num);
+	}
+}
+
+// called in obj_tile create event
+function beacon_tile_init(){
+	beacon = -1;
+}
+
+// called in obj_solddieer create event
+function beacon_soldier_init(){
+	beaconIndex = -1;
+}
+
+
+
 
 // called if the user clicks the button
 // construct beacon that counts enemy units
 	// the soldier creates the beacon at pos
+global.buffer_sizes[BufferDataType.beaconCreate] = 2;
 function beacon_create(soldier, pos){
 	
 	if (soldier == undefined) soldier = global.selectedSoldier;
@@ -24,30 +49,46 @@ function beacon_create(soldier, pos){
 		|| soldier.can != soldier.defaultCan) return;
 	
 	soldier.can = 0;
+	event_perform_object(obj_map_helper, ev_keypress, vk_space);
 	soldier.beaconIndex = add_into_array(global.beacons[team], pos);
 	
 	with(global.grid[pos]){
-		beaconNum = -1;
-		beaconSoldier = soldier;
+		beacon = instance_create_depth(x, y, 0, obj_attackable);
+		with(beacon){
+			num = -1;
+			linkedSoldier = soldier;
+			tilePos = global.grid[pos];
+		}
+		beacon.team = soldier.team;
 	}
 	
 	send_buffer(BufferDataType.beaconCreate, [team, pos]);
-}	
+}
 
 // called in soldiere_destroy before the inst is destroyed
 // destroy that beacon
-function beacon_destroy(soldierInst){
-	with (soldierInst) { 
-		if (unit_id == Units.IFV_S && special == 1 && beaconIndex != -1){ 
-			var pos = global.beacons[team][beaconIndex];
-			with(global.grid[pos]){
-				beaconNum = -1;
-				beaconSoldier = -1;
-			}
-			global.beacons[team][beaconIndex] = -1;
-			beaconIndex = -1;
+global.buffer_sizes[BufferDataType.beaconDestroy] = 1;
+function beacon_destroy(tilePos, sendBuffer){ debug("destroy this beacon");
+	with(global.grid[tilePos]){
+		if (beacon == -1) return;
+	
+		if (sendBuffer) 
+			send_buffer(BufferDataType.beaconDestroy, [ tilePos ]);
+	
+		with(beacon){
+			num = -1;
+			with(linkedSoldier){
+				global.beacons[team][beaconIndex] = -1;
+				beaconIndex = -1;
+			}	
+			linkedSoldier = -1;
+			instance_destroy();
 		}
+		beacon = -1;
+		
+		
 	}
+	debug("beacon destroyed yea?", global.grid[tilePos].beacon);
 }
 
 // called in next_move aftere the turn is incremented
@@ -62,29 +103,11 @@ function beacon_count(){
 			var num = 0;
 			for (var j=0; j<array_length(tiles); j++){
 				var s = tiles[j].soldier
-				if (s != -1 && s.team != beaconTile.beaconSoldier.team)
+				if (s != -1 && s.team != beaconTile.beacon.linkedSoldier.team)
 					num += 1;
 			}
 			
-			global.grid[arr[i]].beaconNum = num;
+			global.grid[arr[i]].beacon.num = num;
 		}
 }
 
-// called in obj_tile draw event
-function beacon_draw(scale_factor){
-	if (beaconSoldier != -1 && (beaconSoldier.team == global.turn%2 || !hide_soldier) ){
-		draw_sprite_ext(spr_bacon, 0, x, y, scale_factor, scale_factor, 0, c_white, 1);	
-		if (beaconNum != -1) draw_text(x, y, beaconNum);
-	}
-}
-
-// called in obj_tile create event
-function beacon_tile_init(){
-	beaconSoldier = -1;
-	beaconNum = -1;
-}
-
-// called in obj_solddieer create event
-function beacon_soldier_init(){
-	beaconIndex = -1;
-}

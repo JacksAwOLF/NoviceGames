@@ -34,7 +34,8 @@ function destroy_soldier(soldierInstance, sendPacket) {
 				instance_destroy(storedPlaneInst);
 			}
 			
-			beacon_destroy(id);
+			if (beaconIndex != -1)
+				beacon_destroy(global.beacon[team][beaconIndex], false);
 			
 			tilePos.soldier = -1;
 		}

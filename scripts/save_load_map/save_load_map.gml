@@ -3,18 +3,20 @@ global.saveVersion = 1;
 global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
 // btw the first variable of an object to  save
 // can't have a negative 1  value
+// also if you wanna encode the frst variable of an object,
+// the trigger keey hsould be the namee of the variable on the object instead
 if (global.saveVersion >= 1){
 	global.tiles_save_order = array(
 		"sprite_index", 
 		"road", 
 		"originHutPos",
-		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special", "beaconIndex", "timeToLive", "discovered"), 
-		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "spr3ite_dir", "spawnPos", "tilePos", "soldierSpec"),
+		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special", "timeToLive", "discovered"), 
+		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos", "soldierSpec"),
 		array("tower", "my_health", "team", "max_health", "tilePos"),
-		"beaconSoldier",
+		array("beacon", "linkedSoldier", "num", "tilePos")
 	);
 		
-	global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower);
+	global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower, obj_attackable);
 }
 
 
@@ -24,9 +26,8 @@ function encode_save_var(data, name){
 		case "tilePos":
 			return real(data.pos);
 			break;
-		case "beaconSoldier":
-			if (data != -1) 
-				data = real(data.tilePos.pos);
+		case "linkedSoldier":
+			data = real(data.tilePos.pos);
 			return data;
 			break;
 		case "spriteIndex":
@@ -42,7 +43,7 @@ function decode_save_var(data, name){
 		case "tilePos":
 			return global.grid[data];
 			break;
-		case "beaconSoldier":
+		case "beacon":
 			if (data != -1)
 				data = global.grid[data].soldier;	
 			return data;
@@ -87,7 +88,7 @@ function save_data(data, medium, dataSrc, name){
 /// @param  Mediums.***
 /// @param  dataSrc
 /// @param  nameOfData
-function get_data(medium, dataSrc, name){ 
+function get_data(medium, dataSrc, name){
 	var res, dataT = data_type_from_name(name);
 		
 	switch (medium){
@@ -180,14 +181,15 @@ function load_tiles(medium, dataSrc) {
 	
 	if dataSrc != undefined
 	
-	for (var i=0; i<global.mapWidth*global.mapHeight; i++){ 
+	for (var i=0; i<global.mapWidth*global.mapHeight; i++){ //debug("reading itle", i);
 		for (var j=0; j<array_length(global.tiles_save_order); j++){ // loop through the vars saved
 				
 			// name is either the element, or the first  eleof the array
 			var name = global.tiles_save_order[j], first = name, data1;
 			if  (is_array(name)) first = name[0];
 			var data1 = get_data(medium, dataSrc, first);
-				
+			
+			
 				
 			if (is_array(name) && data1 != -1){
 					
