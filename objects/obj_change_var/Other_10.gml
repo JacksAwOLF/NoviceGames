@@ -31,7 +31,7 @@ if (text == "Weather") {
 	}
 	
 	// changing class means loading default values
-	refresh_change_vars(global.soldierSelectTile[0], global.soldierSelectTile[0].binded_dropdown.options[0]);
+	//refresh_change_vars(global.soldierSelectTile[0], global.soldierSelectTile[0].binded_dropdown.options[0]);
 	
 	
 } else if (text == "Win") {

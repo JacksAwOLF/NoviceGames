@@ -8,10 +8,10 @@ function update_change_sprite(tile_instance, selected_sprite) {
 	global.changeSprite = selected_sprite;
 
 	// if this button is a soldier button, update other svars
-	if (tile_instance.description == "units")
-		refresh_change_vars(tile_instance, global.changeSprite);
+	//if (tile_instance.description == "units")
+		//refresh_change_vars(tile_instance, global.changeSprite);
 }
-
+/*
 function refresh_change_vars(tile_instance, selected_choice) {
 	
 	var index = posInArray(tile_instance.binded_dropdown.options, selected_choice);
@@ -22,4 +22,4 @@ function refresh_change_vars(tile_instance, selected_choice) {
 	global.soldier_vars[Svars.max_damage] = global.max_damage[unit_id];
 		
 	//global.soldier_vars[Svars.vision] = global.vision[unit_id];
-}
+}*/
