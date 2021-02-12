@@ -3,10 +3,33 @@
 // returns if the attacking unit is able to attack the tile or not
 // cant attack tile if there is nothing on that tile, or everything
 // on it has the same team as the attacking unit
-function soldier_attack_tile(attackUnitInst, toTilePos, damageOverride) {
-	var attacked = get_attack_target(attackUnitInst, global.grid[toTilePos]);	// this is in init_attack()
+function soldier_attack_tile(attackerUnitInst, toTilePos, damageOverride) {
+	
+	// tank range special ability: attack multiple tiles
+	if (attackerUnitInst.unit_id == Units.TANK_R && attackerUnitInst.special) {
+		
+		for (var i = -1; i <= 1; i++) {
+			for (var j = -1; j <= 1; j++) {
+				if (i == 0 && j == 0) continue;
+				
+				var curRow = getRow(toTilePos) + i;
+				var curCol = getCol(toTilePos) + j;
+				var gridPos = getPos(curRow, curCol);
+				
+				if ( on_grid(curRow, curCol) )  {
+					if (global.grid[gridPos].soldier != -1 && global.grid[gridPos].soldier != attackerUnitInst) {
+						soldier_execute_attack(attackerUnitInst, global.grid[gridPos].soldier);
+					}
+				}
+				
+			}
+		}
+		
+	} 
+	
+	var attacked = get_attack_target(attackerUnitInst, global.grid[toTilePos]);	// this is in init_attack()
 	if (attacked == -1) return false;
-	soldier_execute_attack(attackUnitInst, attacked, damageOverride);
+	soldier_execute_attack(attackerUnitInst, attacked, damageOverride);
 	return true;
 }
 
@@ -19,31 +42,9 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
 	
-	if (attackerUnitInst.unit_id == Units.TANK_R && attackerUnitInst.special) {
-		attackerUnitInst.special = false;
-		
-		for (var i = -1; i <= 1; i++) {
-			for (var j = -1; j <= 1; j++) {
-				if (i == 0 && j == 0) continue;
-				
-				var curRow = getRow(to.pos) + i;
-				var curCol = getCol(to.pos) + j;
-				var gridPos = getPos(curRow, curCol);
-				
-				if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapWidth)  {
-					if (global.grid[gridPos].soldier != -1 && global.grid[gridPos].soldier != attackerUnitInst) {
-						soldier_execute_attack(attackerUnitInst, global.grid[gridPos].soldier);
-					}
-				}
-				
-			}
-		}
-		
-		attackerUnitInst.special = true;
-	} else if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
+	if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
 		add_into_array(global.flares[attackerUnitInst.team], 
 			{turn: global.turn, pos: attacked.tilePos.pos});
-			
 	} else if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
 		add_into_array(global.poison, {turn: global.turn, pos: attacked.tilePos.pos});
 	}
@@ -78,8 +79,6 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 			damageOverride
 		)
 	);
-	
-	debug(global.playas, "aattack event", encode_possible_attack_objects(attackerUnitInst), encode_possible_attack_objects(attacked));
 	
 
 	if (attacked.my_health <= 0){
