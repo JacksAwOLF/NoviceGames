@@ -15,6 +15,8 @@ function soldier_attack_tile(attackUnitInst, toTilePos, damageOverride) {
 // damage, if set, overrides the damage calculation. used for suicide attack
 function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
+	if (damageOverride == undefined) damageOverride = -1;
+	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
 	
 	if (attackerUnitInst.unit_id == Units.TANK_R && attackerUnitInst.special) {
@@ -45,10 +47,10 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	} else if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
 		add_into_array(global.poison, {turn: global.turn, pos: attacked.tilePos.pos});
 	}
-
+	
+	
 	var damage = calculate_damage(attackerUnitInst, attacked);
-	if (damageOverride != undefined) damage = damageOverride;
-	else damageOverride = -1;
+	if (damageOverride != -1) damage = damageOverride;
 	
 	// process attacking from the side
 	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
@@ -77,6 +79,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 		)
 	);
 	
+	debug(global.playas, "aattack event", encode_possible_attack_objects(attackerUnitInst), encode_possible_attack_objects(attacked));
 	
 
 	if (attacked.my_health <= 0){

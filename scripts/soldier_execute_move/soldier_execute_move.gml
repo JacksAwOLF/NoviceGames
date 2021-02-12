@@ -33,6 +33,14 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	if (global.edit || network_my_turn()) update_fog();
 	else {
 		update_enemy_outline();
+		
+		// not your turn and your troop gets moved
+		// only happens in tank_m special event
+		if (to.soldier.team == global.playas){
+			global.turn++;
+			update_fog();
+			global.turn++;
+		}
 	}
 }
 
