@@ -5,6 +5,9 @@
 // on it has the same team as the attacking unit
 function soldier_attack_tile(attackerUnitInst, toTilePos, damageOverride) {
 	
+	var attacked = get_attack_target(attackerUnitInst, global.grid[toTilePos]);	// this is in init_attack()
+	if (attacked == -1) return false;
+	
 	// tank range special ability: attack multiple tiles
 	if (attackerUnitInst.unit_id == Units.TANK_R && attackerUnitInst.special) {
 		
@@ -25,10 +28,16 @@ function soldier_attack_tile(attackerUnitInst, toTilePos, damageOverride) {
 			}
 		}
 		
+	}
+	
+	// ifv range ablity: add a flare
+	// thhis doesn't need to be sent over the network
+	if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
+		add_into_array(global.flares[attackerUnitInst.team], 
+			{turn: global.turn, pos: attacked.tilePos.pos});
 	} 
 	
-	var attacked = get_attack_target(attackerUnitInst, global.grid[toTilePos]);	// this is in init_attack()
-	if (attacked == -1) return false;
+	
 	soldier_execute_attack(attackerUnitInst, attacked, damageOverride);
 	return true;
 }
@@ -42,10 +51,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
 	
-	if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
-		add_into_array(global.flares[attackerUnitInst.team], 
-			{turn: global.turn, pos: attacked.tilePos.pos});
-	} else if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
+	if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
 		add_into_array(global.poison, {turn: global.turn, pos: attacked.tilePos.pos});
 	}
 	

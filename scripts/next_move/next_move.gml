@@ -71,7 +71,7 @@ function next_move() {
 	erase_blocks(true);
 
 
-	if  (global.edit){
+	if  (global.edit || get_size_array(global.flares[global.turn%2]) > 0){
 		global.changeSprite = -1;
 		global.selectedSoldier = -1;
 		global.selectedSpawn = -1;
