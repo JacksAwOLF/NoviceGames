@@ -58,8 +58,10 @@ function read_buffer(buff){
 	var data = [];
 	
 	if (type != BufferDataType.yourMove && type != BufferDataType.mapData)
-		for (var i=0; i<global.buffer_sizes[type]; i++)
+		for (var i=0; i<global.buffer_sizes[type]; i++){
 			data[i] = buffer_read(buff, buffer_u16);
+			if (data[i] == 65535) data[i] = -1;
+		}
 	
 	
 	switch(type){
@@ -75,9 +77,6 @@ function read_buffer(buff){
 			break;
 			
 		case BufferDataType.soldierCreated:
-			if (data[3] == 65535) data[3] = -1;
-			if (data[4] == 65535) data[4] = -1;
-		
 			create_soldier(
 				data[0], data[1], data[2],  
 				decode_possible_creation_objects(data[3], data[4]), 
@@ -118,7 +117,6 @@ function read_buffer(buff){
 			break;
 	
 		case BufferDataType.finallyDeployPlane:
-			if (data[2] == 65535) data[2] = -1;
 			var planeUnitId = data[0];
 			var who = global.grid[data[1]].soldier;
 			update_stored_plane(planeUnitId, who);

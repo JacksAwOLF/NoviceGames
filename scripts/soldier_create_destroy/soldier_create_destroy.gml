@@ -105,9 +105,9 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 		
 	} else if (!is_plane(created_soldier)) {
 		with (created_soldier) {
-			attack_range = global.soldier_vars[Svars.attack_range];
-			max_health = global.soldier_vars[Svars.max_health];
-			max_damage = global.soldier_vars[Svars.max_damage];
+			attack_range = global.attack_range[s_unit_id];
+			max_health = global.max_health[s_unit_id];
+			max_damage = global.max_damage[s_unit_id];
 			vision = global.vision[s_unit_id];
 			my_health = max_health;
 		}
@@ -156,7 +156,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 }
 
 function encode_possible_creation_objects(inst){
-	if (inst == -1) return -1;
+	if (inst == -1 || inst == 65535) return -1;
 	var check = array(obj_hut, obj_infantry);
 	return posInArray(check, inst.object_index);
 }

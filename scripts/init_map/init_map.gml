@@ -124,14 +124,14 @@ function init_map(medium, dataSrc) {
 		var names; 
 
 		enum Svars {
-			attack_range, max_health, max_damage, unit_page, win, weather, special, move_range, vision
+			unit_page, win, weather, special, move_range, vision
 		};
 		
 		
 		// [0,1] stands for scout, infantry, which is default in edit mode
-		global.soldier_vars[Svars.attack_range] = global.attack_range[Units.TANK_M]; names[Svars.attack_range] = "attack range";   
-		global.soldier_vars[Svars.max_health] = global.max_health[Units.TANK_M]; names[Svars.max_health] = "max health";   // probably  dependent on class too
-		global.soldier_vars[Svars.max_damage] = global.max_damage[Units.TANK_M]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
+		//global.soldier_vars[Svars.attack_range] = global.attack_range[Units.TANK_M]; names[Svars.attack_range] = "attack range";   
+		//global.soldier_vars[Svars.max_health] = global.max_health[Units.TANK_M]; names[Svars.max_health] = "max health";   // probably  dependent on class too
+		//global.soldier_vars[Svars.max_damage] = global.max_damage[Units.TANK_M]; names[Svars.max_damage] = "max damage";   // probably  dependent on class too
 		
 		global.soldier_vars[Svars.unit_page] = 0; names[Svars.unit_page] = "Select";
 		
@@ -142,7 +142,7 @@ function init_map(medium, dataSrc) {
 		global.soldier_vars[Svars.weather] = Weather.REGULAR; names[Svars.weather] = "Weather";
 		global.soldier_vars[Svars.special] = 0; names[Svars.special] = "Spec?";
 		
-		hor_spacing = 60;
+		hor_spacing = 80;
 		for (var index=array_length(names)-1; index>=0; index--){
 			with(instance_create_depth(
 			room_width-(array_length(names)-index)*hor_spacing, 
