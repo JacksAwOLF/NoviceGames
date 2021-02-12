@@ -36,9 +36,8 @@ function infantry_m_special() {
 	var curSoldier = global.selectedSoldier; // needed cuz attack resets selectedSoldier
 	var nextTile = next_tile_in_dir(curSoldier.tilePos.pos, curSoldier.direction);
 	
-	curSoldier.max_damage += 2;
 	if (nextTile != -1) {
-		soldier_attack_tile(curSoldier, nextTile);
+		soldier_attack_tile(curSoldier, nextTile, curSoldier.max_damage+2);
 	}
 	
 	destroy_soldier(curSoldier, true);

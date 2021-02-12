@@ -68,7 +68,7 @@ function beacon_create(soldier, pos){
 // called in soldiere_destroy before the inst is destroyed
 // destroy that beacon
 global.buffer_sizes[BufferDataType.beaconDestroy] = 1;
-function beacon_destroy(tilePos, sendBuffer){ debug("destroy this beacon");
+function beacon_destroy(tilePos, sendBuffer){ 
 	with(global.grid[tilePos]){
 		if (beacon == -1) return;
 	
@@ -88,7 +88,6 @@ function beacon_destroy(tilePos, sendBuffer){ debug("destroy this beacon");
 		
 		
 	}
-	debug("beacon destroyed yea?", global.grid[tilePos].beacon);
 }
 
 // called in next_move aftere the turn is incremented

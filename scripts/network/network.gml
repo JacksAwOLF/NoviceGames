@@ -14,7 +14,7 @@ enum BufferDataType{
 // if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
 // note: real buffer size actually +1 bc first byte indicates which BufferDataType
 global.buffer_sizes[BufferDataType.soldierMoved] = 3;
-global.buffer_sizes[BufferDataType.soldierAttacked] = 4;
+global.buffer_sizes[BufferDataType.soldierAttacked] = 5;
 global.buffer_sizes[BufferDataType.soldierCreated] = 6;
 global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
 global.buffer_sizes[BufferDataType.formationCombine] = 2;
@@ -73,7 +73,7 @@ function read_buffer(buff){
 			var attacker =  decode_possible_attack_objects(data[0], data[2]),
 				attacked = decode_possible_attack_objects(data[1], data[3]);
 			
-			soldier_execute_attack(attacker, attacked); 
+			soldier_execute_attack(attacker, attacked, data[4]); 
 			break;
 			
 		case BufferDataType.soldierCreated:

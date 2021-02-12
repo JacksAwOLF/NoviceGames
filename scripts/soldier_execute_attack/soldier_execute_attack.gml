@@ -3,16 +3,17 @@
 // returns if the attacking unit is able to attack the tile or not
 // cant attack tile if there is nothing on that tile, or everything
 // on it has the same team as the attacking unit
-function soldier_attack_tile(attackUnitInst, toTilePos) {
+function soldier_attack_tile(attackUnitInst, toTilePos, damageOverride) {
 	var attacked = get_attack_target(attackUnitInst, global.grid[toTilePos]);	// this is in init_attack()
 	if (attacked == -1) return false;
-	soldier_execute_attack(attackUnitInst, attacked);
+	soldier_execute_attack(attackUnitInst, attacked, damageOverride);
 	return true;
 }
 
 // @function actually execute an attack
 // doesn't actually check for team attacking or what not; deals damage and after affects
-function soldier_execute_attack(attackerUnitInst, attacked){
+// damage, if set, overrides the damage calculation. used for suicide attack
+function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
 	
@@ -46,6 +47,8 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	}
 
 	var damage = calculate_damage(attackerUnitInst, attacked);
+	if (damageOverride != undefined) damage = damageOverride;
+	else damageOverride = -1;
 	
 	// process attacking from the side
 	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
@@ -62,7 +65,6 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 	attacked.my_health -= damage;
 	attackerUnitInst.can -= attackerUnitInst.attackCost;
 	
-	debug("executge attack", attacked.my_health);
 	
 	send_buffer(
 		BufferDataType.soldierAttacked, 
@@ -70,7 +72,8 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 			attackerUnitInst.tilePos.pos, 
 			to.pos, 
 			encode_possible_attack_objects(attackerUnitInst),
-			encode_possible_attack_objects(attacked)
+			encode_possible_attack_objects(attacked),
+			damageOverride
 		)
 	);
 	
@@ -121,15 +124,12 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 
 
 
-		} //else if (object_index == )
+		} 
 
 		else{
 			
 			switch(attacked.object_index){
 				case obj_infantry:
-
-				
-				
 					destroy_soldier(attacked, false); 
 					break;
 
