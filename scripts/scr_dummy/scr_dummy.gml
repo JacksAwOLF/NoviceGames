@@ -55,7 +55,7 @@ function dummy_create_init(){
 // subtract life force from this dum dum dummy
 function dummy_next_move(){
 	
-	if (global.turn%2 == global.playas) return;
+	if (!global.edit && global.turn%2 == global.playas) return;
 	
 	// counnt the number of dummies
 	var dummies = []

@@ -51,6 +51,9 @@ if (global.selectedSoldier != -1){
 		
 		
 		with (global.selectedSoldier){	
+			
+			var nPath = array_length(path);
+			
 			if (is_plane(id)) {
 				
 				var pathSize = array_length(pathpoints);
@@ -62,71 +65,52 @@ if (global.selectedSoldier != -1){
 				
 				
 			} 
-			else if (array_length(path)>=1 ) {
-					
+			else if (nPath >= 1) {
+				
+				var gss = global.selectedSoldier;
+				
 				// if didn't clicked myself again (didn't deselect)
-				if (array_length(path) > 1) {
+				if (nPath > 1) {
 					can -= moveCost;
 				}
 				
-				
-				var i = -1; // i is index of first soldier encountered or  -1 of none
+				// get the index of the path where there is an enemy soldier
+				var collisionInd = nPath-2;
 				var moveHereCost = 0;
-				for (i = max(-1, array_length(path)-2); i>=0; i--){
-					if (path[i].soldier!=-1 && path[i] != global.selectedSoldier.tilePos) break;	
-					moveHereCost += global.energy[unit_id][get_tile_type(path[i])];
+				while (collisionInd >= 0){ 
+					var tile = path[collisionInd];
+					if (tile.soldier!=-1 && tile != gss.tilePos) break;	
+					moveHereCost += global.energy[unit_id][get_tile_type(tile)];
+					collisionInd--;
 				}
 				
 				move_range -= moveHereCost;
-				
-				
 				error = false;
+				var destTileInd = collisionInd + 1;
 				
-				
-				var gss = global.selectedSoldier;
-				if (i != -1){
-					// take into account the freaking specail case
+				if (collisionInd != -1){
+					
 					if (gss.special == 1 && gss.unit_id == Units.TANK_M){
 					
+						// move the enemy soldier out of the way
+						var a = path[collisionInd+1].pos, b = path[collisionInd].pos, 
+							c = next_tile_in_dir(b, get_dir_from_travel(a, b));
+						if (c != -1) soldier_execute_move(path[collisionInd], c);
 						
-						// move the enemy ssoldier out of the way bitch
-						var where = -1;
-						
-						for (var j=i; j>=0; j--){
-							// the melee ssolddier's last move is from a to b
-							// this move will move the enemy soldier to c;
-							var a = path[j+1].pos, b = path[j].pos, 
-								c = next_tile_in_dir(b, get_dir_from_travel(a, b));
-							
-							if (j == 0) where = c;
-							else if (c != path[j-1].pos){
-								where = c;
-								break;
-							}
-						}
-						
-						soldier_execute_move(path[i], where);
-						
-						// set i as if there were no obstacle
-						i = -1;
-					
-					} else{
-						// clear fog if encountered soldier (stuck and  can't move)
-						path[i].hide_soldier = false;
-						error = true;
-					}
+						// change the final destination tile
+						destTileInd = collisionInd;
+					} 
 				}
 				
-				if (error) i--;
-				direction = get_dir_from_travel(path[i+2], path[i+1]);
-				if (error) i++;
+				var dir = gss.direction;
+				if (destTileInd + 1 < nPath)
+					dir = get_dir_from_travel(path[destTileInd+1].pos, path[destTileInd].pos);
+				soldier_execute_move(gss.tilePos, path[destTileInd].pos, dir);
 				
-				soldier_execute_move(global.selectedSoldier.tilePos,  path[i+1].pos, direction);
-				
-				//clear fog if encountered soldier  (actually moved)
-				if (i != -1) path[i].hide_soldier = false;
-				
+				if (collisionInd != -1) path[collisionInd].hide_soldier = false;
 			}
+			
+			
 			
 		}
 			

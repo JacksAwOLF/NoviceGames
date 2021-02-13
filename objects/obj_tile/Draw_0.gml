@@ -136,7 +136,8 @@ if (tower != -1){
 
 
 // draw soldiers if needed
-if (soldier != -1 && !hide_soldier){	
+
+if (soldier != -1 && hide_soldier == false){
 	
 	var spr_index = soldier.sprite_index;
 	
