@@ -55,8 +55,10 @@ function tank_s_special() {
 	});
 	
 	global.processClick = function(tileInst) {
-		tileInst.soldier.my_health = tileInst.soldier.max_health;
-		global.selectedSoldier.special = false;
+		
+		var t = global.selectedSoldier;
+		soldier_execute_attack(global.selectedSoldier, tileInst.soldier);
+		t.special = false;
 		
 		event_perform_object(obj_map_helper, ev_keypress, vk_space);
 	};

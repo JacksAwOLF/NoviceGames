@@ -42,6 +42,9 @@ function soldier_attack_tile(attackerUnitInst, toTilePos, damageOverride) {
 	return true;
 }
 
+
+
+
 // @function actually execute an attack
 // doesn't actually check for team attacking or what not; deals damage and after affects
 // damage, if set, overrides the damage calculation. used for suicide attack
@@ -52,24 +55,9 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
 	poison_add(attackerUnitInst, to.pos);
 	
-	var damage = calculate_damage(attackerUnitInst, attacked);
-	if (damageOverride != -1) damage = damageOverride;
-	
-	// process attacking from the side
-	if (attacked == to.soldier && to.soldier != -1 && to.tower == -1) {
-		var ohko = false, posdiff = fr.pos - to.pos;
-		if (posdiff == 1 || posdiff == -1)
-			ohko = (to.soldier.direction % 180 == 0);
-		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)
-			ohko = (to.soldier.direction == 90 || to.soldier.direction == 270);
-
-		if (ohko && !is_tank(attacked))
-			damage = to.soldier.my_health;
-	}
-
-	attacked.my_health -= damage;
+	var damage = calculate_damage(attackerUnitInst, attacked, damageOverride);
+	attacked.my_health -= damage; 
 	attackerUnitInst.can -= attackerUnitInst.attackCost;
-	
 	
 	send_buffer(
 		BufferType.soldierAttacked, 
