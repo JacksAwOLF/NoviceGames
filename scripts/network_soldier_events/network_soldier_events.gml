@@ -140,7 +140,7 @@ function create_soldier(sind, pos, fromUnitInst, updateFog, s_unit_id) {
 	
 	debug("sssending", encode_possible_creation_objects(fromUnitInst))
 	send_buffer(
-		BufferDataType.soldierCreated, 
+		BufferType.soldierCreated, 
 		array(
 			sind, pos, fromPos, 
 			encode_possible_creation_objects(fromUnitInst)
@@ -290,7 +290,7 @@ function soldier_execute_attack(attackerUnitInst, attacked){
 		global.selectedSoldier = -1;
 		
 	send_buffer(
-		BufferDataType.soldierAttacked, 
+		BufferType.soldierAttacked, 
 		array(
 			attackerUnitInst.tilePos.pos, 
 			attacked.tilePos.pos, 
@@ -336,7 +336,7 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	t.tilePos = to;
 
 	with(to.soldier) direction = dir;
-	send_buffer(BufferDataType.soldierMoved, array(frTileInst.pos, toTilePos, dir));
+	send_buffer(BufferType.soldierMoved, array(frTileInst.pos, toTilePos, dir));
 
 	if (global.edit || network_my_turn()) update_fog();
 	else {
@@ -354,6 +354,6 @@ function exchange_hut_spawn_position(originHutPosition, newSpawnPosition){
 	global.grid[relatedHut.spawnPos].originHutPos = -1;
 	relatedHut.spawnPos = newSpawnTile.pos;
 
-	send_buffer(BufferDataType.changeHutPosition, array(originHutPosition, newSpawnPosition));
+	send_buffer(BufferType.changeHutPosition, array(originHutPosition, newSpawnPosition));
 
 }

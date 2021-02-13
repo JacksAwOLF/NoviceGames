@@ -23,14 +23,14 @@ function network_formation_create(teamId){
 		team: teamId, 
 		tiles: [-1]
 	};
-	send_buffer(BufferDataType.formationCreate, array(teamId));
+	send_buffer(BufferType.formationCreate, array(teamId));
 	return ind;
 }
 
 function network_malList_add(stringVar, val){
 	var list = string_to_variable(stringVar);
 	list[malList_findVal(list, -1)] = val;
-	send_buffer(BufferDataType.malList_add, array(stringVar, val));
+	send_buffer(BufferType.malList_add, array(stringVar, val));
 }
 
 function malList_getSize(list){
@@ -52,14 +52,14 @@ function network_malList_updateValue(stringVar, oldVal, newVal){
 	if (newVal == undefined) newVal = -1;
 	var list = string_to_variable(stringVar);
 	list[malList_findVal(list, oldVal)] = newVal;
-	send_buffer(BufferDataType.malList_updateVal, array(stringVar, oldVal, newVal));
+	send_buffer(BufferType.malList_updateVal, array(stringVar, oldVal, newVal));
 }
 
 function network_malList_updateIndex(stringVar, ind, val){
 	if (val == undefined) val = -1;
 	var list = string_to_variable(stringVar);
 	list[ind] = val;
-	send_buffer(BufferDataType.malList_updateInd, array(stringVar, ind, val));
+	send_buffer(BufferType.malList_updateInd, array(stringVar, ind, val));
 }
 
 
@@ -69,21 +69,21 @@ function network_malList_updateIndex(stringVar, ind, val){
 		malList_findIndex(global.formation[formationId].tiles, -1)
 	] = tileId;
 	tileId.soldier.formation = formationId;
-	send_buffer(BufferDataType.formationAddTile, array(formationId, tileId));
+	send_buffer(BufferType.formationAddTile, array(formationId, tileId));
 }
 
 function network_formation_update_tile(formationId, tileId, value){
 	global.formation[formationId].tiles[
 		malList_findIndex(global.formation[formationId].tiles, tileId)
 	] = value;
-	send_buffer(BufferDataType.formationUpdateTile, array(formationId, tileId, value));
+	send_buffer(BufferType.formationUpdateTile, array(formationId, tileId, value));
 }
 
 function network_formation_destroy(formationId){
 	for (var i=0; i<array_length(global.formation[formationId].tiles); i++)
 		global.formation[formationId].tiles[i].soldier.formation = -1;
 	global.formation[formationId] = -1;
-	send_buffer(BufferDataType.formationDestroy, array(formationId));
+	send_buffer(BufferType.formationDestroy, array(formationId));
 }
 
 */

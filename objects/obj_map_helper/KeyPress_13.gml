@@ -4,7 +4,7 @@ if (global.edit || network_my_turn()){
 	
 	if (client_connected(true, false) == 0) exit;
 	
-	//send_buffer(BufferDataType.yourMove, []);
+	//send_buffer(BufferType.yourMove, []);
 	
 	
 	advance_planes();

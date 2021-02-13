@@ -72,6 +72,7 @@
     {"id":{"name":"spr_info_screen","path":"sprites/spr_info_screen/spr_info_screen.yy",},"order":5,},
     {"id":{"name":"get_enum_ids","path":"scripts/get_enum_ids/get_enum_ids.yy",},"order":3,},
     {"id":{"name":"spr_tower","path":"sprites/spr_tower/spr_tower.yy",},"order":4,},
+    {"id":{"name":"scr_poison","path":"scripts/scr_poison/scr_poison.yy",},"order":5,},
     {"id":{"name":"next_move","path":"scripts/next_move/next_move.yy",},"order":4,},
     {"id":{"name":"carrier_options","path":"scripts/carrier_options/carrier_options.yy",},"order":0,},
     {"id":{"name":"spr_deploy","path":"sprites/spr_deploy/spr_deploy.yy",},"order":10,},

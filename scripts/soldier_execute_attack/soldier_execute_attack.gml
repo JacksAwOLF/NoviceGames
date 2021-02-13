@@ -50,11 +50,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	if (damageOverride == undefined) damageOverride = -1;
 	
 	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
-	
-	if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
-		add_into_array(global.poison, {turn: global.turn, pos: attacked.tilePos.pos});
-	}
-	
+	poison_add(attackerUnitInst, to.pos);
 	
 	var damage = calculate_damage(attackerUnitInst, attacked);
 	if (damageOverride != -1) damage = damageOverride;
@@ -76,7 +72,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
 	
 	send_buffer(
-		BufferDataType.soldierAttacked, 
+		BufferType.soldierAttacked, 
 		array(
 			attackerUnitInst.tilePos.pos, 
 			to.pos, 

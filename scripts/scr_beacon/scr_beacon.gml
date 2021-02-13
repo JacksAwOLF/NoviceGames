@@ -38,7 +38,7 @@ function beacon_soldier_init(){
 // called if the user clicks the button
 // construct beacon that counts enemy units
 	// the soldier creates the beacon at pos
-global.buffer_sizes[BufferDataType.beaconCreate] = 2;
+global.buffer_sizes[BufferType.beaconCreate] = 2;
 function beacon_create(soldier, pos){
 	
 	if (soldier == undefined) soldier = global.selectedSoldier;
@@ -62,18 +62,18 @@ function beacon_create(soldier, pos){
 		beacon.team = soldier.team;
 	}
 	
-	send_buffer(BufferDataType.beaconCreate, [team, pos]);
+	send_buffer(BufferType.beaconCreate, [team, pos]);
 }
 
 // called in soldiere_destroy before the inst is destroyed
 // destroy that beacon
-global.buffer_sizes[BufferDataType.beaconDestroy] = 1;
+global.buffer_sizes[BufferType.beaconDestroy] = 1;
 function beacon_destroy(tilePos, sendBuffer){ 
 	with(global.grid[tilePos]){
 		if (beacon == -1) return;
 	
 		if (sendBuffer) 
-			send_buffer(BufferDataType.beaconDestroy, [ tilePos ]);
+			send_buffer(BufferType.beaconDestroy, [ tilePos ]);
 	
 		with(beacon){
 			num = -1;

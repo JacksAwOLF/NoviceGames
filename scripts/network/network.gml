@@ -1,33 +1,26 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
-enum BufferDataType{
+enum BufferType{
 	yourMove, mapData,
-	changeHutPosition,
 	soldierMoved,  soldierAttacked,  soldierCreated,  soldierDestroyed,
+	changeHutPosition,
 	formationCombine, formationRemoveTile, formationAddTile, formationDelete,
-	deployPlane, finallyDeployPlane, planeMoved,
+	finallyDeployPlane, planeMoved,
 	beaconCreate, beaconDestroy,
 };
 
 // number of buffer_u16 (2 bytes) that the buffer will conttain
 // if the buffer is not all buffer_u16 data, then it can be an array (HAVENT IMPLEMENTED YET)
-// note: real buffer size actually +1 bc first byte indicates which BufferDataType
-global.buffer_sizes[BufferDataType.soldierMoved] = 3;
-global.buffer_sizes[BufferDataType.soldierAttacked] = 5;
-global.buffer_sizes[BufferDataType.soldierCreated] = 6;
-global.buffer_sizes[BufferDataType.changeHutPosition] = 2;
-global.buffer_sizes[BufferDataType.formationCombine] = 2;
-global.buffer_sizes[BufferDataType.formationRemoveTile] = 2;
-global.buffer_sizes[BufferDataType.yourMove] = 0;
-global.buffer_sizes[BufferDataType.deployPlane] = 2;
-global.buffer_sizes[BufferDataType.finallyDeployPlane] = 3;
-global.buffer_sizes[BufferDataType.planeMoved] = 3;
-global.buffer_sizes[BufferDataType.soldierDestroyed] = 2;
-global.buffer_sizes[BufferDataType.formationAddTile] = 2;
+// note: real buffer size actually +1 bc first byte indicates which BufferType
 
-// if we need to update more global variables in the future, write a more generalized function
-global.buffer_sizes[BufferDataType.formationDelete] = 1;		
+function create_network_event(tp, sz, rec_f){
+	global.network[tp] = {
+		type: tp,
+		size: sz,
+		rec: rec_f,
+	}
+}
 
 
 
@@ -54,100 +47,24 @@ function client_connected(outfalse, outtrue){
 function read_buffer(buff){
 	
 	buffer_seek(buff, buffer_seek_start, 0);
-	var type  = buffer_read(buff, buffer_u8);
+	var event = global.network[buffer_read(buff, buffer_u8)];
 	var data = [];
 	
-	if (type != BufferDataType.yourMove && type != BufferDataType.mapData)
-		for (var i=0; i<global.buffer_sizes[type]; i++){
+	if (event.type != BufferType.yourMove && event.type != BufferType.mapData){
+		for (var i=0; i<event.size; i++){
 			data[i] = buffer_read(buff, buffer_u16);
-			if (data[i] == 65535) data[i] = -1;
+			if (data[i] == 65535) data[i] = -1; // _u16 sends -1  as 65535
 		}
-	
-	
-	switch(type){
-		case BufferDataType.soldierMoved:
-			soldier_execute_move(global.grid[data[0]], data[1], data[2]);
-			break;
-			
-		case BufferDataType.soldierAttacked:
-			var attacker =  decode_possible_attack_objects(data[0], data[2]),
-				attacked = decode_possible_attack_objects(data[1], data[3]);
-			
-			soldier_execute_attack(attacker, attacked, data[4]); 
-			break;
-			
-		case BufferDataType.soldierCreated:
-			create_soldier(
-				data[0], data[1], data[2],  
-				decode_possible_creation_objects(data[3], data[4]), 
-				false, true, data[5]
-			); 
-			break;
-		
-		case BufferDataType.yourMove:
-			next_move();
-			var t = instance_find(obj_server, 0);
-			t.txt = "Your move!!!";
-			start_sound("turn", 0, false);
-			break;
-
-		case BufferDataType.mapData:
-			init_map(Mediums.buffer, buff);
-			start_sound("connected", 0, false);
-			break;
-			
-		case BufferDataType.changeHutPosition:
-			exchange_hut_spawn_position(data[0], data[1]);
-			break;
-		
-		case BufferDataType.formationCombine:
-			addIntoFormationSoldier(global.grid[data[0]], global.grid[data[1]]);
-			break;
-			
-		case BufferDataType.formationRemoveTile:
-			removeFromFormation(data[0], global.grid[data[1]]);
-			break;
-			
-		case BufferDataType.formationAddTile:
-			addIntoFormationId(global.grid[data[0]], data[1])
-			break;
-			
-		case BufferDataType.formationDelete:	
-			disbandEntireFormation(data[0]);
-			break;
-	
-		case BufferDataType.finallyDeployPlane:
-			var planeUnitId = data[0];
-			var who = global.grid[data[1]].soldier;
-			update_stored_plane(planeUnitId, who);
-			who.storedPlaneInst.bindedCarrier = who;
-			finalize_deployment(who.storedPlaneInst, data[2]);
-			who.bindedPlane.bindedCarrier = who.storedPlaneInst.bindedCarrier;
-			break;
-			
-		case BufferDataType.planeMoved:
-			var fromTilePos = data[0];
-			var planeArrInd = data[1];
-			var toTilePos = data[2];
-			plane_execute_move(global.grid[fromTilePos].planeArr[planeArrInd], toTilePos);
-			break;
-			
-		case BufferDataType.soldierDestroyed:
-			destroy_soldier(decode_possible_attack_objects(data[0], data[1]), true);
-			break;
-		
-		case BufferDataType.beaconCreate:
-			beacon_create(data[0], data[1]);
-			break;
-			
-		case BufferDataType.beaconDestroy:
-			beacon_destroy(data[0], false);
-			break;
 	}
-
+	
+	if  (event.type == BufferType.mapData){
+		init_map(Mediums.buffer, buff);
+		start_sound("connected", 0, false);
+	}
+	else event.rec(data);
+	
 	buffer_delete(buff);
 }
-
 
 
 function network_my_turn(){
@@ -164,23 +81,167 @@ function send_buffer(type, data){
 	if (!global.edit && network_my_turn() && instance_number(obj_server) >= 1){
 		
 		var t = instance_find(obj_server, 0);
-		var n = global.buffer_sizes[type];
+		var n = global.network[type].size;
 		var buff = buffer_create(2*n+1, buffer_fixed, 1);
 		
 		buffer_seek(buff, buffer_seek_start, 0);
 		buffer_write(buff, buffer_u8, type);
 		
-		if (type != BufferDataType.yourMove)
+		if (type != BufferType.yourMove)
 			for (var i=0; i<n; i++)
 				buffer_write(buff, buffer_u16, real(data[i]));
 		
 		
 		var s = (global.action == "client" ? t.socket : t.osocket);
+		
 		network_send_packet(s, buff, buffer_get_size(buff));
 		
 		buffer_delete(buff);
 	}
 	
 }
+
+
+
+
+
+
+// network events
+
+
+create_network_event(
+	BufferType.yourMove, 0,
+	function(data){
+		next_move();
+		var t = instance_find(obj_server, 0);
+		t.txt = "Your move!!!";
+		start_sound("turn", 0, false);
+});
+
+
+create_network_event(
+	BufferType.mapData, 0,
+function(){});
+
+
+
+// soldier
+
+create_network_event(
+	BufferType.soldierMoved, 3,
+	function(data){
+		soldier_execute_move(global.grid[data[0]], data[1], data[2]);
+});
+
+create_network_event(
+	BufferType.soldierAttacked, 5,
+	function(data){
+		var attacker =  decode_possible_attack_objects(data[0], data[2]),
+			attacked = decode_possible_attack_objects(data[1], data[3]);
+			
+		soldier_execute_attack(attacker, attacked, data[4]); 
+});
+
+create_network_event(
+	BufferType.soldierCreated, 6,
+	function(data){
+		create_soldier(
+			data[0], data[1], data[2],  
+			decode_possible_creation_objects(data[3], data[4]), 
+			false, true, data[5]
+		); 
+});
+
+create_network_event(
+	BufferType.soldierDestroyed, 2,
+	function(data){
+		destroy_soldier(decode_possible_attack_objects(data[0], data[1]), true);
+});
+
+
+
+
+
+// huts
+
+create_network_event(
+	BufferType.changeHutPosition, 2,
+	function(data){
+		exchange_hut_spawn_position(data[0], data[1]);
+});
+
+
+
+
+
+
+// planes
+
+create_network_event(
+	BufferType.finallyDeployPlane, 3,
+	function(data){
+		var planeUnitId = data[0];
+		var who = global.grid[data[1]].soldier;
+		update_stored_plane(planeUnitId, who);
+		who.storedPlaneInst.bindedCarrier = who;
+		finalize_deployment(who.storedPlaneInst, data[2]);
+		who.bindedPlane.bindedCarrier = who.storedPlaneInst.bindedCarrier;
+});
+
+create_network_event(
+	BufferType.planeMoved, 3,
+	function(data){
+		var fromTilePos = data[0];
+		var planeArrInd = data[1];
+		var toTilePos = data[2];
+		plane_execute_move(global.grid[fromTilePos].planeArr[planeArrInd], toTilePos);
+});
+
+
+
+
+
+// formation
+create_network_event(
+	BufferType.formationAddTile, 2,
+	function(data){
+		addIntoFormationId(global.grid[data[0]], data[1])
+});
+
+create_network_event(
+	BufferType.formationCombine, 2,
+	function(data){
+		addIntoFormationSoldier(global.grid[data[0]], global.grid[data[1]]);
+});
+
+create_network_event(
+	BufferType.formationRemoveTile, 2,
+	function(data){
+		removeFromFormation(data[0], global.grid[data[1]]);
+});
+
+create_network_event(
+	BufferType.formationDelete, 1,
+	function(data){
+		disbandEntireFormation(data[0]);
+});
+
+
+
+
+
+//  beacons
+create_network_event(
+	BufferType.beaconCreate, 2,
+	function(data){
+		beacon_create(data[0], data[1]);
+});
+
+create_network_event(
+	BufferType.beaconDestroy, 1,
+	function(data){
+		beacon_destroy(data[0], false);
+});
+
 
 

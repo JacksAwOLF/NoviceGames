@@ -16,41 +16,14 @@ function next_move() {
 
 
 	if (!global.edit && network_my_turn())
-		send_buffer(BufferDataType.yourMove, []);
+		send_buffer(BufferType.yourMove, []);
 
 	// process moving planes
 	//advance_planes();
 
 	// deal with poison
-	with (obj_tile)
-		poisoned = false;
+	poison_update(true);
 	
-	var dir = [[0,1],[0,-1],[1,0],[-1,0],[0,0]];
-	for (var i = 0; i < array_length(global.poison); i++) {
-		var current = global.poison[i];
-		if (current == -1) continue;
-		
-		var aboutToExpire = global.turn - current.turn > 3;
-		for (var j = 0; j < 5; j++) {
-			var curRow = getRow(current.pos) + dir[j][0];
-			var curCol = getCol(current.pos) + dir[j][1];
-			var curPos = getPos(curRow, curCol);
-			
-			if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapHeight) {
-				if (!aboutToExpire)
-					global.grid[curPos].poisoned = true;
-					
-				if (global.grid[curPos].soldier != -1) {
-					global.grid[curPos].soldier.my_health -= 1;
-					if (global.grid[curPos].soldier.my_health <= 0)
-						destroy_soldier(global.grid[curPos].soldier, false);
-				}
-			}
-		}
-		
-		if (aboutToExpire)
-			global.poison[i] = -1;
-	}
 	
 	dummy_next_move();
 	

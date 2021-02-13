@@ -9,7 +9,7 @@ function disbandEntireFormation(formId){
 			arr[i].soldier.formation = -1;
 		}
 
-		send_buffer(BufferDataType.formationDelete, [formId]);
+		send_buffer(BufferType.formationDelete, [formId]);
 
 		// replace this with a ds_list in the future
 		global.formation[formId] = -1;
@@ -109,7 +109,7 @@ function addIntoFormationId(tileInstance1, formationId, sendBuffer) {
 	}
 	
 	if (sendBuffer==undefined || sendBuffer == true) 
-		send_buffer(BufferDataType.formationAddTile, [tileInstance1.pos, formationId]);
+		send_buffer(BufferType.formationAddTile, [tileInstance1.pos, formationId]);
 		
 	return formationId;
 }
@@ -147,7 +147,7 @@ function addIntoFormationSoldier(tileInstance1, tileInstance2) {
 		tileInstance2.soldier.formation = formationId;
 	}
 	
-	send_buffer(BufferDataType.formationCombine, [tileInstance1.pos, tileInstance2.pos]);
+	send_buffer(BufferType.formationCombine, [tileInstance1.pos, tileInstance2.pos]);
 	return addIntoFormationId(tileInstance1, formationId, false);
 }
 
@@ -226,7 +226,7 @@ function removeFromFormation(formationId, tileInstance) {
 	if (global.formation[formationId] == -1)
 		event_perform_object(obj_map_helper, ev_keypress, vk_space);
 		
-	send_buffer(BufferDataType.formationRemoveTile, [formationId, tileInstance.pos]);
+	send_buffer(BufferType.formationRemoveTile, [formationId, tileInstance.pos]);
 	return true;
 }
 

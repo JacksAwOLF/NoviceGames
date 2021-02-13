@@ -10,7 +10,7 @@ function plane_execute_move(planeInst, toTilePos) {
 	//	planeInst.direction = dir; for now, no direction
 
 	if (global.edit || network_my_turn()) update_fog();
-	send_buffer(BufferDataType.planeMoved, array(fromTileInst.pos, fromTilePlaneIndex, toTilePos));
+	send_buffer(BufferType.planeMoved, array(fromTileInst.pos, fromTilePlaneIndex, toTilePos));
 }
 
 function soldier_execute_move(frTileInst, toTilePos, dir){
@@ -28,7 +28,7 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	t.tilePos = to;
 
 	with(to.soldier) direction = dir;
-	send_buffer(BufferDataType.soldierMoved, array(frTileInst.pos, toTilePos, dir));
+	send_buffer(BufferType.soldierMoved, array(frTileInst.pos, toTilePos, dir));
 
 	if (global.edit || network_my_turn()) update_fog();
 	else {
@@ -54,6 +54,6 @@ function exchange_hut_spawn_position(originHutPosition, newSpawnPosition){
 	global.grid[relatedHut.spawnPos].originHutPos = -1;
 	relatedHut.spawnPos = newSpawnTile.pos;
 
-	send_buffer(BufferDataType.changeHutPosition, array(originHutPosition, newSpawnPosition));
+	send_buffer(BufferType.changeHutPosition, array(originHutPosition, newSpawnPosition));
 
 }

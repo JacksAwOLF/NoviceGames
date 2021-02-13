@@ -9,7 +9,7 @@ function destroy_soldier(soldierInstance, sendPacket) {
 	if (soldierInstance == -1)
 		return;
 		
-	if (sendPacket) send_buffer(BufferDataType.soldierDestroyed, 
+	if (sendPacket) send_buffer(BufferType.soldierDestroyed, 
 		array(soldierInstance.tilePos.pos, encode_possible_attack_objects(soldierInstance))
 	);
 
@@ -143,7 +143,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	
 	if (sendPacket){
 		send_buffer(
-			BufferDataType.soldierCreated, 
+			BufferType.soldierCreated, 
 			array(
 				s_unit_id, s_team, pos, fromPos, 
 				encode_possible_creation_objects(fromUnitInst),

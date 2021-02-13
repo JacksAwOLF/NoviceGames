@@ -140,7 +140,7 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 	}
 	
 	send_buffer(
-		BufferDataType.finallyDeployPlane,
+		BufferType.finallyDeployPlane,
 		array(
 			planeInst.unit_id, 
 			planeInst.bindedCarrier.tilePos.pos,

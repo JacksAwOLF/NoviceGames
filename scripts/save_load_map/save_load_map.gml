@@ -118,7 +118,7 @@ function save_map(saveAs, helpData) {
 			med = file_text_open_write(helpData); break;
 		case Mediums.buffer:
 			med = buffer_create(1600, buffer_grow, 1); 
-			buffer_write(med, buffer_u8, BufferDataType.mapData);
+			buffer_write(med, buffer_u8, BufferType.mapData);
 			break;
 	}
 
