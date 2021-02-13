@@ -173,7 +173,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 
 
 function encode_possible_attack_objects(inst){
-	var check = array(obj_infantry, obj_hut, obj_tower);
+	var check = array(obj_infantry, obj_hut, obj_tower, obj_attackable);
 	var ind = posInArray(check, inst.object_index);
 	if (ind == 0 && is_plane(inst)){
 		var exist = posInArray(inst.tilePos.planeArr, inst)
@@ -187,7 +187,7 @@ function encode_possible_attack_objects(inst){
 
 function decode_possible_attack_objects(tilePos, ind){
 	var t = global.grid[tilePos];
-	var check = array(t.soldier, t.hut, t.tower);
+	var check = array(t.soldier, t.hut, t.tower, t.beacon);
 	
 	if (ind < array_length(check)) 
 		return check[ind];

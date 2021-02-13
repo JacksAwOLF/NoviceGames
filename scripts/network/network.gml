@@ -230,18 +230,3 @@ create_network_event(
 
 
 
-//  beacons
-create_network_event(
-	BufferType.beaconCreate, 2,
-	function(data){
-		beacon_create(data[0], data[1]);
-});
-
-create_network_event(
-	BufferType.beaconDestroy, 1,
-	function(data){
-		beacon_destroy(data[0], false);
-});
-
-
-
