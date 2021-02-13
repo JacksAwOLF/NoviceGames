@@ -83,7 +83,6 @@ function get_vision_tiles(unitInst) {
 				if (unitInst.tilePos.elevation < global.grid[gridid].elevation) {
 					switch(global.grid[gridid].sprite_index) {
 						case spr_tile_flat: 
-						case spr_tile_road:
 						case spr_tile_ocean:
 							add = 1; break;
 					

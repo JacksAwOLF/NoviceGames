@@ -42,9 +42,9 @@ function is_plane(soldier) {
 			soldier.unit_id == Units.FIGHTER);
 }
 
-function get_tile_type(tile) {
-	
-	if (tile.road) return Tiles.road;
+function get_tile_type(tile, includeRoads) {
+	if (includeRoads && tile.road)
+		return Tiles.road;
 	
 	switch (tile.sprite_index) {
 		case spr_tile_flat:

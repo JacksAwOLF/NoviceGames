@@ -83,7 +83,7 @@ function possible_move_considering_weather(tilePos, energyTo, leftoverDistance, 
 				
 				if (nxtTilePos < 0 || nxtTilePos >= global.mapWidth * global.mapHeight)
 					continue;
-				else if (energyTo[get_tile_type(global.grid[nxtTilePos])] <= leftoverDistance)
+				else if (energyTo[get_tile_type(global.grid[nxtTilePos], true)] <= leftoverDistance)
 					return true;
 			}
 			

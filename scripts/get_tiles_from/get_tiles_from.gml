@@ -56,7 +56,7 @@ function get_tiles_from(start, maxDis, energyTo, shouldStoreDist, canMoveOnto) {
 			
 			// add to pqueue, checking special condition
 			var np = nr * global.mapWidth + nc;
-			var ns = steps+energyTo[get_tile_type(global.grid[np])];
+			var ns = steps+energyTo[get_tile_type(global.grid[np], true)];
 			
 			// additional arguments to canMoveOnto because of weather
 			// more for tank melee to move on enemy soldier
