@@ -35,7 +35,7 @@ function calculate_damage(attackerInst, attackedInst, damageOverride) {
 		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)
 			ohko = (attackedInst.direction == 90 || attackedInst.direction == 270);
 
-		if (ohko && !is_tank(attackedInst))
+		if (ohko && (!is_tank(attackedInst) || attackedInst.my_health != attackedInst.max_health))
 			damage = attackedInst.my_health;
 	}
 	
