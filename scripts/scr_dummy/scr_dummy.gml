@@ -1,8 +1,21 @@
 
+global.dummy_wait_time = 10;
+
 // called in init_map
 function dummy_init_map(){
-	global.lastDummyTurn = [-10,-10];	
+	global.dummy_last_turn = [
+		-global.dummy_wait_time,
+		-global.dummy_wait_time
+	];	
 }
+
+
+// called in infantry create evenet
+function dummy_soldier_create(){
+	timeToLive = -1;
+	discovered = false;
+}
+
 
 // called when user clicks on the button
 // crerates possible deploy tiles for the dummy soldier
@@ -10,8 +23,8 @@ function dummy_create_init(){
 	var gss = global.selectedSoldier;
 	
 	if (gss.can != gss.defaultCan) return;
-	if (global.turn - global.lastDummyTurn[gss.team] < 10) return;
-	global.lastDummyTurn[gss.team] = global.turn;
+	if (global.turn - global.dummy_last_turn[gss.team] < global.dummy_wait_time) return;
+	global.dummy_last_turn[gss.team] = global.turn;
 	
 	
 	var arr = get_vision_tiles(gss);	// this is an array of tile instances
@@ -41,18 +54,32 @@ function dummy_create_init(){
 // see if enemy spotted it
 // subtract life force from this dum dum dummy
 function dummy_next_move(){
-	with(obj_infantry){
-		if (team != global.turn%2 && timeToLive != -1){
-			discovered = discovered || !(tilePos.hide_soldier);
-			if (discovered) timeToLive -= 1;
-			if (timeToLive == 0) destroy_soldier(id, true);
+	
+	if (global.turn%2 == global.playas) return;
+	
+	// counnt the number of dummies
+	var dummies = []
+	with(obj_infantry)
+		if (team != global.turn%2 && timeToLive != -1)
+			append(dummies, id);
+	if (array_length(dummies) == 0) return;
+	
+	
+	// construct seen array of opposing team
+	var seen = array_create(global.mapHeight * global.mapWidth, false);
+	with(obj_infantry){ 
+		if (team == global.turn%2){
+			var arr = get_vision_tiles(id);
+			for (var i=0; i<array_length(arr); i++)
+				seen[arr[i].pos] = true;
 		}
 	}
-}
-
-
-// called in infantry create evenet
-function dummy_soldier_create(){
-	timeToLive = -1;
-	discovered = false;
+		
+	// check if dummies are around
+	for (var i=0; i<array_length(dummies); i++) with(dummies[i]){
+		discovered = discovered || seen[tilePos.pos];
+		if (discovered) timeToLive -= 1;
+		if (timeToLive == 0) 
+			destroy_soldier(id, true);
+	}
 }

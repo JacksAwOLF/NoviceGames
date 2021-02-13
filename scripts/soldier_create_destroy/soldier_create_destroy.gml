@@ -10,7 +10,8 @@ function destroy_soldier(soldierInstance, sendPacket) {
 		return;
 		
 	if (sendPacket) send_buffer(BufferType.soldierDestroyed, 
-		array(soldierInstance.tilePos.pos, encode_possible_attack_objects(soldierInstance))
+		array(soldierInstance.tilePos.pos, encode_possible_attack_objects(soldierInstance)),
+		true
 	);
 
 	with (soldierInstance) {
