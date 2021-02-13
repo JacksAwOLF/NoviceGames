@@ -8,6 +8,7 @@ enum VisualState
 
 
 function init_map(medium, dataSrc) {
+	// weather global variables
 	global.weather = Weather.REGULAR;
 	
 	global.flares = [[], []]; // {turn, pos}
@@ -47,12 +48,12 @@ function init_map(medium, dataSrc) {
 		variable_global_set("saveVersion", real(get_data(medium, dataSrc))); // ignore warning
 	}
 	
-	
+	if (global.saveVersion == 1)
+		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
+	else if (global.saveVersion == 2)
+		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction", "weather"];
 	
 	load_global_vars(medium, dataSrc);
-	
-	
-	
 
 	var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 	var lr_padd = 64;
@@ -309,9 +310,6 @@ function init_map(medium, dataSrc) {
 	global.map_loaded = true;
 	global.main_camera = view_get_camera(0);
 	
-	
-	// weather global variables
-	global.weather = Weather.REGULAR;
 	global.rain_center_pos = global.mapWidth * (global.mapHeight + 1) / 2;  // tile position of center of rain
 	global.rain_radius_squared = global.mapWidth * global.mapHeight / 5 / 3.14;
 	

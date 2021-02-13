@@ -1,5 +1,5 @@
 
-global.saveVersion = 1;
+global.saveVersion = 2;
 global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction"];
 // btw the first variable of an object to  save
 // can't have a negative 1  value
