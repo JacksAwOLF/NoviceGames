@@ -41,6 +41,7 @@ function init_map(medium, dataSrc) {
 	
 	global.formation = []
 	
+	
 
 	// load the saveVersion
 	if (dataSrc != undefined) {
@@ -54,6 +55,12 @@ function init_map(medium, dataSrc) {
 		global.global_save_order = ["saveVersion", "mapWidth", "mapHeight", "turn", "winFunction", "weather"];
 	
 	load_global_vars(medium, dataSrc);
+
+
+	global.rain_center_pos = global.mapWidth * (global.mapHeight + 1) / 2;  // tile position of center of rain
+	global.rain_radius_squared = global.mapWidth * global.mapHeight / 5 / 3.14;
+	
+	
 
 	var tb_padd = 128;  // top bottom padding betweeen the buttons and the obj_tile
 	var lr_padd = 64;
@@ -309,8 +316,5 @@ function init_map(medium, dataSrc) {
 		
 	global.map_loaded = true;
 	global.main_camera = view_get_camera(0);
-	
-	global.rain_center_pos = global.mapWidth * (global.mapHeight + 1) / 2;  // tile position of center of rain
-	global.rain_radius_squared = global.mapWidth * global.mapHeight / 5 / 3.14;
 	
 }

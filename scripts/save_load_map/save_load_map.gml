@@ -89,6 +89,7 @@ function save_data(data, medium, dataSrc, name){
 /// @param  dataSrc
 /// @param  nameOfData
 function get_data(medium, dataSrc, name){
+	
 	var res, dataT = data_type_from_name(name);
 		
 	switch (medium){
@@ -165,6 +166,7 @@ function save_map(saveAs, helpData) {
 /// @param Mediums.***
 /// @param dataSrc
 function load_global_vars(medium, dataSrc){
+	
 	if dataSrc != undefined
 		for (var i = 1; i<array_length(global.global_save_order); i++){ 
 			var name = global.global_save_order[i];
@@ -178,6 +180,8 @@ function load_global_vars(medium, dataSrc){
 /// @param Mediums.***
 /// @param dataSrc
 function load_tiles(medium, dataSrc) {
+	
+	debug("version: ",global.saveVersion)
 	
 	if dataSrc != undefined
 	

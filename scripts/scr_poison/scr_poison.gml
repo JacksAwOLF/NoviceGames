@@ -35,12 +35,17 @@ function poison_update(subtract_health){
 	}
 }
 
-
-
 function poison_add(attackerUnitInst, tilePosition){
 	if (attackerUnitInst.unit_id == Units.INFANTRY_R && attackerUnitInst.special) {
 		add_into_array(global.poison, {turn: global.turn, pos: tilePosition});
 		poison_update(false);
 	}
 }
-	
+
+
+
+function poison_set_sprite(scale){
+	if (poisoned){
+		draw_sprite_stretched_ext(spr_pink, 0, x, y, size, size, c_white, 1);
+	}
+}
