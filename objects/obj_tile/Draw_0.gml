@@ -18,9 +18,8 @@ if (global.weather == Weather.RAINY) {
 var colorToMix = c_white;
 if (inRain) colorToMix = c_teal;
 
-poison_set_sprite();
-
 draw_sprite_stretched_ext(sprite_index, 0, x, y, size, size, colorToMix, alpha_value);										// the tile on the bottom
+poison_set_sprite(size)
 
 
 

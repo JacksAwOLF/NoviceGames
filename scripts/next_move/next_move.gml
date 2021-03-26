@@ -21,7 +21,7 @@ function next_move() {
 	// process moving planes
 	//advance_planes();
 
-	// deal with poison
+	// deal with poison (only for troops on this turn)
 	poison_update(true);
 	
 	
@@ -30,6 +30,8 @@ function next_move() {
 	global.turn++; // relative positioning is important
 
 	beacon_count();
+	
+	
 		
 	with(obj_hut){
 		if ((!global.edit || global.hutOn) && steps!=-1 && get_team(soldier_sprite) != global.turn%2){
