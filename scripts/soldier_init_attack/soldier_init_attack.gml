@@ -76,6 +76,7 @@ function soldier_init_attack(attack_cond) {
 				
 				for (var i=0; i<array_length(global.poss_attacks); i++){
 					global.poss_attacks[i].possible_attack = true;
+					global.poss_attacks[i].possible_move = false;
 					found  = true;
 				}
 				

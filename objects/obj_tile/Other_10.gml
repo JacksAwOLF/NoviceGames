@@ -169,8 +169,8 @@ if (!edit || global.changeSprite == -1){
 					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier.tileInst, 0]);
 					global.selectedSoldier.tileInst.possible_path = 1;
 
-					soldier_init_attack();
 					soldier_init_move();
+					soldier_init_attack();
 				}
 				
 				else {
