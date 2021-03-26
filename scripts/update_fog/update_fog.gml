@@ -57,7 +57,7 @@ function update_enemy_outline() {
 			var seen = get_vision_tiles(global.grid[i].soldier);
 			
 			var type = global.grid[i].soldier.unit_id;
-			var moves = get_tiles_from(i, global.movement[type], global.energy[type], false, possible_move_tiles);
+			var moves = get_tiles_from(i, global.movement[type], global.energy[type], false, return_true);
 			
 			// we could change this to the global variable too?
 			var attack = get_tiles_from_euclidean(i, global.grid[i].soldier.attack_range, return_true);
@@ -69,7 +69,7 @@ function update_enemy_outline() {
 				moves[j].possible_enemy_move = true;
 				
 			for (var j = 0; j < array_length(attack); j++)
-				if (attack[j].soldier == -1 || is_my_team(attack[j].soldier))
+				//if (attack[j].soldier == -1 || is_my_team(attack[j].soldier))
 					attack[j].possible_enemy_attack = true;
 		}
 	}

@@ -169,8 +169,8 @@ if (!edit || global.changeSprite == -1){
 					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier.tileInst, 0]);
 					global.selectedSoldier.tileInst.possible_path = 1;
 
-					soldier_init_move();
 					soldier_init_attack();
+					soldier_init_move();
 				}
 				
 				else {
@@ -178,7 +178,8 @@ if (!edit || global.changeSprite == -1){
 				}
 
 
-			} else if ((soldier.team == global.turn % 2) != myturn && !hide_soldier) {
+			} 
+			else if ((soldier.team == global.turn % 2) != myturn && !hide_soldier) {
 				soldier.display_if_enemy = !soldier.display_if_enemy;
 				update_enemy_outline();
 			}
