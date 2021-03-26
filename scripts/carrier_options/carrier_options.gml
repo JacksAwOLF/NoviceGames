@@ -59,7 +59,7 @@ function deploy_plane(who) {
 	with (who) {
 		
 		storedPlaneInst.bindedCarrier = id;
-		storedPlaneInst.tilePos = tilePos;
+		storedPlaneInst.tileInst = tileInst;
 		
 		erase_blocks(true);
 		
@@ -96,7 +96,7 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 		switch(planeInst.unit_id) {
 			case Units.RECON:
 				//var spr_index = asset_get_index("spr_recon" + (team == 1 ? "1" : ""));
-				bindedPlane = create_soldier(Units.RECON, team, tilePos.pos, -1, false, false);
+				bindedPlane = create_soldier(Units.RECON, team, tileInst.pos, -1, false, false);
 				bindedPlane.planePath = planeInst.planePath;
 				planeInst.planePath = -1;
 				
@@ -106,7 +106,7 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 			
 				planeInst.unitLockedOn = tileClickedOnInst.soldier;
 				
-				bindedPlane = create_soldier(Units.BOMBER, team, tilePos.pos, -1, false, false);
+				bindedPlane = create_soldier(Units.BOMBER, team, tileInst.pos, -1, false, false);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
 				
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
@@ -124,7 +124,7 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 						}
 					}
 				
-				bindedPlane = create_soldier(Units.FIGHTER, team, tilePos.pos, -1, false, false);
+				bindedPlane = create_soldier(Units.FIGHTER, team, tileInst.pos, -1, false, false);
 				bindedPlane.unitLockedOn = planeInst.unitLockedOn;
 				
 				event_perform_object(obj_map_helper, ev_keypress, vk_space);
@@ -143,7 +143,7 @@ function finalize_deployment(planeInst, tileClickedOnPos) {
 		BufferType.finallyDeployPlane,
 		array(
 			planeInst.unit_id, 
-			planeInst.bindedCarrier.tilePos.pos,
+			planeInst.bindedCarrier.tileInst.pos,
 			tileClickedOnPos
 		)
 	);

@@ -89,7 +89,7 @@ if (changed && (newx+neww >= width_offset && newx <= window_max_w-width_offset) 
 if (global.map_loaded && global.shouldFocusTurn == global.turn) {
 	// camera processing
 	var visible_team = global.edit ? global.turn % 2 : global.playas;
-	var toFollow = ds_list_find_value(global.allSoldiers[visible_team], global.followSoldier).tilePos;
+	var toFollow = ds_list_find_value(global.allSoldiers[visible_team], global.followSoldier).tileInst;
 		
 	var newx = toFollow.x + toFollow.size/2 - camera_get_view_width(current_camera)/2;
 	var newy = toFollow.y + toFollow.size/2 - camera_get_view_height(current_camera)/2;

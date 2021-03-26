@@ -3,8 +3,8 @@
 
 if (global.selectedSoldier != -1 || global.selectedFormation != -1) {
 	if (soldier != -1) {
-		if (global.selectedSoldier != -1 && checkFormationCompatibleSoldier(global.selectedSoldier.tilePos, id)) {
-			global.selectedFormation = addIntoFormationSoldier(global.selectedSoldier.tilePos, id);
+		if (global.selectedSoldier != -1 && checkFormationCompatibleSoldier(global.selectedSoldier.tileInst, id)) {
+			global.selectedFormation = addIntoFormationSoldier(global.selectedSoldier.tileInst, id);
 			erase_blocks(true);
 			global.selectedSoldier = -1;
 		}	

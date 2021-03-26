@@ -82,7 +82,7 @@ if (!edit || global.changeSprite == -1){
 		} // process selecting blue tiles
 
 		else if ( (possible_move ) &&
-					(global.selectedSoldier.tilePos != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
+					(global.selectedSoldier.tileInst != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
 
 
 
@@ -111,9 +111,9 @@ if (!edit || global.changeSprite == -1){
 
 
 		else if (!possible_path ||
-			(global.selectedSoldier.tilePos == id && ds_stack_size(global.selectedPathpointsStack) == 1)) {
+			(global.selectedSoldier.tileInst == id && ds_stack_size(global.selectedPathpointsStack) == 1)) {
 
-			var canSelect = global.selectedSoldier.tilePos != id && ds_stack_size(global.selectedPathpointsStack) == 1;
+			var canSelect = global.selectedSoldier.tileInst != id && ds_stack_size(global.selectedPathpointsStack) == 1;
 			erase_blocks(true);
 
 			var formationCondition = (soldier != -1 && soldier.team == global.selectedSoldier.team &&
@@ -166,8 +166,8 @@ if (!edit || global.changeSprite == -1){
 
 				else if (soldier.can && soldier.move_range){
 					ds_stack_clear(global.selectedPathpointsStack);
-					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier.tilePos, 0]);
-					global.selectedSoldier.tilePos.possible_path = 1;
+					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier.tileInst, 0]);
+					global.selectedSoldier.tileInst.possible_path = 1;
 
 					soldier_init_move();
 					soldier_init_attack();

@@ -4,7 +4,7 @@
 function advance_plane_inner_loop(planeInst){
 	
 	if (planeInst.planeFinished) {
-		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tilePos)) {
+		if (plane_navigate_to(planeInst, planeInst.bindedCarrier.tileInst)) {
 			destroy_soldier(planeInst, true);
 		}
 			
@@ -13,9 +13,9 @@ function advance_plane_inner_loop(planeInst){
 			case Units.BOMBER:
 			case Units.FIGHTER:
 				
-				if (unitLockedOn.tilePos.hide_soldier) {
+				if (unitLockedOn.tileInst.hide_soldier) {
 					planeFinished = true;
-				} else if (plane_navigate_to(id, unitLockedOn.tilePos)) {
+				} else if (plane_navigate_to(id, unitLockedOn.tileInst)) {
 					soldier_execute_attack(id, unitLockedOn);
 					planeFinished = true;
 				}
@@ -55,8 +55,8 @@ function advance_planes() {
 
 // returns whether the plane has arrived at dest after moving
 function plane_navigate_to(planeInst, toTileInst) {
-	var plane_x = planeInst.tilePos.pos % global.mapWidth;
-	var plane_y = floor(planeInst.tilePos.pos / global.mapWidth);
+	var plane_x = planeInst.tileInst.pos % global.mapWidth;
+	var plane_y = floor(planeInst.tileInst.pos / global.mapWidth);
 	
 	var dest_x = toTileInst.pos % global.mapWidth;
 	var dest_y = floor(toTileInst.pos / global.mapWidth);

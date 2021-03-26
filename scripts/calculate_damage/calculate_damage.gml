@@ -29,7 +29,7 @@ function calculate_damage(attackerInst, attackedInst, damageOverride) {
 	
 	// attacking from the side overrides simple damage calculation
 	if (b.object_index == obj_infantry) {
-		var ohko = false, posdiff = a.tilePos.pos - b.tilePos.pos;
+		var ohko = false, posdiff = a.tileInst.pos - b.tileInst.pos;
 		if (posdiff == 1 || posdiff == -1)
 			ohko = (attackedInst.direction % 180 == 0);
 		if (posdiff == global.mapWidth || posdiff == -global.mapWidth)

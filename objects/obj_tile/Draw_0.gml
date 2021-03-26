@@ -145,14 +145,13 @@ if (soldier != -1 && hide_soldier == false){
 	
 	// index to draw
 	var soldier_index = 0; 
-	if (global.selectedSoldier != -1 && global.selectedSoldier.tilePos == id) soldier_index = 1;
+	if (global.selectedSoldier != -1 && global.selectedSoldier.tileInst == id) soldier_index = 1;
 	if (!(soldier.can && soldier.move_range)) soldier_index = 2;
 	
 	// formation 
 	var ccc = c_white;
 	if (soldier.formation != -1 && soldier.formation == global.selectedFormation) {
 		soldier_index = 1;
-		//if (global.selectedSoldier.tilePos != id)
 		ccc = c_aqua;
 	}
 	

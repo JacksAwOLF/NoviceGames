@@ -10,10 +10,10 @@ if (global.saveVersion >= 1){
 		"sprite_index", 
 		"road", 
 		"originHutPos",
-		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tilePos", "direction", "team", "move_range", "special", "timeToLive", "discovered"), 
-		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tilePos", "soldierSpec"),
-		array("tower", "my_health", "team", "max_health", "tilePos"),
-		array("beacon", "linkedSoldier", "num", "tilePos")
+		array("soldier", "my_health", "sprite_index", "can", "unit_id", "tileInst", "direction", "team", "move_range", "special", "timeToLive", "discovered"), 
+		array("hut", "max_health", "my_health", "steps", "limit", "soldier_sprite", "soldier_unit", "team", "sprite_dir", "spawnPos", "tileInst", "soldierSpec"),
+		array("tower", "my_health", "team", "max_health", "tileInst"),
+		array("beacon", "linkedSoldier", "num", "tileInst")
 	);
 		
 	global.tiles_save_objects = array(-1, -1, -1, obj_infantry, obj_hut, obj_tower, obj_attackable);
@@ -23,11 +23,11 @@ if (global.saveVersion >= 1){
 
 function encode_save_var(data, name){
 	switch(name){
-		case "tilePos":
+		case "tileInst":
 			return real(data.pos);
 			break;
 		case "linkedSoldier":
-			data = real(data.tilePos.pos);
+			data = real(data.tileInst.pos);
 			return data;
 			break;
 		case "spriteIndex":
@@ -40,7 +40,7 @@ function encode_save_var(data, name){
 
 function decode_save_var(data, name){
 	switch(name){
-		case "tilePos":
+		case "tileInst":
 			return global.grid[data];
 			break;
 		case "beacon":
@@ -180,8 +180,6 @@ function load_global_vars(medium, dataSrc){
 /// @param Mediums.***
 /// @param dataSrc
 function load_tiles(medium, dataSrc) {
-	
-	debug("version: ",global.saveVersion)
 	
 	if dataSrc != undefined
 	

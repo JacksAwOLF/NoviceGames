@@ -46,3 +46,18 @@ edit = global.edit;
 preMouseIn  = false;
 
 beacon_tile_init();
+
+
+
+/*
+
+obj_tile.attackables = array of attackable structs
+
+common variables: team, my_health, max_health, tilePos/Inst, attackableType, sprite_index
+
+
+array("soldier", "sprite_index", "can", "unit_id",  "direction",  "move_range", "special", "timeToLive", "discovered"), 
+		array("hut",  "steps", "limit", "soldier_sprite", "soldier_unit",  "sprite_dir", "spawnPos",  "soldierSpec"),
+		array("tower", ),
+		array("beacon", "linkedSoldier", "num", )
+*/

@@ -34,7 +34,7 @@ function soldier_attack_tile(attackerUnitInst, toTilePos, damageOverride) {
 	// thhis doesn't need to be sent over the network
 	if (attackerUnitInst.unit_id == Units.IFV_R && attackerUnitInst.special) {
 		add_into_array(global.flares[attackerUnitInst.team], 
-			{turn: global.turn, pos: attacked.tilePos.pos});
+			{turn: global.turn, pos: attacked.tileInst.pos});
 	} 
 	
 	
@@ -52,7 +52,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	
 	if (damageOverride == undefined) damageOverride = -1;
 	
-	var fr = attackerUnitInst.tilePos, to = attacked.tilePos;	
+	var fr = attackerUnitInst.tileInst, to = attacked.tileInst;	
 	poison_add(attackerUnitInst, to.pos);
 	
 	var damage = calculate_damage(attackerUnitInst, attacked, damageOverride);
@@ -62,7 +62,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 	send_buffer(
 		BufferType.soldierAttacked, 
 		array(
-			attackerUnitInst.tilePos.pos, 
+			attackerUnitInst.tileInst.pos, 
 			to.pos, 
 			encode_possible_attack_objects(attackerUnitInst),
 			encode_possible_attack_objects(attacked),
@@ -131,7 +131,7 @@ function soldier_execute_attack(attackerUnitInst, attacked, damageOverride){
 					break;
 				
 				case obj_attackable:
-					beacon_destroy(attacked.tilePos.pos, false);
+					beacon_destroy(attacked.tileInst.pos, false);
 					break;
 					
 				default:
@@ -176,7 +176,7 @@ function encode_possible_attack_objects(inst){
 	var check = array(obj_infantry, obj_hut, obj_tower, obj_attackable);
 	var ind = posInArray(check, inst.object_index);
 	if (ind == 0 && is_plane(inst)){
-		var exist = posInArray(inst.tilePos.planeArr, inst)
+		var exist = posInArray(inst.tileInst.planeArr, inst)
 		// if (exist == -1) then iddk maybe we didnt update it correclty
 		ind = array_length(check) + exist;
 	}

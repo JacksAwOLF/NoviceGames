@@ -8,8 +8,8 @@ function ifv_m_special(){
 	global.poss_moves = [];
 	for (var i = -1; i <= 1; i++) {
 		for (var j = -1; j <= 1; j++) {
-			var curRow = getRow(global.selectedSoldier.tilePos.pos) + i;
-			var curCol = getCol(global.selectedSoldier.tilePos.pos) + j;
+			var curRow = getRow(global.selectedSoldier.tileInst.pos) + i;
+			var curCol = getCol(global.selectedSoldier.tileInst.pos) + j;
 			var curPos = getPos(curRow, curCol);
 			
 			if (curRow >= 0 && curRow < global.mapHeight && curCol >= 0 && curCol < global.mapWidth)
@@ -34,7 +34,7 @@ function ifv_m_special(){
 function infantry_m_special() {
 	
 	var curSoldier = global.selectedSoldier; // needed cuz attack resets selectedSoldier
-	var nextTile = next_tile_in_dir(curSoldier.tilePos.pos, curSoldier.direction);
+	var nextTile = next_tile_in_dir(curSoldier.tileInst.pos, curSoldier.direction);
 	
 	if (nextTile != -1) {
 		soldier_attack_tile(curSoldier, nextTile, curSoldier.max_damage+2);

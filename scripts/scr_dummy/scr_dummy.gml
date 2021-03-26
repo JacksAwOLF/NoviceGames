@@ -77,7 +77,7 @@ function dummy_next_move(){
 		
 	// check if dummies are around
 	for (var i=0; i<array_length(dummies); i++) with(dummies[i]){
-		discovered = discovered || seen[tilePos.pos];
+		discovered = discovered || seen[tileInst.pos];
 		if (discovered) timeToLive -= 1;
 		if (timeToLive == 0) 
 			destroy_soldier(id, true);

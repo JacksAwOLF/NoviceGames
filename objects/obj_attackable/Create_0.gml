@@ -3,7 +3,7 @@
 
 isActive = true;
 
-tilePos = -1;
+tileInst = -1;
 team = -1;
 
 my_health = -1;

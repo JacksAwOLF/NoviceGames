@@ -51,7 +51,7 @@ function beacon_create(soldier, pos){
 	var maxSize = 1;
 	
 	if (soldier == undefined) soldier = global.selectedSoldier;
-	if (pos == undefined) pos = soldier.tilePos.pos;
+	if (pos == undefined) pos = soldier.tileInst.pos;
 	
 	if (global.beacons[soldier.team] >= maxSize
 		|| soldier.can != soldier.defaultCan 
@@ -67,7 +67,7 @@ function beacon_create(soldier, pos){
 		beacon = instance_create_depth(x, y, 0, obj_attackable);
 		with(beacon){
 			num = -1;
-			tilePos = global.grid[pos];
+			tileInst = global.grid[pos];
 			linkedSoldier = soldier;
 		}
 		beacon.team = soldier.team;

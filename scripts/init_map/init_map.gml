@@ -311,7 +311,7 @@ function init_map(medium, dataSrc) {
 		
 	for (var i = 0; i < array_length(global.grid); i++)
 		if (global.grid[i].soldier != -1)
-			global.grid[i].soldier.tilePos = global.grid[i];
+			global.grid[i].soldier.tileInst = global.grid[i];
 	
 		
 	global.map_loaded = true;

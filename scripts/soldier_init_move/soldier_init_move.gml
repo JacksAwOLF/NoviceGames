@@ -25,7 +25,7 @@ function possible_move_tiles_including_selected(tilePos, fromTilePos) {
 		// exception2: the soldier is enemy soldier blocking special tank melee path with an empty space behind
 	var specialTank = (gss.special == 1 && gss.unit_id = Units.TANK_M);
 	var nextTilePos = next_tile_in_dir(tilePos, get_dir_from_travel(fromTilePos, tilePos))
-	if (ss != -1 && s != gss.tilePos && !s.hide_soldier){
+	if (ss != -1 && s != gss.tileInst && !s.hide_soldier){
 		var someoneInMyFormation = (ss.formation != -1 && ss.formation == gss.formation);
 		var tankMSpecial = false;
 		if (fromTilePos != undefined && specialTank && gss.team != ss.team)
@@ -45,7 +45,7 @@ function possible_move_tiles_including_selected(tilePos, fromTilePos) {
 	// the next tile is off the grid,
 	// and the previous tile was an enemy soldier.
 	// if you could, you would push the enemy soldier off the gri
-	if (specialTank && nextTilePos == -1 && global.grid[fromTilePos].soldier != -1 && fromTilePos != gss.tilePos.pos)
+	if (specialTank && nextTilePos == -1 && global.grid[fromTilePos].soldier != -1 && fromTilePos != gss.tileInst.pos)
 		return false;
 
 	return true;
@@ -71,7 +71,7 @@ function possible_move_considering_weather(tilePos, energyTo, leftoverDistance, 
 				
 		case Weather.SNOWY:
 			// allow if adjacent to selectedSoldier or snowy and there's a road
-			if (abs(getRowDiff(tilePos, global.selectedSoldier.tilePos.pos)) + abs(getColDiff(tilePos, global.selectedSoldier.tilePos.pos)) == 1)
+			if (abs(getRowDiff(tilePos, global.selectedSoldier.tileInst.pos)) + abs(getColDiff(tilePos, global.selectedSoldier.tileInst.pos)) == 1)
 				return true;
 			else if (global.grid[tilePos].road && global.weather == Weather.SNOWY)
 				return true;
@@ -103,7 +103,7 @@ function soldier_init_move() {
 	// default energy values in global.energy[soldier.unit_id]
 	// default move range is in global.movement[solder.unit_id]
 
-	var source = (argument_count > 0 ? argument[0] : global.selectedSoldier.tilePos);
+	var source = (argument_count > 0 ? argument[0] : global.selectedSoldier.tileInst);
 
 	with(global.selectedSoldier){
 		if (can-moveCost>=0){
@@ -113,8 +113,8 @@ function soldier_init_move() {
 				(is_plane(id) ? return_true : possible_move_considering_weather)
 			);
 
-			if (source != tilePos && global.dist[tilePos.pos] != -1)
-				global.poss_moves[array_length(global.poss_moves)] = tilePos;
+			if (source != tileInst && global.dist[tileInst.pos] != -1)
+				global.poss_moves[array_length(global.poss_moves)] = tileInst;
 
 			for (var i=0; i<array_length(global.poss_moves); i++)
 				global.poss_moves[i].possible_move = true;

@@ -80,7 +80,7 @@ function send_buffer(type, data, forceSend){
 	// only send a buffer if it is my turn...
 	// if it isn't, that means this function is called while executing
 	// the recieved  buffers
-	if ((!global.edit && network_my_turn() && instance_number(obj_server) >= 1) || forceSend){
+	if ((!global.edit && instance_number(obj_server) >= 1) && (network_my_turn()  || forceSend )){
 		
 		var t = instance_find(obj_server, 0);
 		var n = global.network[type].size;

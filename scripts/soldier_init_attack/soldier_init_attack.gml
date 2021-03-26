@@ -42,7 +42,7 @@ function soldier_init_attack(attack_cond) {
 		
 	if (global.selectedSoldier != -1){
 
-		var p = global.selectedSoldier.tilePos.pos;
+		var p = global.selectedSoldier.tileInst.pos;
 	
 
 		with (global.selectedSoldier) { 
@@ -55,20 +55,20 @@ function soldier_init_attack(attack_cond) {
 				else {
 					
 					global.poss_attacks = [];
-					var cur_x = tilePos.pos % global.mapWidth;
-					var cur_y = floor(tilePos.pos / global.mapWidth);
+					var cur_x = tileInst.pos % global.mapWidth;
+					var cur_y = floor(tileInst.pos / global.mapWidth);
 					
 					with (obj_attackable) {
 						
 						if (isActive) {
 							
-							var test_x = tilePos.pos % global.mapWidth;
-							var test_y = floor(tilePos.pos / global.mapWidth);
+							var test_x = tileInst.pos % global.mapWidth;
+							var test_y = floor(tileInst.pos / global.mapWidth);
 							
-							if (attack_cond(tilePos.pos) &&
+							if (attack_cond(tileInst.pos) &&
 								(cur_x-test_x)*(cur_x-test_x) + (cur_y-test_y)*(cur_y-test_y) <= other.attack_range*other.attack_range) {
 								
-								global.poss_attacks[array_length(global.poss_attacks)] = tilePos;
+								global.poss_attacks[array_length(global.poss_attacks)] = tileInst;
 							}
 						}
 					}

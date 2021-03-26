@@ -9,13 +9,13 @@ function get_vision_tiles(unitInst) {
 	// this will cause the "line drawn" to be jagged, so will be a rough estimate at most
 	// maybe change the # of grids to resolve some problems as well
 
-	var startx = unitInst.tilePos.pos % global.mapWidth;
-	var starty = floor(unitInst.tilePos.pos / global.mapWidth);
+	var startx = unitInst.tileInst.pos % global.mapWidth;
+	var starty = floor(unitInst.tileInst.pos / global.mapWidth);
 
 	var res = [];	// array of results
 	var cnt = 0;	// size of results
 	
-	var soldier_vision = unitInst.vision + 1.25*(unitInst.tilePos.elevation-1);
+	var soldier_vision = unitInst.vision + 1.25*(unitInst.tileInst.elevation-1);
 	
 	switch (global.weather) {
 		case Weather.SUNNY:
@@ -23,8 +23,8 @@ function get_vision_tiles(unitInst) {
 			break;
 		
 		case Weather.RAINY:
-			var rowDiff = getRowDiff(unitInst.tilePos.pos, global.rain_center_pos);
-			var colDiff = getColDiff(unitInst.tilePos.pos, global.rain_center_pos);
+			var rowDiff = getRowDiff(unitInst.tileInst.pos, global.rain_center_pos);
+			var colDiff = getColDiff(unitInst.tileInst.pos, global.rain_center_pos);
 			
 			// if outside rain, resume normal operation
 			if (rowDiff*rowDiff + colDiff*colDiff > global.rain_radius_squared)
@@ -80,7 +80,7 @@ function get_vision_tiles(unitInst) {
 				}
 
 				var add = 1;
-				if (unitInst.tilePos.elevation < global.grid[gridid].elevation) {
+				if (unitInst.tileInst.elevation < global.grid[gridid].elevation) {
 					switch(global.grid[gridid].sprite_index) {
 						case spr_tile_flat: 
 						case spr_tile_ocean:

@@ -10,15 +10,15 @@ function destroy_soldier(soldierInstance, sendPacket) {
 		return;
 		
 	if (sendPacket) send_buffer(BufferType.soldierDestroyed, 
-		array(soldierInstance.tilePos.pos, encode_possible_attack_objects(soldierInstance)),
+		array(soldierInstance.tileInst.pos, encode_possible_attack_objects(soldierInstance)),
 		true
 	);
 
 	with (soldierInstance) {
 		if (is_plane(id)) {
 			bindedCarrier.bindedPlane = -1;
-			if (tilePos != -1)
-				remove_from_array(tilePos.planeArr, id);
+			if (tileInst != -1)
+				remove_from_array(tileInst.planeArr, id);
 
 			var index = ds_list_find_index(global.allPlanes[team], id);
 			ds_list_delete(global.allPlanes[team], index);
@@ -26,7 +26,7 @@ function destroy_soldier(soldierInstance, sendPacket) {
 		} else {
 			var index = ds_list_find_index(global.allSoldiers[team], id);
 			ds_list_delete(global.allSoldiers[team], index);
-			removeFromFormation(formation, tilePos);
+			removeFromFormation(formation, tileInst);
 
 			if (!refreshFocus())
 				global.shouldFocusTurn = -1;
@@ -37,7 +37,7 @@ function destroy_soldier(soldierInstance, sendPacket) {
 			
 			beacon_soldier_destroy();
 			
-			tilePos.soldier = -1;
+			tileInst.soldier = -1;
 		}
 
 		instance_destroy();
@@ -85,7 +85,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 		team = s_team
 		sprite_index = global.unitSprites[s_unit_id][team];
 		unit_id = s_unit_id;
-		tilePos = global.grid[pos];
+		tileInst = global.grid[pos];
 		special = spec;
 	}
 	
@@ -138,7 +138,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	if (fromUnitInst != -1 && fromUnitInst.object_index == obj_hut) 
 		fromPos = global.grid[fromUnitInst.spawnPos].originHutPos;
 	else if (fromUnitInst != -1 && fromUnitInst.object_index == obj_infantry)
-		fromPos = fromUnitInst.tilePos.pos;
+		fromPos = fromUnitInst.tileInst.pos;
 	
 	
 	if (sendPacket){

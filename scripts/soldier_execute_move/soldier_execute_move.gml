@@ -1,11 +1,11 @@
 
 function plane_execute_move(planeInst, toTilePos) {
 	
-	var fromTileInst = planeInst.tilePos;
+	var fromTileInst = planeInst.tileInst;
 	var fromTilePlaneIndex = posInArray(fromTileInst.planeArr, planeInst);
 	remove_from_array(fromTileInst.planeArr, planeInst);
 	add_into_array(global.grid[toTilePos].planeArr, planeInst);
-	planeInst.tilePos = global.grid[toTilePos];
+	planeInst.tileInst = global.grid[toTilePos];
 
 	//	planeInst.direction = dir; for now, no direction
 
@@ -25,7 +25,7 @@ function soldier_execute_move(frTileInst, toTilePos, dir){
 	to.soldier = t;
 	
 	t.lastMoved = global.turn;
-	t.tilePos = to;
+	t.tileInst = to;
 
 	with(to.soldier) direction = dir;
 	send_buffer(BufferType.soldierMoved, array(frTileInst.pos, toTilePos, dir));

@@ -5,7 +5,7 @@ if (global.selectedSoldier != -1){
 	
 	if (global.selectedSoldier.formation != -1){ 
 		
-		var sS = global.selectedSoldier.tilePos,
+		var sS = global.selectedSoldier.tileInst,
 			formId = sS.soldier.formation,
 			form = global.formation[formId],
 			dR = getRow(pos) - getRow(sS.pos), dC = getCol(pos) - getCol (sS.pos),
@@ -79,7 +79,7 @@ if (global.selectedSoldier != -1){
 				var moveHereCost = 0;
 				while (collisionInd >= 0){ 
 					var tile = path[collisionInd];
-					if (tile.soldier!=-1 && tile != gss.tilePos) break;	
+					if (tile.soldier!=-1 && tile != gss.tileInst) break;	
 					moveHereCost += global.energy[unit_id][get_tile_type(tile)];
 					collisionInd--;
 				}
@@ -105,7 +105,7 @@ if (global.selectedSoldier != -1){
 				var dir = gss.direction;
 				if (destTileInd + 1 < nPath)
 					dir = get_dir_from_travel(path[destTileInd+1].pos, path[destTileInd].pos);
-				soldier_execute_move(gss.tilePos, path[destTileInd].pos, dir);
+				soldier_execute_move(gss.tileInst, path[destTileInd].pos, dir);
 				
 				if (collisionInd != -1) path[collisionInd].hide_soldier = false;
 			}
