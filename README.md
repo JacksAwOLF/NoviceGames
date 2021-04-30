@@ -1,6 +1,6 @@
-# MapMaker
-HELLO THIS IS A MAP MAKER
+# A GameMaker game in development...
 
+check out our [documentation](https://github.com/JacksAwOLF/NoviceGames/wiki)
 
 For mac users, when running a standalone build, save files are located at:
 /Users/\<user\>/Library/Application Support/AppId
