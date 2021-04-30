@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "soldier",
-    "path": "folders/Scripts/soldier.yy",
+    "path": "folders/MapMaker/Scripts/soldier.yy",
   },
   "resourceVersion": "1.0",
   "name": "soldier_init_attack",

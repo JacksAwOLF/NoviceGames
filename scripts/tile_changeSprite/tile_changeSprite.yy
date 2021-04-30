@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "obj_tile.click",
-    "path": "folders/Scripts/obj_tile.click.yy",
+    "path": "folders/MapMaker/Scripts/obj_tile.click.yy",
   },
   "resourceVersion": "1.0",
   "name": "tile_changeSprite",

@@ -14,7 +14,7 @@
   "duration": 0.840918,
   "parent": {
     "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "path": "folders/MapMaker/Sounds.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_error",

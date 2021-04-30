@@ -31,7 +31,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Objects",
-    "path": "folders/Objects.yy",
+    "path": "folders/MapMaker/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_tower",

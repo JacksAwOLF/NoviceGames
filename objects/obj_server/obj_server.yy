@@ -29,7 +29,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "helpers",
-    "path": "folders/Objects/helpers.yy",
+    "path": "folders/MapMaker/Objects/helpers.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_server",

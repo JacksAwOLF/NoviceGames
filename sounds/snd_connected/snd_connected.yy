@@ -14,7 +14,7 @@
   "duration": 1.816156,
   "parent": {
     "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "path": "folders/MapMaker/Sounds.yy",
   },
   "resourceVersion": "1.0",
   "name": "snd_connected",

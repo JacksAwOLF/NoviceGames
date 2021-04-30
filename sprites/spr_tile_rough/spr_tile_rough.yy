@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "colors",
-    "path": "folders/Sprites/colors.yy",
+    "path": "folders/MapMaker/Sprites/colors.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_tile_rough",

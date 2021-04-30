@@ -77,7 +77,7 @@
   ],
   "parent": {
     "name": "buttons",
-    "path": "folders/Sprites/buttons.yy",
+    "path": "folders/MapMaker/Sprites/buttons.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_horizontal_change_var",

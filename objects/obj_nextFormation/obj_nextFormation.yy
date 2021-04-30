@@ -30,7 +30,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "GUI",
-    "path": "folders/Objects/GUI.yy",
+    "path": "folders/MapMaker/Objects/GUI.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_nextFormation",

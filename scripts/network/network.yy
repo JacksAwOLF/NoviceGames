@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "path": "folders/MapMaker/Scripts.yy",
   },
   "resourceVersion": "1.0",
   "name": "network",

@@ -14,7 +14,7 @@
   "duration": 136.808258,
   "parent": {
     "name": "Sounds",
-    "path": "folders/Sounds.yy",
+    "path": "folders/MapMaker/Sounds.yy",
   },
   "resourceVersion": "1.0",
   "name": "bgm",

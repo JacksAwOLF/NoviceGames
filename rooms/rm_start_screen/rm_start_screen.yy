@@ -51,7 +51,7 @@
   },
   "parent": {
     "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "path": "folders/MapMaker/Rooms.yy",
   },
   "resourceVersion": "1.0",
   "name": "rm_start_screen",

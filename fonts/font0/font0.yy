@@ -217,7 +217,7 @@
   "maintainGms1Font": false,
   "parent": {
     "name": "Fonts",
-    "path": "folders/Fonts.yy",
+    "path": "folders/MapMaker/Fonts.yy",
   },
   "resourceVersion": "1.0",
   "name": "font0",

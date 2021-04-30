@@ -77,7 +77,7 @@
   ],
   "parent": {
     "name": "soldiers",
-    "path": "folders/Sprites/soldiers.yy",
+    "path": "folders/MapMaker/Sprites/soldiers.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_infantry",

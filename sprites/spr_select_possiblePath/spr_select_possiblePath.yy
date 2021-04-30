@@ -69,7 +69,7 @@
   ],
   "parent": {
     "name": "outline",
-    "path": "folders/Sprites/outline.yy",
+    "path": "folders/MapMaker/Sprites/outline.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_select_possiblePath",

@@ -32,7 +32,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "buttons",
-    "path": "folders/Objects/buttons.yy",
+    "path": "folders/MapMaker/Objects/buttons.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_button_focus",
