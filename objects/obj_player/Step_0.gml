@@ -18,6 +18,8 @@ if (isNotAnimating){
 		// acceleration?
 		// increase speed in the direction of key press
 		// within the range of [-horMaxSpd, horMaxSpd];
+		
+		// player can instantly change direction
 		if ((horSpd < 0) != (horDir < 0))
 			horSpd = 0;
 		
@@ -25,7 +27,8 @@ if (isNotAnimating){
 	}
 	
 	// make sure that the player character stays within bounds
-	x = max(0, min(room_width - sprite_get_width(sprite_index), x+horSpd));
+	var width = sprite_get_width(sprite_index) / 2;
+	x = max(room + width, min(room_width - width, x+horSpd));
 }
 
 else {
