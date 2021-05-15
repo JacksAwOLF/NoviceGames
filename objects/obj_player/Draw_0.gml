@@ -15,19 +15,13 @@ if (prevX == x && prevY == y){		// stationary
 	
 	// imgIndCounter is the index of the animation
 	imgIndCounter += imgIndCounterSpd;
-	if (imgIndCounter >= framesPerAnimation)		// :( mod doesn't work 
+	if (imgIndCounter >= framesPerAnimation)	// :( mod doesn't work 
 		imgIndCounter -= framesPerAnimation;	// with floating points
 	
 	// constant specifies which animation we are on
 	var const = prevY!=y ? (prevY<y?0:1) : (prevX>x?2:3);
 	
 	image_index = imgIndCounter + const*framesPerAnimation;
-}
-
-
-debug(x-prevX, y-prevY, ": ", imgIndCounter, image_index);
-if (image_index == 32 || image_index == 0){
-	debug ("ERROR");
 }
 
 
