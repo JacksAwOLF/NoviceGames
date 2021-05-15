@@ -9,21 +9,22 @@ if (isNotAnimating){
 		rightHeldDown = keyboard_check(vk_right) || keyboard_check(ord("D")),
 		horDir = rightHeldDown - leftHeldDown;
 		
-	if (horDir == 0){ // no key is pressed
-		// friction?
+	if (horDir == 0){		// no horizontal direction is specified
+		// friction
+		
 		// decrease absolute speed by horDccel if its bigger than 0
 		var horSpdSign = (horSpd >= 0 ? 1 : -1);
 		horSpd = max(abs(horSpd) - horDccel, 0) * horSpdSign;
 		
 	} else {
-		// acceleration?
-		// increase speed in the direction of key press
-		// within the range of [-horMaxSpd, horMaxSpd];
+		// acceleration
 		
-		// player can instantly change direction
+		// start increasing velocity from 0 when changing direction
 		if ((horSpd < 0) != (horDir < 0))
 			horSpd = 0;
 		
+		// increase speed in the direction of key press
+		// within the range of [-horMaxSpd, horMaxSpd];
 		horSpd = max(-horMaxSpd, min(horSpd + horDir * horAccel, horMaxSpd));
 	}
 	

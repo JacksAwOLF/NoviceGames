@@ -5,24 +5,30 @@
 // set image_index according to delta position
 // walking animation has 8 frames per movement
 // image order: 8 down, 8 up, 8 left, 8 right
+var framesPerAnimation = 8;
 
 if (prevX == x && prevY == y){		// stationary
 	imgIndCounter = 0;
-	image_index -= image_index % 8;
+	image_index = floor(image_index/framesPerAnimation)
+					*framesPerAnimation;
 } else{
 	
 	// imgIndCounter is the index of the animation
 	imgIndCounter += imgIndCounterSpd;
-	imgIndCounter %= 8;
+	if (imgIndCounter >= framesPerAnimation)		// :( mod doesn't work 
+		imgIndCounter -= framesPerAnimation;	// with floating points
 	
 	// constant specifies which animation we are on
-	var const = prevY!=y ? (prevY<y?0:8) : (prevX>x?16:24);
-	image_index = imgIndCounter + const;
+	var const = prevY!=y ? (prevY<y?0:1) : (prevX>x?2:3);
+	
+	image_index = imgIndCounter + const*framesPerAnimation;
 }
 
 
-
-
+debug(x-prevX, y-prevY, ": ", imgIndCounter, image_index);
+if (image_index == 32 || image_index == 0){
+	debug ("ERROR");
+}
 
 
 draw_self();
