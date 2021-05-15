@@ -3,6 +3,9 @@
 
 // these values can be played around with
 
+prevX = x;
+prevY = y;
+
 horMaxSpd = 4;			// maximum pixels/step horizontally
 horAccel = 0.8;			// how speed increases/step when key is pressed
 horDccel = 1.2;			// how speed decreases/step when no key is pressed
