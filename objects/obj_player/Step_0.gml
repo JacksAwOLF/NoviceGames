@@ -14,6 +14,10 @@ if (isNotAnimating){
 		// decrease absolute speed by horDccel if its bigger than 0
 		var horSpdSign = (horSpd >= 0 ? 1 : -1);
 		horSpd = max(abs(horSpd) - horDccel, 0) * horSpdSign;
+		
+		imgIndCounter = 0;
+		image_index -= image_index % 8;
+		
 	} else {
 		// acceleration?
 		// increase speed in the direction of key press
@@ -24,7 +28,14 @@ if (isNotAnimating){
 			horSpd = 0;
 		
 		horSpd = max(-horMaxSpd, min(horSpd + horDir * horAccel, horMaxSpd));
+		
+		
+		imgIndCounter += imgIndCounterSpd;
+		imgIndCounter %= 8;
+		image_index = horDir*4+20 + imgIndCounter;	
 	}
+	
+	
 	
 	// make sure that the player character stays within bounds
 	var width = sprite_get_width(sprite_index) / 2;
