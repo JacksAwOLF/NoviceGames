@@ -29,6 +29,7 @@ function add_into_array(arr, val) {
 	arr[@ array_length(arr)] = val;
 	return array_length(arr) - 1;
 }
+
 function append(arr, val){
 	if (!is_array(val)) arr[@ array_length(arr)] = val;
 	else 
