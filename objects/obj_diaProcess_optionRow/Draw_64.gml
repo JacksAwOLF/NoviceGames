@@ -24,8 +24,7 @@ if (finishedText && tnPointer.options != undefined){
 	var arr = tnPointer.options;
 	var n = array_length(arr);
 	
-	draw_set_font(optionFont);
-	
+	draw_set_font(optionFont);	
 	
 	// precalculate the option widths for drawing
 	if (optionW == -1){
@@ -47,6 +46,9 @@ if (finishedText && tnPointer.options != undefined){
 	var xx = optionWSep;
 	
 	for (var i=0; i<n; i++){
+	
+		
+		var color = (optionInd == i ? optionSelC : optionC);
 		
 		// the option background box
 		draw_rectangle_color(
@@ -54,30 +56,20 @@ if (finishedText && tnPointer.options != undefined){
 			optionY,
 			xx + optionW[i],
 			optionY + optionH,
-			optionC, optionC, optionC, optionC, 
+			color, color, color, color,
 			false
 		);
-		
-		// the selected option has a outline
-		if (optionInd == i)
-			draw_rectangle_color(
-				xx, 
-				optionY,
-				xx + optionW[i],
-				optionY + optionH,
-				optionSelC, optionSelC, optionSelC, optionSelC, 
-				true
-			);
-		
+			
 		// draw the text on that option
-		draw_text(
+		draw_text_color(
 			xx + optionTextBufferX, 
 			optionY + optionTextBufferY, 
-			arr[i]
-		)
+			arr[i],
+			optionTextC,  optionTextC, optionTextC, optionTextC, 1
+		);
 		
 		// update to next x coordinate of option
 		xx += optionW[i] + optionWSep;
 	}
 		
-}
+} else optionW = -1;
