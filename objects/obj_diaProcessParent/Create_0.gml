@@ -1,6 +1,19 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+
+// logic for going to next TN
+optionInd = 0;			// index of option chosen
+textInd = 0;			// index of current text to draw up to
+textSegInd = 0;			// index of current text segment on this text node
+tnPointer = -1;			// the TextNode obj to follow
+finishedText = false;	// var is true when all text segments are done displaying
+
+// true if we haven't executed the first TNs enter function
+executeFirstTNsEnter = true;	
+
+
+
 // this function is called when we are loading in a new textSeg
 setStyle = function(textSeg){
 
@@ -31,17 +44,8 @@ setStyle = function(textSeg){
 			)
 }
 
+setStyle();
 
-
-// logic for going to next TN
-optionInd = 0;			// index of option chosen
-textInd = 0;			// index of current text to draw up to
-textSegInd = 0;			// index of current text segment on this text node
-tnPointer = -1;			// the TextNode obj to follow
-finishedText = false;	// var is true when all text segments are done displaying
-
-// true if we haven't executed the first TNs enter function
-executeFirstTNsEnter = true;	
 
 // function called when we move to another text node
 gotoNext = function(){

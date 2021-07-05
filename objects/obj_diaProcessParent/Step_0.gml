@@ -45,13 +45,13 @@ else {
 	var n_char = string_length(tnPointer.textContent[textSegInd]);
 	
 	// increment textInd for this textSeg
-	if (finishText) textInd = n;
+	if (finishText) textInd = n_char;
 	else textInd += textS;
 	
 	// check if we move to next textSeg or finished all textSegs
-	if (textInd >= n){
+	if (textInd >= n_char){
 		textInd = 0;
-		if (textSegInd+1 < array_length(tnPointer.textContent)){
+		if (textSegInd+1 < n_textSeg){
 			textSegInd += 1
 			setStyle()
 		} else {

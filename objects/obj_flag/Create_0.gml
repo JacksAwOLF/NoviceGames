@@ -42,5 +42,5 @@ text =
 
 interact = function() 
 {
-	textBox(text);
+	textBox(text, DialogueTypes.OptionRow);
 }

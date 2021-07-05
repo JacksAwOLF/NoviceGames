@@ -13,7 +13,7 @@ draw_rectangle_color(
 draw_set_font(textFont);
 draw_text_ext_color(
 	textX, textY, 
-	string_copy(tnPointer.text, 1, textInd),
+	string_copy(tnPointer.textContent[textSegInd].text, 1, textInd),
 	textH, textW, textC, textC, textC, textC, 1
 );
 

@@ -1,9 +1,15 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
-function textBox(textObj){
-	if (!instance_exists(obj_textBox))
-		with(instance_create_depth(x, y, 0, obj_textBox))
+enum DialogueTypes
+{
+	OptionRow
+}
+
+function textBox(textObj, type){
+	var typeToObj = [obj_diaProcess_optionRow];
+	if (!instance_exists(obj_diaProcessParent))
+		with(instance_create_depth(x, y, 0, typeToObj[type]))
 			tnPointer = textObj;
 }
 
@@ -16,6 +22,7 @@ function TextNode(_text, _options, _next, _spd, _enterFunc, _leaveFunc) construc
 	spd = _spd;
 	onenter = _enterFunc;
 	onleave = _leaveFunc;
+	textContent = [{text: _text}]
 	
 	setNext = function(__next){
 		next = __next;

@@ -2,7 +2,7 @@
 
 
 // if true, we process keyboard input
-var isNotAnimating = (path_index == -1) && !instance_exists(obj_textBox);
+var isNotAnimating = (path_index == -1) && !instance_exists(obj_diaProcessParent);
 
 if (isNotAnimating){
 	
