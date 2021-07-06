@@ -20,6 +20,11 @@ function textBox(textObj, type){
 // TextSegment: no constructor to be used
 //		color, speed, font, etc...
 
+
+function TextSegment(_text, _options) constructor {
+		
+}
+
 function TextEdge(_nextIndex, _isAvailable) constructor {
 	nextIndex = _nextIndex;
 	isAvailable = is_method(_isAvailable) ? _isAvailable : true_func;
@@ -68,6 +73,13 @@ function TextNode(_speakerName, _spriteName, _spriteInd, _textContent, _textOpti
 	onEnter = blank_func;
 	onLeave = blank_func;
 	
+	style = undefined;
+	setStyle = function(styleName, styleValue){
+		if (style == undefined) style = {};
+		variable_struct_set(style, styleName, styleValue);
+		return self;
+	}
+	
 	// default getNext iterates through edges sequentially
 	// and chooses first one whose condition is true
 	getNextNode = function() {
@@ -92,6 +104,7 @@ function TextNode(_speakerName, _spriteName, _spriteInd, _textContent, _textOpti
 			}
 		}
 	}
+	
 	
 	
 	

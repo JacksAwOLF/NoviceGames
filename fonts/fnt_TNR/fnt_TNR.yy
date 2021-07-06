@@ -244,8 +244,8 @@
   "canGenerateBitmap": true,
   "maintainGms1Font": false,
   "parent": {
-    "name": "text",
-    "path": "folders/2DScroller/Objects/text.yy",
+    "name": "fonts",
+    "path": "folders/2DScroller/Objects/text/fonts.yy",
   },
   "resourceVersion": "1.0",
   "name": "fnt_TNR",

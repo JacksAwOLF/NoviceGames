@@ -36,11 +36,19 @@ function dia_rm_sideMap(){
 	global.textGraph[3] = 
 		(new TextNode("flag-chan", spr_flag, 0,
 			[{
-				text:
-					"why hello there miss                           \n"
-					+"if im talking too slow feel free to press space..."
+				text: "why hello there miss",
+				style: {
+					textC: c_lime,
+					textFont: fnt_dumb,
+				},
+			},
+			{
+				text: "if im talking too slow feel free to press space..."
 					+" hih ihi ihi hih iihi hih ihih ii hihi hih ihi hih i "
-					+"btw who tf are you? do you want to die?!!??!"
+					+"btw who tf are you? do you want to die?!!??!",
+				style: {
+					textS: 0.1
+				}
 			}],
 			[
 				new DialogueOption("yes please", [new TextEdge(4, -1)], -1),
@@ -56,10 +64,13 @@ function dia_rm_sideMap(){
 		new TextNode("flag-chan", spr_flag, 0, [{text:"wait what"}], -1, -1);
 	global.textGraph[6] =
 		new TextNode("flag-chan", spr_flag, 0, 
-			[{text:"sorry I don't understand Chinese"}],
+			[{text:"sorry I don't understand Chinese", style: {textC: c_black}}],
 			[new DialogueOption("that's not chinese bro", [new TextEdge(-1, -1)], -1)],
 			-1
-		);
+		)
+		.setStyle("backC", c_orange)
+		.setStyle("optionSelC", c_white)
+		.setStyle("optionTextC", c_black);
 			
 	
 }

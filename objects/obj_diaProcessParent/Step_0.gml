@@ -1,6 +1,5 @@
 /// @description 
 
-
 if (tnPointer != -1) {
 	
 	// this script only runs once
@@ -13,8 +12,7 @@ if (tnPointer != -1) {
 		if (tnPointer.onEnter != undefined)
 			tnPointer.onEnter();
 		
-		updateOptions();
-		setStyle();
+		initTNode();
 	}
 
 
@@ -50,18 +48,14 @@ if (tnPointer != -1) {
 	
 		// increment textInd for this textSeg
 		if (finishText) textInd = n_char;
-		else textInd += textS;
+		else textInd = min(textInd + textStyle.textS, n_char);
 	
 		// check if we move to next textSeg or finished all textSegs
-		if (textInd >= n_char){
-			textInd = 0;
+		if (textInd == n_char){
 			if (textSegInd+1 < n_textSeg){
-				textSegInd += 1
-				setStyle()
-			} else {
-				textSegInd = 0;
-				finishedText = true;
-			}
+				textSegInd += 1;
+				textInd = 0;
+			} else finishedText = true;
 		}
 	
 	}

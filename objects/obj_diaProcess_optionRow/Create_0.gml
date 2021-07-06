@@ -23,7 +23,10 @@ textX = backX + 0.05 * backW;
 textY = backY + 0.1 * backH;
 	// size
 textW = backW * 0.9;
-draw_set_font(textFont);
+
+debug(textStyle);
+
+draw_set_font(textStyle.textFont);
 textH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	
 
@@ -33,10 +36,10 @@ textH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 optionTextBufferX = 8;
 optionTextBufferY = 6;
 	// option rectangle size
-draw_set_font(optionFont);
+draw_set_font(frameStyle.optionFont);
 optionH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ") + 2*optionTextBufferY;
 optionW = -1;	// width is determined by length of option value, preprocess
 	// position
 optionX = textX;
 optionY = backY + backH - optionH -backH * 0.08;
-	
+

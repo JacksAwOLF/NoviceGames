@@ -3,27 +3,27 @@
 
 
 // draw the background
+
+var backC = frameStyle.backC;
+
 draw_rectangle_color(
 	backX, backY, backX+backW, backY+backH, 
 	backC, backC, backC, backC, false
 );
 
 
-// draw the text
-draw_set_font(textFont);
-draw_text_ext_color(
-	textX, textY, 
-	string_copy(tnPointer.textContent[textSegInd].text, 1, textInd),
-	textH, textW, textC, textC, textC, textC, 1
-);
+// calculate positioning of each text in textSeg
+// this is done while loading in the text node
 
+// draw the text
+event_inherited()
 
 // draw the options
 if (finishedText && is_array(availableOptions) && array_length(availableOptions) > 0){
 	
 	var arr = availableOptions, n = array_length(availableOptions);
 	
-	draw_set_font(optionFont);	
+	draw_set_font(frameStyle.optionFont);	
 	
 	// precalculate the option widths for drawing
 	if (optionW == -1){
@@ -46,8 +46,7 @@ if (finishedText && is_array(availableOptions) && array_length(availableOptions)
 	
 	for (var i=0; i<n; i++){
 	
-		
-		var color = (optionInd == i ? optionSelC : optionC);
+		var color = (optionInd == i ? frameStyle.optionSelC : frameStyle.optionC);
 		
 		// the option background box
 		draw_rectangle_color(
@@ -60,6 +59,7 @@ if (finishedText && is_array(availableOptions) && array_length(availableOptions)
 		);
 			
 		// draw the text on that option
+		var optionTextC = frameStyle.optionTextC;
 		draw_text_color(
 			xx + optionTextBufferX, 
 			optionY + optionTextBufferY, 

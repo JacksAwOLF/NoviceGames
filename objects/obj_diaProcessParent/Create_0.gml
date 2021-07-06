@@ -17,35 +17,51 @@ drawPastSegments = [];  // array of functions that draws previous text segments
 executeFirstTNsEnter = true;	
 
 
-
 // this function is called when we are loading in a new textSeg
-setStyle = function(textSeg){
+setTextStyle = function(textSeg){
 
 	// load in default stylization
-	textS = 1				// number of characters per frame
-	textFont = fnt_TNR;		// the font of text
-	textC = c_white;		// color of text
-	backC = c_black;		// background color behind text
-	optionFont = fnt_TNR;	// font for the options
-	optionC = c_gray;		// background color for options
-	optionSelC = c_green;	// background color for selected option
-	optionTextC = c_white;	// text color for options
+		// specific to a single text segment
+	textStyle = {
+		textS: 1,				// number of characters per frame
+		textFont: fnt_TNR,		// the font of text
+		textC: c_white			// color of text
+	};
 	
-	// overwrite the style if necessary
-	if (textSeg == undefined) {
-		if (tnPointer == -1) return;
-		if (textSegInd >= array_length(tnPointer.textContent)) return;
+	// overwrite textStyle if necessary
+		// if undefined argument, set it to current segind
+	if ( textSeg == undefined && tnPointer != -1 && 
+		textSegInd < array_length(tnPointer.textContent) )
 		textSeg = tnPointer.textContent[textSegInd];
-		if (textSeg == undefined) return;
+		// load it in if it is defined
+	if (textSeg != undefined && variable_struct_exists(textSeg, "style"))
+		loadStruct(textStyle, textSeg.style, false);
+}
+
+setFrameStyle = function(textNode){
+	
+	// load in default stylization
+		// general across this text node
+	frameStyle = {
+		backC: c_black,			// background color behind text
+		optionFont: fnt_TNR,	// font for the options
+		optionC: c_gray,		// background color for options
+		optionSelC: c_green,	// background color for selected option
+		optionTextC: c_white,	// text color for options
 	}
 	
-	var structVars = variable_struct_get_names(textSeg);
-	for (var i=0; i<array_length(structVars); i++)
-		if (variable_instance_exists(self, structVars[i]))
-			variable_instance_set(
-				self, structVars[i], 
-				variable_struct_get(textSeg, structVars[i])
-			)
+	// overwrite textStyle if necessary
+		// if undefined argument, set it to current segind
+	if ( textNode == undefined && tnPointer != -1 )
+		textNode = tnPointer;
+		// load it in if it is defined
+	if (textNode != undefined && textNode.style != undefined)
+		loadStruct(frameStyle, textNode.style, false);
+}
+
+setStyle = function(){
+	setTextStyle();
+	setFrameStyle();
 }
 
 setStyle();
@@ -66,6 +82,23 @@ updateOptions = function() {
 	}
 }
 
+
+// function called to initialize a new tnode
+initTNode = function(){
+	
+	if (tnPointer == -1 || tnPointer == undefined) return;
+	tnPointer.onEnter();
+	updateOptions();
+	calculateTextSegPositions();
+	setFrameStyle();
+	// caculateOptionButtonPositions();
+	
+	finishedText = false;
+	optionInd = 0;
+	textSegInd = 0;
+	textInd = 0;
+}
+
 // function called when we move to another text node
 gotoNext = function(){
 	
@@ -77,13 +110,37 @@ gotoNext = function(){
 	if (tnPointer == undefined) {
 		instance_destroy();
 		return;
-		
-	} else if (tnPointer.onEnter != undefined) {
-		tnPointer.onEnter();
-		updateOptions();
 	}
 	
-	finishedText = false;
-	optionInd = 0;
-	setStyle();
+	initTNode();
+}
+
+
+
+textPos = -1;
+
+
+
+// this function calculates the positions of
+// text segments in this tnPointer and stores
+// them in textPos
+calculateTextSegPositions = function(){
+	
+	if (tnPointer == -1 || tnPointer == undefined) return;
+	
+	var curX = textX, curY = textY;
+	var arr = tnPointer.textContent;
+	var n = array_length(arr);
+	textPos = array_create(n);
+	
+	for (var i=0; i<array_length(arr); i++){
+		textPos[i] = {
+			xx: curX, yy: curY,	
+			hh: textH, ww: textW,
+		}
+		
+		setTextStyle(arr[i]);
+		draw_set_font(textStyle.textFont);
+		curY += string_height_ext(arr[i].text, textH, textW);
+	}
 }
