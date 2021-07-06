@@ -87,6 +87,14 @@ updateOptions = function() {
 initTNode = function(){
 	
 	if (tnPointer == -1 || tnPointer == undefined) return;
+	
+	// if no text, then move on to next
+	if (array_length(tnPointer.textContent) == 0){
+		gotoNext();
+		return;
+	}
+		
+	
 	tnPointer.onEnter();
 	updateOptions();
 	calculateTextSegPositions();

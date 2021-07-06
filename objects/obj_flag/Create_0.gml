@@ -44,5 +44,5 @@ text =
 
 interact = function() 
 {
-	textBox(global.textGraph[1], DialogueTypes.OptionRow);
+	textBox(global.textGraph[10], DialogueTypes.OptionRow);
 }

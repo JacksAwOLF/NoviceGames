@@ -18,25 +18,39 @@ if (tnPointer != -1) {
 
 	var nextPage = keyboard_check_pressed(vk_enter);
 	var finishText = keyboard_check_pressed(vk_space);
-
-
-	if (finishedText){
 	
-		if (is_array(availableOptions) && array_length(availableOptions) > 0){
+	var n_textSeg = array_length(tnPointer.textContent);
+	var n_char = string_length(tnPointer.textContent[textSegInd].text);
+
+
+	if (finishedText){		// if the text segment is finished displaying
+	
 		
-			// update optionInd
-			var subtract = keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A")),
-				add = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D")),
-				delta = add - subtract,
-				n = array_length(availableOptions);
-			optionInd = (optionInd + delta + n) % n;
+		if (textSegInd+1 < n_textSeg){	// if its not the last text segment
+			if (nextPage) {
+				textSegInd += 1;
+				textInd = 0;
+				finishedText = false;
+			}
+		}
 		
-			// go to next page according to optionInd if needed
+		else {			// if it is the last segment
+			
+			// if the text node has options
+			if (is_array(availableOptions) && array_length(availableOptions) > 0){
+		
+				// update optionInd
+				var subtract = keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A")),
+					add = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D")),
+					delta = add - subtract,
+					n = array_length(availableOptions);
+				optionInd = (optionInd + delta + n) % n;
+			}
+		
+			// goto next page
 			if (nextPage) gotoNext();
 		} 
 	
-		// if no options for this page, go to next page if needed
-		else if (nextPage) gotoNext();
 	}
 
 
@@ -47,16 +61,15 @@ if (tnPointer != -1) {
 		var n_char = string_length(tnPointer.textContent[textSegInd].text);
 	
 		// increment textInd for this textSeg
-		if (finishText) textInd = n_char;
-		else textInd = min(textInd + textStyle.textS, n_char);
+		if (finishText){ 
+			textSegInd = n_textSeg - 1;
+			n_char = string_length(tnPointer.textContent[textSegInd].text);
+			textInd = n_char;
+		} else textInd = min(textInd + textStyle.textS, n_char);
 	
 		// check if we move to next textSeg or finished all textSegs
-		if (textInd == n_char){
-			if (textSegInd+1 < n_textSeg){
-				textSegInd += 1;
-				textInd = 0;
-			} else finishedText = true;
-		}
+		if (textInd == n_char)
+			finishedText = true;
 	
 	}
 }

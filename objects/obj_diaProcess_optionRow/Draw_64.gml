@@ -18,8 +18,11 @@ draw_rectangle_color(
 // draw the text
 event_inherited()
 
+
+
 // draw the options
-if (finishedText && is_array(availableOptions) && array_length(availableOptions) > 0){
+if (finishedText && textSegInd+1==array_length(tnPointer.textContent) &&
+	is_array(availableOptions) && array_length(availableOptions) > 0){
 	
 	var arr = availableOptions, n = array_length(availableOptions);
 	
