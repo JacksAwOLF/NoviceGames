@@ -1,6 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+/*
 text = 
 	(new TextNode(
 	"oh so you have interacted on this flag! "
@@ -37,10 +38,11 @@ text =
 			]
 		)
 	);
+*/
 
 
 
 interact = function() 
 {
-	textBox(text, DialogueTypes.OptionRow);
+	textBox(global.textGraph[1], DialogueTypes.OptionRow);
 }

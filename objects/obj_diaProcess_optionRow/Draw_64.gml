@@ -19,10 +19,9 @@ draw_text_ext_color(
 
 
 // draw the options
-if (finishedText && tnPointer.options != undefined){
+if (finishedText && is_array(availableOptions) && array_length(availableOptions) > 0){
 	
-	var arr = tnPointer.options;
-	var n = array_length(arr);
+	var arr = availableOptions, n = array_length(availableOptions);
 	
 	draw_set_font(optionFont);	
 	
@@ -31,7 +30,7 @@ if (finishedText && tnPointer.options != undefined){
 		optionW = [];
 		optionWSum = 0;
 		for (var i=0; i<n; i++){
-			var ww = string_width(arr[i]) + optionTextBufferX * 2;
+			var ww = string_width(arr[i].text) + optionTextBufferX * 2;
 			optionWSum += ww;
 			append(optionW, ww);
 		}
@@ -64,7 +63,7 @@ if (finishedText && tnPointer.options != undefined){
 		draw_text_color(
 			xx + optionTextBufferX, 
 			optionY + optionTextBufferY, 
-			arr[i],
+			arr[i].text,
 			optionTextC,  optionTextC, optionTextC, optionTextC, 1
 		);
 		

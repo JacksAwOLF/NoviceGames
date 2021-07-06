@@ -9,6 +9,10 @@ textSegInd = 0;			// index of current text segment on this text node
 tnPointer = -1;			// the TextNode obj to follow
 finishedText = false;	// var is true when all text segments are done displaying
 
+// data to be displayed
+availableOptions = [];  // stores {text, index} of all options of current textNode that can appear
+drawPastSegments = [];  // array of functions that draws previous text segments
+
 // true if we haven't executed the first TNs enter function
 executeFirstTNsEnter = true;	
 
@@ -46,19 +50,38 @@ setStyle = function(textSeg){
 
 setStyle();
 
+// function that updates available options of current textNode
+updateOptions = function() {
+	availableOptions = [];
+	if (is_array(tnPointer.textOptions)) {
+		for (var i = 0; i < array_length(tnPointer.textOptions); i++) {
+			if (tnPointer.textOptions[i].appearCondition()) {
+				availableOptions[array_length(availableOptions)] = 
+					{
+						text: tnPointer.textOptions[i].textContent, 
+						index: i
+					};
+			}
+		}
+	}
+}
 
 // function called when we move to another text node
 gotoNext = function(){
 	
-	if (tnPointer.onleave != undefined)
-		tnPointer.onleave();
+	if (tnPointer.onLeave != undefined)
+		tnPointer.onLeave();
 	
 	tnPointer = tnPointer.getNextNode();
 			
-	if (tnPointer == undefined)
+	if (tnPointer == undefined) {
 		instance_destroy();
-	else if (tnPointer.onenter != undefined)
-		tnPointer.onenter();
+		return;
+		
+	} else if (tnPointer.onEnter != undefined) {
+		tnPointer.onEnter();
+		updateOptions();
+	}
 	
 	finishedText = false;
 	optionInd = 0;
