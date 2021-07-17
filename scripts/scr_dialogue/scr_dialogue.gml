@@ -17,13 +17,6 @@ function textBox(textObj, type){
 // Dialogue system structure definitions begin here
 // ------------------------------------------------
 
-// TextSegment: no constructor to be used
-//		color, speed, font, etc...
-
-
-function TextSegment(_text, _options) constructor {
-		
-}
 
 function TextEdge(_nextIndex, _isAvailable) constructor {
 	nextIndex = _nextIndex;
@@ -52,7 +45,7 @@ function DialogueOption(_textContent, _textEdges, _appearCondition) constructor 
 	setNextNode = function(__getNextNode) {
 		// sanity check
 		if (!is_method(__getNextNode))
-			show_error("onEnter must be a function", true);
+			show_error("getNextNode must be a function", true);
 			
 		getNextNode = __getNextNode;
 		return self;

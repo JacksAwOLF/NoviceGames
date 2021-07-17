@@ -12,6 +12,7 @@
     {"id":{"name":"obj_flag","path":"objects/obj_flag/obj_flag.yy",},"order":0,},
     {"id":{"name":"spr_tile_road","path":"sprites/spr_tile_road/spr_tile_road.yy",},"order":0,},
     {"id":{"name":"spr_select_underMouse","path":"sprites/spr_select_underMouse/spr_select_underMouse.yy",},"order":5,},
+    {"id":{"name":"fnt_speaker","path":"fonts/fnt_speaker/fnt_speaker.yy",},"order":2,},
     {"id":{"name":"spr_select_possibleMove","path":"sprites/spr_select_possibleMove/spr_select_possibleMove.yy",},"order":1,},
     {"id":{"name":"spr_select_possibleAttack","path":"sprites/spr_select_possibleAttack/spr_select_possibleAttack.yy",},"order":0,},
     {"id":{"name":"soldier_execute_attack","path":"scripts/soldier_execute_attack/soldier_execute_attack.yy",},"order":13,},
@@ -240,7 +241,7 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2.3.2.560",
+    "IDEVersion": "2.3.3.570",
   },
   "resourceVersion": "1.4",
   "name": "MapMaker",

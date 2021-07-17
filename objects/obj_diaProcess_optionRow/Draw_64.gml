@@ -19,6 +19,27 @@ draw_rectangle_color(
 event_inherited()
 
 
+if (tnPointer != -1) {
+
+	// draw the speaker sprite
+	var sprite = tnPointer.spriteName;
+	draw_set_color(speakerSpriteBackC);
+	draw_rectangle(speakerSpriteX, speakerSpriteY, speakerSpriteX + speakerSpriteW,
+		speakerSpriteY + speakerSpriteH, false);
+	draw_sprite_ext(sprite, tnPointer.spriteInd, 
+		speakerSpriteX, speakerSpriteY, speakerSpriteW / sprite_get_width(sprite), 
+		speakerSpriteH / sprite_get_height(sprite), 0, c_white, 1);
+	
+	// draw the speaker name
+	var text = tnPointer.speakerName;
+	draw_set_font(speakerNameF);
+	draw_set_color(speakerNameBackC);
+	draw_rectangle(speakerNameX, speakerNameY, speakerNameX + string_width(text),
+		speakerNameY + speakerNameH, false);
+	draw_set_color(speakerNameC);
+	draw_text(speakerNameX, speakerNameY, text);
+}
+
 
 // draw the options
 if (finishedText && textSegInd+1==array_length(tnPointer.textContent) &&

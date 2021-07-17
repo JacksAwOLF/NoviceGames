@@ -28,7 +28,23 @@ debug(textStyle);
 
 draw_set_font(textStyle.textFont);
 textH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-	
+
+
+
+// the speaker sprite and name
+speakerNameX = backX;
+speakerNameF = fnt_speaker;
+draw_set_font(speakerNameF);
+speakerNameH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+speakerNameY = backY - speakerNameH;
+speakerNameBackC = c_black;
+speakerNameC = c_white;
+
+speakerSpriteW = 80;
+speakerSpriteH = 80;
+speakerSpriteX = backX;
+speakerSpriteY = speakerNameY - speakerSpriteH;
+speakerSpriteBackC = c_black;
 
 
 // the options that will sometimes show up
@@ -42,4 +58,3 @@ optionW = -1;	// width is determined by length of option value, preprocess
 	// position
 optionX = textX;
 optionY = backY + backH - optionH -backH * 0.08;
-
