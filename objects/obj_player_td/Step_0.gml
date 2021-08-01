@@ -1,5 +1,8 @@
 /// @description YOHOHO
 
+var movementPaused = instance_exists(obj_diaProcessParent);
+if (movementPaused) exit;
+
 right = keyboard_check(ord("D"))
 left = keyboard_check(ord("A"))
 up = keyboard_check(ord("W"))

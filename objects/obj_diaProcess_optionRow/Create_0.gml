@@ -24,8 +24,6 @@ textY = backY + 0.1 * backH;
 	// size
 textW = backW * 0.9;
 
-debug(textStyle);
-
 draw_set_font(textStyle.textFont);
 textH = string_height("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 

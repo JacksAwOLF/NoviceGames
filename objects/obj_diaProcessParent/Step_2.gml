@@ -17,7 +17,7 @@ if (tnPointer != -1) {
 
 
 	var nextPage = keyboard_check_pressed(vk_enter);
-	var finishText = keyboard_check_pressed(vk_space);
+	var finishText = keyboard_check_pressed(vk_shift);
 	
 	var n_textSeg = array_length(tnPointer.textContent);
 	var n_char = string_length(tnPointer.textContent[textSegInd].text);
