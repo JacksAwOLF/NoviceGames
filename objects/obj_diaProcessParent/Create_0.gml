@@ -70,13 +70,15 @@ setStyle();
 updateOptions = function() {
 	availableOptions = [];
 	if (is_array(tnPointer.textOptions)) {
+		var j = 0;
 		for (var i = 0; i < array_length(tnPointer.textOptions); i++) {
 			if (tnPointer.textOptions[i].appearCondition()) {
 				availableOptions[array_length(availableOptions)] = 
 					{
 						text: tnPointer.textOptions[i].textContent, 
-						index: i
+						index: j
 					};
+				j += 1;
 			}
 		}
 	}

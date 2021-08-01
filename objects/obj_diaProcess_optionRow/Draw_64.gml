@@ -46,7 +46,6 @@ if (finishedText && textSegInd+1==array_length(tnPointer.textContent) &&
 	is_array(availableOptions) && array_length(availableOptions) > 0){
 	
 	var arr = availableOptions, n = array_length(availableOptions);
-	
 	draw_set_font(frameStyle.optionFont);	
 	
 	// precalculate the option widths for drawing
@@ -63,10 +62,13 @@ if (finishedText && textSegInd+1==array_length(tnPointer.textContent) &&
 		// sanity check
 		if (optionWSep < 0)
 			show_error("option texts too long", false);
+			
+		debug("precalculated optinoW", optionW)
+		debug("avail options", availableOptions)
+		debug("n", n)
 	}
 	
-	
-	var xx = optionWSep;
+	var xx = optionX + optionWSep;
 	
 	for (var i=0; i<n; i++){
 	

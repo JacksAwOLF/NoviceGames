@@ -44,7 +44,7 @@ function dia_rm_sideMap(){
 				},
 			},
 			{
-				text: "if im talking too slow feel free to press space..."
+				text: "if im talking too slow feel free to press shift..."
 					+" hih ihi ihi hih iihi hih ihih ii hihi hih ihi hih i "
 					+"btw who tf are you? do you want to die?!!??!",
 				style: {

@@ -1,3 +1,5 @@
+playerInteractKey = ord("S")
+
 interact = function()
 {
 	with (obj_player) {
