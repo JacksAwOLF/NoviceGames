@@ -30,7 +30,7 @@ function encode_save_var(data, name){
 			data = real(data.tileInst.pos);
 			return data;
 			break;
-		case "spriteIndex":
+		case "sprite_index":
 			return sprite_get_name(data);
 			break;
 			
@@ -48,7 +48,7 @@ function decode_save_var(data, name){
 				data = global.grid[data].soldier;	
 			return data;
 			break;
-		case "spriteIndex":
+		case "sprite_index":
 			return asset_get_index(data);
 			break;
 	}

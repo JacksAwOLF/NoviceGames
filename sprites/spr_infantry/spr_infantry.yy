@@ -75,6 +75,7 @@
   "layers": [
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"f3ba45a0-c30f-41ed-ab43-af2f5c7e52ef","tags":[],"resourceType":"GMImageLayer",},
   ],
+  "nineSlice": null,
   "parent": {
     "name": "soldiers",
     "path": "folders/MapMaker/Sprites/soldiers.yy",
