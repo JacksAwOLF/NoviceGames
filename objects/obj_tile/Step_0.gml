@@ -10,7 +10,9 @@ if mouseIn {
 		// always maintain the last two tiles we hovered over
 		if (global.prevHoveredTile != id) {
 			global.prevHoveredTile = id
-			soldier_update_path(0);
+			debug("{obj tile step event enter")
+			soldier_update_path(false);
+			debug("{obj tile step event leave")
 		}
 	}
 }

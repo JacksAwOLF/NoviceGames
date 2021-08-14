@@ -27,7 +27,6 @@ function init_map(medium, dataSrc) {
 	
 	global.conqueredTowers = array(array(), array());
 	
-	
 	global.poss_moves = -1;
 	global.poss_paths = -1;
 	global.poss_attacks = -1;

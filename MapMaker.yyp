@@ -189,10 +189,10 @@
     "children": [],
   },
   "RoomOrderNodes": [
+    {"roomId":{"name":"rm_start_screen","path":"rooms/rm_start_screen/rm_start_screen.yy",},},
     {"roomId":{"name":"rm_topDown","path":"rooms/rm_topDown/rm_topDown.yy",},},
     {"roomId":{"name":"rm_platform","path":"rooms/rm_platform/rm_platform.yy",},},
     {"roomId":{"name":"rm_sideMap","path":"rooms/rm_sideMap/rm_sideMap.yy",},},
-    {"roomId":{"name":"rm_start_screen","path":"rooms/rm_start_screen/rm_start_screen.yy",},},
     {"roomId":{"name":"rm_map","path":"rooms/rm_map/rm_map.yy",},},
     {"roomId":{"name":"rm_info","path":"rooms/rm_info/rm_info.yy",},},
   ],

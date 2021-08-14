@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 
-
+debug("dingle click event")
 // each index of global.changeSprite[] has a different action
 // on this tile
 
@@ -57,6 +57,8 @@ if (!edit || global.changeSprite == -1){
 		else if (possible_pathpoint) { // process deselecting blue tiles
 
 			enableDoubleClick = true;
+			
+			debug("{tile poss pathpoint enter");
 
 			var cur = ds_stack_top(global.selectedPathpointsStack), met_same = false;
 			while (ds_stack_size(global.selectedPathpointsStack) > 1 &&
@@ -78,14 +80,14 @@ if (!edit || global.changeSprite == -1){
 			erase_blocks();
 			soldier_init_move(cur[0]);
 			soldier_update_path(false);
+			debug("{tile poss pathpoint leave");
 
 		} // process selecting blue tiles
 
 		else if ( (possible_move ) &&
 					(global.selectedSoldier.tileInst != id || ds_stack_size(global.selectedPathpointsStack) > 1)) {
 
-
-
+			debug("{tile click poss_move enter")
 			enableDoubleClick = true;
 			if (global.selectedSoldier.formation == -1) {
 				possible_pathpoint = true;
@@ -100,11 +102,14 @@ if (!edit || global.changeSprite == -1){
 					val[0].possible_path += 1;
 				}
 
-
+				debug("done modifying global stack")
 				erase_blocks();
+				debug("erased blocks")
 				soldier_init_move(id);
+				debug("done init move")
 				soldier_update_path(false);
 			}
+			debug("{tile click poss_move leave")
 
 		} // process deselecting own soldier/selecting other soldiers
 

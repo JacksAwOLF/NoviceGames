@@ -21,11 +21,7 @@ if (jump) {
 
 
 var horDir = (keyboard_check(rightKey) - keyboard_check(leftKey))
-<<<<<<< HEAD
 
-=======
-debug(horDir, horSpd)
->>>>>>> dfbb25c5bec09d088b447a2eb5afcd7894e12aba
 if (horDir != 0) {
 	horSpd += horDir * horInc;
 	horSpd = min(horSpd, maxHorSpd);
@@ -35,13 +31,6 @@ if (horDir != 0) {
 	horAbsSpd = max(horAbsSpd - horDec, 0);
 	horSpd = sign(horSpd) * horAbsSpd;
 }
-<<<<<<< HEAD
-=======
-debug(horDir, horSpd)
-debug("------")
-
->>>>>>> dfbb25c5bec09d088b447a2eb5afcd7894e12aba
-
 
 
 
