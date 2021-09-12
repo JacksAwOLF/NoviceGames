@@ -28,7 +28,7 @@ function calculate_damage(attackerInst, attackedInst, damageOverride) {
 	
 	
 	// attacking from the side overrides simple damage calculation
-	if (b.object_index == obj_infantry) {
+	/*if (b.object_index == obj_infantry) {
 		var ohko = false, posdiff = a.tileInst.pos - b.tileInst.pos;
 		if (posdiff == 1 || posdiff == -1)
 			ohko = (attackedInst.direction % 180 == 0);
@@ -37,7 +37,7 @@ function calculate_damage(attackerInst, attackedInst, damageOverride) {
 
 		if (ohko && (!is_tank(attackedInst) || attackedInst.my_health != attackedInst.max_health))
 			damage = attackedInst.my_health;
-	}
+	}*/
 	
 	
 	// special unit healing ability overrides attacking from the side
