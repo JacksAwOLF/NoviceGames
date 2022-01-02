@@ -1,6 +1,9 @@
+/// @function get_vision_tiles(unitInst, tileInst)
 /// @description Returns all the tiles that can be seen from the given tile & soldier
 /// @param tile_id Tile with soldier to calculate vision from
-function get_vision_tiles(unitInst) {
+function get_vision_tiles(unitInst, tileInst) {
+	if (tileInst == undefined)
+		tileInst = unitInst.tileInst;
 
 	// data to be stored in queue: (grid pos, leftover vision cost)
 	// calculate using proportions, estimate proportions by dividing each
@@ -9,13 +12,13 @@ function get_vision_tiles(unitInst) {
 	// this will cause the "line drawn" to be jagged, so will be a rough estimate at most
 	// maybe change the # of grids to resolve some problems as well
 
-	var startx = unitInst.tileInst.pos % global.mapWidth;
-	var starty = floor(unitInst.tileInst.pos / global.mapWidth);
+	var startx = tileInst.pos % global.mapWidth;
+	var starty = floor(tileInst.pos / global.mapWidth);
 
 	var res = [];	// array of results
 	var cnt = 0;	// size of results
 	
-	var soldier_vision = unitInst.vision + 1.25*(unitInst.tileInst.elevation-1);
+	var soldier_vision = unitInst.vision + 1.25*(tileInst.elevation-1);
 	
 	switch (global.weather) {
 		case Weather.SUNNY:
@@ -23,8 +26,8 @@ function get_vision_tiles(unitInst) {
 			break;
 		
 		case Weather.RAINY:
-			var rowDiff = getRowDiff(unitInst.tileInst.pos, global.rain_center_pos);
-			var colDiff = getColDiff(unitInst.tileInst.pos, global.rain_center_pos);
+			var rowDiff = getRowDiff(tileInst.pos, global.rain_center_pos);
+			var colDiff = getColDiff(tileInst.pos, global.rain_center_pos);
 			
 			// if outside rain, resume normal operation
 			if (rowDiff*rowDiff + colDiff*colDiff > global.rain_radius_squared)
@@ -80,7 +83,7 @@ function get_vision_tiles(unitInst) {
 				}
 
 				var add = 1;
-				if (unitInst.tileInst.elevation < global.grid[gridid].elevation) {
+				if (tileInst.elevation < global.grid[gridid].elevation) {
 					switch(global.grid[gridid].sprite_index) {
 						case spr_tile_flat: 
 						case spr_tile_ocean:
@@ -123,8 +126,6 @@ function get_vision_tiles(unitInst) {
 		}
 	}
 
+
 	return res;
-
-
-
 }

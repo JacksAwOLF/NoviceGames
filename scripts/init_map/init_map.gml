@@ -8,6 +8,10 @@ enum VisualState
 
 
 function init_map(medium, dataSrc) {
+	// Team that is controlled by AI
+	// If -1, then there is no AI
+	global.ai_team = 1;
+	
 	// weather global variables
 	global.weather = Weather.REGULAR;
 	

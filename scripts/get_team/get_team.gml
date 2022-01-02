@@ -10,13 +10,22 @@ function get_team(argument0) {
 	return 0;
 }
 
+
 function is_my_team(object) {
-	return (object.team == (global.edit ? global.turn % 2 : global.playas));
+	if (global.edit)
+		return object.team == global.turn % 2;
+	if (global.ai_team != -1)
+		return object.team != global.ai_team;
+	return object.team == global.playas;
 }
 
 function is_my_team_sprite(object_sprite) {
 	var team = get_team(object_sprite);
-	return (team == (global.edit ? global.turn % 2 : global.playas));
+	if (global.edit)
+		return team == global.turn % 2;
+	if (global.ai_team != -1)
+		return team != global.ai_team;
+	return team == global.playas;
 }
 
 /// @description in play mode, returns whether or not it si your turn
