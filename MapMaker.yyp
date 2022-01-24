@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"spr_tile_flat","path":"sprites/spr_tile_flat/spr_tile_flat.yy",},"order":4,},
     {"id":{"name":"spr_tile_mountain","path":"sprites/spr_tile_mountain/spr_tile_mountain.yy",},"order":5,},
+    {"id":{"name":"ai_helper_functions","path":"scripts/ai_helper_functions/ai_helper_functions.yy",},"order":0,},
     {"id":{"name":"spr_tile_ocean","path":"sprites/spr_tile_ocean/spr_tile_ocean.yy",},"order":6,},
     {"id":{"name":"spr_tile_border","path":"sprites/spr_tile_border/spr_tile_border.yy",},"order":3,},
     {"id":{"name":"map_objectives","path":"scripts/map_objectives/map_objectives.yy",},"order":10,},
@@ -108,6 +109,7 @@
     {"id":{"name":"rm_topDown","path":"rooms/rm_topDown/rm_topDown.yy",},"order":9,},
     {"id":{"name":"spr_motorboat1","path":"sprites/spr_motorboat1/spr_motorboat1.yy",},"order":10,},
     {"id":{"name":"erase_blocks","path":"scripts/erase_blocks/erase_blocks.yy",},"order":9,},
+    {"id":{"name":"obj_ai_controller","path":"objects/obj_ai_controller/obj_ai_controller.yy",},"order":11,},
     {"id":{"name":"update_fog","path":"scripts/update_fog/update_fog.yy",},"order":6,},
     {"id":{"name":"spr_collision_mask","path":"sprites/spr_collision_mask/spr_collision_mask.yy",},"order":2,},
     {"id":{"name":"spr_dark_blue","path":"sprites/spr_dark_blue/spr_dark_blue.yy",},"order":0,},
@@ -140,6 +142,7 @@
     {"id":{"name":"obj_edit_status","path":"objects/obj_edit_status/obj_edit_status.yy",},"order":4,},
     {"id":{"name":"obj_map_helper","path":"objects/obj_map_helper/obj_map_helper.yy",},"order":0,},
     {"id":{"name":"ddirection","path":"scripts/ddirection/ddirection.yy",},"order":6,},
+    {"id":{"name":"strategies","path":"scripts/strategies/strategies.yy",},"order":1,},
     {"id":{"name":"obj_diaProcessParent","path":"objects/obj_diaProcessParent/obj_diaProcessParent.yy",},"order":3,},
     {"id":{"name":"obj_draw_info","path":"objects/obj_draw_info/obj_draw_info.yy",},"order":1,},
     {"id":{"name":"obj_tile","path":"objects/obj_tile/obj_tile.yy",},"order":2,},
@@ -180,6 +183,7 @@
     {"name":"Windows","path":"options/windows/options_windows.yy",},
     {"name":"macOS","path":"options/mac/options_mac.yy",},
     {"name":"Main","path":"options/main/options_main.yy",},
+    {"name":"operagx","path":"options/operagx/options_operagx.yy",},
   ],
   "isDnDProject": false,
   "isEcma": false,
@@ -239,6 +243,7 @@
     {"folderPath":"folders/2DScroller/Objects/text/Dialogue Creation.yy","order":4,"resourceVersion":"1.0","name":"Dialogue Creation","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/2DScroller/Objects/text/fonts.yy","order":5,"resourceVersion":"1.0","name":"fonts","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/2DScroller/Objects/platformer.yy","order":6,"resourceVersion":"1.0","name":"platformer","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/MapMaker/Scripts/ai.yy","order":17,"resourceVersion":"1.0","name":"ai","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},
@@ -248,7 +253,7 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2.3.4.580",
+    "IDEVersion": "2.3.7.606",
   },
   "resourceVersion": "1.4",
   "name": "MapMaker",
