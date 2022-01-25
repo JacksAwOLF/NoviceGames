@@ -1,16 +1,12 @@
 // finished updating global selected soldier
 
-function get_attack_target(attackingSoldierInst, targetTileInst){ //debug("checking tile", targetTileInst.pos);
+function get_attack_target(attackingSoldierInst, targetTileInst){
 	// in the order that you will attack them
 	var targets = array("soldier", "tower", "hut", "beacon")
 	for (var i=0; i<array_length(targets); i++){
 		var oth = variable_instance_get(targetTileInst, targets[i]);	
-		
-	//	if (targets[i] == "beacon")
-			//debug("chekcing", targetTileInst.pos, oth, oth.team, attackingSoldierInst.team);
 			
 		if (oth != -1 && oth.team != attackingSoldierInst.team){
-			//debug("got it");
 			return oth;
 		}
 			

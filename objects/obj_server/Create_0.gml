@@ -3,21 +3,17 @@
 
 
 var suicide = function(st){
-	var str = "";
+	/*var str = "";
 	str += st.message; str += "\n";
 	str += st.longMessage; str += "\n";
 	str += st.script; str += "\n";
 	for (var i=0; i<array_length(st.stacktrace); i++)
 		str += st.stacktrace[i];
 	
-	debug(str);
+	debug(str);*/
 	
 	if (socket != -1) network_destroy(socket);
 	if (osocket != -1) network_destroy(osocket);
-	
-	debug("socket destroyed?");
-	debug(socket);
-	debug(osocket);
 	
 	game_end();
 }

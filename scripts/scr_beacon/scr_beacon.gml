@@ -89,7 +89,6 @@ create_network_event(
 		beacon_destroy(data[0], false);
 });
 function beacon_destroy(tilePos, sendBuffer){ 
-	debug(global.action, "destroying beacon at", tilePos);
 	
 	with(global.grid[tilePos]){
 		if (beacon == -1) return;

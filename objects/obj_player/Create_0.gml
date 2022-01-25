@@ -22,5 +22,5 @@ prevY = y;
 
 
 
-// debug values
+// values for debuggin purposes
 //room_speed = 10;

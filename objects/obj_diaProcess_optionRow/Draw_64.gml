@@ -62,10 +62,6 @@ if (finishedText && textSegInd+1==array_length(tnPointer.textContent) &&
 		// sanity check
 		if (optionWSep < 0)
 			show_error("option texts too long", false);
-			
-		debug("precalculated optinoW", optionW)
-		debug("avail options", availableOptions)
-		debug("n", n)
 	}
 	
 	var xx = optionX + optionWSep;

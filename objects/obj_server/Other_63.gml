@@ -41,7 +41,6 @@ else if i_d == port{
 	} else {
 		txt = "Server created";
 		start_sound("connected", 0, false);
-		debug("now txtx is", txt)
 	}
 }
 

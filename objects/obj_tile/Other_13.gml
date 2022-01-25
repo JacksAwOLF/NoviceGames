@@ -1,7 +1,5 @@
 /// @description handle double click event
 
-debug("double click event");
-
 // clear the selected soldier things if this block is not a possible move or attack
 if (global.selectedSoldier != -1){
 	
@@ -37,7 +35,6 @@ if (global.selectedSoldier != -1){
 		var path = [];
 		var pathpoints = [];	// store pathpoints (for recon planes)
 		
-		debug("wtf", global.poss_paths)
 		for (var i = 0; i <= array_length(global.poss_paths)-2; i++)
 			path[array_length(path)] = global.poss_paths[i];
 			

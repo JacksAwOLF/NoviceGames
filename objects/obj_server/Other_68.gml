@@ -1,10 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-//var i_d = ds_map_find_value(async_load, "id");
 var t = ds_map_find_value(async_load, "type");
-
-//debug("for", global.action, "id:", i_d, "socket", socket, "t", t);
 
 switch(t) {
 

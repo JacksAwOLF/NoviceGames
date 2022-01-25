@@ -3,10 +3,7 @@
 /// @param energy_limit	maximum distance/cost of the path
 function get_path_to(dest, totalNrg) {
 
-	debug("called get_path_to", dest, totalNrg);
-
 	var res = [], count = 0; 
-	debug("setting res to", res, "also", global.from[dest], global.dist[dest]);
 	if (global.from[dest] != -1 && global.dist[dest] <= totalNrg) {
 		while (global.from[dest] != dest) {
 			res[count++] = global.grid[dest];
@@ -14,10 +11,7 @@ function get_path_to(dest, totalNrg) {
 		}
 
 		res[count++] = global.grid[dest];
-		debug("count is", count)
 	}
-
-	debug("returning", res)
 
 	// the returned array is in reverse order, with the
 	// destination being the first element
