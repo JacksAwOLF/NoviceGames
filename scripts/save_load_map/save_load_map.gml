@@ -183,7 +183,7 @@ function load_tiles(medium, dataSrc) {
 	
 	if dataSrc != undefined
 	
-	for (var i=0; i<global.mapWidth*global.mapHeight; i++){ //debug("reading itle", i);
+	for (var i=0; i<global.mapWidth*global.mapHeight; i++){
 		for (var j=0; j<array_length(global.tiles_save_order); j++){ // loop through the vars saved
 				
 			// name is either the element, or the first  eleof the array
@@ -196,7 +196,7 @@ function load_tiles(medium, dataSrc) {
 			if (is_array(name) && data1 != -1){
 					
 				var g = global.grid[i], xx = g.x, yy = g.y
-				var obj = instance_create_depth(xx, yy, 0, global.tiles_save_objects[j]);
+				var obj = instance_create_depth(xx, yy, Depths.Structures, global.tiles_save_objects[j]);
 				variable_instance_set(g, first, obj);
 					
 				for (var k=1; k<array_length(name); k++){ 

@@ -80,7 +80,7 @@ function create_soldier(s_unit_id, s_team, pos, fromUnitInst, updateFog, sendPac
 	if (spec == undefined) spec = false;
 
 	// create infantry instance and initialize vars
-	var created_soldier = instance_create_depth(0,0,0,obj_infantry);
+	var created_soldier = instance_create_depth(0,0,Depths.Soldiers,obj_infantry);
 	with(created_soldier){
 		team = s_team
 		sprite_index = global.unitSprites[s_unit_id][team];

@@ -4,7 +4,7 @@ function update_stored_plane(new_unit_id, who) {
 	if (who == undefined) who = global.selectedSoldier;
 	with (who) {
 		if (storedPlaneInst == -1)
-			storedPlaneInst = instance_create_depth(0,0,0,obj_infantry);
+			storedPlaneInst = instance_create_depth(0,0,Depths.Soldiers,obj_infantry);
 		
 		storedPlaneInst.unit_id = new_unit_id;
 		storedPlaneInst.isActive = false;

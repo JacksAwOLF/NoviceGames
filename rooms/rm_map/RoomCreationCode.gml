@@ -1,1 +1,3 @@
-instance_create_depth(0,0,0,obj_map_helper);
+// identifiers for click detection
+global.mouseEventId = -1;
+global.mouseInstanceId = -1;

@@ -6,6 +6,19 @@ enum VisualState
 	activating
 }
 
+// the higher you are on this list, the higher your priority
+enum Depths
+{
+	AboveEverything,
+	GUITop,
+	GUIMid,
+	GUIBot,
+	ActionLayer,
+	Tiles,
+	Soldiers,
+	Structures,
+	BelowEverything
+}
 
 function init_map(medium, dataSrc) {
 	// Team that is controlled by AI
@@ -102,12 +115,12 @@ function init_map(medium, dataSrc) {
 
 		global.soldierSelectTile = [-1, -1];
 		for (var index = 0; index<array_length(possibleTiles); index++){
-			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, -1, obj_selectTile)){
+			with(instance_create_depth(hor_spacing*(index)+hor_spacing/2, y_axis, Depths.GUIMid, obj_selectTile)){
 				sprite_index = possibleTiles[index][0];
 				description = tileInfo[index];
 				
 				var xx = x, yy = y + sprite_height
-				with(instance_create_depth(xx, yy, -1, obj_sprite_dropdown)) {
+				with(instance_create_depth(xx, yy, Depths.GUIMid, obj_sprite_dropdown)) {
 					x  = other.x;
 					y =  other.y + other.sprite_height;
 					
@@ -123,12 +136,12 @@ function init_map(medium, dataSrc) {
 				}
 			}
 		}
+
+
 		
-		//var xx = hor_spacing*array_length(possibleTiles) + hor_spacing/2;
-		//instance_create_depth(xx, y_axis/2, -1, obj_edit_status);
 		// the indicator for fog, huts , sound
 		xx = room_width * 5 / 8;
-		instance_create_depth(xx, room_height-96 , -100, obj_edit_status);
+		instance_create_depth(xx, room_height-96 , Depths.GUITop, obj_edit_status);
 		
 
 		// create the soldier modification vars on top right
@@ -157,7 +170,7 @@ function init_map(medium, dataSrc) {
 		for (var index=array_length(names)-1; index>=0; index--){
 			with(instance_create_depth(
 			room_width-(array_length(names)-index)*hor_spacing, 
-			16, -1, obj_change_var)){
+			16, Depths.GUIMid, obj_change_var)){
 				ind = index;
 				text = names[index];
 			}
@@ -172,8 +185,8 @@ function init_map(medium, dataSrc) {
 		xx = 0;
 		yy = room_height - sprite_get_height(sp_index);
 
-		instance_create_depth(xx, yy, -10, obj_gui_bottom_bar);
-		instance_create_depth(0, 0, -1, obj_gui_bottom_bar);
+		instance_create_depth(xx, yy, Depths.GUIBot, obj_gui_bottom_bar);
+		instance_create_depth(0, 0, Depths.GUIBot, obj_gui_bottom_bar);
 
 	
 		
@@ -184,7 +197,7 @@ function init_map(medium, dataSrc) {
 	sp_index = object_get_sprite(obj_button_backMenu);
 	xx = 0;
 	yy = room_height - sprite_get_height(sp_index);
-	instance_create_depth(0, yy, -100, obj_button_backMenu);
+	instance_create_depth(0, yy, Depths.GUITop, obj_button_backMenu);
 	
 	
 	
@@ -192,35 +205,35 @@ function init_map(medium, dataSrc) {
 	sp_index = object_get_sprite(obj_button_nextStep);
 	xx = (room_width - sprite_get_width(sp_index)) / 2;
 	yy = room_height - sprite_get_height(sp_index);
-	instance_create_depth(xx, yy, -100, obj_button_nextStep);
+	instance_create_depth(xx, yy, Depths.GUITop, obj_button_nextStep);
 	
 	// create soldier focus button
 	sp_index = object_get_sprite(obj_button_focus);
 	xx = (room_width - sprite_get_width(sp_index)) / 2;
 	yy = yy - sprite_get_height(sp_index) - 20;
-	instance_create_depth(xx, yy, -100, obj_button_focus);
+	instance_create_depth(xx, yy, Depths.GUITop, obj_button_focus);
 	
 	// create the saving button on bottom right
 	sp_index = object_get_sprite(obj_button_saveMap);
 	xx = room_width - sprite_get_width(sp_index);
 	yy = room_height - sprite_get_height(sp_index)
-	instance_create_depth(xx, yy, -100, obj_button_saveMap);
+	instance_create_depth(xx, yy, Depths.GUITop, obj_button_saveMap);
 	
 	// create soldier info screen
 	sp_index = object_get_sprite(obj_gui_info_screen);
 	xx = room_width - sprite_get_width(sp_index) - 30;
 	yy = (1/6*room_height);// - sprite_get_height(sp_index))/2;
-	instance_create_depth(xx, yy, -100, obj_gui_info_screen);
+	instance_create_depth(xx, yy, Depths.GUITop, obj_gui_info_screen);
 	
 	// create unit options screen
 	sp_index = object_get_sprite(obj_unit_options);
 	xx = 10;
 	yy = (room_height - sprite_get_height(sp_index)) / 2 + 100;
-	global.unitOptionsBar = instance_create_depth(xx, yy, -100, obj_unit_options);
+	global.unitOptionsBar = instance_create_depth(xx, yy, Depths.GUITop, obj_unit_options);
 	global.unitOptionsBar.toggle_active();
 	
 	// create minimap and pass in map parameters
-	with(instance_create_depth(10, 150, -200, obj_minimap)) {
+	with(instance_create_depth(10, 150, Depths.AboveEverything, obj_minimap)) {
 		tileSize = tile_size;
 		mapPaddingX = lr_padd;
 		mapPaddingY = tb_padd;
@@ -247,7 +260,7 @@ function init_map(medium, dataSrc) {
 		
 			var p = j * global.mapWidth + i;
 			global.grid[p] = instance_create_depth(lr_padd+i*(tile_size), 
-				tb_padd+j*(tile_size), 0, obj_tile);
+				tb_padd+j*(tile_size), Depths.Tiles, obj_tile);
 			
 			with(global.grid[p]){
 				sprite_index = spr_tile_flat;
@@ -260,6 +273,12 @@ function init_map(medium, dataSrc) {
 		
 		}
 	}
+	
+	// create the clickHandler object to cover the entire map of tiles
+	/*with (instance_create_depth(lr_padd, tb_padd, Depths.ActionLayer, obj_clickHandler)){
+		image_xscale = (global.mapWidth * tile_size) / sprite_width;
+		image_yscale = (global.mapHeight * tile_size) / sprite_height;
+	}*/
 	
 	with (obj_camera) {
 		window_max_h = max(window_max_h, global.mapHeight*tile_size + 400);
@@ -299,8 +318,6 @@ function init_map(medium, dataSrc) {
 	
 	update_won()
 
-
-	
 	global.followSoldier = 0; // index of movable soldier to follow 
 	global.shouldFocusTurn = -1; // checks (shouldFocusTurn == this turn) to follow a soldier
 	
@@ -319,5 +336,4 @@ function init_map(medium, dataSrc) {
 		
 	global.map_loaded = true;
 	global.main_camera = view_get_camera(0);
-	
 }

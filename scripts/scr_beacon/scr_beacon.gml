@@ -64,7 +64,7 @@ function beacon_create(soldier, pos){
 	soldier.beaconPos = pos;
 	
 	with(global.grid[pos]){
-		beacon = instance_create_depth(x, y, 0, obj_attackable);
+		beacon = instance_create_depth(x, y, Depths.Structures, obj_attackable);
 		with(beacon){
 			num = -1;
 			tileInst = global.grid[pos];

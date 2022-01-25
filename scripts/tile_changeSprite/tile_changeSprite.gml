@@ -58,7 +58,7 @@ function tile_changeSprite(){
 						break;
 					}
 
-					hut = instance_create_depth(x, y, 0, obj_hut);
+					hut = instance_create_depth(x, y, Depths.Structures, obj_hut);
 					hut.nuetral = false;
 					with (hut){
 						soldier = other.soldier;
@@ -71,7 +71,7 @@ function tile_changeSprite(){
 
 				else if (soldier == -1){
 
-					hut = instance_create_depth(x, y, 0, obj_hut);
+					hut = instance_create_depth(x, y, Depths.Structures, obj_hut);
 					with(hut){
 						steps = -1;
 						team  = -1;
@@ -88,7 +88,7 @@ function tile_changeSprite(){
 
 
 			case spr_tower:
-				tower = instance_create_depth(x, y, 1, obj_tower);
+				tower = instance_create_depth(x, y, Depths.Structures, obj_tower);
 				tower.team = global.turn%2;
 				tower.tileInst = id;
 				break;
