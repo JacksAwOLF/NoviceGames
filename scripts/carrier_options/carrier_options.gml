@@ -41,7 +41,7 @@ function possible_fighter_attack(toTilePos) {
 	for (var i = 0; i < array_length(global.grid[toTilePos].planeArr); i++) {
 		var planeInst = global.grid[toTilePos].planeArr[i];
 		
-		if (planeInst != -1 && !is_my_team(planeInst))
+		if (planeInst != -1 && !is_my_team_obj(planeInst))
 			return true;
 	}
 	

@@ -1,6 +1,10 @@
 function next_move() {
+	
+	debug("next move!");
 
 	formationReset();
+	
+	debug("formation reset");
 
 	// reset all soldiers variables
 	var n = instance_number(obj_infantry);
@@ -9,11 +13,12 @@ function next_move() {
 			can = defaultCan;
 			move_range = global.movement[unit_id];
 
-			if (is_my_team_sprite(sprite_index) && moveCost == 6969){
+			if (is_my_team_spr(sprite_index) && moveCost == 6969){
 				init_global_soldier_vars(id);
 			}
 		}
 
+	debug("reset soldier movement vars");
 
 	if (!global.edit && network_my_turn())
 		send_buffer(BufferType.yourMove, []);
@@ -44,6 +49,8 @@ function next_move() {
 
 	// deselect soldiers and clear drawings
 	erase_blocks(true);
+	
+	debug("reset structures and cleared movement drawings");
 
 
 	if  (global.edit || get_size_array(global.flares[global.turn%2]) > 0){
@@ -75,8 +82,11 @@ function next_move() {
 			if (my_health <= 0)
 				destroy_soldier(id);
 		}
-			
 	}
 	
+	debug("updated fog and weather");
+	
 	update_won();
+	
+	debug("next move done");
 }

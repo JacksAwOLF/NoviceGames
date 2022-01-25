@@ -183,7 +183,7 @@ if (!edit || global.changeSprite == -1){
 				}
 
 				// create a soldier
-				if (steps != -1 && steps == limit && is_my_team_sprite(soldier_sprite) && global.selectedSpawn == -1)
+				if (steps != -1 && steps == limit && is_my_team_spr(soldier_sprite) && global.selectedSpawn == -1)
 					hut_createSoldier(other.pos);
 
 			}

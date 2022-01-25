@@ -6,7 +6,7 @@ function update_fog() {
 			hide_soldier = true;
 			
 		with (obj_infantry) {
-			if (isActive && is_my_team(id)) {
+			if (isActive && is_my_team_obj(id)) {
 				seen = get_vision_tiles(id);
 				for (var j=0; j<array_length(seen); j++){
 					seen[j].hide_soldier = false;
@@ -51,7 +51,7 @@ function update_enemy_outline() {
 	
 	for (var i=0; i<global.mapWidth * global.mapHeight; i++) {
 		
-		if (global.grid[i].soldier != -1 && !is_my_team(global.grid[i].soldier) &&
+		if (global.grid[i].soldier != -1 && !is_my_team_obj(global.grid[i].soldier) &&
 			global.grid[i].soldier.display_if_enemy && !global.grid[i].hide_soldier) {
 				
 			var seen = get_vision_tiles(global.grid[i].soldier);
@@ -69,7 +69,7 @@ function update_enemy_outline() {
 				moves[j].possible_enemy_move = true;
 				
 			for (var j = 0; j < array_length(attack); j++)
-				//if (attack[j].soldier == -1 || is_my_team(attack[j].soldier))
+				//if (attack[j].soldier == -1 || is_my_team_obj(attack[j].soldier))
 					attack[j].possible_enemy_attack = true;
 		}
 	}

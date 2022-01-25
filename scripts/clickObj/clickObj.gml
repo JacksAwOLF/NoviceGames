@@ -30,7 +30,7 @@ function movementProcessClick(input) {
 	switch(input.clickInd){
 	case 0: 
 		sold = input.tile.soldier;
-		if (sold != -1 && is_my_team(sold)){
+		if (sold != -1 && is_my_team_obj(sold)){
 			return true;	
 		}
 		return false;

@@ -32,7 +32,7 @@ function get_visible_enemy_soldiers() {
 	for (var i = 0; i < global.mapHeight; i++) {
 		for (var j = 0; j < global.mapWidth; j++) {
 			with (global.grid[getPos(i, j)]) {
-				if (!hide_soldier && soldier != -1 && !is_my_team(soldier))
+				if (!hide_soldier && soldier != -1 && !is_my_team_obj(soldier))
 					soldiers[sze++] = soldier;
 			}
 		}

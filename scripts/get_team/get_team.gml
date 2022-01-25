@@ -10,26 +10,24 @@ function get_team(argument0) {
 	return 0;
 }
 
-
-function is_my_team(object) {
+function is_my_team(teamNum) {
 	if (global.edit)
-		return object.team == global.turn % 2;
+		return teamNum == global.turn % 2;
 	if (global.ai_team != -1)
-		return object.team != global.ai_team;
-	return object.team == global.playas;
+		return teamNum != global.ai_team;
+	return teamNum == global.playas;
 }
 
-function is_my_team_sprite(object_sprite) {
-	var team = get_team(object_sprite);
-	if (global.edit)
-		return team == global.turn % 2;
-	if (global.ai_team != -1)
-		return team != global.ai_team;
-	return team == global.playas;
+function is_my_team_obj(obj) {
+	return is_my_team(obj.team);
+}
+
+function is_my_team_spr(spr) {
+	return is_my_team(get_team(spr));
 }
 
 /// @description in play mode, returns whether or not it si your turn
 function my_turn(){
-	return 	global.action=="playw"&&global.turn%2==0 || 
+	return global.action=="playw"&&global.turn%2==0 || 
 		global.action=="playb"&&global.turn%2==1; 
 }

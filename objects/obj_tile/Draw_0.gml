@@ -57,7 +57,7 @@ beacon_draw(scale_factor);
 
 	
 // draw the  hut if needed
-if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier || hut.team == -1)) {
+if (hut != -1 && (is_my_team_spr(hut.soldier_sprite) || !hide_soldier || hut.team == -1)) {
 
 	with(hut){
 		
@@ -73,7 +73,7 @@ if (hut != -1 && (is_my_team_sprite(hut.soldier_sprite) || !hide_soldier || hut.
 }
 
 
-if (originHutPos != -1 && (is_my_team_sprite(global.grid[originHutPos].hut.soldier_sprite) || !hide_soldier)) {
+if (originHutPos != -1 && (is_my_team_spr(global.grid[originHutPos].hut.soldier_sprite) || !hide_soldier)) {
 	var gridOriginal = global.grid[originHutPos];
 	var hutOriginal = gridOriginal.hut;
 	
@@ -196,7 +196,7 @@ if (array_length(planeArr) > 0) {
 	var planeCount = 0;
 	
 	for (var i = 0; i < array_length(planeArr); i++) {
-		if (planeArr[i] != -1 && (is_my_team(planeArr[i]) || !hide_soldier)) {
+		if (planeArr[i] != -1 && (is_my_team_obj(planeArr[i]) || !hide_soldier)) {
 			planeName = string_char_at(global.unitNames[planeArr[i].unit_id],1);
 			planeCount += 1;
 		}

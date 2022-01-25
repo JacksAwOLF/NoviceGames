@@ -36,10 +36,10 @@ function possible_move_tiles_including_selected(tilePos, fromTilePos) {
 	}
 
 	// cant go if enemy tower is here
-	if (s.tower != -1 && !is_my_team(s.tower)) return false;
+	if (s.tower != -1 && !is_my_team_obj(s.tower)) return false;
 
 	// cant go if enemy hut is here (or nuetral one)
-	if (s.hut != -1 && (s.hut.team == -1 || !is_my_team(s.hut) ) ) return false;
+	if (s.hut != -1 && (s.hut.team == -1 || !is_my_team_obj(s.hut) ) ) return false;
 	
 	// oh right you also cant go here if you are special, 
 	// the next tile is off the grid,

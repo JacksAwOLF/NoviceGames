@@ -23,7 +23,7 @@ enum Depths
 function init_map(medium, dataSrc) {
 	// Team that is controlled by AI
 	// If -1, then there is no AI
-	global.ai_team = 1;
+	global.ai_team = -1;
 	
 	// weather global variables
 	global.weather = Weather.REGULAR;
@@ -275,10 +275,10 @@ function init_map(medium, dataSrc) {
 	}
 	
 	// create the clickHandler object to cover the entire map of tiles
-	/*with (instance_create_depth(lr_padd, tb_padd, Depths.ActionLayer, obj_clickHandler)){
+	with (instance_create_depth(lr_padd, tb_padd, Depths.ActionLayer, obj_clickHandler)){
 		image_xscale = (global.mapWidth * tile_size) / sprite_width;
 		image_yscale = (global.mapHeight * tile_size) / sprite_height;
-	}*/
+	}
 	
 	with (obj_camera) {
 		window_max_h = max(window_max_h, global.mapHeight*tile_size + 400);
