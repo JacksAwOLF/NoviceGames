@@ -3,7 +3,7 @@
 
 event_inherited();
 
-actionProcessOrder = [Actions.attack, Actions.movement];
+actionProcessOrder = [Actions.editMap, Actions.attack, Actions.movement];
 
 // allow multiple actions to be in use at the same time
 numProcessing = 0;

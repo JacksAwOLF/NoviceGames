@@ -39,6 +39,7 @@
     {"id":{"name":"snd_error0","path":"sounds/snd_error0/snd_error0.yy",},"order":1,},
     {"id":{"name":"spr_checkmark","path":"sprites/spr_checkmark/spr_checkmark.yy",},"order":10,},
     {"id":{"name":"spr_infantry_delete","path":"sprites/spr_infantry_delete/spr_infantry_delete.yy",},"order":3,},
+    {"id":{"name":"action_editMap","path":"scripts/action_editMap/action_editMap.yy",},"order":4,},
     {"id":{"name":"spr_infantry1","path":"sprites/spr_infantry1/spr_infantry1.yy",},"order":4,},
     {"id":{"name":"scr_dialogue","path":"scripts/scr_dialogue/scr_dialogue.yy",},"order":16,},
     {"id":{"name":"spr_tile_rough","path":"sprites/spr_tile_rough/spr_tile_rough.yy",},"order":7,},

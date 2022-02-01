@@ -23,5 +23,5 @@ function Action() constructor {
 }
 
 enum Actions { 
-	movement, attack
+	movement, attack, editMap
 };
