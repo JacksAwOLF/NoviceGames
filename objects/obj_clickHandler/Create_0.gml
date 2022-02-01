@@ -3,24 +3,26 @@
 
 event_inherited();
 
+actionProcessOrder = [Actions.attack, Actions.movement];
+
 // allow multiple actions to be in use at the same time
 numProcessing = 0;
-actionProcessOrder = [Actions.movement];
 actionInUse = [];
 for (var i=0; i<array_length(actionProcessOrder); i++)
 	actionInUse[i] = false;
+
+preventFutureActions = false;
+
+
 
 debug("clickhandler created at", x, y);
 
 
 
 
-
-
-
 processActions = function(actionFunctionName){
 	
-	debug("processing", actionFunctionName);
+	//debug("processing", actionFunctionName);
 	
 	// so far all actions that I can think of only require
 	// the tile that the mouse left clicked on
@@ -31,7 +33,7 @@ processActions = function(actionFunctionName){
 	// allows multiple actions to be picked up
 	// in a single step (moving and attacking)
 	for (var i=0; i<array_length(actionProcessOrder); i++){
-		if (actionInUse[i] || numProcessing == 0)	{
+		if (actionInUse[i] || numProcessing == 0 || !preventFutureActions)	{
 			
 			// check if the corresponding function exists in this action
 			var action = global.allActions[actionProcessOrder[i]];
@@ -45,7 +47,11 @@ processActions = function(actionFunctionName){
 			var diff = actionInUse[i] != newUse;
 			if (diff){
 				numProcessing += (newUse ? 1 : -1);	
-				debug(newUse ? "picked up" : "threw out");
+				// debug(newUse ? "picked up" : "threw out");
+				
+				if (action.preventFutureActions){
+					preventFutureActions = newUse && action.preventFutureActions;
+				}
 			}
 			
 			actionInUse[i] = newUse;
@@ -55,9 +61,9 @@ processActions = function(actionFunctionName){
 				i--;
 			
 			// edge case
-			if (newUse && actionFunctionName == "leftClick")
-				enableDoubleClick = true;
-			else enableDoubleClick = false;
+			if (actionFunctionName == "leftClick"){
+				enableDoubleClick = newUse;
+			}
 		}
 	}
 }

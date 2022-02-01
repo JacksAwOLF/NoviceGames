@@ -4,6 +4,8 @@
 global.allActions[Actions.movement] = new Action();
 global.allActions[Actions.movement].processAgainIfEnd = true;
 
+global.allActions[Actions.movement].selectedSoldier = -1;
+
 global.allActions[Actions.movement].leftClick = function(tileId) {
 	
 	debug("click on tile", tileId, global.selectedSoldier);
@@ -16,11 +18,13 @@ global.allActions[Actions.movement].leftClick = function(tileId) {
 		var myturn =  (global.edit || network_my_turn() );
 		if (soldier != -1) {
 			if(soldier.team == (global.turn)%2 && myturn){
-				global.selectedSoldier = soldier; 
+				global.selectedSoldier = soldier;
+				debug("selected: ", global.selectedSoldier, "true?");
 
 				if (soldier.formation != -1){
 					centerObjectInWindow(obj_disbandFormation, 1/4, 1/2, 0, 1/2) ;
 					soldier_init_move_formation(pos);
+					soldier_init_attack();
 					return true;
 				}
 
@@ -29,6 +33,7 @@ global.allActions[Actions.movement].leftClick = function(tileId) {
 					ds_stack_push(global.selectedPathpointsStack, [global.selectedSoldier.tileInst, 0]);
 					global.selectedSoldier.tileInst.possible_path = 1;
 					soldier_init_move();
+					soldier_init_attack();
 					return true;
 				}
 				
@@ -36,7 +41,7 @@ global.allActions[Actions.movement].leftClick = function(tileId) {
 			}
 		}
 		
-		clickInd = 0;
+		debug("selected: ", global.selectedSoldier, "false");
 		return false;
 	}
 	
@@ -119,6 +124,20 @@ global.allActions[Actions.movement].leftClick = function(tileId) {
 	debug("the code is so fucked");
 	return false;
 	
+	}
+}
+
+global.allActions[Actions.movement].step = function(tileId) {
+	with(tileId){
+		if (global.selectedSoldier != -1 && global.selectedSoldier.formation == -1) {
+			// always maintain the last two tiles we hovered over
+			if (global.prevHoveredTile != id) {
+				global.prevHoveredTile = id;
+				soldier_update_path(false);
+			}
+			return true;
+		}
+		return false;
 	}
 }
 

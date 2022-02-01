@@ -3,7 +3,7 @@
 mouseIn = x < mouse_x && mouse_x < x+sprite_width
 	&& y < mouse_y && mouse_y < y+sprite_height;
 
-if mouseIn {
+/*if mouseIn {
 
 	if (global.selectedSoldier != -1 && global.selectedSoldier.formation == -1) {
 
@@ -13,7 +13,7 @@ if mouseIn {
 			soldier_update_path(false);
 		}
 	}
-}
+}*/
 
 event_inherited();
 preMouseIn = mouseIn;
